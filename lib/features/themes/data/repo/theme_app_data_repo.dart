@@ -23,10 +23,8 @@ class ThemeAppDataRepo extends StateNotifier<ThemeData>
 
   @override
   Future<void> loadTheme() async {
-    log('load theme');
     final sp = await SharedPreferences.getInstance();
     final theme = sp.getString('themeApp');
-    log(theme ?? 'null');
     if (theme != null) {
       state = theme == 'dark' ? darkTheme : lightTheme;
     }

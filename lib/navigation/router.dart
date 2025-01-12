@@ -1,6 +1,6 @@
 import 'dart:developer';
-import 'package:fitflow/features/auth/auth_state_new/data/repo/auth_state/authstate.dart';
-import 'package:fitflow/features/auth/auth_state_new/data/repo/user_state/userstate.dart';
+import 'package:fitflow/features/auth/auth_state_new/domain/models/app_user_state.dart';
+import 'package:fitflow/features/auth/auth_state_new/new_logic/data/authstate_repo.dart';
 import 'package:fitflow/features/auth/presentation/sign_in_page/sign_in_main_widget.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:fitflow/features/auth/presentation/auth_main_widget.dart';
@@ -15,34 +15,33 @@ part 'router.g.dart';
 
 @riverpod
 GoRouter router(Ref ref) {
-  final userState = ref.watch(userStateProvider);
-  final authState = ref.watch(authStateProvider);
+  final authStateNew = ref.watch(authStateNEWProvider);
 
   return GoRouter(
     initialLocation: '/loading',
     redirect: (context, state) {
-      return userState.when(data: (user) {
-        final user = userState.value != null;
-        final authStateFromSupabase = authState.value?.event;
-        log(authStateFromSupabase.toString());
-        switch (state.matchedLocation) {
-          case RouterPath.LOADING:
-            if (user) {
-              return RouterPath.HOME;
-            } else {
-              return RouterPath.NOTLOGIN;
+      return authStateNew.when(data: (stateUser) {
+        final status = stateUser.status.name;
+        switch (status) {
+          case 'auth':
+            switch (state.matchedLocation) {
+              case RouterPath.LOADING:
+                return RouterPath.HOME;
+              default:
+                return null;
             }
-          case RouterPath.HOME:
-            if (user) {
+          case 'unauth':
+            if (state.matchedLocation == RouterPath.LOADING) {
+              return RouterPath.NOTLOGIN;
+            } else {
               return null;
-            } else {
-              return RouterPath.NOTLOGIN;
             }
-          default:
+          case 'unknown':
             return null;
         }
+        return null;
       }, error: (e, st) {
-        log('error redirect');
+        log('ERROR');
         return null;
       }, loading: () {
         log('loading redirect');
