@@ -10,7 +10,7 @@ class AuthSignInRepo implements AuthSignInRepoImpl {
   });
 
   @override
-  Future<void> signIn(
+  Future<bool> signIn(
       {required String emailOrName, required String password}) async {
     var isUserTypeMail =
         await supabase.from('users').select().eq('email', emailOrName);
@@ -20,6 +20,7 @@ class AuthSignInRepo implements AuthSignInRepoImpl {
       try {
         await supabase.auth
             .signInWithPassword(password: password, email: emailOrName);
+        return true;
       } catch (e) {
         rethrow;
       }
@@ -27,6 +28,7 @@ class AuthSignInRepo implements AuthSignInRepoImpl {
       try {
         await supabase.auth.signInWithPassword(
             password: password, email: isUserTypeName.first['email']);
+        return true;
       } catch (e) {
         rethrow;
       }

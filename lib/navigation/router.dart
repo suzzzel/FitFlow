@@ -1,6 +1,5 @@
 import 'dart:developer';
-import 'package:fitflow/features/auth/auth_state_new/domain/models/app_user_state.dart';
-import 'package:fitflow/features/auth/auth_state_new/new_logic/data/authstate_repo.dart';
+import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
 import 'package:fitflow/features/auth/presentation/sign_in_page/sign_in_main_widget.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:fitflow/features/auth/presentation/auth_main_widget.dart';
@@ -53,14 +52,14 @@ GoRouter router(Ref ref) {
         path: RouterPath.NOTLOGIN,
         name: RouterPath.NOTLOGIN,
         builder: (context, state) {
-          return AuthMainWidget();
+          return const AuthMainWidget();
         },
         routes: [
           GoRoute(
             path: RouterPath.SIGNIN,
             name: RouterPath.SIGNIN,
             builder: (context, state) {
-              return SignInMainWidget();
+              return const SignInMainWidget();
             },
           ),
           GoRoute(
@@ -73,7 +72,7 @@ GoRouter router(Ref ref) {
                       onPressed: () {
                         context.pop();
                       },
-                      child: Text('back to auth\nits register')),
+                      child: const Text('back to auth\nits register')),
                 ),
               );
             },
@@ -84,14 +83,14 @@ GoRouter router(Ref ref) {
         path: RouterPath.HOME,
         name: RouterPath.HOME,
         builder: (context, state) {
-          return HomeWidget();
+          return const HomeWidget();
         },
       ),
       GoRoute(
         path: RouterPath.LOADING,
         name: RouterPath.LOADING,
         builder: (context, state) {
-          return LoadingWidget();
+          return const LoadingWidget();
         },
       ),
     ],

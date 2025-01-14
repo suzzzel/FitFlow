@@ -9,8 +9,9 @@ class AuthSignInDomain implements AuthSignInDomainRepoImpl {
   });
 
   @override
-  Future<void> signIn(
+  Future<bool> signIn(
       {required String emailOrName, required String password}) async {
-    await authSignInRepo.signIn(emailOrName: emailOrName, password: password);
+    return await authSignInRepo.signIn(
+        emailOrName: emailOrName, password: password);
   }
 }

@@ -1,3 +1,3 @@
 abstract class AuthSignInDomainRepoImpl {
-  Future<void> signIn({required String emailOrName, required String password});
+  Future<bool> signIn({required String emailOrName, required String password});
 }

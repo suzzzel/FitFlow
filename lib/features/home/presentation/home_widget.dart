@@ -1,5 +1,5 @@
 import 'package:fitflow/features/auth/auth_signOut/presentation/sign_out_button.dart';
-import 'package:fitflow/features/auth/auth_state_new/new_logic/data/authstate_repo.dart';
+import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
 import 'package:fitflow/features/themes/data/models/theme_dark.dart';
 import 'package:fitflow/features/themes/domain/providers/theme_app_domain_provider.dart';
 import 'package:flutter/material.dart';

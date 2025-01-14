@@ -13,7 +13,7 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final FocusNode? focusNode;
   final String? errorMsg;
-  final String? Function(String?)? onChanged;
+  final String? Function(String)? onChanged;
   final ValueChanged<String>? onFieldSubmitted;
   final Color? notAuthColor;
   final Function(PointerDownEvent)? onTepOutside;
@@ -58,6 +58,7 @@ class CustomTextField extends StatelessWidget {
           child: Stack(
             children: [
               TextFormField(
+                obscuringCharacter: '*',
                 validator: validator,
                 controller: controller,
                 obscureText: obscureText,
