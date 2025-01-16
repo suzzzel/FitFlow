@@ -6,3 +6,5 @@ final authSignInDomainProvider = Provider<AuthSignInDomain>((ref) {
   final authSignInData = ref.watch(authSignInProvider);
   return AuthSignInDomain(authSignInRepo: authSignInData);
 });
+
+final obscurePasswordProvider = StateProvider<bool>((ref) => true);

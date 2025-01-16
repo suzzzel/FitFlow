@@ -17,6 +17,7 @@ class CustomTextField extends StatelessWidget {
   final ValueChanged<String>? onFieldSubmitted;
   final Color? notAuthColor;
   final Function(PointerDownEvent)? onTepOutside;
+  final TextInputAction? textInputAction;
 
   const CustomTextField({
     super.key,
@@ -27,6 +28,7 @@ class CustomTextField extends StatelessWidget {
     required this.keyboardType,
     this.suffixIcon,
     this.onTap,
+    this.textInputAction,
     this.prefixIcon,
     this.validator,
     this.focusNode,
@@ -45,12 +47,14 @@ class CustomTextField extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 8),
-          child: Text(
-            labelText,
-            style: GoogleFonts.inter(
-                color: Theme.of(context).colorScheme.secondary,
-                fontSize: 16,
-                fontWeight: FontWeight.w500),
+          child: FittedBox(
+            child: Text(
+              labelText,
+              style: GoogleFonts.inter(
+                  color: Theme.of(context).colorScheme.secondary,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
         ),
         SizedBox(
@@ -67,7 +71,7 @@ class CustomTextField extends StatelessWidget {
                 onTap: onTap,
                 onTapOutside: onTepOutside,
                 onFieldSubmitted: onFieldSubmitted,
-                textInputAction: TextInputAction.next,
+                textInputAction: textInputAction,
                 onChanged: onChanged,
                 style: GoogleFonts.inter(
                     color: Theme.of(context).colorScheme.onSurface,

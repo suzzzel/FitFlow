@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fitflow/features/auth/auth_signIn/domain/providers/valid_sign_in_data.dart';
 import 'package:fitflow/features/auth/auth_signIn/presentation/controllers/sign_in_controller.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +18,10 @@ class SignInButton extends ConsumerWidget {
     final password = ref.watch(passwordProvider.notifier);
     final isButtonActive = ref.watch(isDataSignInValidProvider.notifier);
     return Padding(
-      padding: const EdgeInsets.only(left: 21, right: 21),
+      padding: const EdgeInsets.only(
+        left: 21,
+        right: 21,
+      ),
       child: ElevatedButton(
           onPressed: state.isLoading
               ? null
@@ -28,12 +29,16 @@ class SignInButton extends ConsumerWidget {
                   firtImput.state = true;
                   if (isButtonActive.state) {
                     final response = await signIn.signIn(
-                        emailOrName: emailOrName.state,
-                        password: password.state);
+                      emailOrName: emailOrName.state,
+                      password: password.state,
+                    );
                     if (!response) {
                       isButtonActive.state = false;
+                      password.state = '';
+                      emailOrName.state = '';
+                    } else {
+                      firtImput.state = !response;
                     }
-                    firtImput.state = !response;
                   } else {
                     firtImput.state = false;
                   }
