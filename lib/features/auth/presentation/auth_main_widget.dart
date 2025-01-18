@@ -18,12 +18,14 @@ class AuthMainWidget extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              top: 165,
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.20,
             ),
             child: Align(
               alignment: Alignment.topCenter,
               child: Container(
+                width: MediaQuery.of(context).size.width * 0.5,
+                height: MediaQuery.of(context).size.width * 0.5,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(22),
                     color: Theme.of(context).colorScheme.secondary,
@@ -35,8 +37,6 @@ class AuthMainWidget extends StatelessWidget {
                     ]),
                 child: Image.asset(
                   'assets/logo/logo.png',
-                  width: 200,
-                  height: 200,
                 ),
               ),
             ),
@@ -58,7 +58,7 @@ class AuthMainWidget extends StatelessWidget {
                   AuthSelectButton(
                       text: 'Зарегистрироваться',
                       isLogin: false,
-                      onPressed: () => context.pushNamed(RouterPath.SIGNUP)),
+                      onPressed: () => context.pushNamed(RouterPath.GENDER)),
                 ],
               ),
             ),
