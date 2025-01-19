@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
 import 'package:fitflow/features/auth/presentation/sign_in_page/sign_in_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/gender/select_gender_main_widget.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/height/select_height_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/weight/select_weight_main_widget.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:fitflow/features/auth/presentation/auth_main_widget.dart';
@@ -75,22 +76,14 @@ GoRouter router(Ref ref) {
                     path: RouterPath.WEIGHT,
                     name: RouterPath.WEIGHT,
                     builder: (context, state) {
-                      return SelectWeightMainWidget();
+                      return const SelectWeightMainWidget();
                     },
                     routes: [
                       GoRoute(
                           path: RouterPath.HEIGHT,
                           name: RouterPath.HEIGHT,
                           builder: (context, state) {
-                            return Scaffold(
-                              body: Center(
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      context.pop();
-                                    },
-                                    child: Text('back')),
-                              ),
-                            );
+                            return SelectHeightMainWidget();
                           },
                           routes: [
                             GoRoute(

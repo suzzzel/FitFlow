@@ -7,6 +7,14 @@ class RegUserNotifier extends StateNotifier<AppUser> {
   void addGender(bool gender) {
     state = AppUser(id: 0, sex: gender);
   }
+
+  void addWeight(int weightNew) {
+    state = state.copyWith(weight: weightNew);
+  }
+
+  void addAge(int ageNew) {
+    state = state.copyWith(age: ageNew);
+  }
 }
 
 final regUserProvider =

@@ -66,4 +66,30 @@ class AppUser {
 
   factory AppUser.fromJson(String source) =>
       AppUser.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  AppUser copyWith({
+    int? id,
+    DateTime? created_at,
+    String? name,
+    int? age,
+    String? email,
+    String? goal,
+    bool? sex,
+    int? height,
+    int? weight,
+    String? level,
+  }) {
+    return AppUser(
+      id: id ?? this.id,
+      created_at: created_at ?? this.created_at,
+      name: name ?? this.name,
+      age: age ?? this.age,
+      email: email ?? this.email,
+      goal: goal ?? this.goal,
+      sex: sex ?? this.sex,
+      height: height ?? this.height,
+      weight: weight ?? this.weight,
+      level: level ?? this.level,
+    );
+  }
 }
