@@ -1,20 +1,18 @@
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/reg_user_provider.dart';
-import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_weight_age_provider.dart';
+import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_height_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class NextStepAfterWeightAgeSelectButton extends ConsumerWidget {
-  final bool weightOrAge;
-  const NextStepAfterWeightAgeSelectButton(
-      {super.key, required this.weightOrAge});
+class NextStepAfterHeightSelectButton extends ConsumerWidget {
+  const NextStepAfterHeightSelectButton({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final prov = weightOrAge
-        ? ref.watch(selectWeightProvider)
-        : ref.watch(selectAgeProvider);
+    final prov = ref.watch(selectHeightMainProvider);
     return Padding(
       padding: const EdgeInsets.only(
         left: 21,
@@ -24,10 +22,8 @@ class NextStepAfterWeightAgeSelectButton extends ConsumerWidget {
           onPressed: prov == 0
               ? null
               : () {
-                  weightOrAge
-                      ? ref.read(regUserProvider.notifier).addWeight(prov)
-                      : ref.read(regUserProvider.notifier).addAge(prov);
-                  context.goNamed(weightOrAge ? 'height' : 'signup');
+                  ref.read(regUserProvider.notifier).addHeight(prov);
+                  context.goNamed('age');
                 },
           style: ButtonStyle(
               fixedSize: WidgetStatePropertyAll(
@@ -40,6 +36,7 @@ class NextStepAfterWeightAgeSelectButton extends ConsumerWidget {
           child: FittedBox(
             child: Text(
               'Продолжить',
+              textScaler: const TextScaler.linear(1),
               style: GoogleFonts.inter(
                   color: Theme.of(context).colorScheme.onSecondary,
                   fontSize: 24,

@@ -25,7 +25,7 @@ class SelectGenderMainWidget extends ConsumerWidget {
         centerTitle: true,
         title: FittedBox(
           child: Text(
-            'Выберите ваш пол:',
+            'Выберите ваш пол',
             style: GoogleFonts.inter(
                 color: Theme.of(context).colorScheme.secondary,
                 fontSize: 24,

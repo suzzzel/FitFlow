@@ -15,4 +15,4 @@ final selectWeightProvider = StateProvider<int>((ref) {
   }
 });
 
-final selectAgeProvider = StateProvider<int>((ref) => 0);
+final selectAgeProvider = StateProvider<int>((ref) => 35);
