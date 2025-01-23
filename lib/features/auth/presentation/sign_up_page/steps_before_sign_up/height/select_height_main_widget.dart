@@ -1,6 +1,6 @@
 import 'package:fitflow/features/auth/auth_sign_up/presentation/height/height_selector.dart';
 import 'package:fitflow/features/auth/auth_sign_up/presentation/height/next_step_after_height_select_button.dart';
-import 'package:fitflow/features/auth/presentation/sign_up_page/height/height_first_text.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/height/height_first_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';

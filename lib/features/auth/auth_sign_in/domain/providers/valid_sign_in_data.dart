@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final emailProvider = StateProvider<String>((ref) => '');
-final isValidEmailProvider = StateProvider<bool>((ref) {
-  final email = ref.watch(emailProvider);
+final emailOrNameProvider = StateProvider<String>((ref) => '');
+final isValidEmailOrNameProvider = StateProvider<bool>((ref) {
+  final email = ref.watch(emailOrNameProvider);
   return email.isNotEmpty && email.length >= 3;
 });
 
@@ -13,9 +13,9 @@ final isValidPasswordProvider = StateProvider<bool>((ref) {
 });
 
 final isDataSignInValidProvider = StateProvider<bool>((ref) {
-  final isEmailValid = ref.watch(isValidEmailProvider);
+  final isEmailOrNameValid = ref.watch(isValidEmailOrNameProvider);
   final isPasswordValid = ref.watch(isValidPasswordProvider);
-  return isEmailValid && isPasswordValid;
+  return isEmailOrNameValid && isPasswordValid;
 });
 
 final firstImputProvider = StateProvider<bool>((ref) => true);

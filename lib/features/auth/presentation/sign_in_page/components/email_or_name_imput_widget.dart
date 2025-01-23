@@ -2,8 +2,8 @@ import 'package:fitflow/features/auth/presentation/general/custom_text_field.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EmailImputWidget extends StatelessWidget {
-  const EmailImputWidget({
+class EmailOrNameImputWidget extends StatelessWidget {
+  const EmailOrNameImputWidget({
     super.key,
     required this.emailController,
     required this.emailInput,

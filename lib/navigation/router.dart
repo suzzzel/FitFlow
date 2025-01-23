@@ -1,10 +1,12 @@
 import 'dart:developer';
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
 import 'package:fitflow/features/auth/presentation/sign_in_page/sign_in_main_widget.dart';
-import 'package:fitflow/features/auth/presentation/sign_up_page/age/select_age_main_widget.dart';
-import 'package:fitflow/features/auth/presentation/sign_up_page/gender/select_gender_main_widget.dart';
-import 'package:fitflow/features/auth/presentation/sign_up_page/height/select_height_main_widget.dart';
-import 'package:fitflow/features/auth/presentation/sign_up_page/weight/select_weight_main_widget.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/signup/sign_up_main_widget.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/age/select_age_main_widget.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/gender/select_gender_main_widget.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/goal/select_goal_main_widget.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/height/select_height_main_widget.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/select_weight_main_widget.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:fitflow/features/auth/presentation/auth_main_widget.dart';
 import 'package:fitflow/features/home/presentation/home_widget.dart';
@@ -95,20 +97,49 @@ GoRouter router(Ref ref) {
                                 },
                                 routes: [
                                   GoRoute(
-                                    path: RouterPath.SIGNUP,
-                                    name: RouterPath.SIGNUP,
-                                    builder: (context, state) {
-                                      return Scaffold(
-                                        body: Center(
-                                          child: ElevatedButton(
-                                              onPressed: () {
-                                                context.pop();
-                                              },
-                                              child: Text('back')),
-                                        ),
-                                      );
-                                    },
-                                  )
+                                      path: RouterPath.GOAL,
+                                      name: RouterPath.GOAL,
+                                      builder: (context, state) {
+                                        return SelectGoalMainWidget();
+                                      },
+                                      routes: [
+                                        GoRoute(
+                                            path: RouterPath.LEVEL,
+                                            name: RouterPath.LEVEL,
+                                            builder: (context, state) {
+                                              return Scaffold(
+                                                body: Center(
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      ElevatedButton(
+                                                          onPressed: () {
+                                                            context.pop();
+                                                          },
+                                                          child: Text('back')),
+                                                      ElevatedButton(
+                                                          onPressed: () {
+                                                            context.goNamed(
+                                                                'signup');
+                                                          },
+                                                          child: Text(
+                                                              'go signup')),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            routes: [
+                                              GoRoute(
+                                                path: RouterPath.SIGNUP,
+                                                name: RouterPath.SIGNUP,
+                                                builder: (context, state) {
+                                                  return SignUpMainWidget();
+                                                },
+                                              )
+                                            ])
+                                      ])
                                 ])
                           ])
                     ])

@@ -20,7 +20,7 @@ class PasswordImputWidget extends ConsumerWidget {
     final isPasswordShown = ref.watch(obscurePasswordProvider);
     final signIn = ref.watch(signInControllerProvider.notifier);
     final firtImput = ref.watch(firstImputProvider.notifier);
-    final emailOrName = ref.watch(emailProvider.notifier);
+    final emailOrName = ref.watch(emailOrNameProvider.notifier);
     final isButtonActive = ref.watch(isDataSignInValidProvider.notifier);
     return Padding(
       padding: const EdgeInsets.only(left: 46, right: 47, bottom: 7),

@@ -28,7 +28,7 @@ class AgeFirstText extends StatelessWidget {
                           color: Theme.of(context).colorScheme.onPrimary),
                       children: [
                         TextSpan(
-                            text: ' индвидидуальным.',
+                            text: ' индивидуальным.',
                             style: GoogleFonts.inter(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,

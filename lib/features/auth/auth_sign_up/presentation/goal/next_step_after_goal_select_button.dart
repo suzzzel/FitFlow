@@ -1,37 +1,31 @@
 import 'dart:developer';
 
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/reg_user_provider.dart';
-import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_weight_age_provider.dart';
+import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_goal_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class NextStepAfterWeightAgeSelectButton extends ConsumerWidget {
-  final bool weightOrAge;
-  const NextStepAfterWeightAgeSelectButton(
-      {super.key, required this.weightOrAge});
+class NextStepAfterGoalSelectButton extends ConsumerWidget {
+  const NextStepAfterGoalSelectButton({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final prov = weightOrAge
-        ? ref.watch(selectWeightProvider)
-        : ref.watch(selectAgeProvider);
+    final prov = ref.watch(selectGoalProvider);
     return Padding(
       padding: const EdgeInsets.only(
         left: 21,
         right: 21,
       ),
       child: ElevatedButton(
-          onPressed: prov == 0
-              ? null
-              : () {
-                  weightOrAge
-                      ? ref.read(regUserProvider.notifier).addWeight(prov)
-                      : ref.read(regUserProvider.notifier).addAge(prov);
-                  log(ref.read(regUserProvider).toString());
-                  context.goNamed(weightOrAge ? 'height' : 'goal');
-                },
+          onPressed: () {
+            ref.read(regUserProvider.notifier).addGoal(prov);
+            log(ref.read(regUserProvider).toString());
+            context.goNamed('level');
+          },
           style: ButtonStyle(
               fixedSize: WidgetStatePropertyAll(
                   Size(MediaQuery.of(context).size.width, 70)),

@@ -17,6 +17,7 @@ dependencies:
   shared_preferences: ^2.3.5
   google_fonts: ^6.2.1
   carousel_slider: ^5.0.0
+  material_symbols_icons: ^4.2801.1
 
 dev_dependencies:
   flutter_test:

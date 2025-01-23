@@ -19,6 +19,19 @@ class RegUserNotifier extends StateNotifier<AppUser> {
   void addHeight(int heightNew) {
     state = state.copyWith(height: heightNew);
   }
+
+  void addGoal(String goalNew) {
+    late final String setGoal;
+    switch (goalNew) {
+      case 'Гибкость':
+        setGoal = 'flexibility';
+      case 'Выносливость':
+        setGoal = 'endurance';
+      case 'Сила':
+        setGoal = 'strength';
+    }
+    state = state.copyWith(goal: setGoal);
+  }
 }
 
 final regUserProvider =

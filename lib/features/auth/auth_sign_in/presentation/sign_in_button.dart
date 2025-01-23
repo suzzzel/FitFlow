@@ -14,7 +14,7 @@ class SignInButton extends ConsumerWidget {
     final AsyncValue<void> state = ref.watch(signInControllerProvider);
     final signIn = ref.watch(signInControllerProvider.notifier);
     final firtImput = ref.watch(firstImputProvider.notifier);
-    final emailOrName = ref.watch(emailProvider.notifier);
+    final emailOrName = ref.watch(emailOrNameProvider.notifier);
     final password = ref.watch(passwordProvider.notifier);
     final isButtonActive = ref.watch(isDataSignInValidProvider.notifier);
     return Padding(

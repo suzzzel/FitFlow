@@ -8,4 +8,6 @@ final class RouterPath {
   static const String HEIGHT = 'height';
   static const String WEIGHT = 'weight';
   static const String AGE = 'age';
+  static const String GOAL = 'goal';
+  static const String LEVEL = 'level';
 }

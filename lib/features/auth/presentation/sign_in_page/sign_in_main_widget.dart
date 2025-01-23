@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:fitflow/features/auth/auth_sign_in/domain/providers/valid_sign_in_data.dart';
 import 'package:fitflow/features/auth/auth_sign_in/presentation/controllers/sign_in_controller.dart';
 import 'package:fitflow/features/auth/auth_sign_in/presentation/sign_in_button.dart';
-import 'package:fitflow/features/auth/presentation/sign_in_page/components/email_imput_widget.dart';
+import 'package:fitflow/features/auth/presentation/sign_in_page/components/email_or_name_imput_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_in_page/components/error_sign_in_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_in_page/components/forgot_password_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_in_page/components/password_imput_widget.dart';
@@ -27,7 +27,7 @@ class SignInMainWidgetState extends ConsumerState<SignInMainWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final emailInput = ref.watch(emailProvider.notifier);
+    final emailInput = ref.watch(emailOrNameProvider.notifier);
     final passImput = ref.watch(passwordProvider.notifier);
     final firstImput = ref.watch(firstImputProvider);
     final signInController = ref.watch(signInControllerProvider);
@@ -77,7 +77,7 @@ class SignInMainWidgetState extends ConsumerState<SignInMainWidget> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              EmailImputWidget(
+              EmailOrNameImputWidget(
                   emailController: emailController, emailInput: emailInput),
               PasswordImputWidget(
                 passwordController: passwordController,
