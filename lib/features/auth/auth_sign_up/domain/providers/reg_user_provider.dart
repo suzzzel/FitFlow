@@ -2,10 +2,10 @@ import 'package:fitflow/features/auth/auth_state_new/domain/models/app_user.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RegUserNotifier extends StateNotifier<AppUser> {
-  RegUserNotifier() : super(AppUser(id: 0));
+  RegUserNotifier() : super(AppUser());
 
   void addGender(bool gender) {
-    state = AppUser(id: 0, sex: gender);
+    state = AppUser(sex: gender);
   }
 
   void addWeight(int weightNew) {
@@ -31,6 +31,25 @@ class RegUserNotifier extends StateNotifier<AppUser> {
         setGoal = 'strength';
     }
     state = state.copyWith(goal: setGoal);
+  }
+
+  void addName(String nameNew) {
+    state = state.copyWith(name: nameNew);
+  }
+
+  void addCreateAt() {
+    final DateTime now = DateTime.now();
+    final DateTime utc = now.toUtc();
+    final String timeNow = utc.toIso8601String();
+    state = state.copyWith(created_at: timeNow);
+  }
+
+  void addEmail(String emailNew) {
+    state = state.copyWith(email: emailNew);
+  }
+
+  void addLevel(String levelNew) {
+    state = state.copyWith(level: levelNew);
   }
 }
 

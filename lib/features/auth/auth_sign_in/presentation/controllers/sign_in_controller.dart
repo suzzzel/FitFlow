@@ -20,8 +20,6 @@ class SignInController extends _$SignInController {
     state = const AsyncLoading();
     state = await AsyncValue.guard(
         () => authRepo.signIn(emailOrName: emailOrName, password: password));
-    log('VALUE: ${state.hasValue.toString()}');
-    log('error: ${state.hasError.toString()}');
     return state.hasError;
   }
 }

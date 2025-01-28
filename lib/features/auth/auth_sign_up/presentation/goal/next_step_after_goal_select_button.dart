@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/reg_user_provider.dart';
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_goal_provider.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +21,7 @@ class NextStepAfterGoalSelectButton extends ConsumerWidget {
       child: ElevatedButton(
           onPressed: () {
             ref.read(regUserProvider.notifier).addGoal(prov);
-            log(ref.read(regUserProvider).toString());
+
             context.goNamed('level');
           },
           style: ButtonStyle(

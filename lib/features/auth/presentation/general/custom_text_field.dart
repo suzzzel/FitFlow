@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -61,57 +63,63 @@ class CustomTextField extends StatelessWidget {
           height: 60,
           child: Stack(
             children: [
-              TextFormField(
-                obscuringCharacter: '*',
-                validator: validator,
-                controller: controller,
-                obscureText: obscureText,
-                keyboardType: keyboardType,
-                focusNode: focusNode,
-                onTap: onTap,
-                onTapOutside: onTepOutside,
-                onFieldSubmitted: onFieldSubmitted,
-                textInputAction: textInputAction,
-                onChanged: onChanged,
-                style: GoogleFonts.inter(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
-                decoration: InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    suffixIcon: suffixIcon,
-                    prefixIcon: prefixIcon,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: notAuthColor ??
-                              Theme.of(context).colorScheme.onSurface),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.secondary),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.secondary),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.secondary),
-                    ),
-                    fillColor: Theme.of(context).colorScheme.surface,
-                    filled: true,
-                    hintText: hintText,
-                    hintStyle: GoogleFonts.notoSansMono(
-                        color: Theme.of(context).colorScheme.onSurface,
-                        fontSize: 8),
-                    errorText: errorMsg,
-                    errorStyle: GoogleFonts.notoSansMono(
-                        color: Theme.of(context).colorScheme.onSurface,
-                        fontSize: 7)),
+              SizedBox(
+                height: 50,
+                child: TextFormField(
+                  obscuringCharacter: '*',
+                  validator: validator,
+                  controller: controller,
+                  obscureText: obscureText,
+                  keyboardType: keyboardType,
+                  focusNode: focusNode,
+                  onTap: onTap,
+                  onTapOutside: onTepOutside,
+                  onFieldSubmitted: onFieldSubmitted,
+                  textInputAction: textInputAction,
+                  onChanged: onChanged,
+                  style: GoogleFonts.inter(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                  decoration: InputDecoration(
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      suffixIcon: suffixIcon,
+                      prefixIcon: prefixIcon,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            width: 2,
+                            color: Theme.of(context).colorScheme.secondary),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            width: 2,
+                            color: Theme.of(context).colorScheme.secondary),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            width: 2,
+                            color: Theme.of(context).colorScheme.secondary),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                            width: 2,
+                            color: Theme.of(context).colorScheme.secondary),
+                      ),
+                      fillColor: Theme.of(context).colorScheme.surface,
+                      filled: true,
+                      hintText: hintText,
+                      hintStyle: GoogleFonts.notoSansMono(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontSize: 8),
+                      errorText: errorMsg,
+                      errorStyle: GoogleFonts.notoSansMono(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontSize: 7)),
+                ),
               ),
             ],
           ),

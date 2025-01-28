@@ -17,14 +17,23 @@ Stream<AppUserState> authStateNEW(Ref ref) {
   final authSubscription = supabaseClient.auth.onAuthStateChange.listen(
     (data) async {
       final Session? session = data.session;
+      log(data.event.toString());
       if (session != null) {
+        if (data.event != AuthChangeEvent.initialSession) {
+          await Future.delayed(const Duration(seconds: 1));
+        }
         streamController.add(const AppUserState.unknown());
         final userData = await supabaseClient
             .from('users')
             .select()
-            .eq('email', session.user.email!);
-        final user = AppUser.fromMap(userData.first);
-        streamController.add(AppUserState.auth(user));
+            .eq('email', session.user.email!)
+            .maybeSingle();
+        if (userData != null) {
+          final user = AppUser.fromMap(userData);
+          streamController.add(AppUserState.auth(user));
+        } else {
+          streamController.add(const AppUserState.unauth());
+        }
       } else {
         streamController.add(const AppUserState.unauth());
       }

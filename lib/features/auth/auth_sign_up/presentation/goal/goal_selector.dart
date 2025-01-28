@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_goal_provider.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +17,6 @@ class _GoalSelectorState extends ConsumerState<GoalSelector> {
   @override
   Widget build(BuildContext context) {
     final goalMain = ref.watch(selectGoalProvider.notifier);
-    log(goalMain.state);
     return Align(
       alignment: const Alignment(0, 0.2),
       child: SizedBox(
