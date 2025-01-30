@@ -1,6 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fitflow/features/auth/presentation/general/custom_text_field.dart';
@@ -57,7 +55,10 @@ class _EmailSignUpImputWidgetState extends State<EmailSignUpImputWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 46, right: 47, bottom: 8),
+      padding: const EdgeInsets.only(
+        left: 46,
+        right: 47,
+      ),
       child: Stack(
         children: [
           CustomTextField(
@@ -67,6 +68,7 @@ class _EmailSignUpImputWidgetState extends State<EmailSignUpImputWidget> {
               widget.emailImput.state = value;
               return value;
             },
+            isImputRight: isImputRight,
             focusNode: focusNode,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
@@ -76,20 +78,29 @@ class _EmailSignUpImputWidgetState extends State<EmailSignUpImputWidget> {
               ? Align(
                   alignment: const Alignment(1, 0),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 31),
+                    padding: const EdgeInsets.only(top: 29),
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.35,
-                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Theme.of(context).canvasColor,
+                        border: Border.all(width: 2, color: Colors.red),
+                      ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          const Spacer(),
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 6, top: 4, bottom: 4),
+                              top: 10,
+                              bottom: 10,
+                            ),
                             child: SizedBox(
                               width: 73,
-                              height: 30,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.028,
                               child: FittedBox(
+                                fit: BoxFit.scaleDown,
                                 child: Text(
                                   'Некорретный\nEmail',
                                   textAlign: TextAlign.center,
@@ -100,22 +111,15 @@ class _EmailSignUpImputWidgetState extends State<EmailSignUpImputWidget> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            width: 38,
-                            height: 38,
-                            child: FittedBox(
-                              child: Icon(
-                                Icons.error_outline,
-                                color: Colors.red,
-                              ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              right: 6,
                             ),
-                          )
+                            child: Image.asset(
+                              'assets/auth/warning.png',
+                            ),
+                          ),
                         ],
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Theme.of(context).canvasColor,
-                        border: Border.all(width: 2, color: Colors.red),
                       ),
                     ),
                   ),

@@ -23,12 +23,16 @@ class PasswordImputWidget extends ConsumerWidget {
     final emailOrName = ref.watch(emailOrNameProvider.notifier);
     final isButtonActive = ref.watch(isDataSignInValidProvider.notifier);
     return Padding(
-      padding: const EdgeInsets.only(left: 46, right: 47, bottom: 7),
+      padding: const EdgeInsets.only(
+        left: 46,
+        right: 47,
+      ),
       child: CustomTextField(
         onChanged: (value) {
           passImput.state = value;
           return value;
         },
+        isImputRight: true,
         textInputAction: TextInputAction.done,
         suffixIcon: IconButton(
             onPressed: () {

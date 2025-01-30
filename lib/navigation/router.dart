@@ -6,12 +6,12 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sig
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/gender/select_gender_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/goal/select_goal_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/height/select_height_main_widget.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/level/select_level_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/select_weight_main_widget.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:fitflow/features/auth/presentation/auth_main_widget.dart';
 import 'package:fitflow/features/home/presentation/home_widget.dart';
 import 'package:fitflow/features/loading/presentation/loading_widget.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -107,28 +107,7 @@ GoRouter router(Ref ref) {
                                             path: RouterPath.LEVEL,
                                             name: RouterPath.LEVEL,
                                             builder: (context, state) {
-                                              return Scaffold(
-                                                body: Center(
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      ElevatedButton(
-                                                          onPressed: () {
-                                                            context.pop();
-                                                          },
-                                                          child: Text('back')),
-                                                      ElevatedButton(
-                                                          onPressed: () {
-                                                            context.goNamed(
-                                                                'signup');
-                                                          },
-                                                          child: Text(
-                                                              'go signup')),
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
+                                              return SelectLevelMainWidget();
                                             },
                                             routes: [
                                               GoRoute(

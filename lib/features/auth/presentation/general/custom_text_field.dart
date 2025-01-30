@@ -12,12 +12,12 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final VoidCallback? onTap;
   final Widget? prefixIcon;
+  final bool isImputRight;
   final String? Function(String?)? validator;
   final FocusNode? focusNode;
   final String? errorMsg;
   final String? Function(String)? onChanged;
   final ValueChanged<String>? onFieldSubmitted;
-  final Color? notAuthColor;
   final Function(PointerDownEvent)? onTepOutside;
   final TextInputAction? textInputAction;
 
@@ -30,6 +30,7 @@ class CustomTextField extends StatelessWidget {
     required this.keyboardType,
     this.suffixIcon,
     this.onTap,
+    required this.isImputRight,
     this.textInputAction,
     this.prefixIcon,
     this.validator,
@@ -37,7 +38,6 @@ class CustomTextField extends StatelessWidget {
     this.errorMsg,
     this.onChanged,
     this.onFieldSubmitted,
-    this.notAuthColor,
     this.onTepOutside,
   });
 
@@ -48,7 +48,8 @@ class CustomTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 8),
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).size.height * 0.008),
           child: FittedBox(
             child: Text(
               labelText,
@@ -60,7 +61,7 @@ class CustomTextField extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 60,
+          height: MediaQuery.of(context).size.height * 0.07,
           child: Stack(
             children: [
               SizedBox(
@@ -82,6 +83,8 @@ class CustomTextField extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.w500),
                   decoration: InputDecoration(
+                      contentPadding:
+                          const EdgeInsets.only(left: 17, right: 17),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       suffixIcon: suffixIcon,
                       prefixIcon: prefixIcon,
@@ -89,25 +92,33 @@ class CustomTextField extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
                             width: 2,
-                            color: Theme.of(context).colorScheme.secondary),
+                            color: isImputRight
+                                ? Theme.of(context).colorScheme.secondary
+                                : Colors.red),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
                             width: 2,
-                            color: Theme.of(context).colorScheme.secondary),
+                            color: isImputRight
+                                ? Theme.of(context).colorScheme.secondary
+                                : Colors.red),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
                             width: 2,
-                            color: Theme.of(context).colorScheme.secondary),
+                            color: isImputRight
+                                ? Theme.of(context).colorScheme.secondary
+                                : Colors.red),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
                             width: 2,
-                            color: Theme.of(context).colorScheme.secondary),
+                            color: isImputRight
+                                ? Theme.of(context).colorScheme.secondary
+                                : Colors.red),
                       ),
                       fillColor: Theme.of(context).colorScheme.surface,
                       filled: true,

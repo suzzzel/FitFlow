@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/valid_sign_up_data.dart';
-import 'package:fitflow/features/auth/auth_sign_up/presentation/controllers/sign_up_controller.dart';
 import 'package:fitflow/features/auth/auth_sign_up/presentation/sign_up/sign_up_button.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/about_creating_account_button.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/back_to_auth_button.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/email_imput_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/name_imput_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/password_imput_widget.dart';
@@ -31,7 +30,11 @@ class SignUpMainWidgetState extends ConsumerState<SignUpMainWidget> {
   Widget build(BuildContext context) {
     final nameImput = ref.watch(nameSignUpProvider.notifier);
     final emailImput = ref.watch(emailSignUpProvider.notifier);
-    final isValidEmail = ref.watch(isValidEmailSignUpProvider);
+    final isValidEmailProv = ref.watch(isValidEmailSignUpProvider);
+    final isValidNameProv = ref.watch(isValidnameSignUpProvider);
+    final isValidPasswordProv = ref.watch(isValidpasswordSignUpProvider);
+    final isValidPasswordRepeatProv =
+        ref.watch(isValidpasswordRepeatSignUpProvider);
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
@@ -54,35 +57,33 @@ class SignUpMainWidgetState extends ConsumerState<SignUpMainWidget> {
       ),
       body: Stack(
         alignment: Alignment.center,
+        fit: StackFit.expand,
         children: [
-          const Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 35),
-              child: SignUpButton(),
-            ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              NameSignUpImputWidget(
+                nameController: nameController,
+                nameInput: nameImput,
+                isValidName: isValidNameProv,
+              ),
+              EmailSignUpImputWidget(
+                emailController: emailController,
+                emailImput: emailImput,
+                isValidEmail: isValidEmailProv,
+              ),
+              PasswordSignUpImputWidget(
+                  passwordController: passwordController,
+                  isValidPassword: isValidPasswordProv),
+              PasswordSignUpRepeatImputWidget(
+                  isValidRepeatPassword: isValidPasswordRepeatProv,
+                  passwordRepeatController: passwordRepeatController),
+              const SignUpButton(),
+            ],
           ),
-          Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                NameSignUpImputWidget(
-                  nameController: nameController,
-                  nameInput: nameImput,
-                ),
-                EmailSignUpImputWidget(
-                  emailController: emailController,
-                  emailImput: emailImput,
-                  isValidEmail: isValidEmail,
-                ),
-                PasswordImputSignUpWidget(
-                    passwordController: passwordController),
-                PasswordImputRepeatSignUpWidget(
-                    passwordRepeatController: passwordRepeatController)
-              ],
-            ),
-          )
+          const BackToAuthButton(),
+          const AboutCreateAccButton()
         ],
       ),
     );

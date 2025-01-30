@@ -15,7 +15,10 @@ class EmailOrNameImputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 46, right: 47, bottom: 8),
+      padding: const EdgeInsets.only(
+        left: 46,
+        right: 47,
+      ),
       child: CustomTextField(
         controller: emailController,
         obscureText: false,
@@ -23,6 +26,7 @@ class EmailOrNameImputWidget extends StatelessWidget {
           emailInput.state = value;
           return value;
         },
+        isImputRight: true,
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.emailAddress,
         labelText: 'Имя пользователя или email',
