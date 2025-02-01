@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_level_provider.dart';
-import 'package:fitflow/features/auth/auth_sign_up/presentation/level/level_button.dart';
+import 'package:fitflow/features/auth/auth_sign_up/presentation/level/level_button_content.dart';
+import 'package:fitflow/features/auth/auth_sign_up/presentation/level/level_button_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class LevelSelector extends ConsumerStatefulWidget {
   const LevelSelector({super.key});
@@ -25,115 +25,102 @@ class _LevelSelectorState extends ConsumerState<LevelSelector> {
       });
     }
 
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 60),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: AnimatedSize(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.decelerate,
-                child: ElevatedButton(
-                    onPressed: () {
-                      changeLevel('beginner');
-                    },
-                    style: ButtonStyle(
-                        fixedSize: WidgetStatePropertyAll(Size(
-                          levelSelect.state == 'beginner' ? 300 : 260,
-                          levelSelect.state == 'beginner' ? 80 : 60,
-                        )),
-                        elevation: const WidgetStatePropertyAll(0),
-                        backgroundColor: WidgetStatePropertyAll(
-                            Theme.of(context).colorScheme.surface),
-                        shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            side: BorderSide(
-                                width: 2,
-                                color: levelSelect.state == 'beginner'
-                                    ? Theme.of(context).colorScheme.secondary
-                                    : Theme.of(context)
-                                        .colorScheme
-                                        .tertiary
-                                        .withOpacity(1))))),
-                    child: LevelButtonStyle(
-                      isPrimary: levelSelect.state == 'beginner' ? true : false,
-                      level: 'Новичок',
-                      iconLevel: 'assets/auth/beginner.png',
-                    )),
-              ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).size.height * 0.068),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: levelSelect.state == 'beginner' ? 46 : 71,
+            ),
+            child: AnimatedContainer(
+              curve: Curves.easeInOut,
+              duration: const Duration(milliseconds: 300),
+              width: levelSelect.state == 'beginner'
+                  ? MediaQuery.of(context).size.width * 0.8
+                  : MediaQuery.of(context).size.width * 0.8,
+              height: levelSelect.state == 'beginner'
+                  ? MediaQuery.of(context).size.height * 0.09
+                  : MediaQuery.of(context).size.height * 0.07,
+              child: ElevatedButton(
+                  onPressed: () {
+                    changeLevel('beginner');
+                  },
+                  style: createLevelButtonStyle(
+                      context: context,
+                      level: levelSelect.state,
+                      tempLevel: 'beginner'),
+                  child: LevelButtonContent(
+                    isPrimary: levelSelect.state == 'beginner' ? true : false,
+                    level: 'Новичок',
+                    iconLevel: 'assets/auth/beginner.png',
+                  )),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 60),
-            child: AnimatedSize(
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.decelerate,
-              alignment: Alignment.center,
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).size.height * 0.068),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: levelSelect.state == 'skilled' ? 46 : 71,
+            ),
+            child: AnimatedContainer(
+              curve: Curves.easeInOut,
+              duration: const Duration(milliseconds: 300),
+              width: levelSelect.state == 'skilled'
+                  ? MediaQuery.of(context).size.width * 0.8
+                  : MediaQuery.of(context).size.width * 0.8,
+              height: levelSelect.state == 'skilled'
+                  ? MediaQuery.of(context).size.height * 0.09
+                  : MediaQuery.of(context).size.height * 0.07,
               child: ElevatedButton(
                   onPressed: () {
                     changeLevel('skilled');
                   },
-                  style: ButtonStyle(
-                      elevation: const WidgetStatePropertyAll(0),
-                      fixedSize: WidgetStatePropertyAll(Size(
-                        levelSelect.state == 'skilled' ? 300 : 260,
-                        levelSelect.state == 'skilled' ? 80 : 60,
-                      )),
-                      backgroundColor: WidgetStatePropertyAll(
-                          Theme.of(context).colorScheme.surface),
-                      shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: BorderSide(
-                              width: 2,
-                              color: levelSelect.state == 'skilled'
-                                  ? Theme.of(context).colorScheme.secondary
-                                  : Theme.of(context)
-                                      .colorScheme
-                                      .tertiary
-                                      .withOpacity(1))))),
-                  child: LevelButtonStyle(
+                  style: createLevelButtonStyle(
+                      context: context,
+                      level: levelSelect.state,
+                      tempLevel: 'skilled'),
+                  child: LevelButtonContent(
                     isPrimary: levelSelect.state == 'skilled' ? true : false,
                     level: 'Опытный',
                     iconLevel: 'assets/auth/skilled.png',
                   )),
             ),
           ),
-          AnimatedSize(
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.decelerate,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: levelSelect.state == 'master' ? 46 : 71,
+          ),
+          child: AnimatedContainer(
+            curve: Curves.easeInOut,
+            duration: const Duration(milliseconds: 300),
+            width: levelSelect.state == 'master'
+                ? MediaQuery.of(context).size.width * 0.8
+                : MediaQuery.of(context).size.width * 0.8,
+            height: levelSelect.state == 'master'
+                ? MediaQuery.of(context).size.height * 0.09
+                : MediaQuery.of(context).size.height * 0.07,
             child: ElevatedButton(
                 onPressed: () {
                   changeLevel('master');
                 },
-                style: ButtonStyle(
-                    fixedSize: WidgetStatePropertyAll(Size(
-                      levelSelect.state == 'master' ? 300 : 260,
-                      levelSelect.state == 'master' ? 80 : 60,
-                    )),
-                    elevation: const WidgetStatePropertyAll(0),
-                    backgroundColor: WidgetStatePropertyAll(
-                        Theme.of(context).colorScheme.surface),
-                    shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        side: BorderSide(
-                            width: 2,
-                            color: levelSelect.state == 'master'
-                                ? Theme.of(context).colorScheme.secondary
-                                : Theme.of(context)
-                                    .colorScheme
-                                    .tertiary
-                                    .withOpacity(1))))),
-                child: LevelButtonStyle(
+                style: createLevelButtonStyle(
+                    context: context,
+                    level: levelSelect.state,
+                    tempLevel: 'master'),
+                child: LevelButtonContent(
                   isPrimary: levelSelect.state == 'master' ? true : false,
                   level: 'Мастер',
                   iconLevel: 'assets/auth/master.png',
                 )),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 }

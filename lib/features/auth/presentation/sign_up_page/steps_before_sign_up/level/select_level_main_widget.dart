@@ -1,5 +1,7 @@
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/reg_user_provider.dart';
 import 'package:fitflow/features/auth/auth_sign_up/presentation/level/level_selector.dart';
+import 'package:fitflow/features/auth/auth_sign_up/presentation/level/next_step_after_level.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/level/level_first_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -30,20 +32,17 @@ class SelectLevelMainWidget extends ConsumerWidget {
           ),
         ),
       ),
-      body: Stack(
+      body: const Stack(
         children: [
-          // const WeightFirstText(),
-          LevelSelector()
-          // const Align(
-          //   alignment: Alignment.bottomCenter,
-          //   child: Padding(
-          //     padding: EdgeInsets.only(bottom: 35),
-          //     child: NextStepAfterWeightAgeSelectButton(
-          //       weightOrAge: true,
-          //     ),
-          //   ),
-          // ),
-          // const WeightSecondText()
+          Align(alignment: Alignment(0, -0.605), child: LevelFirstText()),
+          Align(alignment: Alignment(0, 0.09), child: LevelSelector()),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 35),
+              child: NextStepAfterLevelSelectButton(),
+            ),
+          ),
         ],
       ),
     );

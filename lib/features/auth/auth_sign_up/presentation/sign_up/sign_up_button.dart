@@ -27,20 +27,23 @@ class SignUpButton extends ConsumerWidget {
             if (!state.isLoading) {
               if (isButtonActive.state) {
                 userNotif.addCreateAt();
-                userNotif.addLevel('beginner');
                 userNotif.addEmail(email.state);
                 userNotif.addName(name.state);
                 final response = await ref
                     .read(signUpControllerProvider.notifier)
-                    .signUp(
+                    .signUpNEW(
                         email: email.state,
                         password: password.state,
                         user: ref.read(regUserProvider));
-                if (!response) {
-                  isButtonActive.state = false;
-                  password.state = '';
-                  email.state = '';
-                } else {}
+                if (response != null) {
+                  if (!response) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text('already exist')));
+                  } else {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text('Network')));
+                  }
+                }
               }
             }
           },
