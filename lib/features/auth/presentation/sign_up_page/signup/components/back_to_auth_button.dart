@@ -24,7 +24,7 @@ class BackToAuthButton extends StatelessWidget {
                     color: Theme.of(context).colorScheme.onPrimary)),
             InkWell(
               onTap: () {
-                context.goNamed('/auth');
+                context.goNamed('signin');
               },
               child: Text(
                 ' Авторизоваться',

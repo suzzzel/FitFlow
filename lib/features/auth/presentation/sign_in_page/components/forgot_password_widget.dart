@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ForgotPasswordWidget extends StatelessWidget {
@@ -15,7 +16,9 @@ class ForgotPasswordWidget extends StatelessWidget {
         child: TextButton(
             style: const ButtonStyle(
                 padding: WidgetStatePropertyAll(EdgeInsets.all(0))),
-            onPressed: () {},
+            onPressed: () {
+              context.goNamed('resetpass');
+            },
             child: FittedBox(
               child: Text(
                 'Забыли пароль?',

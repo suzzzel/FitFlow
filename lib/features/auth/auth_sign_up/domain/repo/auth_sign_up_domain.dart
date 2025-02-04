@@ -9,22 +9,13 @@ class AuthSignUpDomain implements AuthSignUpDomainImpl {
   AuthSignUpDomain({
     required this.authSignUpData,
   });
+
   @override
-  Future<bool> signUp(
+  Future<SignUpState> signUp(
       {required String email,
       required String password,
       required AppUser user}) async {
     final signUpBool = await authSignUpData.signUp(
-        email: email, password: password, user: user);
-    return signUpBool;
-  }
-
-  @override
-  Future<SignUpState> signUpNEW(
-      {required String email,
-      required String password,
-      required AppUser user}) async {
-    final signUpBool = await authSignUpData.signUpNEW(
         email: email, password: password, user: user);
     return signUpBool;
   }

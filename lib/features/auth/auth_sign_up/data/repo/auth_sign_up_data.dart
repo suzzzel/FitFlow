@@ -14,40 +14,7 @@ class AuthSignUpData implements AuthSignUpDataImpl {
   });
 
   @override
-  Future<bool> signUp(
-      {required String email,
-      required String password,
-      required AppUser user}) async {
-    try {
-      final AuthResponse res =
-          await supabase.auth.signUp(password: password, email: email);
-      final Session? session = res.session;
-      final User? userSupabase = res.user;
-      if (userSupabase!.aud == 'authenticated') {
-        try {
-          final Map<String, dynamic> userToSupabase = user.toMap();
-          userToSupabase.remove('id');
-          await supabase.from('users').insert(userToSupabase);
-          await Future.delayed(const Duration(seconds: 1));
-          return true;
-        } catch (e) {
-          final error = e as PostgrestException;
-          if (error.code == '23505') {
-            rethrow;
-          }
-          return false;
-        }
-      } else {
-        return false;
-      }
-    } catch (e) {
-      log(e.toString());
-      return false;
-    }
-  }
-
-  @override
-  Future<SignUpState> signUpNEW(
+  Future<SignUpState> signUp(
       {required String email,
       required String password,
       required AppUser user}) async {
@@ -73,8 +40,12 @@ class AuthSignUpData implements AuthSignUpDataImpl {
       } else {
         return SignUpState.networkError;
       }
-    } catch (e) {
-      return SignUpState.userAlreadyExist;
+    } on AuthException catch (e) {
+      if (e.statusCode == '422') {
+        return SignUpState.userAlreadyExist;
+      } else {
+        return SignUpState.networkError;
+      }
     }
   }
 }

@@ -1,4 +1,3 @@
-import 'package:fitflow/features/auth/auth_sign_up/domain/providers/reg_user_provider.dart';
 import 'package:fitflow/features/auth/auth_sign_up/presentation/level/level_selector.dart';
 import 'package:fitflow/features/auth/auth_sign_up/presentation/level/next_step_after_level.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/level/level_first_text.dart';
@@ -12,7 +11,6 @@ class SelectLevelMainWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final regUser = ref.watch(regUserProvider);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(

@@ -13,6 +13,7 @@ class AppUser {
   final int? height;
   final int? weight;
   final String? level;
+  final bool? offlineMode;
   AppUser({
     this.id,
     // ignore: non_constant_identifier_names
@@ -22,6 +23,7 @@ class AppUser {
     this.email,
     this.goal,
     this.sex,
+    this.offlineMode,
     this.height,
     this.weight,
     this.level,
@@ -78,6 +80,7 @@ class AppUser {
     int? height,
     int? weight,
     String? level,
+    bool? offlineMode,
   }) {
     return AppUser(
       id: id ?? this.id,
@@ -87,6 +90,7 @@ class AppUser {
       email: email ?? this.email,
       goal: goal ?? this.goal,
       sex: sex ?? this.sex,
+      offlineMode: offlineMode ?? this.offlineMode,
       height: height ?? this.height,
       weight: weight ?? this.weight,
       level: level ?? this.level,

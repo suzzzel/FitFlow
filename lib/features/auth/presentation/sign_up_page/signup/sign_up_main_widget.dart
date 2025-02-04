@@ -27,6 +27,15 @@ class SignUpMainWidgetState extends ConsumerState<SignUpMainWidget> {
   bool obscurePassword = true;
 
   @override
+  void dispose() {
+    emailController.clear();
+    passwordController.clear();
+    passwordRepeatController.clear();
+    nameController.clear();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final nameImput = ref.watch(nameSignUpProvider.notifier);
     final emailImput = ref.watch(emailSignUpProvider.notifier);
@@ -42,6 +51,10 @@ class SignUpMainWidgetState extends ConsumerState<SignUpMainWidget> {
         leading: IconButton(
             onPressed: () {
               context.pop();
+              emailImput.state = '';
+              nameImput.state = '';
+              ref.read(passwordSignUpProvider.notifier).state = '';
+              ref.read(passwordRepeatSignUpProvider.notifier).state = '';
             },
             icon: Image.asset('assets/leading/arrow.png')),
         centerTitle: true,

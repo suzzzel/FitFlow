@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
+import 'package:fitflow/features/auth/presentation/reset_password_page/reset_password_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_in_page/sign_in_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/signup/sign_up_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/age/select_age_main_widget.dart';
@@ -12,6 +13,7 @@ import 'package:fitflow/navigation/paths.dart';
 import 'package:fitflow/features/auth/presentation/auth_main_widget.dart';
 import 'package:fitflow/features/home/presentation/home_widget.dart';
 import 'package:fitflow/features/loading/presentation/loading_widget.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -20,7 +22,7 @@ part 'router.g.dart';
 
 @riverpod
 GoRouter router(Ref ref) {
-  final authStateNew = ref.watch(authStateNEWProvider);
+  final authStateNew = ref.watch(authStateProvider);
 
   return GoRouter(
     initialLocation: '/loading',
@@ -62,12 +64,20 @@ GoRouter router(Ref ref) {
         },
         routes: [
           GoRoute(
-            path: RouterPath.SIGNIN,
-            name: RouterPath.SIGNIN,
-            builder: (context, state) {
-              return const SignInMainWidget();
-            },
-          ),
+              path: RouterPath.SIGNIN,
+              name: RouterPath.SIGNIN,
+              builder: (context, state) {
+                return const SignInMainWidget();
+              },
+              routes: [
+                GoRoute(
+                  path: RouterPath.RESETPASSWORD,
+                  name: RouterPath.RESETPASSWORD,
+                  builder: (context, state) {
+                    return ResetPasswordMainWidget();
+                  },
+                )
+              ]),
           GoRoute(
               path: RouterPath.GENDER,
               name: RouterPath.GENDER,

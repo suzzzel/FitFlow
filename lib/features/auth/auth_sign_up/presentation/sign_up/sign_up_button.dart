@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/reg_user_provider.dart';
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/valid_sign_up_data.dart';
 import 'package:fitflow/features/auth/auth_sign_up/presentation/controllers/sign_up_controller.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/snackbars/network_error.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/snackbars/user_already_exist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,11 +39,9 @@ class SignUpButton extends ConsumerWidget {
                         user: ref.read(regUserProvider));
                 if (response != null) {
                   if (!response) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text('already exist')));
+                    showUserAlreadyExist(context);
                   } else {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text('Network')));
+                    showNetworkError(context);
                   }
                 }
               }

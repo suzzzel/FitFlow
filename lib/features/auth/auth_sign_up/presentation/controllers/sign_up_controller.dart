@@ -14,7 +14,7 @@ class SignUpController extends _$SignUpController {
     return false;
   }
 
-  Future<bool> signUp(
+  Future<bool?> signUpNEW(
       {required String email,
       required String password,
       required AppUser user}) async {
@@ -24,24 +24,6 @@ class SignUpController extends _$SignUpController {
       state = await AsyncValue.guard(() async {
         final signUpSupaBase =
             await authRepo.signUp(email: email, password: password, user: user);
-        return signUpSupaBase;
-      });
-    } catch (e) {
-      return true;
-    }
-    return true;
-  }
-
-  Future<bool?> signUpNEW(
-      {required String email,
-      required String password,
-      required AppUser user}) async {
-    final authRepo = ref.read(authSignUpDomainProvider);
-    state = const AsyncValue.loading();
-    try {
-      state = await AsyncValue.guard(() async {
-        final signUpSupaBase = await authRepo.signUpNEW(
-            email: email, password: password, user: user);
         switch (signUpSupaBase) {
           case SignUpState.userAlreadyExist:
             return false;

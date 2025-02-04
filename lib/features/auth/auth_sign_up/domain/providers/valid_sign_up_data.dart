@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final emailSignUpProvider = StateProvider<String>((ref) => '');
 final isValidEmailSignUpProvider = StateProvider<bool>((ref) {
   final email = ref.watch(emailSignUpProvider);
-  log('email: $email');
   return email.isNotEmpty &&
       RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
           .hasMatch(email);

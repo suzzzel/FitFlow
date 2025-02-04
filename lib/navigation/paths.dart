@@ -10,4 +10,5 @@ final class RouterPath {
   static const String AGE = 'age';
   static const String GOAL = 'goal';
   static const String LEVEL = 'level';
+  static const String RESETPASSWORD = 'resetpass';
 }

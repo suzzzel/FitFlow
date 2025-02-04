@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:fitflow/features/auth/auth_sign_in/domain/models/sign_in_state.dart';
 import 'package:fitflow/features/auth/auth_sign_in/domain/providers/valid_sign_in_data.dart';
 import 'package:fitflow/features/auth/auth_sign_in/presentation/controllers/sign_in_controller.dart';
 import 'package:fitflow/features/auth/auth_sign_in/presentation/sign_in_button.dart';
@@ -30,8 +31,7 @@ class SignInMainWidgetState extends ConsumerState<SignInMainWidget> {
     final emailInput = ref.watch(emailOrNameProvider.notifier);
     final passImput = ref.watch(passwordProvider.notifier);
     final firstImput = ref.watch(firstImputProvider);
-    final signInController = ref.watch(signInControllerProvider);
-    signInController.hasError ? log('error') : ();
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
@@ -68,9 +68,7 @@ class SignInMainWidgetState extends ConsumerState<SignInMainWidget> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 250),
-            child: ErrorSignInWidget(
-              error: !firstImput,
-            ),
+            child: ErrorSignInWidget(error: !firstImput),
           ),
           Column(
             mainAxisSize: MainAxisSize.min,
