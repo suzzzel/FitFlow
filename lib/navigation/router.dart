@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
-import 'package:fitflow/features/auth/presentation/reset_password_page/reset_password_main_widget.dart';
+import 'package:fitflow/features/auth/presentation/reset_password_page/send_recovery_code_reset_password_main_widget.dart';
+import 'package:fitflow/features/auth/presentation/reset_password_page/update_password_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_in_page/sign_in_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/signup/sign_up_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/age/select_age_main_widget.dart';
@@ -71,12 +72,21 @@ GoRouter router(Ref ref) {
               },
               routes: [
                 GoRoute(
-                  path: RouterPath.RESETPASSWORD,
-                  name: RouterPath.RESETPASSWORD,
-                  builder: (context, state) {
-                    return ResetPasswordMainWidget();
-                  },
-                )
+                    path: RouterPath.RESETPASSWORD,
+                    name: RouterPath.RESETPASSWORD,
+                    builder: (context, state) {
+                      return SendRecoveryCodeResetPasswordMainWidget();
+                    },
+                    routes: [
+                      GoRoute(
+                        path: RouterPath.UPDATEPASSWORD,
+                        name: RouterPath.UPDATEPASSWORD,
+                        builder: (context, state) {
+                          return UpdatePasswordMainWidget(
+                              email: state.extra.toString());
+                        },
+                      )
+                    ])
               ]),
           GoRoute(
               path: RouterPath.GENDER,
