@@ -1,7 +1,8 @@
 import 'dart:developer';
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
-import 'package:fitflow/features/auth/presentation/reset_password_page/send_recovery_code_reset_password_main_widget.dart';
-import 'package:fitflow/features/auth/presentation/reset_password_page/update_password_main_widget.dart';
+import 'package:fitflow/features/auth/presentation/reset_password_page/send_recovery/send_recovery_code_reset_password_main_widget.dart';
+import 'package:fitflow/features/auth/presentation/reset_password_page/enter_recovery_code/enter_recovery_code_main_widget.dart';
+import 'package:fitflow/features/auth/presentation/reset_password_page/update_pass/update_pass_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_in_page/sign_in_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/signup/sign_up_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/age/select_age_main_widget.dart';
@@ -30,6 +31,7 @@ GoRouter router(Ref ref) {
     redirect: (context, state) {
       return authStateNew.when(data: (stateUser) {
         final status = stateUser.status.name;
+        log(status);
         switch (status) {
           case 'auth':
             switch (state.matchedLocation) {
@@ -75,17 +77,26 @@ GoRouter router(Ref ref) {
                     path: RouterPath.RESETPASSWORD,
                     name: RouterPath.RESETPASSWORD,
                     builder: (context, state) {
-                      return SendRecoveryCodeResetPasswordMainWidget();
+                      return const SendRecoveryCodeResetPasswordMainWidget();
                     },
                     routes: [
                       GoRoute(
-                        path: RouterPath.UPDATEPASSWORD,
-                        name: RouterPath.UPDATEPASSWORD,
-                        builder: (context, state) {
-                          return UpdatePasswordMainWidget(
-                              email: state.extra.toString());
-                        },
-                      )
+                          path: RouterPath.ENTERRECOVERYCODETOUPDATEPASS,
+                          name: RouterPath.ENTERRECOVERYCODETOUPDATEPASS,
+                          builder: (context, state) {
+                            return EnterRecoveryCodeMainWidget(
+                                email: state.extra.toString());
+                          },
+                          routes: [
+                            GoRoute(
+                              path: RouterPath.UPDATEPASS,
+                              name: RouterPath.UPDATEPASS,
+                              builder: (context, state) {
+                                return UpdatePassMainWidget(
+                                    email: state.extra.toString());
+                              },
+                            )
+                          ])
                     ])
               ]),
           GoRoute(

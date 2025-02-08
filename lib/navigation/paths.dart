@@ -11,5 +11,6 @@ final class RouterPath {
   static const String GOAL = 'goal';
   static const String LEVEL = 'level';
   static const String RESETPASSWORD = 'resetpass';
-  static const String UPDATEPASSWORD = 'updatepass';
+  static const String ENTERRECOVERYCODETOUPDATEPASS = 'enterrecoverycode';
+  static const String UPDATEPASS = 'updatepass';
 }

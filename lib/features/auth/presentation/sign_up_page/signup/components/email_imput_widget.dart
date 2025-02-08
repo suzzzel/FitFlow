@@ -5,16 +5,17 @@ import 'package:fitflow/features/auth/presentation/general/custom_text_field.dar
 import 'package:google_fonts/google_fonts.dart';
 
 class EmailSignUpImputWidget extends StatefulWidget {
-  const EmailSignUpImputWidget({
-    super.key,
-    required this.emailController,
-    required this.emailImput,
-    required this.isValidEmail,
-  });
+  const EmailSignUpImputWidget(
+      {super.key,
+      required this.emailController,
+      required this.emailImput,
+      required this.isValidEmail,
+      required this.textInputAction});
 
   final TextEditingController emailController;
   final StateController<String> emailImput;
   final bool isValidEmail;
+  final TextInputAction textInputAction;
 
   @override
   State<EmailSignUpImputWidget> createState() => _EmailSignUpImputWidgetState();
@@ -70,7 +71,7 @@ class _EmailSignUpImputWidgetState extends State<EmailSignUpImputWidget> {
             },
             isImputRight: isImputRight,
             focusNode: focusNode,
-            textInputAction: TextInputAction.next,
+            textInputAction: widget.textInputAction,
             keyboardType: TextInputType.emailAddress,
             labelText: 'Email',
           ),

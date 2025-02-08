@@ -22,17 +22,24 @@ class AuthResetPassRepo implements AuthResetPassRepoImpl {
   }
 
   @override
-  Future<bool> updatePassword(
-      {required String email,
-      required String recoveryCode,
-      required String newPassword}) async {
+  Future<bool> enterRecoveryCode(
+      {required String email, required String recoveryCode}) async {
     try {
       await supabase.auth
           .verifyOTP(type: OtpType.recovery, email: email, token: recoveryCode);
+      // await supabase.auth.updateUser(UserAttributes(password: newPassword));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> updatePassword({required String newPassword}) async {
+    try {
       await supabase.auth.updateUser(UserAttributes(password: newPassword));
       return true;
     } catch (e) {
-      log(e.toString());
       return false;
     }
   }

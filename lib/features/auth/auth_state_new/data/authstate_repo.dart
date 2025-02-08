@@ -21,28 +21,30 @@ Stream<AppUserState> authState(Ref ref) {
       final Session? session = data.session;
       log(data.event.toString());
       if (session != null) {
-        if (data.event != AuthChangeEvent.initialSession) {
-          await Future.delayed(const Duration(seconds: 1));
-        }
-        streamController.add(const AppUserState.unknown());
-        try {
-          final userData = await supabaseClient
-              .from('users')
-              .select()
-              .eq('email', session.user.email!)
-              .maybeSingle();
-          if (userData != null) {
-            final user = AppUser.fromMap(userData);
-            localSecureStorage.write(key: 'name', value: user.name);
-            streamController.add(AppUserState.auth(user));
-          } else {
-            streamController.add(const AppUserState.unauth());
+        if (data.event != AuthChangeEvent.passwordRecovery) {
+          if (data.event != AuthChangeEvent.initialSession) {
+            await Future.delayed(const Duration(seconds: 1));
           }
-        } catch (e) {
-          String? name = await localSecureStorage.read(key: 'name');
-          if (name != null) {
-            streamController
-                .add(AppUserState.auth(AppUser(name: name, offlineMode: true)));
+          streamController.add(const AppUserState.unknown());
+          try {
+            final userData = await supabaseClient
+                .from('users')
+                .select()
+                .eq('email', session.user.email!)
+                .maybeSingle();
+            if (userData != null) {
+              final user = AppUser.fromMap(userData);
+              localSecureStorage.write(key: 'name', value: user.name);
+              streamController.add(AppUserState.auth(user));
+            } else {
+              streamController.add(const AppUserState.unauth());
+            }
+          } catch (e) {
+            String? name = await localSecureStorage.read(key: 'name');
+            if (name != null) {
+              streamController.add(
+                  AppUserState.auth(AppUser(name: name, offlineMode: true)));
+            }
           }
         }
       } else {

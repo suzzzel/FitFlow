@@ -1,5 +1,6 @@
 import 'package:fitflow/features/auth/auth_reset_password/domain/providers/valid_email_provider.dart';
 import 'package:fitflow/features/auth/auth_reset_password/presentation/next_step_after_send_recovery_code.dart';
+import 'package:fitflow/features/auth/presentation/reset_password_page/send_recovery/send_recovery_text.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/email_imput_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,9 +34,10 @@ class ResetPasswordMainWidgetState
             },
             icon: Image.asset('assets/leading/arrow.png')),
         centerTitle: true,
+        titleSpacing: 0,
         title: FittedBox(
           child: Text(
-            'Восстановить пароль',
+            'Восстановление пароля',
             style: GoogleFonts.inter(
                 color: Theme.of(context).colorScheme.secondary,
                 fontSize: 24,
@@ -53,15 +55,15 @@ class ResetPasswordMainWidgetState
               child: NextStepAfterSendRecoveryCodeButton(),
             ),
           ),
+          const Align(alignment: Alignment(0, 0.44), child: SendRecoveryText()),
           Column(
             mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               EmailSignUpImputWidget(
                 emailController: emailController,
                 emailImput: emailInput,
                 isValidEmail: emailValid,
+                textInputAction: TextInputAction.next,
               ),
             ],
           ),

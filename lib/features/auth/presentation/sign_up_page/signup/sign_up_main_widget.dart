@@ -85,6 +85,7 @@ class SignUpMainWidgetState extends ConsumerState<SignUpMainWidget> {
                 emailController: emailController,
                 emailImput: emailImput,
                 isValidEmail: isValidEmailProv,
+                textInputAction: TextInputAction.next,
               ),
               PasswordSignUpImputWidget(
                   passwordController: passwordController,

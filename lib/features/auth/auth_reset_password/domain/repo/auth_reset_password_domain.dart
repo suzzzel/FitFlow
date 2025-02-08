@@ -13,11 +13,18 @@ class AuthResetPasswordDomain implements AuthResetPasswordDomainImpl {
   }
 
   @override
-  Future<bool> updatePassword(
-      {required String email,
-      required String recoveryCode,
-      required String newPassword}) async {
-    return await authResetPassRepo.updatePassword(
-        email: email, recoveryCode: recoveryCode, newPassword: newPassword);
+  Future<bool> enterRecoveryCode({
+    required String email,
+    required String recoveryCode,
+  }) async {
+    return await authResetPassRepo.enterRecoveryCode(
+      email: email,
+      recoveryCode: recoveryCode,
+    );
+  }
+
+  @override
+  Future<bool> updatePassword({required String newPassword}) async {
+    return await authResetPassRepo.updatePassword(newPassword: newPassword);
   }
 }
