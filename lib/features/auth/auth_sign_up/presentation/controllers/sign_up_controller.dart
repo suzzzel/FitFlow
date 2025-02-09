@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fitflow/features/auth/auth_sign_up/domain/models/sign_up_state.dart';
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/auth_sign_up_domain_provider.dart';
 import 'package:fitflow/features/auth/auth_state_new/domain/models/app_user.dart';
@@ -14,7 +12,7 @@ class SignUpController extends _$SignUpController {
     return false;
   }
 
-  Future<bool?> signUpNEW(
+  Future<bool?> signUp(
       {required String email,
       required String password,
       required AppUser user}) async {

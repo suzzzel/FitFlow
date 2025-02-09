@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 final class RouterPath {
   static const String NOTLOGIN = '/auth';
   static const String HOME = '/home';

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_height_provider.dart';
 import 'package:flutter/material.dart';
@@ -80,8 +78,6 @@ class _AgeSelectorState extends ConsumerState<HeightSelector> {
                 setState(() {
                   currentIndex = index + heightCorrection;
                   heightMainProv.state = index;
-                  log('${index + heightCorrection}');
-                  log('current index: $currentIndex');
                 });
               },
             )),

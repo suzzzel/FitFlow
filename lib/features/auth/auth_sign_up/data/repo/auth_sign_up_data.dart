@@ -1,6 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
-
 import 'package:fitflow/features/auth/auth_sign_up/domain/models/sign_up_state.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -21,7 +18,6 @@ class AuthSignUpData implements AuthSignUpDataImpl {
     try {
       final AuthResponse res =
           await supabase.auth.signUp(password: password, email: email);
-      final Session? session = res.session;
       final User? userSupabase = res.user;
       if (userSupabase!.aud == 'authenticated') {
         try {

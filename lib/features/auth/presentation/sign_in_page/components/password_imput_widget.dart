@@ -49,7 +49,7 @@ class PasswordImputWidget extends ConsumerWidget {
         onFieldSubmitted: (_) async {
           firtImput.state = true;
           if (isButtonActive.state) {
-            final response = await signIn.signInNEW(
+            final response = await signIn.signIn(
               emailOrName: emailOrName.state,
               password: passImput.state,
             );
@@ -57,11 +57,10 @@ class PasswordImputWidget extends ConsumerWidget {
               case SignInState.auth:
                 isButtonActive.state = false;
               case SignInState.networkError:
+                // ignore: use_build_context_synchronously
                 showNetworkError(context);
               case SignInState.notAuth:
                 firtImput.state = false;
-                emailOrName.state = '';
-                passImput.state = '';
             }
           } else {
             firtImput.state = false;

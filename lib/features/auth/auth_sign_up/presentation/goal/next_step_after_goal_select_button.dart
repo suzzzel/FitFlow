@@ -27,7 +27,7 @@ class NextStepAfterGoalSelectButton extends ConsumerWidget {
               fixedSize: WidgetStatePropertyAll(
                   Size(MediaQuery.of(context).size.width, 70)),
               backgroundColor: WidgetStatePropertyAll(
-                prov != 0
+                prov != '0'
                     ? Theme.of(context).colorScheme.secondary
                     : Theme.of(context).colorScheme.tertiary,
               )),

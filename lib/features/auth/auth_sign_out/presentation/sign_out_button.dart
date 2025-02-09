@@ -12,6 +12,8 @@ class SignOutButton extends ConsumerWidget {
         onPressed: state.isLoading
             ? null
             : () => ref.read(signOutControllerProvider.notifier).signOut(),
-        child: state.isLoading ? Text('loading...') : Text('sign out'));
+        child: state.isLoading
+            ? const Text('loading...')
+            : const Text('sign out'));
   }
 }

@@ -15,7 +15,7 @@ class SendResetPassCodeController extends _$SendResetPassCodeController {
       final codeSended = await AsyncValue.guard(
           () => authResetRepo.sendRecoveryCode(email: email));
       state = codeSended;
-      return true;
+      return codeSended.value!;
     } catch (e) {
       return false;
     }

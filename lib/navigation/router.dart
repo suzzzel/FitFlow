@@ -15,7 +15,6 @@ import 'package:fitflow/navigation/paths.dart';
 import 'package:fitflow/features/auth/presentation/auth_main_widget.dart';
 import 'package:fitflow/features/home/presentation/home_widget.dart';
 import 'package:fitflow/features/loading/presentation/loading_widget.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -124,28 +123,28 @@ GoRouter router(Ref ref) {
                                 path: RouterPath.AGE,
                                 name: RouterPath.AGE,
                                 builder: (context, state) {
-                                  return SelectAgeMainWidget();
+                                  return const SelectAgeMainWidget();
                                 },
                                 routes: [
                                   GoRoute(
                                       path: RouterPath.GOAL,
                                       name: RouterPath.GOAL,
                                       builder: (context, state) {
-                                        return SelectGoalMainWidget();
+                                        return const SelectGoalMainWidget();
                                       },
                                       routes: [
                                         GoRoute(
                                             path: RouterPath.LEVEL,
                                             name: RouterPath.LEVEL,
                                             builder: (context, state) {
-                                              return SelectLevelMainWidget();
+                                              return const SelectLevelMainWidget();
                                             },
                                             routes: [
                                               GoRoute(
                                                 path: RouterPath.SIGNUP,
                                                 name: RouterPath.SIGNUP,
                                                 builder: (context, state) {
-                                                  return SignUpMainWidget();
+                                                  return const SignUpMainWidget();
                                                 },
                                               )
                                             ])

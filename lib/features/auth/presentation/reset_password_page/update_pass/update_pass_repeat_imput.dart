@@ -1,26 +1,24 @@
-import 'package:fitflow/features/auth/auth_sign_in/domain/providers/auth_sign_in_domain_provider.dart';
-import 'package:fitflow/features/auth/auth_sign_up/domain/providers/valid_sign_up_data.dart';
+import 'package:fitflow/features/auth/auth_reset_password/domain/providers/valid_new_pass.dart';
 import 'package:fitflow/features/auth/presentation/general/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PasswordSignUpImputWidget extends ConsumerStatefulWidget {
-  const PasswordSignUpImputWidget(
+class UpdatePassRepeatImput extends ConsumerStatefulWidget {
+  const UpdatePassRepeatImput(
       {super.key,
-      required this.passwordController,
-      required this.isValidPassword});
+      required this.isValidRepeatPassword,
+      required this.passwordRepeatController});
 
-  final TextEditingController passwordController;
-  final bool isValidPassword;
+  final TextEditingController passwordRepeatController;
+  final bool isValidRepeatPassword;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _PasswordSignUpImputWidgetState();
+      _UpdatePassRepeatImput();
 }
 
-class _PasswordSignUpImputWidgetState
-    extends ConsumerState<PasswordSignUpImputWidget> {
+class _UpdatePassRepeatImput extends ConsumerState<UpdatePassRepeatImput> {
   bool isImputRight = true;
   FocusNode focusNode = FocusNode();
 
@@ -41,7 +39,7 @@ class _PasswordSignUpImputWidgetState
   void check() {
     setState(() {
       if (!focusNode.hasFocus) {
-        if (!widget.isValidPassword) {
+        if (!widget.isValidRepeatPassword) {
           isImputRight = false;
         } else {
           isImputRight = true;
@@ -54,9 +52,8 @@ class _PasswordSignUpImputWidgetState
 
   @override
   Widget build(BuildContext context) {
-    final obscurePassword = ref.watch(obscurePasswordProvider.notifier);
-    final passImput = ref.watch(passwordSignUpProvider.notifier);
-    final isPasswordShown = ref.watch(obscurePasswordProvider);
+    final passRepeatImput =
+        ref.watch(passwordRepeatResetPasswordProvider.notifier);
     return Padding(
       padding: const EdgeInsets.only(
         left: 46,
@@ -66,26 +63,16 @@ class _PasswordSignUpImputWidgetState
         children: [
           CustomTextField(
             onChanged: (value) {
-              passImput.state = value;
+              passRepeatImput.state = value;
               return value;
             },
             isImputRight: isImputRight,
-            textInputAction: TextInputAction.done,
             focusNode: focusNode,
-            suffixIcon: IconButton(
-                onPressed: () {
-                  obscurePassword.state = !obscurePassword.state;
-                },
-                icon: Icon(
-                  isPasswordShown ? Icons.visibility : Icons.visibility_off,
-                  color: obscurePassword.state
-                      ? Theme.of(context).colorScheme.secondary
-                      : Theme.of(context).colorScheme.onSurface,
-                )),
-            controller: widget.passwordController,
-            obscureText: obscurePassword.state,
+            textInputAction: TextInputAction.done,
+            controller: widget.passwordRepeatController,
+            obscureText: true,
             keyboardType: TextInputType.visiblePassword,
-            labelText: 'Пароль',
+            labelText: 'Подтвердите пароль',
           ),
           !isImputRight
               ? Align(
@@ -111,11 +98,11 @@ class _PasswordSignUpImputWidgetState
                             child: SizedBox(
                               width: 73,
                               height:
-                                  MediaQuery.of(context).size.height * 0.028,
+                                  MediaQuery.of(context).size.height * 0.0285,
                               child: FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: Text(
-                                  'Менее 6-ти\nсимволов',
+                                  'Пароль не\nсовпадает',
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.inter(
                                       fontSize: 10,

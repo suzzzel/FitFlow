@@ -14,7 +14,6 @@ final passwordSignUpProvider = StateProvider<String>((ref) => '');
 final isValidpasswordSignUpProvider = StateProvider<bool>(
   (ref) {
     final password = ref.watch(passwordSignUpProvider);
-    log('password: $password');
     return password.isNotEmpty && password.length >= 6;
   },
 );
@@ -24,7 +23,6 @@ final isValidpasswordRepeatSignUpProvider = StateProvider<bool>(
   (ref) {
     final password = ref.watch(passwordSignUpProvider);
     final passwordRepeat = ref.watch(passwordRepeatSignUpProvider);
-    log('repeat: ${password == passwordRepeat}');
     return password == passwordRepeat;
   },
 );

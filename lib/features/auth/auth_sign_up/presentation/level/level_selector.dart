@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_level_provider.dart';
 import 'package:fitflow/features/auth/auth_sign_up/presentation/level/level_button_content.dart';
 import 'package:fitflow/features/auth/auth_sign_up/presentation/level/level_button_style.dart';
@@ -21,7 +19,6 @@ class _LevelSelectorState extends ConsumerState<LevelSelector> {
     void changeLevel(String newLevel) {
       setState(() {
         levelSelect.state = newLevel;
-        log(levelSelect.state);
       });
     }
 

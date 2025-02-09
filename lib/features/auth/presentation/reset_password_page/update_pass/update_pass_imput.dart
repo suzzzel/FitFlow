@@ -1,12 +1,12 @@
+import 'package:fitflow/features/auth/auth_reset_password/domain/providers/valid_new_pass.dart';
 import 'package:fitflow/features/auth/auth_sign_in/domain/providers/auth_sign_in_domain_provider.dart';
-import 'package:fitflow/features/auth/auth_sign_up/domain/providers/valid_sign_up_data.dart';
 import 'package:fitflow/features/auth/presentation/general/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PasswordSignUpImputWidget extends ConsumerStatefulWidget {
-  const PasswordSignUpImputWidget(
+class UpdatePassImput extends ConsumerStatefulWidget {
+  const UpdatePassImput(
       {super.key,
       required this.passwordController,
       required this.isValidPassword});
@@ -15,12 +15,10 @@ class PasswordSignUpImputWidget extends ConsumerStatefulWidget {
   final bool isValidPassword;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _PasswordSignUpImputWidgetState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _UpdatePassImput();
 }
 
-class _PasswordSignUpImputWidgetState
-    extends ConsumerState<PasswordSignUpImputWidget> {
+class _UpdatePassImput extends ConsumerState<UpdatePassImput> {
   bool isImputRight = true;
   FocusNode focusNode = FocusNode();
 
@@ -55,7 +53,7 @@ class _PasswordSignUpImputWidgetState
   @override
   Widget build(BuildContext context) {
     final obscurePassword = ref.watch(obscurePasswordProvider.notifier);
-    final passImput = ref.watch(passwordSignUpProvider.notifier);
+    final passImput = ref.watch(newPasswordResetPasswordProvider.notifier);
     final isPasswordShown = ref.watch(obscurePasswordProvider);
     return Padding(
       padding: const EdgeInsets.only(

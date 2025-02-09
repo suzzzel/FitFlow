@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fitflow/features/auth/auth_sign_in/domain/models/sign_in_state.dart';
 import 'package:fitflow/features/auth/auth_sign_in/domain/providers/valid_sign_in_data.dart';
 import 'package:fitflow/features/auth/auth_sign_in/presentation/controllers/sign_in_controller.dart';
@@ -28,13 +26,11 @@ class SignInButton extends ConsumerWidget {
       ),
       child: ElevatedButton(
           onPressed: stateSignIn.isLoading
-              ? () {
-                  log('no');
-                }
+              ? () {}
               : () async {
                   firtImput.state = true;
                   if (isButtonActive.state) {
-                    final response = await signIn.signInNEW(
+                    final response = await signIn.signIn(
                       emailOrName: emailOrName.state,
                       password: password.state,
                     );
@@ -46,8 +42,6 @@ class SignInButton extends ConsumerWidget {
                         showNetworkError(context);
                       case SignInState.notAuth:
                         firtImput.state = false;
-                        emailOrName.state = '';
-                        password.state = '';
                     }
                   } else {
                     firtImput.state = false;

@@ -1,7 +1,8 @@
+import 'package:fitflow/features/auth/auth_reset_password/domain/providers/valid_new_pass.dart';
 import 'package:fitflow/features/auth/auth_reset_password/presentation/next_step_after_enter_new_passoword.dart';
-import 'package:fitflow/features/auth/auth_sign_up/domain/providers/valid_sign_up_data.dart';
-import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/password_imput_widget.dart';
-import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/password_repeat_imput_widget.dart';
+import 'package:fitflow/features/auth/presentation/reset_password_page/update_pass/update_pass_imput.dart';
+import 'package:fitflow/features/auth/presentation/reset_password_page/update_pass/update_pass_repeat_imput.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -21,9 +22,10 @@ class _UpdatePassMainWidgetState extends ConsumerState<UpdatePassMainWidget> {
   final passwordRepeatController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final isValidPasswordProv = ref.watch(isValidpasswordSignUpProvider);
+    final isValidPasswordProv =
+        ref.watch(isValidNewPasswordResetPasswordProvider);
     final isValidPasswordRepeatProv =
-        ref.watch(isValidpasswordRepeatSignUpProvider);
+        ref.watch(isValidpasswordRepeatResetPasswordProvider);
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
@@ -55,13 +57,13 @@ class _UpdatePassMainWidgetState extends ConsumerState<UpdatePassMainWidget> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                PasswordSignUpImputWidget(
+                UpdatePassImput(
                     passwordController: passwordController,
                     isValidPassword: isValidPasswordProv),
                 const SizedBox(
                   height: 15,
                 ),
-                PasswordSignUpRepeatImputWidget(
+                UpdatePassRepeatImput(
                     isValidRepeatPassword: isValidPasswordRepeatProv,
                     passwordRepeatController: passwordRepeatController),
               ],

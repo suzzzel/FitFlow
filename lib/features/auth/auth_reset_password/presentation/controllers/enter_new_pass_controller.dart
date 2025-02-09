@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fitflow/features/auth/auth_reset_password/domain/providers/auth_reset_pass_domain_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -23,7 +21,6 @@ class UpdatePassController extends _$UpdatePassController {
       state = AsyncData(updatePassComplete);
       return updatePassComplete;
     } catch (e) {
-      log(e.runtimeType.toString());
       return false;
     }
   }

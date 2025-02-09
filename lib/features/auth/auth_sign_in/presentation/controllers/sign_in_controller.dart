@@ -14,7 +14,7 @@ class SignInControllerNEW extends _$SignInControllerNEW {
   @override
   FutureOr<void> build() {}
 
-  Future<SignInState> signInNEW(
+  Future<SignInState> signIn(
       {required String emailOrName, required String password}) async {
     final authRepo = ref.read(authSignInDomainProvider);
     state = const AsyncLoading();

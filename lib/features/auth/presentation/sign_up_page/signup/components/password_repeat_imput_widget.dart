@@ -89,9 +89,9 @@ class _PasswordSignUpRepeatImputWidgetState
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Spacer(),
+                          const Spacer(),
                           Padding(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                               top: 10,
                               bottom: 10,
                             ),

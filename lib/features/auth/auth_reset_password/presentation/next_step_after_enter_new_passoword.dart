@@ -1,14 +1,8 @@
-import 'dart:developer';
-
-import 'package:fitflow/features/auth/auth_reset_password/presentation/controllers/enter_code_to_reset_password_controller.dart';
+import 'package:fitflow/features/auth/auth_reset_password/domain/providers/valid_new_pass.dart';
 import 'package:fitflow/features/auth/auth_reset_password/presentation/controllers/enter_new_pass_controller.dart';
-import 'package:fitflow/features/auth/auth_reset_password/presentation/controllers/send_reset_pass_code_controller.dart';
-import 'package:fitflow/features/auth/auth_sign_up/domain/providers/valid_sign_up_data.dart';
-import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/snackbars/network_error.dart';
-import 'package:fitflow/navigation/router.dart';
+import 'package:fitflow/features/auth/presentation/reset_password_page/snackbars/not_correct_password_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NextStepAfterEnterNewPassoword extends ConsumerWidget {
@@ -18,9 +12,10 @@ class NextStepAfterEnterNewPassoword extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final passwordVaild = ref.watch(isValidpasswordSignUpProvider);
-    final passRepeatValid = ref.watch(isValidpasswordRepeatSignUpProvider);
-    final passImput = ref.watch(passwordSignUpProvider);
+    final passwordVaild = ref.watch(isValidNewPasswordResetPasswordProvider);
+    final passRepeatValid =
+        ref.watch(isValidpasswordRepeatResetPasswordProvider);
+    final passImput = ref.watch(newPasswordResetPasswordProvider);
     final state = ref.watch(updatePassControllerProvider);
     return Padding(
       padding: const EdgeInsets.only(
@@ -34,12 +29,11 @@ class NextStepAfterEnterNewPassoword extends ConsumerWidget {
                       .read(updatePassControllerProvider.notifier)
                       .updatePass(newPassword: passImput);
                   if (!valid) {
-                    showNetworkError(context);
+                    // ignore: use_build_context_synchronously
+                    showNotValidPasswordResetPasswordError(context);
                   }
                 }
-              : () {
-                  log('not valid');
-                },
+              : () {},
           style: ButtonStyle(
               fixedSize: WidgetStatePropertyAll(
                   Size(MediaQuery.of(context).size.width, 70)),

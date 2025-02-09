@@ -1,7 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+final _gitUrl = Uri.parse('https://github.com/suzzzel/FitFlow');
 
 class AboutCreateAccButton extends StatelessWidget {
   const AboutCreateAccButton({
@@ -19,8 +20,8 @@ class AboutCreateAccButton extends StatelessWidget {
             bottom: 58,
           ),
           child: InkWell(
-            onTap: () {
-              log('message');
+            onTap: () async {
+              await launchUrl(_gitUrl);
             },
             child: SizedBox(
               child: FittedBox(

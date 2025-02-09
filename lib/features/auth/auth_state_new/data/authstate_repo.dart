@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:fitflow/features/auth/auth_state_new/domain/models/app_user.dart';
 import 'package:fitflow/features/auth/auth_state_new/domain/models/app_user_state.dart';
 import 'package:fitflow/features/general_providers/supabase_provider.dart';
@@ -19,7 +17,6 @@ Stream<AppUserState> authState(Ref ref) {
   final authSubscription = supabaseClient.auth.onAuthStateChange.listen(
     (data) async {
       final Session? session = data.session;
-      log(data.event.toString());
       if (session != null) {
         if (data.event != AuthChangeEvent.passwordRecovery) {
           if (data.event != AuthChangeEvent.initialSession) {
@@ -54,7 +51,6 @@ Stream<AppUserState> authState(Ref ref) {
   );
 
   streamController.onCancel = () {
-    log('cancel');
     authSubscription.cancel();
   };
   return streamController.stream;

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/reg_user_provider.dart';
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_weight_age_provider.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +27,6 @@ class NextStepAfterWeightAgeSelectButton extends ConsumerWidget {
                   weightOrAge
                       ? ref.read(regUserProvider.notifier).addWeight(prov)
                       : ref.read(regUserProvider.notifier).addAge(prov);
-                  log(ref.read(regUserProvider).toString());
                   context.goNamed(weightOrAge ? 'height' : 'goal');
                 },
           style: ButtonStyle(

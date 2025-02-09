@@ -1,8 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
-
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'package:fitflow/features/auth/auth_reset_password/data/repo/auth_reset_pass_repo_impl.dart';
 
 class AuthResetPassRepo implements AuthResetPassRepoImpl {
@@ -27,7 +23,6 @@ class AuthResetPassRepo implements AuthResetPassRepoImpl {
     try {
       await supabase.auth
           .verifyOTP(type: OtpType.recovery, email: email, token: recoveryCode);
-      // await supabase.auth.updateUser(UserAttributes(password: newPassword));
       return true;
     } catch (e) {
       return false;

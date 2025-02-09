@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/reg_user_provider.dart';
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/valid_sign_up_data.dart';
 import 'package:fitflow/features/auth/auth_sign_up/presentation/controllers/sign_up_controller.dart';
@@ -33,14 +31,16 @@ class SignUpButton extends ConsumerWidget {
                 userNotif.addName(name.state);
                 final response = await ref
                     .read(signUpControllerProvider.notifier)
-                    .signUpNEW(
+                    .signUp(
                         email: email.state,
                         password: password.state,
                         user: ref.read(regUserProvider));
                 if (response != null) {
                   if (!response) {
+                    // ignore: use_build_context_synchronously
                     showUserAlreadyExist(context);
                   } else {
+                    // ignore: use_build_context_synchronously
                     showNetworkError(context);
                   }
                 }

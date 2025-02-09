@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:fitflow/features/auth/auth_reset_password/domain/providers/valid_email_provider.dart';
 import 'package:fitflow/features/auth/auth_reset_password/presentation/controllers/send_reset_pass_code_controller.dart';
+import 'package:fitflow/features/auth/presentation/reset_password_page/snackbars/network_error_reset_pass_snacknar.dart';
 import 'package:fitflow/features/auth/presentation/reset_password_page/snackbars/not_correct_email_reset_pass_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -34,7 +33,8 @@ class NextStepAfterSendRecoveryCodeButton extends ConsumerWidget {
                     // ignore: use_build_context_synchronously
                     context.goNamed('enterrecoverycode', extra: emailImput);
                   } else {
-                    log('error');
+                    // ignore: use_build_context_synchronously
+                    showNetworkErrorResetPass(context);
                   }
                 }
               : () {
