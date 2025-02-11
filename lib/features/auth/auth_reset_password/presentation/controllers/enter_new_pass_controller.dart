@@ -1,3 +1,4 @@
+import 'package:fitflow/features/auth/auth_reset_password/domain/models/reset_pass_enums.dart';
 import 'package:fitflow/features/auth/auth_reset_password/domain/providers/auth_reset_pass_domain_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -10,7 +11,7 @@ class UpdatePassController extends _$UpdatePassController {
     return null;
   }
 
-  Future<bool> updatePass({
+  Future<UpdatePasswordStatus> updatePass({
     required String newPassword,
   }) async {
     final authResetRepo = ref.watch(authResetPasswordDomainProvider);
@@ -18,10 +19,16 @@ class UpdatePassController extends _$UpdatePassController {
     try {
       final updatePassComplete =
           await authResetRepo.updatePassword(newPassword: newPassword);
-      state = AsyncData(updatePassComplete);
+      if (updatePassComplete == UpdatePasswordStatus.sucess) {
+        state = const AsyncData(true);
+      } else {
+        updatePassComplete == UpdatePasswordStatus.networkError
+            ? state = const AsyncData(null)
+            : state = const AsyncData(false);
+      }
       return updatePassComplete;
     } catch (e) {
-      return false;
+      return UpdatePasswordStatus.failure;
     }
   }
 }

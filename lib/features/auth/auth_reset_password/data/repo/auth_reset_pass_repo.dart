@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:fitflow/features/auth/auth_reset_password/domain/models/reset_pass_enums.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:fitflow/features/auth/auth_reset_password/data/repo/auth_reset_pass_repo_impl.dart';
 
@@ -8,7 +11,7 @@ class AuthResetPassRepo implements AuthResetPassRepoImpl {
   });
 
   @override
-  Future<bool> resetPassword({required String email}) async {
+  Future<bool> sendRecoveryCode({required String email}) async {
     try {
       await supabase.auth.resetPasswordForEmail(email);
       return true;
@@ -18,24 +21,33 @@ class AuthResetPassRepo implements AuthResetPassRepoImpl {
   }
 
   @override
-  Future<bool> enterRecoveryCode(
+  Future<EnterRecoveryCodeStatus> enterRecoveryCode(
       {required String email, required String recoveryCode}) async {
     try {
       await supabase.auth
           .verifyOTP(type: OtpType.recovery, email: email, token: recoveryCode);
-      return true;
-    } catch (e) {
-      return false;
+      return EnterRecoveryCodeStatus.success;
+    } on AuthException catch (error) {
+      if (error.statusCode == null) {
+        return EnterRecoveryCodeStatus.networkError;
+      } else {
+        return EnterRecoveryCodeStatus.failure;
+      }
     }
   }
 
   @override
-  Future<bool> updatePassword({required String newPassword}) async {
+  Future<UpdatePasswordStatus> updatePassword(
+      {required String newPassword}) async {
     try {
       await supabase.auth.updateUser(UserAttributes(password: newPassword));
-      return true;
+      return UpdatePasswordStatus.sucess;
     } catch (e) {
-      return false;
+      if (e.runtimeType == AuthRetryableFetchException) {
+        return UpdatePasswordStatus.networkError;
+      } else {
+        return UpdatePasswordStatus.failure;
+      }
     }
   }
 }

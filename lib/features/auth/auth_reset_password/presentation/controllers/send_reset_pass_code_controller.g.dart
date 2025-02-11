@@ -7,7 +7,7 @@ part of 'send_reset_pass_code_controller.dart';
 // **************************************************************************
 
 String _$sendResetPassCodeControllerHash() =>
-    r'4405e11b28ec269381aa5597b5e244a85cfd65e3';
+    r'ccb2ee6f2d9d238de017183c35d3ac612b47b649';
 
 /// See also [SendResetPassCodeController].
 @ProviderFor(SendResetPassCodeController)

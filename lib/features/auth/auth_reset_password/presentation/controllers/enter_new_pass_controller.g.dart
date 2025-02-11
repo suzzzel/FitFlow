@@ -7,7 +7,7 @@ part of 'enter_new_pass_controller.dart';
 // **************************************************************************
 
 String _$updatePassControllerHash() =>
-    r'3ede9a5fe3d0c5575e145cdd491c19e929651be4';
+    r'f790057ff1d958f5831bc107cab624c40c3a8dd7';
 
 /// See also [UpdatePassController].
 @ProviderFor(UpdatePassController)

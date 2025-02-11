@@ -1,3 +1,4 @@
+import 'package:fitflow/features/auth/auth_reset_password/domain/models/reset_pass_enums.dart';
 import 'package:fitflow/features/auth/auth_reset_password/domain/providers/auth_reset_pass_domain_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -11,17 +12,24 @@ class EnterCodeToResetPasswordController
     return null;
   }
 
-  Future<bool> enterCode({required String code, required String email}) async {
+  Future<EnterRecoveryCodeStatus> enterCode(
+      {required String code, required String email}) async {
     final authResetRepo = ref.watch(authResetPasswordDomainProvider);
-
     state = const AsyncValue.loading();
     try {
       final enterCodeOk = await AsyncValue.guard(() =>
           authResetRepo.enterRecoveryCode(email: email, recoveryCode: code));
-      state = enterCodeOk;
+      if (enterCodeOk.value == EnterRecoveryCodeStatus.success) {
+        state = const AsyncData(true);
+      } else {
+        enterCodeOk.value == EnterRecoveryCodeStatus.networkError
+            ? state = const AsyncData(null)
+            : state = const AsyncData(false);
+      }
       return enterCodeOk.value!;
     } catch (e) {
-      return false;
+      state = const AsyncData(true);
+      return EnterRecoveryCodeStatus.failure;
     }
   }
 
