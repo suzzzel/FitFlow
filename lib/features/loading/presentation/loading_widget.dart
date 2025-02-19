@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({super.key});
@@ -7,29 +6,49 @@ class LoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              'assets/logo/logo.png',
-              width: 150,
-              height: 150,
+      body: Stack(
+        children: [
+          Image.asset(
+            'assets/auth/background.png',
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            fit: BoxFit.cover,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 165,
             ),
-            const SizedBox(
-              height: 50,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(22),
+                    color: Theme.of(context).colorScheme.secondary,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).colorScheme.secondary,
+                        blurRadius: 50,
+                      ),
+                    ]),
+                child: Image.asset(
+                  'assets/logo/logo.png',
+                  width: 200,
+                  height: 200,
+                ),
+              ),
             ),
-            CircularProgressIndicator(
-                color: Theme.of(context).colorScheme.secondary),
-            const SizedBox(
-              height: 50,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 35),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.onSecondary,
+                strokeWidth: 1,
+              ),
             ),
-            Text(
-              'Отложите все отговорки и помните: вы способны.',
-              style: GoogleFonts.inter(),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

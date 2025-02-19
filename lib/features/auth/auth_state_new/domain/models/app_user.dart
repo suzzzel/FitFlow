@@ -1,10 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, non_constant_identifier_names, duplicate_ignore
 import 'dart:convert';
 
 class AppUser {
-  final int id;
+  final int? id;
   // ignore: non_constant_identifier_names
-  final DateTime? created_at;
+  final String? created_at;
   final String? name;
   final int? age;
   final String? email;
@@ -13,8 +13,9 @@ class AppUser {
   final int? height;
   final int? weight;
   final String? level;
+  final bool? offlineMode;
   AppUser({
-    required this.id,
+    this.id,
     // ignore: non_constant_identifier_names
     this.created_at,
     this.name,
@@ -22,6 +23,7 @@ class AppUser {
     this.email,
     this.goal,
     this.sex,
+    this.offlineMode,
     this.height,
     this.weight,
     this.level,
@@ -35,7 +37,7 @@ class AppUser {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'created_at': created_at?.millisecondsSinceEpoch,
+      'created_at': created_at,
       'name': name,
       'age': age,
       'email': email,
@@ -50,7 +52,7 @@ class AppUser {
   factory AppUser.fromMap(Map<String, dynamic> map) {
     return AppUser(
       id: map['id'] as int,
-      created_at: DateTime.parse(map['created_at']),
+      created_at: DateTime.parse(map['created_at']).toString(),
       name: map['name'] != null ? map['name'] as String : null,
       age: map['age'] != null ? map['age'] as int : null,
       email: map['email'] != null ? map['email'] as String : null,
@@ -66,4 +68,32 @@ class AppUser {
 
   factory AppUser.fromJson(String source) =>
       AppUser.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  AppUser copyWith({
+    int? id,
+    String? created_at,
+    String? name,
+    int? age,
+    String? email,
+    String? goal,
+    bool? sex,
+    int? height,
+    int? weight,
+    String? level,
+    bool? offlineMode,
+  }) {
+    return AppUser(
+      id: id ?? this.id,
+      created_at: created_at ?? this.created_at,
+      name: name ?? this.name,
+      age: age ?? this.age,
+      email: email ?? this.email,
+      goal: goal ?? this.goal,
+      sex: sex ?? this.sex,
+      offlineMode: offlineMode ?? this.offlineMode,
+      height: height ?? this.height,
+      weight: weight ?? this.weight,
+      level: level ?? this.level,
+    );
+  }
 }
