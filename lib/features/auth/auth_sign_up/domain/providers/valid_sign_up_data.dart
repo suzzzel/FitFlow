@@ -2,24 +2,25 @@ import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final emailSignUpProvider = StateProvider<String>((ref) => '');
-final isValidEmailSignUpProvider = StateProvider<bool>((ref) {
+final emailSignUpProvider = StateProvider.autoDispose<String>((ref) => '');
+final isValidEmailSignUpProvider = StateProvider.autoDispose<bool>((ref) {
   final email = ref.watch(emailSignUpProvider);
   return email.isNotEmpty &&
       RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
           .hasMatch(email);
 });
 
-final passwordSignUpProvider = StateProvider<String>((ref) => '');
-final isValidpasswordSignUpProvider = StateProvider<bool>(
+final passwordSignUpProvider = StateProvider.autoDispose<String>((ref) => '');
+final isValidpasswordSignUpProvider = StateProvider.autoDispose<bool>(
   (ref) {
     final password = ref.watch(passwordSignUpProvider);
     return password.isNotEmpty && password.length >= 6;
   },
 );
 
-final passwordRepeatSignUpProvider = StateProvider<String>((ref) => '');
-final isValidpasswordRepeatSignUpProvider = StateProvider<bool>(
+final passwordRepeatSignUpProvider =
+    StateProvider.autoDispose<String>((ref) => '');
+final isValidpasswordRepeatSignUpProvider = StateProvider.autoDispose<bool>(
   (ref) {
     final password = ref.watch(passwordSignUpProvider);
     final passwordRepeat = ref.watch(passwordRepeatSignUpProvider);
@@ -27,9 +28,9 @@ final isValidpasswordRepeatSignUpProvider = StateProvider<bool>(
   },
 );
 
-final nameSignUpProvider = StateProvider<String>((ref) => '');
+final nameSignUpProvider = StateProvider.autoDispose<String>((ref) => '');
 
-final isValidnameSignUpProvider = StateProvider<bool>((ref) {
+final isValidnameSignUpProvider = StateProvider.autoDispose<bool>((ref) {
   final name = ref.watch(nameSignUpProvider);
   log('name: $name');
   return name.isNotEmpty && name.length >= 3;

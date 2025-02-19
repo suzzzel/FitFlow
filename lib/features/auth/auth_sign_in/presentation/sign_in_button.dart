@@ -37,6 +37,8 @@ class SignInButton extends ConsumerWidget {
                     switch (response) {
                       case SignInState.auth:
                         isButtonActive.state = false;
+                        password.state = '';
+                        emailOrName.state = '';
                       case SignInState.networkError:
                         // ignore: use_build_context_synchronously
                         showNetworkError(context);
