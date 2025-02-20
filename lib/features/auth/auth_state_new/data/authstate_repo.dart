@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:fitflow/features/auth/auth_state_new/domain/models/app_user.dart';
 import 'package:fitflow/features/auth/auth_state_new/domain/models/app_user_state.dart';
-import 'package:fitflow/features/db/app_database.dart';
+import 'package:fitflow/features/general_providers/drift_app_database_provider.dart';
 import 'package:fitflow/features/general_providers/supabase_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -16,7 +16,9 @@ Stream<AppUserState> authState(Ref ref) {
   final streamController = StreamController<AppUserState>();
   final supabaseClient = ref.watch(supabaseProvider);
   const localSecureStorage = FlutterSecureStorage();
-  final localDB = AppDatabase().managers;
+  final localDB = ref.watch(localDatabaseProvider);
+  final localDBManager = localDB.managers;
+
   final authSubscription = supabaseClient.auth.onAuthStateChange.listen(
     (data) async {
       final Session? session = data.session;
@@ -35,8 +37,8 @@ Stream<AppUserState> authState(Ref ref) {
             if (userData != null) {
               final user = AppUser.fromMap(userData);
               localSecureStorage.write(key: 'name', value: user.name);
-              localDB.userInfoTable.delete();
-              localDB.userInfoTable.create((value) => value(
+              localDBManager.userInfoTable.delete();
+              localDBManager.userInfoTable.create((value) => value(
                   id: user.id!,
                   createdAt: user.created_at!,
                   name: user.name!,
@@ -47,17 +49,21 @@ Stream<AppUserState> authState(Ref ref) {
                   height: user.height!,
                   weight: user.weight!,
                   level: user.level!));
-              final print2 = await localDB.userInfoTable.get();
+              final print2 = await localDBManager.userInfoTable.get();
+              final print3 = await localDBManager.quotesTable.get();
               log(print2.single.toString());
+              log(print3.toString());
               streamController.add(AppUserState.auth(user));
             } else {
               streamController.add(const AppUserState.unauth());
             }
           } catch (e) {
+            log(e.runtimeType.toString());
             String? name = await localSecureStorage.read(key: 'name');
             if (name != null) {
               try {
-                final AppUser offlineUserMode = await localDB.userInfoTable
+                final AppUser offlineUserMode = await localDBManager
+                    .userInfoTable
                     .get()
                     .then((user) => AppUser(
                         id: user.single.id,
