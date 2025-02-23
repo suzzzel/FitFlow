@@ -1,5 +1,5 @@
-import 'package:fitflow/features/home/data/providers/home_quotes_data_provider.dart';
-import 'package:fitflow/features/home/domain/repo/home_qooets_repo.dart';
+import 'package:fitflow/features/home/home_main_screen/data/providers/home_quotes_data_provider.dart';
+import 'package:fitflow/features/home/home_main_screen/domain/repo/home_qooets_repo.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'home_quotes_domain_provider.g.dart';

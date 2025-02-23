@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/reg_user_provider.dart';
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_height_provider.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,7 @@ class NextStepAfterHeightSelectButton extends ConsumerWidget {
               ? null
               : () {
                   ref.read(regUserProvider.notifier).addHeight(prov);
+                  log(prov.toString());
                   context.goNamed('age');
                 },
           style: ButtonStyle(

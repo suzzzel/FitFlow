@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_height_provider.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +20,6 @@ class _AgeSelectorState extends ConsumerState<HeightSelector> {
   @override
   void initState() {
     currentIndex = 50;
-
     super.initState();
   }
 
@@ -33,10 +34,9 @@ class _AgeSelectorState extends ConsumerState<HeightSelector> {
             items: List<Widget>.generate(100, (int index) {
               return Center(
                 child: SizedBox(
-                    width: heightMainProv.state == index
+                    width: currentIndex == index
                         ? MediaQuery.of(context).size.height * 0.175
-                        : index == heightMainProv.state - 1 ||
-                                index == heightMainProv.state + 1
+                        : index == currentIndex - 1 || index == currentIndex + 1
                             ? MediaQuery.of(context).size.height * 0.15
                             : MediaQuery.of(context).size.height * 0.12,
                     child: FittedBox(
@@ -47,16 +47,16 @@ class _AgeSelectorState extends ConsumerState<HeightSelector> {
                         textScaler: const TextScaler.linear(1),
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500,
-                            fontSize: heightMainProv.state == index
+                            fontSize: currentIndex == index
                                 ? 80
-                                : index == heightMainProv.state - 1 ||
-                                        index == heightMainProv.state + 1
+                                : index == currentIndex - 1 ||
+                                        index == currentIndex + 1
                                     ? 70
                                     : 60,
-                            color: heightMainProv.state == index
+                            color: currentIndex == index
                                 ? Theme.of(context).colorScheme.secondary
-                                : index == heightMainProv.state - 1 ||
-                                        index == heightMainProv.state + 1
+                                : index == currentIndex - 1 ||
+                                        index == currentIndex + 1
                                     ? Theme.of(context)
                                         .colorScheme
                                         .onPrimary
@@ -73,11 +73,13 @@ class _AgeSelectorState extends ConsumerState<HeightSelector> {
               viewportFraction: 0.2,
               pageSnapping: false,
               scrollDirection: Axis.vertical,
-              initialPage: heightMainProv.state,
+              initialPage: currentIndex,
               onPageChanged: (index, reason) {
                 setState(() {
-                  currentIndex = index + heightCorrection;
-                  heightMainProv.state = index;
+                  currentIndex = index;
+                  heightMainProv.state = index + heightCorrection;
+                  log(currentIndex.toString());
+                  log(heightMainProv.state.toString());
                 });
               },
             )),

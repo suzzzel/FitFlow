@@ -2,7 +2,7 @@
 import 'dart:math';
 
 import 'package:fitflow/features/db/app_database.dart';
-import 'package:fitflow/features/home/data/repo/home_quotes_repo_impl.dart';
+import 'package:fitflow/features/home/home_main_screen/data/repo/home_quotes_repo_impl.dart';
 
 class HomeQuotesRepo implements HomeQuotesRepoImpl {
   final AppDatabase database;

@@ -13,8 +13,9 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sig
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/select_weight_main_widget.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:fitflow/features/auth/presentation/auth_main_widget.dart';
-import 'package:fitflow/features/home/presentation/home_main_widget.dart';
+import 'package:fitflow/features/home/presentation/home_main_screen/home_main_widget.dart';
 import 'package:fitflow/features/loading/presentation/loading_widget.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -156,12 +157,34 @@ GoRouter router(Ref ref) {
         ],
       ),
       GoRoute(
-        path: RouterPath.HOME,
-        name: RouterPath.HOME,
-        builder: (context, state) {
-          return const HomeMainWidget();
-        },
-      ),
+          path: RouterPath.HOME,
+          name: RouterPath.HOME,
+          builder: (context, state) {
+            return const HomeMainWidget();
+          },
+          routes: [
+            GoRoute(
+              path: RouterPath.UPDATEAGE,
+              name: RouterPath.UPDATEAGE,
+              builder: (context, state) {
+                return Scaffold();
+              },
+            ),
+            GoRoute(
+              path: RouterPath.UPDATEHEIGHT,
+              name: RouterPath.UPDATEHEIGHT,
+              builder: (context, state) {
+                return Scaffold();
+              },
+            ),
+            GoRoute(
+              path: RouterPath.UPDATEWEIGHT,
+              name: RouterPath.UPDATEWEIGHT,
+              builder: (context, state) {
+                return Scaffold();
+              },
+            )
+          ]),
       GoRoute(
         path: RouterPath.LOADING,
         name: RouterPath.LOADING,

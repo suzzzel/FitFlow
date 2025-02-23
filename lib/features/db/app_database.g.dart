@@ -11,9 +11,9 @@ class $UserInfoTableTable extends UserInfoTable
   $UserInfoTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _createdAtMeta =
       const VerificationMeta('createdAt');
   @override
@@ -145,7 +145,7 @@ class $UserInfoTableTable extends UserInfoTable
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return UserInfoTableData(
       id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       createdAt: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}created_at'])!,
       name: attachedDatabase.typeMapping
@@ -175,7 +175,7 @@ class $UserInfoTableTable extends UserInfoTable
 
 class UserInfoTableData extends DataClass
     implements Insertable<UserInfoTableData> {
-  final int id;
+  final String id;
   final String createdAt;
   final String name;
   final int age;
@@ -199,7 +199,7 @@ class UserInfoTableData extends DataClass
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    map['id'] = Variable<String>(id);
     map['created_at'] = Variable<String>(createdAt);
     map['name'] = Variable<String>(name);
     map['age'] = Variable<int>(age);
@@ -231,7 +231,7 @@ class UserInfoTableData extends DataClass
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return UserInfoTableData(
-      id: serializer.fromJson<int>(json['id']),
+      id: serializer.fromJson<String>(json['id']),
       createdAt: serializer.fromJson<String>(json['createdAt']),
       name: serializer.fromJson<String>(json['name']),
       age: serializer.fromJson<int>(json['age']),
@@ -247,7 +247,7 @@ class UserInfoTableData extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'id': serializer.toJson<String>(id),
       'createdAt': serializer.toJson<String>(createdAt),
       'name': serializer.toJson<String>(name),
       'age': serializer.toJson<int>(age),
@@ -261,7 +261,7 @@ class UserInfoTableData extends DataClass
   }
 
   UserInfoTableData copyWith(
-          {int? id,
+          {String? id,
           String? createdAt,
           String? name,
           int? age,
@@ -335,7 +335,7 @@ class UserInfoTableData extends DataClass
 }
 
 class UserInfoTableCompanion extends UpdateCompanion<UserInfoTableData> {
-  final Value<int> id;
+  final Value<String> id;
   final Value<String> createdAt;
   final Value<String> name;
   final Value<int> age;
@@ -360,7 +360,7 @@ class UserInfoTableCompanion extends UpdateCompanion<UserInfoTableData> {
     this.rowid = const Value.absent(),
   });
   UserInfoTableCompanion.insert({
-    required int id,
+    required String id,
     required String createdAt,
     required String name,
     required int age,
@@ -382,7 +382,7 @@ class UserInfoTableCompanion extends UpdateCompanion<UserInfoTableData> {
         weight = Value(weight),
         level = Value(level);
   static Insertable<UserInfoTableData> custom({
-    Expression<int>? id,
+    Expression<String>? id,
     Expression<String>? createdAt,
     Expression<String>? name,
     Expression<int>? age,
@@ -410,7 +410,7 @@ class UserInfoTableCompanion extends UpdateCompanion<UserInfoTableData> {
   }
 
   UserInfoTableCompanion copyWith(
-      {Value<int>? id,
+      {Value<String>? id,
       Value<String>? createdAt,
       Value<String>? name,
       Value<int>? age,
@@ -440,7 +440,7 @@ class UserInfoTableCompanion extends UpdateCompanion<UserInfoTableData> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<int>(id.value);
+      map['id'] = Variable<String>(id.value);
     }
     if (createdAt.present) {
       map['created_at'] = Variable<String>(createdAt.value);
@@ -729,7 +729,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
 
 typedef $$UserInfoTableTableCreateCompanionBuilder = UserInfoTableCompanion
     Function({
-  required int id,
+  required String id,
   required String createdAt,
   required String name,
   required int age,
@@ -743,7 +743,7 @@ typedef $$UserInfoTableTableCreateCompanionBuilder = UserInfoTableCompanion
 });
 typedef $$UserInfoTableTableUpdateCompanionBuilder = UserInfoTableCompanion
     Function({
-  Value<int> id,
+  Value<String> id,
   Value<String> createdAt,
   Value<String> name,
   Value<int> age,
@@ -765,7 +765,7 @@ class $$UserInfoTableTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(
+  ColumnFilters<String> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get createdAt => $composableBuilder(
@@ -805,7 +805,7 @@ class $$UserInfoTableTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(
+  ColumnOrderings<String> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get createdAt => $composableBuilder(
@@ -845,7 +845,7 @@ class $$UserInfoTableTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id =>
+  GeneratedColumn<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
   GeneratedColumn<String> get createdAt =>
@@ -902,7 +902,7 @@ class $$UserInfoTableTableTableManager extends RootTableManager<
           createComputedFieldComposer: () =>
               $$UserInfoTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
+            Value<String> id = const Value.absent(),
             Value<String> createdAt = const Value.absent(),
             Value<String> name = const Value.absent(),
             Value<int> age = const Value.absent(),
@@ -928,7 +928,7 @@ class $$UserInfoTableTableTableManager extends RootTableManager<
             rowid: rowid,
           ),
           createCompanionCallback: ({
-            required int id,
+            required String id,
             required String createdAt,
             required String name,
             required int age,

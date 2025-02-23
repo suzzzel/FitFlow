@@ -30,7 +30,7 @@ Stream<AppUserState> authState(Ref ref) {
           streamController.add(const AppUserState.unknown());
           try {
             final userData = await supabaseClient
-                .from('users')
+                .from('app_users')
                 .select()
                 .eq('email', session.user.email!)
                 .maybeSingle();
