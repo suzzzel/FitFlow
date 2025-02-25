@@ -11,6 +11,7 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sig
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/height/select_height_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/level/select_level_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/select_weight_main_widget.dart';
+import 'package:fitflow/features/home/presentation/age_changer/select_age_main_home_widget.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:fitflow/features/auth/presentation/auth_main_widget.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/home_main_widget.dart';
@@ -167,7 +168,7 @@ GoRouter router(Ref ref) {
               path: RouterPath.UPDATEAGE,
               name: RouterPath.UPDATEAGE,
               builder: (context, state) {
-                return Scaffold();
+                return const SelectAgeMainHomeWidget();
               },
             ),
             GoRoute(
