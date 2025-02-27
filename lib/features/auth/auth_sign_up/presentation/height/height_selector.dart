@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_height_provider.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HeightSelector extends ConsumerStatefulWidget {
-  const HeightSelector({super.key});
+  final int? initialChange;
+  const HeightSelector({super.key, this.initialChange});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _AgeSelectorState();
@@ -19,7 +18,9 @@ class _AgeSelectorState extends ConsumerState<HeightSelector> {
 
   @override
   void initState() {
-    currentIndex = 50;
+    currentIndex = widget.initialChange == null
+        ? 50
+        : widget.initialChange! - heightCorrection;
     super.initState();
   }
 
@@ -78,8 +79,6 @@ class _AgeSelectorState extends ConsumerState<HeightSelector> {
                 setState(() {
                   currentIndex = index;
                   heightMainProv.state = index + heightCorrection;
-                  log(currentIndex.toString());
-                  log(heightMainProv.state.toString());
                 });
               },
             )),

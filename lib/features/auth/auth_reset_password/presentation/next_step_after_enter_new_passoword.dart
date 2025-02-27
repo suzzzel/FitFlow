@@ -40,7 +40,7 @@ class NextStepAfterEnterNewPassoword extends ConsumerWidget {
                       break;
                     case UpdatePasswordStatus.networkError:
                       // ignore: use_build_context_synchronously
-                      showNetworkErrorResetPass(context);
+                      showNetworkError(context);
                     case UpdatePasswordStatus.failure:
                       // ignore: use_build_context_synchronously
                       showNotValidPasswordResetPasswordError(context);

@@ -34,7 +34,7 @@ class NextStepAfterSendRecoveryCodeButton extends ConsumerWidget {
                     context.goNamed('enterrecoverycode', extra: emailImput);
                   } else {
                     // ignore: use_build_context_synchronously
-                    showNetworkErrorResetPass(context);
+                    showNetworkError(context);
                   }
                 }
               : () {

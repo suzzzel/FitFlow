@@ -7,10 +7,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WeightAgeSelector extends ConsumerStatefulWidget {
+  final int? initialChange;
   final bool gender;
   final bool weightOrAge;
   const WeightAgeSelector(
-      {super.key, required this.weightOrAge, required this.gender});
+      {super.key,
+      required this.weightOrAge,
+      required this.gender,
+      this.initialChange});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -26,9 +30,11 @@ class _WeightHeightSelectorState extends ConsumerState<WeightAgeSelector> {
 
   @override
   void initState() {
-    currentIndex = widget.weightOrAge
-        ? weightCount ~/ (widget.gender ? 5 : 9)
-        : ageCount ~/ 4;
+    currentIndex = widget.initialChange == null
+        ? widget.weightOrAge
+            ? weightCount ~/ (widget.gender ? 5 : 9)
+            : ageCount ~/ 4
+        : widget.initialChange!;
     super.initState();
   }
 
@@ -83,9 +89,11 @@ class _WeightHeightSelectorState extends ConsumerState<WeightAgeSelector> {
             options: CarouselOptions(
               viewportFraction: 0.3,
               pageSnapping: false,
-              initialPage: widget.weightOrAge
-                  ? weightCount ~/ (widget.gender ? 5 : 9)
-                  : ageCount ~/ 4,
+              initialPage: widget.initialChange == null
+                  ? widget.weightOrAge
+                      ? weightCount ~/ (widget.gender ? 5 : 9)
+                      : ageCount ~/ 4
+                  : widget.initialChange!,
               onPageChanged: (index, reason) {
                 setState(() {
                   currentIndex = index;

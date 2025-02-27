@@ -1,7 +1,7 @@
 import 'package:fitflow/features/auth/auth_sign_in/domain/models/sign_in_state.dart';
 import 'package:fitflow/features/auth/auth_sign_in/domain/providers/valid_sign_in_data.dart';
 import 'package:fitflow/features/auth/auth_sign_in/presentation/controllers/sign_in_controller.dart';
-import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/snackbars/network_error.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/snackbars/network_error_sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,7 +41,7 @@ class SignInButton extends ConsumerWidget {
                         emailOrName.state = '';
                       case SignInState.networkError:
                         // ignore: use_build_context_synchronously
-                        showNetworkError(context);
+                        showNetworkErrorSignUp(context);
                       case SignInState.notAuth:
                         firtImput.state = false;
                     }

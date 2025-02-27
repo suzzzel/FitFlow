@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-ScaffoldFeatureController showNetworkError(BuildContext context) {
+ScaffoldFeatureController showNetworkErrorSignUp(BuildContext context) {
   return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Container(
       height: 30,

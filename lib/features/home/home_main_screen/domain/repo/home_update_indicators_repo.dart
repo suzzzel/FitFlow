@@ -13,14 +13,12 @@ class HomeUpdateIndicatorsRepoDomain implements HomeUpdateIndicatorsDomainImpl {
   }
 
   @override
-  Future<bool> updateHeight({required int newHeight}) {
-    // TODO: implement updateHeight
-    throw UnimplementedError();
+  Future<bool> updateHeight({required int newHeight}) async {
+    return await homeUpdateIndicatorsRepo.updateHeight(newHeight);
   }
 
   @override
-  Future<bool> updateWeight({required int newWeight}) {
-    // TODO: implement updateWeight
-    throw UnimplementedError();
+  Future<bool> updateWeight({required int newWeight}) async {
+    return await homeUpdateIndicatorsRepo.updateWeight(newWeight);
   }
 }

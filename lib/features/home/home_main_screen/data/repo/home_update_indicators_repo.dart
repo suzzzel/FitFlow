@@ -28,14 +28,30 @@ class HomeUpdateIndicatorsRepoData implements HomeUpdateIndicatorsImpl {
   }
 
   @override
-  Future<bool> updateHeight(int newHeight) {
-    // TODO: implement updateHeight
-    throw UnimplementedError();
+  Future<bool> updateHeight(int newHeight) async {
+    try {
+      await supabase.from('app_users').update({'height': newHeight}).eq(
+          'email', supabase.auth.currentUser!.email!);
+      await database.managers.userInfoTable
+          .update((o) => o(age: Value(newHeight)));
+      await supabase.auth.refreshSession();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   @override
-  Future<bool> updateWeight(int newWeight) {
-    // TODO: implement updateWeight
-    throw UnimplementedError();
+  Future<bool> updateWeight(int newWeight) async {
+    try {
+      await supabase.from('app_users').update({'weight': newWeight}).eq(
+          'email', supabase.auth.currentUser!.email!);
+      await database.managers.userInfoTable
+          .update((o) => o(age: Value(newWeight)));
+      await supabase.auth.refreshSession();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

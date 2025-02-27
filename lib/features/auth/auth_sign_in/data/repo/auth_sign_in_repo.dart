@@ -13,14 +13,14 @@ class AuthSignInRepo implements AuthSignInRepoImpl {
   Future<SignInState> signIn(
       {required String emailOrName, required String password}) async {
     var isUserTypeMail = await supabase
-        .from('users')
+        .from('app_users')
         .select()
         .eq('email', emailOrName)
         .catchError(() {
       return SignInState.networkError;
     });
     var isUserTypeName =
-        await supabase.from('users').select().eq('name', emailOrName);
+        await supabase.from('app_users').select().eq('name', emailOrName);
     if (isUserTypeMail.isNotEmpty) {
       try {
         await supabase.auth
@@ -34,6 +34,12 @@ class AuthSignInRepo implements AuthSignInRepoImpl {
         await supabase.auth.signInWithPassword(
             password: password, email: isUserTypeName.first['email']);
         return SignInState.auth;
+      } on AuthApiException catch (error) {
+        if (error.code == 'invalid_credentials') {
+          return SignInState.notAuth;
+        } else {
+          return SignInState.networkError;
+        }
       } catch (e) {
         return SignInState.networkError;
       }

@@ -25,7 +25,36 @@ class HomeMainWidget extends ConsumerWidget {
             padding: const EdgeInsets.only(top: 30),
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
-            children: [IndicatorsMainWidget(user: user)],
+            children: [
+              IndicatorsMainWidget(user: user),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SignOutButton(),
+                  Text(user.name!),
+                  RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                          text: 'Offline mode',
+                          style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: Theme.of(context).colorScheme.onPrimary),
+                          children: [
+                            TextSpan(
+                                text: ' ${user.offlineMode ?? 'false'}',
+                                style: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    color: user.offlineMode == true
+                                        ? Colors.red
+                                        : Colors.green))
+                          ])),
+                  Text(quoteDay.toString())
+                ],
+              ),
+            ],
           ),
         ),
         Padding(
@@ -35,35 +64,6 @@ class HomeMainWidget extends ConsumerWidget {
             height: 58,
             child:
                 QuoteNew(tempQuote: quoteDay.hasValue ? quoteDay.value! : []),
-          ),
-        ),
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SignOutButton(),
-              Text(user.name!),
-              RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                      text: 'Offline mode',
-                      style: GoogleFonts.inter(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                          color: Theme.of(context).colorScheme.onPrimary),
-                      children: [
-                        TextSpan(
-                            text: ' ${user.offlineMode ?? 'false'}',
-                            style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                                color: user.offlineMode == true
-                                    ? Colors.red
-                                    : Colors.green))
-                      ])),
-              Text(quoteDay.toString())
-            ],
           ),
         ),
       ],

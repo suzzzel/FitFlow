@@ -66,7 +66,7 @@ class _EnterCodePinImputState extends ConsumerState<EnterCodePinImput> {
                     break;
                   case EnterRecoveryCodeStatus.networkError:
                     // ignore: use_build_context_synchronously
-                    showNetworkErrorResetPass(context);
+                    showNetworkError(context);
                 }
               },
               showCursor: false,
