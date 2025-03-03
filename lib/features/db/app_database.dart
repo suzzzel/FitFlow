@@ -1,13 +1,22 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'package:fitflow/features/db/exercise_table.dart';
 import 'package:fitflow/features/db/quotes_table.dart';
+import 'package:fitflow/features/db/training_plan.dart';
+import 'package:fitflow/features/db/training_table.dart';
 import 'package:fitflow/features/db/user_table.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path_provider/path_provider.dart';
 
 part 'app_database.g.dart';
 
-@DriftDatabase(tables: [UserInfoTable, QuotesTable])
+@DriftDatabase(tables: [
+  UserInfoTable,
+  QuotesTable,
+  TrainingPlanTable,
+  ExerciseTable,
+  TrainingTable
+])
 class AppDatabase extends _$AppDatabase {
   // After generating code, this class needs to define a `schemaVersion` getter
   // and a constructor telling drift where the database should be stored.

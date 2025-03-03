@@ -2,7 +2,7 @@ import 'package:fitflow/features/auth/auth_sign_up/presentation/components/weigh
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/weight_second_text.dart';
 import 'package:fitflow/features/home/home_main_screen/presentation/weight_age_changer/next_step_after_age_weight_home_button.dart';
-import 'package:fitflow/features/home/presentation/weight_changer/weight_home_first_text.dart';
+import 'package:fitflow/features/home/presentation/indicators/weight_changer/weight_home_first_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';

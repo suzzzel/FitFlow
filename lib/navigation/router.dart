@@ -11,9 +11,9 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sig
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/height/select_height_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/level/select_level_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/select_weight_main_widget.dart';
-import 'package:fitflow/features/home/presentation/age_changer/change_age_main_home_widget.dart';
-import 'package:fitflow/features/home/presentation/height_changer/change_height_main_home_widget.dart';
-import 'package:fitflow/features/home/presentation/weight_changer/change_weight_main_home_widget.dart';
+import 'package:fitflow/features/home/presentation/indicators/age_changer/change_age_main_home_widget.dart';
+import 'package:fitflow/features/home/presentation/indicators/height_changer/change_height_main_home_widget.dart';
+import 'package:fitflow/features/home/presentation/indicators/weight_changer/change_weight_main_home_widget.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:fitflow/features/auth/presentation/auth_main_widget.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/home_main_widget.dart';

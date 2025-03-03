@@ -11,4 +11,5 @@ class UserInfoTable extends Table {
   IntColumn get height => integer()();
   IntColumn get weight => integer()();
   TextColumn get level => text()();
+  BoolColumn get isTrainGo => boolean().nullable()();
 }
