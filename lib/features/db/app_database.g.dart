@@ -774,6 +774,11 @@ class $TrainingPlanTableTable extends TrainingPlanTable
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $TrainingPlanTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idUserMeta = const VerificationMeta('idUser');
+  @override
+  late final GeneratedColumn<String> idUser = GeneratedColumn<String>(
+      'id_user', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _dayOfWeekMeta =
       const VerificationMeta('dayOfWeek');
   @override
@@ -830,6 +835,7 @@ class $TrainingPlanTableTable extends TrainingPlanTable
       type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
+        idUser,
         dayOfWeek,
         mainMuscle,
         secondaryMuscle,
@@ -851,6 +857,12 @@ class $TrainingPlanTableTable extends TrainingPlanTable
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
+    if (data.containsKey('id_user')) {
+      context.handle(_idUserMeta,
+          idUser.isAcceptableOrUnknown(data['id_user']!, _idUserMeta));
+    } else if (isInserting) {
+      context.missing(_idUserMeta);
+    }
     if (data.containsKey('day_of_week')) {
       context.handle(
           _dayOfWeekMeta,
@@ -918,6 +930,8 @@ class $TrainingPlanTableTable extends TrainingPlanTable
   TrainingPlanTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return TrainingPlanTableData(
+      idUser: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id_user'])!,
       dayOfWeek: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}day_of_week'])!,
       mainMuscle: attachedDatabase.typeMapping
@@ -947,6 +961,7 @@ class $TrainingPlanTableTable extends TrainingPlanTable
 
 class TrainingPlanTableData extends DataClass
     implements Insertable<TrainingPlanTableData> {
+  final String idUser;
   final String dayOfWeek;
   final String? mainMuscle;
   final String? secondaryMuscle;
@@ -957,7 +972,8 @@ class TrainingPlanTableData extends DataClass
   final String? exerciseFive;
   final String reqReps;
   const TrainingPlanTableData(
-      {required this.dayOfWeek,
+      {required this.idUser,
+      required this.dayOfWeek,
       this.mainMuscle,
       this.secondaryMuscle,
       required this.exerciseOne,
@@ -969,6 +985,7 @@ class TrainingPlanTableData extends DataClass
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    map['id_user'] = Variable<String>(idUser);
     map['day_of_week'] = Variable<String>(dayOfWeek);
     if (!nullToAbsent || mainMuscle != null) {
       map['main_muscle'] = Variable<String>(mainMuscle);
@@ -995,6 +1012,7 @@ class TrainingPlanTableData extends DataClass
 
   TrainingPlanTableCompanion toCompanion(bool nullToAbsent) {
     return TrainingPlanTableCompanion(
+      idUser: Value(idUser),
       dayOfWeek: Value(dayOfWeek),
       mainMuscle: mainMuscle == null && nullToAbsent
           ? const Value.absent()
@@ -1023,6 +1041,7 @@ class TrainingPlanTableData extends DataClass
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return TrainingPlanTableData(
+      idUser: serializer.fromJson<String>(json['idUser']),
       dayOfWeek: serializer.fromJson<String>(json['dayOfWeek']),
       mainMuscle: serializer.fromJson<String?>(json['mainMuscle']),
       secondaryMuscle: serializer.fromJson<String?>(json['secondaryMuscle']),
@@ -1038,6 +1057,7 @@ class TrainingPlanTableData extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
+      'idUser': serializer.toJson<String>(idUser),
       'dayOfWeek': serializer.toJson<String>(dayOfWeek),
       'mainMuscle': serializer.toJson<String?>(mainMuscle),
       'secondaryMuscle': serializer.toJson<String?>(secondaryMuscle),
@@ -1051,7 +1071,8 @@ class TrainingPlanTableData extends DataClass
   }
 
   TrainingPlanTableData copyWith(
-          {String? dayOfWeek,
+          {String? idUser,
+          String? dayOfWeek,
           Value<String?> mainMuscle = const Value.absent(),
           Value<String?> secondaryMuscle = const Value.absent(),
           String? exerciseOne,
@@ -1061,6 +1082,7 @@ class TrainingPlanTableData extends DataClass
           Value<String?> exerciseFive = const Value.absent(),
           String? reqReps}) =>
       TrainingPlanTableData(
+        idUser: idUser ?? this.idUser,
         dayOfWeek: dayOfWeek ?? this.dayOfWeek,
         mainMuscle: mainMuscle.present ? mainMuscle.value : this.mainMuscle,
         secondaryMuscle: secondaryMuscle.present
@@ -1078,6 +1100,7 @@ class TrainingPlanTableData extends DataClass
       );
   TrainingPlanTableData copyWithCompanion(TrainingPlanTableCompanion data) {
     return TrainingPlanTableData(
+      idUser: data.idUser.present ? data.idUser.value : this.idUser,
       dayOfWeek: data.dayOfWeek.present ? data.dayOfWeek.value : this.dayOfWeek,
       mainMuscle:
           data.mainMuscle.present ? data.mainMuscle.value : this.mainMuscle,
@@ -1104,6 +1127,7 @@ class TrainingPlanTableData extends DataClass
   @override
   String toString() {
     return (StringBuffer('TrainingPlanTableData(')
+          ..write('idUser: $idUser, ')
           ..write('dayOfWeek: $dayOfWeek, ')
           ..write('mainMuscle: $mainMuscle, ')
           ..write('secondaryMuscle: $secondaryMuscle, ')
@@ -1119,6 +1143,7 @@ class TrainingPlanTableData extends DataClass
 
   @override
   int get hashCode => Object.hash(
+      idUser,
       dayOfWeek,
       mainMuscle,
       secondaryMuscle,
@@ -1132,6 +1157,7 @@ class TrainingPlanTableData extends DataClass
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is TrainingPlanTableData &&
+          other.idUser == this.idUser &&
           other.dayOfWeek == this.dayOfWeek &&
           other.mainMuscle == this.mainMuscle &&
           other.secondaryMuscle == this.secondaryMuscle &&
@@ -1145,6 +1171,7 @@ class TrainingPlanTableData extends DataClass
 
 class TrainingPlanTableCompanion
     extends UpdateCompanion<TrainingPlanTableData> {
+  final Value<String> idUser;
   final Value<String> dayOfWeek;
   final Value<String?> mainMuscle;
   final Value<String?> secondaryMuscle;
@@ -1156,6 +1183,7 @@ class TrainingPlanTableCompanion
   final Value<String> reqReps;
   final Value<int> rowid;
   const TrainingPlanTableCompanion({
+    this.idUser = const Value.absent(),
     this.dayOfWeek = const Value.absent(),
     this.mainMuscle = const Value.absent(),
     this.secondaryMuscle = const Value.absent(),
@@ -1168,6 +1196,7 @@ class TrainingPlanTableCompanion
     this.rowid = const Value.absent(),
   });
   TrainingPlanTableCompanion.insert({
+    required String idUser,
     required String dayOfWeek,
     this.mainMuscle = const Value.absent(),
     this.secondaryMuscle = const Value.absent(),
@@ -1178,10 +1207,12 @@ class TrainingPlanTableCompanion
     this.exerciseFive = const Value.absent(),
     required String reqReps,
     this.rowid = const Value.absent(),
-  })  : dayOfWeek = Value(dayOfWeek),
+  })  : idUser = Value(idUser),
+        dayOfWeek = Value(dayOfWeek),
         exerciseOne = Value(exerciseOne),
         reqReps = Value(reqReps);
   static Insertable<TrainingPlanTableData> custom({
+    Expression<String>? idUser,
     Expression<String>? dayOfWeek,
     Expression<String>? mainMuscle,
     Expression<String>? secondaryMuscle,
@@ -1194,6 +1225,7 @@ class TrainingPlanTableCompanion
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
+      if (idUser != null) 'id_user': idUser,
       if (dayOfWeek != null) 'day_of_week': dayOfWeek,
       if (mainMuscle != null) 'main_muscle': mainMuscle,
       if (secondaryMuscle != null) 'secondary_muscle': secondaryMuscle,
@@ -1208,7 +1240,8 @@ class TrainingPlanTableCompanion
   }
 
   TrainingPlanTableCompanion copyWith(
-      {Value<String>? dayOfWeek,
+      {Value<String>? idUser,
+      Value<String>? dayOfWeek,
       Value<String?>? mainMuscle,
       Value<String?>? secondaryMuscle,
       Value<String>? exerciseOne,
@@ -1219,6 +1252,7 @@ class TrainingPlanTableCompanion
       Value<String>? reqReps,
       Value<int>? rowid}) {
     return TrainingPlanTableCompanion(
+      idUser: idUser ?? this.idUser,
       dayOfWeek: dayOfWeek ?? this.dayOfWeek,
       mainMuscle: mainMuscle ?? this.mainMuscle,
       secondaryMuscle: secondaryMuscle ?? this.secondaryMuscle,
@@ -1235,6 +1269,9 @@ class TrainingPlanTableCompanion
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    if (idUser.present) {
+      map['id_user'] = Variable<String>(idUser.value);
+    }
     if (dayOfWeek.present) {
       map['day_of_week'] = Variable<String>(dayOfWeek.value);
     }
@@ -1271,6 +1308,7 @@ class TrainingPlanTableCompanion
   @override
   String toString() {
     return (StringBuffer('TrainingPlanTableCompanion(')
+          ..write('idUser: $idUser, ')
           ..write('dayOfWeek: $dayOfWeek, ')
           ..write('mainMuscle: $mainMuscle, ')
           ..write('secondaryMuscle: $secondaryMuscle, ')
@@ -3109,6 +3147,7 @@ typedef $$QuotesTableTableProcessedTableManager = ProcessedTableManager<
     PrefetchHooks Function()>;
 typedef $$TrainingPlanTableTableCreateCompanionBuilder
     = TrainingPlanTableCompanion Function({
+  required String idUser,
   required String dayOfWeek,
   Value<String?> mainMuscle,
   Value<String?> secondaryMuscle,
@@ -3122,6 +3161,7 @@ typedef $$TrainingPlanTableTableCreateCompanionBuilder
 });
 typedef $$TrainingPlanTableTableUpdateCompanionBuilder
     = TrainingPlanTableCompanion Function({
+  Value<String> idUser,
   Value<String> dayOfWeek,
   Value<String?> mainMuscle,
   Value<String?> secondaryMuscle,
@@ -3143,6 +3183,9 @@ class $$TrainingPlanTableTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+  ColumnFilters<String> get idUser => $composableBuilder(
+      column: $table.idUser, builder: (column) => ColumnFilters(column));
+
   ColumnFilters<String> get dayOfWeek => $composableBuilder(
       column: $table.dayOfWeek, builder: (column) => ColumnFilters(column));
 
@@ -3181,6 +3224,9 @@ class $$TrainingPlanTableTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+  ColumnOrderings<String> get idUser => $composableBuilder(
+      column: $table.idUser, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<String> get dayOfWeek => $composableBuilder(
       column: $table.dayOfWeek, builder: (column) => ColumnOrderings(column));
 
@@ -3222,6 +3268,9 @@ class $$TrainingPlanTableTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+  GeneratedColumn<String> get idUser =>
+      $composableBuilder(column: $table.idUser, builder: (column) => column);
+
   GeneratedColumn<String> get dayOfWeek =>
       $composableBuilder(column: $table.dayOfWeek, builder: (column) => column);
 
@@ -3279,6 +3328,7 @@ class $$TrainingPlanTableTableTableManager extends RootTableManager<
               $$TrainingPlanTableTableAnnotationComposer(
                   $db: db, $table: table),
           updateCompanionCallback: ({
+            Value<String> idUser = const Value.absent(),
             Value<String> dayOfWeek = const Value.absent(),
             Value<String?> mainMuscle = const Value.absent(),
             Value<String?> secondaryMuscle = const Value.absent(),
@@ -3291,6 +3341,7 @@ class $$TrainingPlanTableTableTableManager extends RootTableManager<
             Value<int> rowid = const Value.absent(),
           }) =>
               TrainingPlanTableCompanion(
+            idUser: idUser,
             dayOfWeek: dayOfWeek,
             mainMuscle: mainMuscle,
             secondaryMuscle: secondaryMuscle,
@@ -3303,6 +3354,7 @@ class $$TrainingPlanTableTableTableManager extends RootTableManager<
             rowid: rowid,
           ),
           createCompanionCallback: ({
+            required String idUser,
             required String dayOfWeek,
             Value<String?> mainMuscle = const Value.absent(),
             Value<String?> secondaryMuscle = const Value.absent(),
@@ -3315,6 +3367,7 @@ class $$TrainingPlanTableTableTableManager extends RootTableManager<
             Value<int> rowid = const Value.absent(),
           }) =>
               TrainingPlanTableCompanion.insert(
+            idUser: idUser,
             dayOfWeek: dayOfWeek,
             mainMuscle: mainMuscle,
             secondaryMuscle: secondaryMuscle,

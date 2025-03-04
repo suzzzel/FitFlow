@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:fitflow/features/db/app_database.dart';
 import 'package:fitflow/features/train/data/repo/training_plan_impl.dart';
+import 'package:fitflow/features/train/domain/models/training_plan_class.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class TrainingPlanRepoData extends TrainingPlanDataImpl {
@@ -11,31 +12,40 @@ class TrainingPlanRepoData extends TrainingPlanDataImpl {
   final SupabaseClient supabase;
 
   @override
-  Future<void> getTrainingPlan({required String id}) async {
+  Future<List<TrainingPlanClass>> getTrainingPlan({required String id}) async {
     try {
-      final plan = await database.managers.trainingPlanTable.get();
-      if (plan.isNotEmpty) {
-        for (var x in plan) {
-          log(x.toString());
+      // await database.managers.trainingPlanTable.delete();
+      final offlinePlan = await database.managers.trainingPlanTable.get();
+      if (offlinePlan.isNotEmpty) {
+        final List<TrainingPlanClass> trainingPlan = [];
+        for (var x in offlinePlan) {
+          log('offline');
+          final trainingDay = TrainingPlanClass.fromMap(x.toJson());
+          trainingPlan.add(trainingDay);
+          log(trainingDay.toString());
         }
+        return trainingPlan;
       } else {
-        log('locale plan is empty');
-      }
-      if (plan.isEmpty) {
         final onlinePlan = await supabase
             .from('training_plan_users')
             .select()
-            .eq('id_user', id);
+            .eq('idUser', id);
+        final List<TrainingPlanClass> trainingPlan = [];
         for (var x in onlinePlan) {
-          log(x.toString());
+          log('online');
+          final trainingDay = TrainingPlanClass.fromMap(x);
+          log(trainingDay.toString());
+          trainingPlan.add(trainingDay);
           await database.managers.trainingPlanTable.create((train) => train(
-              dayOfWeek: x['day_of_week'],
-              exerciseOne: x['exercise_one'],
-              reqReps: x['req_reps']));
+              idUser: x['idUser'],
+              dayOfWeek: x['dayOfWeek'],
+              exerciseOne: x['exerciseOne'],
+              reqReps: x['reqReps']));
         }
+        return trainingPlan;
       }
     } catch (e) {
-      log('error');
+      rethrow;
     }
   }
 }

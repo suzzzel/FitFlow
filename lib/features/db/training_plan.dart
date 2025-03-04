@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 
 class TrainingPlanTable extends Table {
+  TextColumn get idUser => text()();
   TextColumn get dayOfWeek => text()();
   TextColumn get mainMuscle => text().nullable()();
   TextColumn get secondaryMuscle => text().nullable()();

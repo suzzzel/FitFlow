@@ -1,8 +1,14 @@
+import 'dart:developer';
+
 import 'package:fitflow/features/auth/auth_sign_out/presentation/sign_out_button.dart';
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
+import 'package:fitflow/features/general_providers/drift_app_database_provider.dart';
 import 'package:fitflow/features/home/home_main_screen/domain/providers/home_quotes_domain_provider.dart';
+import 'package:fitflow/features/home/home_main_screen/presentation/daily_quote_widget.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/components/indicators/indicators_main_widget.dart';
+import 'package:fitflow/features/home/presentation/home_main_screen/components/train_start_main_widget.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/components/welcome_info_widget.dart';
+import 'package:fitflow/features/home/presentation/home_main_screen/components/welcome_train.dart';
 import 'package:fitflow/features/train/domain/providers/training_plan_domain_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,7 +23,7 @@ class HomeMainWidget extends ConsumerWidget {
     final user = userState.value!.user!;
     final quoteDay = ref.watch(homeQuotesDataProviderAsyncProvider);
     final trainingPlan =
-        ref.watch(trainingPlanDomainProviderAsyncProvider.notifier);
+        ref.watch(trainingPlanDomainProviderAsyncProvider(id: user.id!));
     return Scaffold(
         body: Stack(
       children: [
@@ -30,6 +36,12 @@ class HomeMainWidget extends ConsumerWidget {
             shrinkWrap: true,
             children: [
               IndicatorsMainWidget(user: user),
+              const WelcomeTrain(),
+              TrainStartMainWidget(
+                id: user.id!,
+                trainingPlan: trainingPlan.hasValue ? trainingPlan.value : [],
+                isPlanLoading: trainingPlan.isLoading,
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,9 +86,13 @@ class HomeMainWidget extends ConsumerWidget {
                           ])),
                   ElevatedButton(
                       onPressed: () {
-                        trainingPlan.getTrainingPlan(id: user.id!);
+                        ref
+                            .read(localDatabaseProvider)
+                            .managers
+                            .trainingPlanTable
+                            .delete();
                       },
-                      child: Text('check')),
+                      child: const Text('clear')),
                   Text(quoteDay.toString())
                 ],
               ),
@@ -94,43 +110,5 @@ class HomeMainWidget extends ConsumerWidget {
         ),
       ],
     ));
-  }
-}
-
-class QuoteNew extends ConsumerStatefulWidget {
-  final List<String> tempQuote;
-  const QuoteNew({super.key, required this.tempQuote});
-
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _QuoteNewState();
-}
-
-class _QuoteNewState extends ConsumerState<QuoteNew> {
-  @override
-  void initState() {
-    ref.read(homeQuotesDataProviderAsyncProvider.notifier).getQuote();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FittedBox(
-      alignment: Alignment.centerLeft,
-      child: RichText(
-          text: TextSpan(
-              text: widget.tempQuote.isNotEmpty ? widget.tempQuote.first : '',
-              style: GoogleFonts.inter(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 20,
-                  color: Theme.of(context).colorScheme.onPrimary),
-              children: [
-            TextSpan(
-                text: widget.tempQuote.isNotEmpty ? widget.tempQuote.last : '',
-                style: GoogleFonts.inter(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
-                    color: Theme.of(context).colorScheme.secondary))
-          ])),
-    );
   }
 }
