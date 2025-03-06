@@ -1,12 +1,13 @@
 import 'dart:developer';
 
+import 'package:drift/drift.dart';
 import 'package:fitflow/features/db/app_database.dart';
 import 'package:fitflow/features/train/data/repo/training_plan_impl.dart';
 import 'package:fitflow/features/train/domain/models/training_plan_class.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class TrainingPlanRepoData extends TrainingPlanDataImpl {
-  TrainingPlanRepoData({required this.database, required this.supabase});
+class GetTrainingPlanRepoData extends GetTrainingPlanDataImpl {
+  GetTrainingPlanRepoData({required this.database, required this.supabase});
 
   final AppDatabase database;
   final SupabaseClient supabase;
@@ -39,7 +40,13 @@ class TrainingPlanRepoData extends TrainingPlanDataImpl {
           await database.managers.trainingPlanTable.create((train) => train(
               idUser: x['idUser'],
               dayOfWeek: x['dayOfWeek'],
+              mainMuscle: Value(x['mainMuscle']),
+              secondaryMuscle: Value(x['secondaryMuscle']),
               exerciseOne: x['exerciseOne'],
+              exerciseTwo: Value(x['exerciseTwo']),
+              exerciseThree: Value(x['exerciseThree']),
+              exerciseFour: Value(x['exerciseFour']),
+              exerciseFive: Value(x['exerciseFive']),
               reqReps: x['reqReps']));
         }
         return trainingPlan;

@@ -18,4 +18,5 @@ final class RouterPath {
   static const String UPDATEAGE = 'updateage';
   static const String UPDATEHEIGHT = 'updateheight';
   static const String UPDATEWEIGHT = 'updateweight';
+  static const String SELECTTRAININGPLAN = 'newtrainplan';
 }

@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'training_plan_domain_provider.dart';
+part of 'get_training_plan_domain_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$trainingPlanDomainProviderAsyncHash() =>
-    r'bf78111920b9594909a138a7dfceb11694eb912c';
+String _$getTrainingPlanDomainProviderAsyncHash() =>
+    r'3cb15bde29a7462b6cc85ea6a3ed26542a060046';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,7 +30,7 @@ class _SystemHash {
   }
 }
 
-abstract class _$TrainingPlanDomainProviderAsync
+abstract class _$GetTrainingPlanDomainProviderAsync
     extends BuildlessAutoDisposeAsyncNotifier<List<TrainingPlanClass>> {
   late final String id;
 
@@ -39,29 +39,29 @@ abstract class _$TrainingPlanDomainProviderAsync
   });
 }
 
-/// See also [TrainingPlanDomainProviderAsync].
-@ProviderFor(TrainingPlanDomainProviderAsync)
-const trainingPlanDomainProviderAsyncProvider =
-    TrainingPlanDomainProviderAsyncFamily();
+/// See also [GetTrainingPlanDomainProviderAsync].
+@ProviderFor(GetTrainingPlanDomainProviderAsync)
+const getTrainingPlanDomainProviderAsyncProvider =
+    GetTrainingPlanDomainProviderAsyncFamily();
 
-/// See also [TrainingPlanDomainProviderAsync].
-class TrainingPlanDomainProviderAsyncFamily
+/// See also [GetTrainingPlanDomainProviderAsync].
+class GetTrainingPlanDomainProviderAsyncFamily
     extends Family<AsyncValue<List<TrainingPlanClass>>> {
-  /// See also [TrainingPlanDomainProviderAsync].
-  const TrainingPlanDomainProviderAsyncFamily();
+  /// See also [GetTrainingPlanDomainProviderAsync].
+  const GetTrainingPlanDomainProviderAsyncFamily();
 
-  /// See also [TrainingPlanDomainProviderAsync].
-  TrainingPlanDomainProviderAsyncProvider call({
+  /// See also [GetTrainingPlanDomainProviderAsync].
+  GetTrainingPlanDomainProviderAsyncProvider call({
     required String id,
   }) {
-    return TrainingPlanDomainProviderAsyncProvider(
+    return GetTrainingPlanDomainProviderAsyncProvider(
       id: id,
     );
   }
 
   @override
-  TrainingPlanDomainProviderAsyncProvider getProviderOverride(
-    covariant TrainingPlanDomainProviderAsyncProvider provider,
+  GetTrainingPlanDomainProviderAsyncProvider getProviderOverride(
+    covariant GetTrainingPlanDomainProviderAsyncProvider provider,
   ) {
     return call(
       id: provider.id,
@@ -80,31 +80,31 @@ class TrainingPlanDomainProviderAsyncFamily
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'trainingPlanDomainProviderAsyncProvider';
+  String? get name => r'getTrainingPlanDomainProviderAsyncProvider';
 }
 
-/// See also [TrainingPlanDomainProviderAsync].
-class TrainingPlanDomainProviderAsyncProvider
+/// See also [GetTrainingPlanDomainProviderAsync].
+class GetTrainingPlanDomainProviderAsyncProvider
     extends AutoDisposeAsyncNotifierProviderImpl<
-        TrainingPlanDomainProviderAsync, List<TrainingPlanClass>> {
-  /// See also [TrainingPlanDomainProviderAsync].
-  TrainingPlanDomainProviderAsyncProvider({
+        GetTrainingPlanDomainProviderAsync, List<TrainingPlanClass>> {
+  /// See also [GetTrainingPlanDomainProviderAsync].
+  GetTrainingPlanDomainProviderAsyncProvider({
     required String id,
   }) : this._internal(
-          () => TrainingPlanDomainProviderAsync()..id = id,
-          from: trainingPlanDomainProviderAsyncProvider,
-          name: r'trainingPlanDomainProviderAsyncProvider',
+          () => GetTrainingPlanDomainProviderAsync()..id = id,
+          from: getTrainingPlanDomainProviderAsyncProvider,
+          name: r'getTrainingPlanDomainProviderAsyncProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$trainingPlanDomainProviderAsyncHash,
-          dependencies: TrainingPlanDomainProviderAsyncFamily._dependencies,
-          allTransitiveDependencies:
-              TrainingPlanDomainProviderAsyncFamily._allTransitiveDependencies,
+                  : _$getTrainingPlanDomainProviderAsyncHash,
+          dependencies: GetTrainingPlanDomainProviderAsyncFamily._dependencies,
+          allTransitiveDependencies: GetTrainingPlanDomainProviderAsyncFamily
+              ._allTransitiveDependencies,
           id: id,
         );
 
-  TrainingPlanDomainProviderAsyncProvider._internal(
+  GetTrainingPlanDomainProviderAsyncProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -118,7 +118,7 @@ class TrainingPlanDomainProviderAsyncProvider
 
   @override
   FutureOr<List<TrainingPlanClass>> runNotifierBuild(
-    covariant TrainingPlanDomainProviderAsync notifier,
+    covariant GetTrainingPlanDomainProviderAsync notifier,
   ) {
     return notifier.build(
       id: id,
@@ -126,10 +126,10 @@ class TrainingPlanDomainProviderAsyncProvider
   }
 
   @override
-  Override overrideWith(TrainingPlanDomainProviderAsync Function() create) {
+  Override overrideWith(GetTrainingPlanDomainProviderAsync Function() create) {
     return ProviderOverride(
       origin: this,
-      override: TrainingPlanDomainProviderAsyncProvider._internal(
+      override: GetTrainingPlanDomainProviderAsyncProvider._internal(
         () => create()..id = id,
         from: from,
         name: null,
@@ -142,14 +142,15 @@ class TrainingPlanDomainProviderAsyncProvider
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<TrainingPlanDomainProviderAsync,
+  AutoDisposeAsyncNotifierProviderElement<GetTrainingPlanDomainProviderAsync,
       List<TrainingPlanClass>> createElement() {
-    return _TrainingPlanDomainProviderAsyncProviderElement(this);
+    return _GetTrainingPlanDomainProviderAsyncProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is TrainingPlanDomainProviderAsyncProvider && other.id == id;
+    return other is GetTrainingPlanDomainProviderAsyncProvider &&
+        other.id == id;
   }
 
   @override
@@ -163,20 +164,20 @@ class TrainingPlanDomainProviderAsyncProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin TrainingPlanDomainProviderAsyncRef
+mixin GetTrainingPlanDomainProviderAsyncRef
     on AutoDisposeAsyncNotifierProviderRef<List<TrainingPlanClass>> {
   /// The parameter `id` of this provider.
   String get id;
 }
 
-class _TrainingPlanDomainProviderAsyncProviderElement
+class _GetTrainingPlanDomainProviderAsyncProviderElement
     extends AutoDisposeAsyncNotifierProviderElement<
-        TrainingPlanDomainProviderAsync,
-        List<TrainingPlanClass>> with TrainingPlanDomainProviderAsyncRef {
-  _TrainingPlanDomainProviderAsyncProviderElement(super.provider);
+        GetTrainingPlanDomainProviderAsync,
+        List<TrainingPlanClass>> with GetTrainingPlanDomainProviderAsyncRef {
+  _GetTrainingPlanDomainProviderAsyncProviderElement(super.provider);
 
   @override
-  String get id => (origin as TrainingPlanDomainProviderAsyncProvider).id;
+  String get id => (origin as GetTrainingPlanDomainProviderAsyncProvider).id;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

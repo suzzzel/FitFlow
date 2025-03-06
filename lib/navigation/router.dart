@@ -14,6 +14,7 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sig
 import 'package:fitflow/features/home/presentation/indicators/age_changer/change_age_main_home_widget.dart';
 import 'package:fitflow/features/home/presentation/indicators/height_changer/change_height_main_home_widget.dart';
 import 'package:fitflow/features/home/presentation/indicators/weight_changer/change_weight_main_home_widget.dart';
+import 'package:fitflow/features/train/presentation/train_plan/select_train_plan_main_widget.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:fitflow/features/auth/presentation/auth_main_widget.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/home_main_widget.dart';
@@ -184,6 +185,13 @@ GoRouter router(Ref ref) {
               name: RouterPath.UPDATEWEIGHT,
               builder: (context, state) {
                 return ChangeWeightMainHomeWidget();
+              },
+            ),
+            GoRoute(
+              path: RouterPath.SELECTTRAININGPLAN,
+              name: RouterPath.SELECTTRAININGPLAN,
+              builder: (context, state) {
+                return SelectTrainPlanMainWidget();
               },
             )
           ]),

@@ -71,4 +71,30 @@ class TrainingPlanClass {
   String toString() {
     return 'TrainingPlanClass(idUser: $idUser, dayOfWeek: $dayOfWeek, mainMuscle: $mainMuscle, secondaryMuscle: $secondaryMuscle, exerciseOne: $exerciseOne, exerciseTwo: $exerciseTwo, exerciseThree: $exerciseThree, exerciseFour: $exerciseFour, exerciseFive: $exerciseFive, reqReps: $reqReps)';
   }
+
+  TrainingPlanClass copyWith({
+    String? idUser,
+    String? dayOfWeek,
+    String? mainMuscle,
+    String? secondaryMuscle,
+    String? exerciseOne,
+    String? exerciseTwo,
+    String? exerciseThree,
+    String? exerciseFour,
+    String? exerciseFive,
+    String? reqReps,
+  }) {
+    return TrainingPlanClass(
+      idUser: idUser ?? this.idUser,
+      dayOfWeek: dayOfWeek ?? this.dayOfWeek,
+      mainMuscle: mainMuscle ?? this.mainMuscle,
+      secondaryMuscle: secondaryMuscle ?? this.secondaryMuscle,
+      exerciseOne: exerciseOne ?? this.exerciseOne,
+      exerciseTwo: exerciseTwo ?? this.exerciseTwo,
+      exerciseThree: exerciseThree ?? this.exerciseThree,
+      exerciseFour: exerciseFour ?? this.exerciseFour,
+      exerciseFive: exerciseFive ?? this.exerciseFive,
+      reqReps: reqReps ?? this.reqReps,
+    );
+  }
 }
