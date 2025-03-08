@@ -23,6 +23,7 @@ Stream<AppUserState> authState(Ref ref) {
     (data) async {
       final Session? session = data.session;
       if (session != null) {
+        log(data.event.toString());
         if (data.event != AuthChangeEvent.passwordRecovery) {
           if (data.event != AuthChangeEvent.initialSession) {
             await Future.delayed(const Duration(seconds: 1));

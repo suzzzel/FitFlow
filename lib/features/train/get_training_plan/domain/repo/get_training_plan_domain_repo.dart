@@ -1,6 +1,6 @@
-import 'package:fitflow/features/train/data/repo/get_training_plan_repo.dart';
-import 'package:fitflow/features/train/domain/models/training_plan_class.dart';
-import 'package:fitflow/features/train/domain/repo/get_training_plan_domain_impl.dart';
+import 'package:fitflow/features/train/get_training_plan/data/repo/get_training_plan_repo.dart';
+import 'package:fitflow/features/train/get_training_plan/models/training_plan_class.dart';
+import 'package:fitflow/features/train/get_training_plan/domain/repo/get_training_plan_domain_impl.dart';
 
 class GetTrainingPlanDomainRepo implements GetTrainingPlanDomainImpl {
   final GetTrainingPlanRepoData trainingPlanRepoData;

@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:fitflow/features/train/domain/models/training_plan_class.dart';
+import 'package:fitflow/features/train/get_training_plan/models/training_plan_class.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';

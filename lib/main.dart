@@ -1,5 +1,6 @@
 import 'package:fitflow/app_keys.dart';
 import 'package:fitflow/features/themes/domain/providers/theme_app_domain_provider.dart';
+import 'package:fitflow/navigation/new_router.dart';
 import 'package:fitflow/navigation/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +20,7 @@ class MainApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final config = ref.watch(routerProvider);
+    final config = ref.watch(newRouterProvider);
     final themeApp = ref.watch(themeProvider);
     return MaterialApp.router(
       routerConfig: config,
