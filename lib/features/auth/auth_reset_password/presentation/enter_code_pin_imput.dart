@@ -87,7 +87,8 @@ final defaultPinTheme = PinTheme(
   textStyle: GoogleFonts.inter(
       fontSize: 20, color: Colors.black, fontWeight: FontWeight.w500),
   decoration: BoxDecoration(
-    border: Border.all(color: const Color.fromRGBO(17, 83, 141, 1), width: 2),
+    color: const Color.fromRGBO(217, 217, 217, 1),
+    border: Border.all(color: const Color.fromRGBO(204, 143, 237, 1), width: 2),
     borderRadius: BorderRadius.circular(10),
   ),
 );

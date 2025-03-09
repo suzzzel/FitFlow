@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fitflow/features/auth/auth_sign_in/domain/providers/valid_sign_in_data.dart';
 import 'package:fitflow/features/auth/auth_sign_in/presentation/sign_in_button.dart';
 import 'package:fitflow/features/auth/presentation/sign_in_page/components/email_or_name_imput_widget.dart';
@@ -33,33 +35,7 @@ class SignInMainWidgetState extends ConsumerState<SignInMainWidget> {
   Widget build(BuildContext context) {
     final emailInput = ref.watch(emailOrNameProvider.notifier);
     final firstImput = ref.watch(firstImputProvider);
-    return
-        // Scaffold(
-        //   extendBodyBehindAppBar: true,
-        //   resizeToAvoidBottomInset: false,
-        //   appBar: AppBar(
-        //     leading: IconButton(
-        //         onPressed: () {
-        //           context.pop();
-        //           ref.watch(firstImputProvider.notifier).state = true;
-        //           ref.watch(isDataSignInValidProvider.notifier).state = false;
-        //           emailInput.state = '';
-        //           passImput.state = '';
-        //         },
-        //         icon: Image.asset('assets/leading/arrow.png')),
-        //     centerTitle: true,
-        //     title: FittedBox(
-        //       child: Text(
-        //         'Авторизация',
-        //         style: GoogleFonts.inter(
-        //             color: Theme.of(context).colorScheme.secondary,
-        //             fontSize: 24,
-        //             fontWeight: FontWeight.w500),
-        //       ),
-        //     ),
-        //   ),
-        //   body:
-        Stack(
+    return Stack(
       alignment: Alignment.center,
       children: [
         const Align(

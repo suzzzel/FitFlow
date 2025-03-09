@@ -10,13 +10,21 @@ class EnterRecoveryCodeText extends StatelessWidget {
         width: 292,
         height: 87,
         child: FittedBox(
-            child: Text(
-          'Если к этому адресу электронной почты\nпривязана учетная запись,\nмы отправили на него 6-значный код\nдля подтверждения.',
-          textAlign: TextAlign.center,
-          style: GoogleFonts.inter(
-              color: Theme.of(context).colorScheme.onPrimary,
+            child: ShaderMask(
+          blendMode: BlendMode.srcATop,
+          shaderCallback: (bounds) => LinearGradient(colors: [
+            Theme.of(context).colorScheme.primaryFixed,
+            Theme.of(context).colorScheme.secondaryFixed,
+          ]).createShader(bounds),
+          child: Text(
+            'Если к этому адресу электронной почты\nпривязана учетная запись,\nмы отправили на него 6-значный код\nдля подтверждения.',
+            textScaler: const TextScaler.linear(1),
+            textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w500,
               fontSize: 15,
-              fontWeight: FontWeight.w500),
+            ),
+          ),
         )));
   }
 }

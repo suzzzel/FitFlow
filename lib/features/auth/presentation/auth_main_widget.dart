@@ -22,9 +22,9 @@ class AuthMainWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 20),
                 child: ShaderMask(
                   blendMode: BlendMode.srcATop,
-                  shaderCallback: (bounds) => const LinearGradient(colors: [
-                    Color.fromRGBO(107, 80, 246, 1),
-                    Color.fromRGBO(204, 143, 237, 1),
+                  shaderCallback: (bounds) => LinearGradient(colors: [
+                    Theme.of(context).colorScheme.secondaryFixed,
+                    Theme.of(context).colorScheme.primaryFixed,
                   ]).createShader(bounds),
                   child: Text(
                     'FIT FLOW',

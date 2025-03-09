@@ -20,15 +20,21 @@ class ForgotPasswordWidget extends StatelessWidget {
               context.goNamed('resetpass');
             },
             child: FittedBox(
-              child: Text(
-                'Забыли пароль?',
-                style: GoogleFonts.inter(
-                    fontSize: 16,
+              child: ShaderMask(
+                blendMode: BlendMode.srcATop,
+                shaderCallback: (bounds) => const LinearGradient(colors: [
+                  Color.fromRGBO(204, 143, 237, 1),
+                  Color.fromRGBO(107, 80, 246, 1),
+                ]).createShader(bounds),
+                child: Text(
+                  'Забыли пароль?',
+                  textScaler: const TextScaler.linear(1),
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w500,
-                    color: Theme.of(context)
-                        .colorScheme
-                        .secondary
-                        .withOpacity(0.8)),
+                    fontSize: 16,
+                  ),
+                ),
               ),
             )),
       ),
