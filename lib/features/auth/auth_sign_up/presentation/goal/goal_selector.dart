@@ -38,8 +38,8 @@ class _GoalSelectorState extends ConsumerState<GoalSelector> {
                             fontWeight: FontWeight.w500,
                             fontSize: goalMain.state == goals[index] ? 35 : 23,
                             color: goalMain.state == goals[index]
-                                ? Theme.of(context).colorScheme.secondary
-                                : Theme.of(context).colorScheme.onPrimary),
+                                ? Colors.white.withOpacity(0.9)
+                                : Colors.white.withOpacity(0.7)),
                       ),
                     )),
               );

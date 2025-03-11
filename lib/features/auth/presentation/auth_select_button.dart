@@ -20,12 +20,12 @@ class AuthSelectButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 44, right: 34),
       child: Container(
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(99)),
+          decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(99)),
               gradient: LinearGradient(colors: [
-                Color.fromRGBO(64, 35, 215, 1),
-                Color.fromRGBO(152, 59, 203, 1)
-              ], transform: GradientRotation(pi / 4))),
+                Theme.of(context).colorScheme.secondary,
+                Theme.of(context).colorScheme.primary,
+              ], transform: const GradientRotation(pi / 4))),
           height: 60,
           width: MediaQuery.of(context).size.width,
           child: TextButton(

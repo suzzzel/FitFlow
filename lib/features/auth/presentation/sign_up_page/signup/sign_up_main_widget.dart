@@ -8,8 +8,6 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/signup/component
 import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/password_repeat_imput_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SignUpMainWidget extends ConsumerStatefulWidget {
   const SignUpMainWidget({super.key});
@@ -44,62 +42,37 @@ class SignUpMainWidgetState extends ConsumerState<SignUpMainWidget> {
     final isValidPasswordProv = ref.watch(isValidpasswordSignUpProvider);
     final isValidPasswordRepeatProv =
         ref.watch(isValidpasswordRepeatSignUpProvider);
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              context.pop();
-              emailImput.state = '';
-              nameImput.state = '';
-              ref.read(passwordSignUpProvider.notifier).state = '';
-              ref.read(passwordRepeatSignUpProvider.notifier).state = '';
-            },
-            icon: Image.asset('assets/leading/arrow.png')),
-        centerTitle: true,
-        title: FittedBox(
-          child: Text(
-            'Создание аккаунта',
-            style: GoogleFonts.inter(
-                color: Theme.of(context).colorScheme.secondary,
-                fontSize: 24,
-                fontWeight: FontWeight.w500),
-          ),
+    return Stack(
+      alignment: Alignment.center,
+      fit: StackFit.expand,
+      children: [
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            NameSignUpImputWidget(
+              nameController: nameController,
+              nameInput: nameImput,
+              isValidName: isValidNameProv,
+            ),
+            EmailSignUpImputWidget(
+              emailController: emailController,
+              emailImput: emailImput,
+              isValidEmail: isValidEmailProv,
+              textInputAction: TextInputAction.next,
+            ),
+            PasswordSignUpImputWidget(
+                passwordController: passwordController,
+                isValidPassword: isValidPasswordProv),
+            PasswordSignUpRepeatImputWidget(
+                isValidRepeatPassword: isValidPasswordRepeatProv,
+                passwordRepeatController: passwordRepeatController),
+            const SignUpButton(),
+          ],
         ),
-      ),
-      body: Stack(
-        alignment: Alignment.center,
-        fit: StackFit.expand,
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              NameSignUpImputWidget(
-                nameController: nameController,
-                nameInput: nameImput,
-                isValidName: isValidNameProv,
-              ),
-              EmailSignUpImputWidget(
-                emailController: emailController,
-                emailImput: emailImput,
-                isValidEmail: isValidEmailProv,
-                textInputAction: TextInputAction.next,
-              ),
-              PasswordSignUpImputWidget(
-                  passwordController: passwordController,
-                  isValidPassword: isValidPasswordProv),
-              PasswordSignUpRepeatImputWidget(
-                  isValidRepeatPassword: isValidPasswordRepeatProv,
-                  passwordRepeatController: passwordRepeatController),
-              const SignUpButton(),
-            ],
-          ),
-          const BackToAuthButton(),
-          const AboutCreateAccButton()
-        ],
-      ),
+        const BackToAuthButton(),
+        const AboutCreateAccButton()
+      ],
     );
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fitflow/features/auth/auth_sign_in/domain/providers/valid_sign_in_data.dart';
 import 'package:fitflow/features/auth/auth_sign_in/presentation/sign_in_button.dart';
 import 'package:fitflow/features/auth/presentation/sign_in_page/components/email_or_name_imput_widget.dart';
@@ -8,8 +6,6 @@ import 'package:fitflow/features/auth/presentation/sign_in_page/components/forgo
 import 'package:fitflow/features/auth/presentation/sign_in_page/components/password_imput_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SignInMainWidget extends ConsumerStatefulWidget {
   const SignInMainWidget({super.key});

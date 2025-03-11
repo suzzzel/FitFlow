@@ -54,7 +54,14 @@ class _WeightHeightSelectorState extends ConsumerState<WeightAgeSelector> {
                   child: Container(
                       width: MediaQuery.of(context).size.width * 0.3,
                       height: MediaQuery.of(context).size.height * 0.13,
-                      color: Theme.of(context).colorScheme.secondary,
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: AlignmentDirectional.topCenter,
+                              end: AlignmentDirectional.bottomCenter,
+                              colors: [
+                            Theme.of(context).colorScheme.primaryFixed,
+                            Theme.of(context).colorScheme.secondaryFixed,
+                          ])),
                       child: Align(
                         alignment: Alignment.center,
                         child: FittedBox(
@@ -109,10 +116,17 @@ class _WeightHeightSelectorState extends ConsumerState<WeightAgeSelector> {
             alignment: const Alignment(0, 0.18),
             child: Transform.rotate(
               angle: pi / 180,
-              child: Image.asset(
-                'assets/auth/weight_age_arrow.png',
-                width: 31,
-                height: 18,
+              child: ShaderMask(
+                blendMode: BlendMode.srcATop,
+                shaderCallback: (bounds) => LinearGradient(colors: [
+                  Theme.of(context).colorScheme.primaryFixed,
+                  Theme.of(context).colorScheme.secondaryFixed,
+                ]).createShader(bounds),
+                child: Image.asset(
+                  'assets/auth/weight_age_arrow.png',
+                  width: 31,
+                  height: 18,
+                ),
               ),
             ),
           ),

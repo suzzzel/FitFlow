@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:fitflow/features/auth/auth_reset_password/domain/providers/valid_email_provider.dart';
 import 'package:fitflow/features/auth/auth_reset_password/domain/providers/valid_otp_code.dart';
 import 'package:fitflow/features/auth/auth_sign_in/domain/providers/valid_sign_in_data.dart';
+import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_gender_provider.dart';
+import 'package:fitflow/features/auth/auth_sign_up/domain/providers/valid_sign_up_data.dart';
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
 import 'package:fitflow/features/auth/presentation/auth_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/reset_password_page/enter_recovery_code/enter_recovery_code_main_widget.dart';
@@ -87,6 +89,27 @@ GoRouter newRouter(Ref ref) {
                     '/auth/signin/resetpass/enterrecoverycode/updatepass':
                 name = 'Восстановление\nпароля';
                 break;
+              case '/auth/gender':
+                name = 'Выберите пол';
+                break;
+              case '/auth/gender/weight':
+                name = 'Укажите вес';
+                break;
+              case '/auth/gender/weight/height':
+                name = 'Укажите рост';
+                break;
+              case '/auth/gender/weight/height/age':
+                name = 'Укажите возраст';
+                break;
+              case '/auth/gender/weight/height/age/goal':
+                name = 'Какая у вас цель?';
+                break;
+              case '/auth/gender/weight/height/age/goal/level':
+                name = 'Выберите уровень\nподготовки';
+                break;
+              case '/auth/gender/weight/height/age/goal/level/signup':
+                name = 'Создаем ваш аккаунт';
+                break;
               default:
                 name = '';
 
@@ -97,6 +120,7 @@ GoRouter newRouter(Ref ref) {
               resizeToAvoidBottomInset: false,
               appBar: AppBar(
                 centerTitle: true,
+                forceMaterialTransparency: true,
                 backgroundColor: Colors.transparent,
                 title: ShaderMask(
                   blendMode: BlendMode.srcATop,
@@ -136,6 +160,18 @@ GoRouter newRouter(Ref ref) {
                             case '/auth/signin/resetpass/enterrecoverycode':
                               ref
                                   .read(otpResetPasswordProvider.notifier)
+                                  .state = '';
+                              context.pop();
+                            case '/auth/gender':
+                              ref.read(selectGenderProvider.notifier).state = 0;
+                              context.pop();
+                            case ' /auth/gender/weight/height/age/goal/level/signup':
+                              ref.read(emailSignUpProvider.notifier).state = '';
+                              ref.read(nameSignUpProvider.notifier).state = '';
+                              ref.read(passwordSignUpProvider.notifier).state =
+                                  '';
+                              ref
+                                  .read(passwordRepeatSignUpProvider.notifier)
                                   .state = '';
                               context.pop();
                             default:
@@ -235,52 +271,113 @@ GoRouter newRouter(Ref ref) {
                 GoRoute(
                     path: RouterPath.GENDER,
                     name: RouterPath.GENDER,
-                    builder: (context, state) {
-                      return const SelectGenderMainWidget();
-                    },
+                    pageBuilder: (context, state) => CustomTransitionPage(
+                          child: const SelectGenderMainWidget(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) =>
+                                  FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          ),
+                        ),
                     routes: [
                       GoRoute(
                           path: RouterPath.WEIGHT,
                           name: RouterPath.WEIGHT,
-                          builder: (context, state) {
-                            return const SelectWeightMainWidget();
-                          },
+                          pageBuilder: (context, state) => CustomTransitionPage(
+                                child: const SelectWeightMainWidget(),
+                                transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) =>
+                                    FadeTransition(
+                                  opacity: animation,
+                                  child: child,
+                                ),
+                              ),
                           routes: [
                             GoRoute(
                                 path: RouterPath.HEIGHT,
                                 name: RouterPath.HEIGHT,
-                                builder: (context, state) {
-                                  return const SelectHeightMainWidget();
-                                },
+                                pageBuilder: (context, state) =>
+                                    CustomTransitionPage(
+                                      child: const SelectHeightMainWidget(),
+                                      transitionsBuilder: (context, animation,
+                                              secondaryAnimation, child) =>
+                                          FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      ),
+                                    ),
                                 routes: [
                                   GoRoute(
                                       path: RouterPath.AGE,
                                       name: RouterPath.AGE,
-                                      builder: (context, state) {
-                                        return const SelectAgeMainWidget();
-                                      },
+                                      pageBuilder: (context, state) =>
+                                          CustomTransitionPage(
+                                            child: const SelectAgeMainWidget(),
+                                            transitionsBuilder: (context,
+                                                    animation,
+                                                    secondaryAnimation,
+                                                    child) =>
+                                                FadeTransition(
+                                              opacity: animation,
+                                              child: child,
+                                            ),
+                                          ),
                                       routes: [
                                         GoRoute(
                                             path: RouterPath.GOAL,
                                             name: RouterPath.GOAL,
-                                            builder: (context, state) {
-                                              return const SelectGoalMainWidget();
-                                            },
+                                            pageBuilder: (context, state) =>
+                                                CustomTransitionPage(
+                                                  child:
+                                                      const SelectGoalMainWidget(),
+                                                  transitionsBuilder: (context,
+                                                          animation,
+                                                          secondaryAnimation,
+                                                          child) =>
+                                                      FadeTransition(
+                                                    opacity: animation,
+                                                    child: child,
+                                                  ),
+                                                ),
                                             routes: [
                                               GoRoute(
                                                   path: RouterPath.LEVEL,
                                                   name: RouterPath.LEVEL,
-                                                  builder: (context, state) {
-                                                    return const SelectLevelMainWidget();
-                                                  },
+                                                  pageBuilder: (context,
+                                                          state) =>
+                                                      CustomTransitionPage(
+                                                        child:
+                                                            const SelectLevelMainWidget(),
+                                                        transitionsBuilder:
+                                                            (context,
+                                                                    animation,
+                                                                    secondaryAnimation,
+                                                                    child) =>
+                                                                FadeTransition(
+                                                          opacity: animation,
+                                                          child: child,
+                                                        ),
+                                                      ),
                                                   routes: [
                                                     GoRoute(
                                                       path: RouterPath.SIGNUP,
                                                       name: RouterPath.SIGNUP,
-                                                      builder:
-                                                          (context, state) {
-                                                        return const SignUpMainWidget();
-                                                      },
+                                                      pageBuilder: (context,
+                                                              state) =>
+                                                          CustomTransitionPage(
+                                                        child:
+                                                            const SignUpMainWidget(),
+                                                        transitionsBuilder:
+                                                            (context,
+                                                                    animation,
+                                                                    secondaryAnimation,
+                                                                    child) =>
+                                                                FadeTransition(
+                                                          opacity: animation,
+                                                          child: child,
+                                                        ),
+                                                      ),
                                                     )
                                                   ])
                                             ])

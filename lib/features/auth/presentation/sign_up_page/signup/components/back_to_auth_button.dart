@@ -21,7 +21,7 @@ class BackToAuthButton extends StatelessWidget {
                 style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 15,
-                    color: Theme.of(context).colorScheme.onPrimary)),
+                    color: Colors.white)),
             InkWell(
               onTap: () {
                 context.goNamed('signin');

@@ -55,17 +55,11 @@ class _AgeSelectorState extends ConsumerState<HeightSelector> {
                                     ? 70
                                     : 60,
                             color: currentIndex == index
-                                ? Theme.of(context).colorScheme.secondary
+                                ? Colors.white.withOpacity(0.9)
                                 : index == currentIndex - 1 ||
                                         index == currentIndex + 1
-                                    ? Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary
-                                        .withOpacity(0.75)
-                                    : Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary
-                                        .withOpacity(0.5)),
+                                    ? Colors.white.withOpacity(0.7)
+                                    : Colors.white.withOpacity(0.6)),
                       ),
                     )),
               );
@@ -74,6 +68,7 @@ class _AgeSelectorState extends ConsumerState<HeightSelector> {
               viewportFraction: 0.2,
               pageSnapping: false,
               scrollDirection: Axis.vertical,
+              enableInfiniteScroll: false,
               initialPage: currentIndex,
               onPageChanged: (index, reason) {
                 setState(() {

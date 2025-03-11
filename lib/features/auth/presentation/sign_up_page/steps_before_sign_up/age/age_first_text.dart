@@ -18,22 +18,19 @@ class AgeFirstText extends StatelessWidget {
           width: 348,
           height: 93,
           child: FittedBox(
-              child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                      text: 'Мы хотим сделать ваш опыт\nмаксимально',
-                      style: GoogleFonts.inter(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                          color: Theme.of(context).colorScheme.onPrimary),
-                      children: [
-                        TextSpan(
-                            text: ' индивидуальным.',
-                            style: GoogleFonts.inter(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Theme.of(context).colorScheme.onPrimary))
-                      ])))),
+              child: ShaderMask(
+            blendMode: BlendMode.srcATop,
+            shaderCallback: (bounds) => LinearGradient(colors: [
+              Theme.of(context).colorScheme.primaryFixed,
+              Theme.of(context).colorScheme.secondaryFixed,
+            ]).createShader(bounds),
+            child: Text(
+              'Важный параметр для создания\nиндивидуальной программы тренировок',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                  fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+          ))),
     );
   }
 }

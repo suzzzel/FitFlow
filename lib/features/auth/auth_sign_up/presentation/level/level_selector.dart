@@ -51,7 +51,7 @@ class _LevelSelectorState extends ConsumerState<LevelSelector> {
                       tempLevel: 'beginner'),
                   child: LevelButtonContent(
                     isPrimary: levelSelect.state == 'beginner' ? true : false,
-                    level: 'Новичок',
+                    level: 'Только\nначинаю',
                     iconLevel: 'assets/auth/beginner.png',
                   )),
             ),
@@ -83,7 +83,7 @@ class _LevelSelectorState extends ConsumerState<LevelSelector> {
                       tempLevel: 'skilled'),
                   child: LevelButtonContent(
                     isPrimary: levelSelect.state == 'skilled' ? true : false,
-                    level: 'Опытный',
+                    level: 'Занимался\nранее',
                     iconLevel: 'assets/auth/skilled.png',
                   )),
             ),
@@ -112,7 +112,7 @@ class _LevelSelectorState extends ConsumerState<LevelSelector> {
                     tempLevel: 'master'),
                 child: LevelButtonContent(
                   isPrimary: levelSelect.state == 'master' ? true : false,
-                  level: 'Мастер',
+                  level: 'Занимаюсь\nрегулярно',
                   iconLevel: 'assets/auth/master.png',
                 )),
           ),
