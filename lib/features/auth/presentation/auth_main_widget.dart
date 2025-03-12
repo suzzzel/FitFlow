@@ -30,7 +30,7 @@ class AuthMainWidget extends StatelessWidget {
                     'FIT FLOW',
                     textScaler: const TextScaler.linear(1),
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       fontWeight: FontWeight.bold,
                       fontSize: 36,
                     ),
@@ -41,7 +41,7 @@ class AuthMainWidget extends StatelessWidget {
                 'Не плыви по течению',
                 textAlign: TextAlign.center,
                 textScaler: const TextScaler.linear(1),
-                style: GoogleFonts.protestRevolution(
+                style: GoogleFonts.inter(
                     fontWeight: FontWeight.normal,
                     fontSize: 18,
                     color: const Color.fromRGBO(182, 180, 193, 1)),

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:math';
 
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/reg_user_provider.dart';
@@ -39,7 +38,8 @@ class NextStepAfterHeightSelectButton extends ConsumerWidget {
             style: ButtonStyle(
                 fixedSize: WidgetStatePropertyAll(
                     Size(MediaQuery.of(context).size.width, 60)),
-                backgroundColor: WidgetStatePropertyAll(Colors.transparent)),
+                backgroundColor:
+                    const WidgetStatePropertyAll(Colors.transparent)),
             child: FittedBox(
               child: Text(
                 'Продолжить',

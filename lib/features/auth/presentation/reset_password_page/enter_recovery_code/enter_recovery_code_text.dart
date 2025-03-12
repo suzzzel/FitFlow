@@ -20,7 +20,7 @@ class EnterRecoveryCodeText extends StatelessWidget {
             'Если к этому адресу электронной почты\nпривязана учетная запись,\nмы отправили на него 6-значный код\nдля подтверждения.',
             textScaler: const TextScaler.linear(1),
             textAlign: TextAlign.center,
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontWeight: FontWeight.w500,
               fontSize: 15,
             ),

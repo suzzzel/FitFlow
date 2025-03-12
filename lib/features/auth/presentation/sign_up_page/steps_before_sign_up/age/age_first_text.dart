@@ -27,8 +27,8 @@ class AgeFirstText extends StatelessWidget {
             child: Text(
               'Важный параметр для создания\nиндивидуальной программы тренировок',
               textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(
-                  fontSize: 16, fontWeight: FontWeight.w500),
+              style:
+                  GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w500),
             ),
           ))),
     );

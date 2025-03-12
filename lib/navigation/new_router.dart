@@ -132,7 +132,7 @@ GoRouter newRouter(Ref ref) {
                     name,
                     textScaler: const TextScaler.linear(1),
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       fontWeight: FontWeight.w500,
                       fontSize: 24,
                     ),

@@ -28,7 +28,7 @@ class WeightSecondText extends StatelessWidget {
               child: Text(
                 'Указывайте честно, ваши данные не видим даже\nмы :)',
                 textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                     fontSize: 15, fontWeight: FontWeight.w600),
               ),
             ),

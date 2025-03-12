@@ -32,8 +32,8 @@ class SignInButton extends ConsumerWidget {
             gradient: LinearGradient(
                 colors: isButtonActive.state
                     ? [
-                        Theme.of(context).colorScheme.primaryFixed,
-                        Theme.of(context).colorScheme.secondaryFixed,
+                        Theme.of(context).colorScheme.secondary,
+                        Theme.of(context).colorScheme.primary,
                       ]
                     : [
                         Theme.of(context).colorScheme.secondaryFixedDim,

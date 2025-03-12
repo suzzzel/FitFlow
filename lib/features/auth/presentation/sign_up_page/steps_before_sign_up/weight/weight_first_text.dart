@@ -27,7 +27,7 @@ class WeightFirstText extends StatelessWidget {
                   child: Text(
                     'Вес - важный параметр для создания\nперсональной программы',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                         fontSize: 16, fontWeight: FontWeight.w500),
                   )))),
     );

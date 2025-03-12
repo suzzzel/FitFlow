@@ -30,7 +30,7 @@ class ForgotPasswordWidget extends StatelessWidget {
                   'Забыли пароль?',
                   textScaler: const TextScaler.linear(1),
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                   ),

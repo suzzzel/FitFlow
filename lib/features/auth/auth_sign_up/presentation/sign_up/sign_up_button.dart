@@ -31,7 +31,7 @@ class SignUpButton extends ConsumerWidget {
                 ? LinearGradient(colors: [
                     Theme.of(context).colorScheme.secondary,
                     Theme.of(context).colorScheme.primary,
-                  ], transform: const GradientRotation(pi / 4))
+                  ], transform: const GradientRotation(pi * 4))
                 : LinearGradient(colors: [
                     Theme.of(context).colorScheme.secondaryFixedDim,
                     Theme.of(context).colorScheme.primaryFixedDim,
@@ -64,7 +64,8 @@ class SignUpButton extends ConsumerWidget {
             style: ButtonStyle(
                 fixedSize: WidgetStatePropertyAll(
                     Size(MediaQuery.of(context).size.width, 70)),
-                backgroundColor: WidgetStatePropertyAll(Colors.transparent)),
+                backgroundColor:
+                    const WidgetStatePropertyAll(Colors.transparent)),
             child: state.isLoading
                 ? CircularProgressIndicator(
                     color: Theme.of(context).colorScheme.onSecondary)

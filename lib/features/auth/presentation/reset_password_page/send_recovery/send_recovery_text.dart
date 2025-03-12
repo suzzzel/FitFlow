@@ -20,7 +20,7 @@ class SendRecoveryText extends StatelessWidget {
             'Введите свою электронную почту, чтобы\nмы могли отправить вам 6-значный\nкод для подтверждения.',
             textScaler: const TextScaler.linear(1),
             textAlign: TextAlign.center,
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               fontWeight: FontWeight.w500,
               fontSize: 16,
             ),

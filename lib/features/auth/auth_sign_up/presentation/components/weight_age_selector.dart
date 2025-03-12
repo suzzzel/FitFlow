@@ -50,18 +50,29 @@ class _WeightHeightSelectorState extends ConsumerState<WeightAgeSelector> {
                 widget.weightOrAge ? weightCount : ageCount, (int index) {
               return Center(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 3,
+                  ),
                   child: Container(
                       width: MediaQuery.of(context).size.width * 0.3,
                       height: MediaQuery.of(context).size.height * 0.13,
                       decoration: BoxDecoration(
+                          boxShadow: currentIndex == index
+                              ? [
+                                  const BoxShadow(
+                                      offset: Offset(0, 4),
+                                      blurRadius: 20,
+                                      color: Color.fromRGBO(107, 80, 246, 0.7))
+                                ]
+                              : null,
+                          borderRadius: BorderRadius.circular(19),
                           gradient: LinearGradient(
                               begin: AlignmentDirectional.topCenter,
                               end: AlignmentDirectional.bottomCenter,
                               colors: [
-                            Theme.of(context).colorScheme.primaryFixed,
-                            Theme.of(context).colorScheme.secondaryFixed,
-                          ])),
+                                Theme.of(context).colorScheme.primaryFixed,
+                                Theme.of(context).colorScheme.secondaryFixed,
+                              ])),
                       child: Align(
                         alignment: Alignment.center,
                         child: FittedBox(
@@ -96,6 +107,7 @@ class _WeightHeightSelectorState extends ConsumerState<WeightAgeSelector> {
             options: CarouselOptions(
               viewportFraction: 0.3,
               pageSnapping: false,
+              enlargeCenterPage: true,
               initialPage: widget.initialChange == null
                   ? widget.weightOrAge
                       ? weightCount ~/ (widget.gender ? 5 : 9)

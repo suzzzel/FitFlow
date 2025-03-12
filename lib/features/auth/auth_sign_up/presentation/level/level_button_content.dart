@@ -26,11 +26,8 @@ class _LevelButtonContentState extends State<LevelButtonContent> {
             child: FittedBox(
                 child: Image.asset(widget.iconLevel,
                     color: widget.isPrimary
-                        ? Theme.of(context).colorScheme.secondary
-                        : Theme.of(context)
-                            .colorScheme
-                            .tertiary
-                            .withOpacity(1)))),
+                        ? Colors.white
+                        : Colors.white.withOpacity(0.6)))),
         const Spacer(),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
