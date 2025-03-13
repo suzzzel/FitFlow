@@ -25,24 +25,17 @@ class NextStepAfterWeightAgeSelectButton extends ConsumerWidget {
       child: Container(
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(99)),
-            gradient: prov != 0
-                ? LinearGradient(colors: [
-                    Theme.of(context).colorScheme.secondary,
-                    Theme.of(context).colorScheme.primary,
-                  ], transform: const GradientRotation(pi / 4))
-                : LinearGradient(colors: [
-                    Theme.of(context).colorScheme.secondaryFixedDim,
-                    Theme.of(context).colorScheme.primaryFixedDim,
-                  ], transform: const GradientRotation(pi / 4))),
+            gradient: LinearGradient(colors: [
+              Theme.of(context).colorScheme.secondary,
+              Theme.of(context).colorScheme.primary,
+            ], transform: const GradientRotation(pi / 4))),
         child: ElevatedButton(
-            onPressed: prov == 0
-                ? null
-                : () {
-                    weightOrAge
-                        ? ref.read(regUserProvider.notifier).addWeight(prov)
-                        : ref.read(regUserProvider.notifier).addAge(prov);
-                    context.goNamed(weightOrAge ? 'height' : 'goal');
-                  },
+            onPressed: () {
+              weightOrAge
+                  ? ref.read(regUserProvider.notifier).addWeight(prov)
+                  : ref.read(regUserProvider.notifier).addAge(prov);
+              context.goNamed(weightOrAge ? 'height' : 'goal');
+            },
             style: ButtonStyle(
                 fixedSize: WidgetStatePropertyAll(
                     Size(MediaQuery.of(context).size.width, 60)),

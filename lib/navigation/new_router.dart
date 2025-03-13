@@ -198,7 +198,7 @@ GoRouter newRouter(Ref ref) {
                           Color.fromRGBO(42, 52, 112, 1)
                         ])),
                   ),
-                  const BackgroundWidget(),
+                  // const BackgroundWidget(),
                   child,
                 ],
               ),

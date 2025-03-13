@@ -3,20 +3,41 @@ import 'dart:math';
 import 'package:fitflow/features/auth/auth_reset_password/domain/models/reset_pass_enums.dart';
 import 'package:fitflow/features/auth/auth_reset_password/domain/providers/valid_new_pass.dart';
 import 'package:fitflow/features/auth/auth_reset_password/presentation/controllers/enter_new_pass_controller.dart';
-import 'package:fitflow/features/auth/presentation/reset_password_page/snackbars/check_valid_password_snackbar.dart';
-import 'package:fitflow/features/auth/presentation/reset_password_page/snackbars/network_error_reset_pass_snacknar.dart';
-import 'package:fitflow/features/auth/presentation/reset_password_page/snackbars/not_correct_password_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class NextStepAfterEnterNewPassoword extends ConsumerWidget {
-  const NextStepAfterEnterNewPassoword({
-    super.key,
-  });
+class NewNextStepAfterEnterNewPassword extends ConsumerStatefulWidget {
+  const NewNextStepAfterEnterNewPassword({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _NewNextStepAfterEnterNewPasswordState();
+}
+
+class _NewNextStepAfterEnterNewPasswordState
+    extends ConsumerState<NewNextStepAfterEnterNewPassword> {
+  bool networkError = false;
+  String text = 'Продолжить';
+
+  void showError(bool newtworkOrNewPassword) async {
+    setState(() {
+      networkError = true;
+      text = newtworkOrNewPassword
+          ? 'Отсутствует подключение к сети'
+          : 'Используйте другой пароль';
+    });
+    await Future.delayed(const Duration(seconds: 3));
+    if (mounted) {
+      setState(() {
+        networkError = false;
+        text = 'Продолжить';
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final passwordVaild = ref.watch(isValidNewPasswordResetPasswordProvider);
     final passRepeatValid =
         ref.watch(isValidpasswordRepeatResetPasswordProvider);
@@ -32,36 +53,38 @@ class NextStepAfterEnterNewPassoword extends ConsumerWidget {
             borderRadius: const BorderRadius.all(Radius.circular(99)),
             gradient: LinearGradient(
                 colors: passwordVaild == true && passRepeatValid == true
-                    ? [
-                        Theme.of(context).colorScheme.secondary,
-                        Theme.of(context).colorScheme.primary,
-                      ]
+                    ? networkError
+                        ? [
+                            Theme.of(context).colorScheme.errorContainer,
+                            Theme.of(context).colorScheme.error,
+                          ]
+                        : [
+                            Theme.of(context).colorScheme.secondary,
+                            Theme.of(context).colorScheme.primary,
+                          ]
                     : [
                         Theme.of(context).colorScheme.secondaryFixedDim,
                         Theme.of(context).colorScheme.primaryFixedDim,
                       ],
                 transform: const GradientRotation(pi / 4))),
         child: ElevatedButton(
-            onPressed: passwordVaild == true && passRepeatValid == true
+            onPressed: passwordVaild == true &&
+                    passRepeatValid == true &&
+                    !networkError
                 ? () async {
                     final valid = await ref
                         .read(updatePassControllerProvider.notifier)
                         .updatePass(newPassword: passImput);
-
                     switch (valid) {
                       case UpdatePasswordStatus.sucess:
                         break;
                       case UpdatePasswordStatus.networkError:
-                        // ignore: use_build_context_synchronously
-                        showNetworkError(context);
+                        showError(true);
                       case UpdatePasswordStatus.failure:
-                        // ignore: use_build_context_synchronously
-                        showNotValidPasswordResetPasswordError(context);
+                        showError(false);
                     }
                   }
-                : () {
-                    showCheckValidPass(context);
-                  },
+                : () {},
             style: ButtonStyle(
                 fixedSize: WidgetStatePropertyAll(
                     Size(MediaQuery.of(context).size.width, 60)),
@@ -72,7 +95,7 @@ class NextStepAfterEnterNewPassoword extends ConsumerWidget {
                   ? CircularProgressIndicator(
                       color: Theme.of(context).colorScheme.onSecondary)
                   : Text(
-                      'Продолжить',
+                      text,
                       textScaler: const TextScaler.linear(1),
                       style: GoogleFonts.inter(
                           color: Theme.of(context).colorScheme.onSecondary,

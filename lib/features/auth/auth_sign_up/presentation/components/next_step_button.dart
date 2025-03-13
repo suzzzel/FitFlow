@@ -1,20 +1,20 @@
 import 'dart:math';
 
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/reg_user_provider.dart';
-import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_height_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class NextStepAfterHeightSelectButton extends ConsumerWidget {
-  const NextStepAfterHeightSelectButton({
-    super.key,
-  });
+class NextStepButtonSignUp extends ConsumerWidget {
+  final String tempStep;
+  final dynamic tempValue;
+  const NextStepButtonSignUp(
+      {super.key, required this.tempStep, required this.tempValue});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final prov = ref.watch(selectHeightMainProvider);
+    final user = ref.watch(regUserProvider.notifier);
     return Padding(
       padding: const EdgeInsets.only(
         left: 21,
@@ -29,8 +29,13 @@ class NextStepAfterHeightSelectButton extends ConsumerWidget {
             ], transform: const GradientRotation(pi / 4))),
         child: ElevatedButton(
             onPressed: () {
-              ref.read(regUserProvider.notifier).addHeight(prov);
-              context.goNamed('age');
+              switch (tempStep) {
+                case 'age':
+                  user.addAge(tempValue);
+                  context.goNamed('goal');
+                case 'weight':
+                  user.addHeight(tempValue);
+              }
             },
             style: ButtonStyle(
                 fixedSize: WidgetStatePropertyAll(

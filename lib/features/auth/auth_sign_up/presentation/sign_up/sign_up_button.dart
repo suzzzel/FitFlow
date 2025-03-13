@@ -3,19 +3,40 @@ import 'dart:math';
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/reg_user_provider.dart';
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/valid_sign_up_data.dart';
 import 'package:fitflow/features/auth/auth_sign_up/presentation/controllers/sign_up_controller.dart';
-import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/snackbars/network_error_sign_up.dart';
-import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/snackbars/user_already_exist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignUpButton extends ConsumerWidget {
-  const SignUpButton({
-    super.key,
-  });
+class SignUpButton extends ConsumerStatefulWidget {
+  const SignUpButton({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _NewSignUpButtonState();
+}
+
+class _NewSignUpButtonState extends ConsumerState<SignUpButton> {
+  bool networkError = false;
+  String text = 'Создать аккаунт';
+
+  void showError(bool newtworkOrAlreadyExist) async {
+    setState(() {
+      networkError = true;
+      text = newtworkOrAlreadyExist
+          ? 'Отсутствует подключение к сети'
+          : 'Аккаунт уже существует';
+    });
+    await Future.delayed(const Duration(seconds: 3));
+    if (mounted) {
+      setState(() {
+        networkError = false;
+        text = 'Создать аккаунт';
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final AsyncValue<void> state = ref.watch(signUpControllerProvider);
     final email = ref.watch(emailSignUpProvider.notifier);
     final password = ref.watch(passwordSignUpProvider.notifier);
@@ -27,19 +48,26 @@ class SignUpButton extends ConsumerWidget {
       child: Container(
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(99)),
-            gradient: isButtonActive.state
-                ? LinearGradient(colors: [
-                    Theme.of(context).colorScheme.secondary,
-                    Theme.of(context).colorScheme.primary,
-                  ], transform: const GradientRotation(pi * 4))
-                : LinearGradient(colors: [
-                    Theme.of(context).colorScheme.secondaryFixedDim,
-                    Theme.of(context).colorScheme.primaryFixedDim,
-                  ], transform: const GradientRotation(pi / 4))),
+            gradient: LinearGradient(
+                colors: isButtonActive.state
+                    ? networkError
+                        ? [
+                            Theme.of(context).colorScheme.errorContainer,
+                            Theme.of(context).colorScheme.error,
+                          ]
+                        : [
+                            Theme.of(context).colorScheme.secondary,
+                            Theme.of(context).colorScheme.primary,
+                          ]
+                    : [
+                        Theme.of(context).colorScheme.secondaryFixedDim,
+                        Theme.of(context).colorScheme.primaryFixedDim,
+                      ],
+                transform: const GradientRotation(pi / 4))),
         child: ElevatedButton(
             onPressed: () async {
-              if (!state.isLoading) {
-                if (isButtonActive.state) {
+              if (!state.isLoading && !networkError) {
+                if (isButtonActive.state && !networkError) {
                   userNotif.addCreateAt();
                   userNotif.addEmail(email.state);
                   userNotif.addName(name.state);
@@ -51,11 +79,9 @@ class SignUpButton extends ConsumerWidget {
                           user: ref.read(regUserProvider));
                   if (response != null) {
                     if (!response) {
-                      // ignore: use_build_context_synchronously
-                      showUserAlreadyExist(context);
+                      showError(false); // already ex
                     } else {
-                      // ignore: use_build_context_synchronously
-                      showNetworkErrorSignUp(context);
+                      showError(true); // network error
                     }
                   }
                 }
@@ -71,7 +97,7 @@ class SignUpButton extends ConsumerWidget {
                     color: Theme.of(context).colorScheme.onSecondary)
                 : FittedBox(
                     child: Text(
-                      'Создать аккаунт',
+                      text,
                       style: GoogleFonts.inter(
                           color: Theme.of(context).colorScheme.onSecondary,
                           fontSize: 24,
