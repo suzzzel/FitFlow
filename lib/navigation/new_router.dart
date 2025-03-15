@@ -23,8 +23,9 @@ import 'package:fitflow/features/home/presentation/home_main_screen/home_main_wi
 import 'package:fitflow/features/home/presentation/indicators/age_changer/change_age_main_home_widget.dart';
 import 'package:fitflow/features/home/presentation/indicators/height_changer/change_height_main_home_widget.dart';
 import 'package:fitflow/features/home/presentation/indicators/weight_changer/change_weight_main_home_widget.dart';
-import 'package:fitflow/features/loading/presentation/loading_widget.dart';
+import 'package:fitflow/features/loading/presentation/loading_main_widget.dart';
 import 'package:fitflow/features/train/presentation/train_plan/select_train_plan_main_widget.dart';
+import 'package:fitflow/navigation/home_navigation_bar/navbar.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -78,11 +79,9 @@ GoRouter newRouter(Ref ref) {
       ShellRoute(
           builder: (context, state, child) {
             String name;
-
             switch (state.fullPath) {
               case '/auth/signin':
                 name = 'Авторизация';
-
                 break;
               case '/auth/signin/resetpass' ||
                     '/auth/signin/resetpass/enterrecoverycode' ||
@@ -112,7 +111,6 @@ GoRouter newRouter(Ref ref) {
                 break;
               default:
                 name = '';
-
                 break;
             }
             return Scaffold(
@@ -198,7 +196,7 @@ GoRouter newRouter(Ref ref) {
                           Color.fromRGBO(42, 52, 112, 1)
                         ])),
                   ),
-                  // const BackgroundWidget(),
+                  const BackgroundWidget(),
                   child,
                 ],
               ),
@@ -388,41 +386,219 @@ GoRouter newRouter(Ref ref) {
               ],
             ),
           ]),
-      GoRoute(
-          path: RouterPath.HOME,
-          name: RouterPath.HOME,
-          builder: (context, state) {
-            return const HomeMainWidget();
+      ShellRoute(
+          builder: (context, state, child) {
+            String name;
+            switch (state.fullPath) {
+              default:
+                name = '';
+                break;
+            }
+            return Scaffold(
+              extendBodyBehindAppBar: true,
+              resizeToAvoidBottomInset: false,
+              appBar: AppBar(
+                centerTitle: true,
+                forceMaterialTransparency: true,
+                backgroundColor: Colors.transparent,
+                title: ShaderMask(
+                  blendMode: BlendMode.srcATop,
+                  shaderCallback: (bounds) => LinearGradient(colors: [
+                    Theme.of(context).colorScheme.primaryFixed,
+                    Theme.of(context).colorScheme.secondaryFixed,
+                  ]).createShader(bounds),
+                  child: Text(
+                    name,
+                    textScaler: const TextScaler.linear(1),
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 24,
+                    ),
+                  ),
+                ),
+                leading: state.fullPath == RouterPath.HOME ||
+                        state.fullPath == RouterPath.SEARCHHOME ||
+                        state.fullPath == RouterPath.PROGRESSHOME ||
+                        state.fullPath == RouterPath.PROFILEHOME
+                    ? null
+                    : IconButton(
+                        onPressed: () {
+                          switch (state.fullPath) {
+                            default:
+                              context.pop();
+                          }
+                        },
+                        icon: ShaderMask(
+                            blendMode: BlendMode.srcATop,
+                            shaderCallback: (bounds) => LinearGradient(colors: [
+                                  Theme.of(context).colorScheme.primaryFixed,
+                                  Theme.of(context).colorScheme.secondaryFixed,
+                                ]).createShader(bounds),
+                            child: Image.asset('assets/leading/arrow.png'))),
+              ),
+              body: Stack(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                          Color.fromRGBO(24, 29, 37, 1),
+                          Color.fromRGBO(42, 52, 112, 1)
+                        ])),
+                  ),
+                  const BackgroundWidget(),
+                  child,
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Navbar(
+                      onItemChanged: (int newPosition) {
+                        switch (newPosition) {
+                          case 0:
+                            context.goNamed('/home');
+                          case 1:
+                            context.goNamed('/progresshome');
+                          case 2:
+                            context.goNamed('/searchhome');
+                          case 3:
+                            context.goNamed('/profilehome');
+                        }
+                      },
+                      navBarItems: [
+                        NavBarData(
+                            text: 'Главная',
+                            iconPath: 'assets/navbar/home.png'),
+                        NavBarData(
+                            text: 'Прогресс',
+                            iconPath: 'assets/navbar/progress.png'),
+                        NavBarData(
+                            text: 'Поиск',
+                            iconPath: 'assets/navbar/search.png'),
+                        NavBarData(
+                            text: 'Профиль',
+                            iconPath: 'assets/navbar/profile.png')
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            );
           },
           routes: [
             GoRoute(
-              path: RouterPath.UPDATEAGE,
-              name: RouterPath.UPDATEAGE,
-              builder: (context, state) {
-                return const ChangeAgeMainHomeWidget();
-              },
+                path: RouterPath.HOME,
+                name: RouterPath.HOME,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                      child: HomeMainWidget(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) =>
+                              FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      ),
+                    ),
+                routes: [
+                  GoRoute(
+                    path: RouterPath.UPDATEAGE,
+                    name: RouterPath.UPDATEAGE,
+                    builder: (context, state) {
+                      return const ChangeAgeMainHomeWidget();
+                    },
+                  ),
+                  GoRoute(
+                    path: RouterPath.UPDATEHEIGHT,
+                    name: RouterPath.UPDATEHEIGHT,
+                    builder: (context, state) {
+                      return ChangeHeightMainHomeWidget();
+                    },
+                  ),
+                  GoRoute(
+                    path: RouterPath.UPDATEWEIGHT,
+                    name: RouterPath.UPDATEWEIGHT,
+                    builder: (context, state) {
+                      return ChangeWeightMainHomeWidget();
+                    },
+                  ),
+                  GoRoute(
+                    path: RouterPath.SELECTTRAININGPLAN,
+                    name: RouterPath.SELECTTRAININGPLAN,
+                    builder: (context, state) {
+                      return SelectTrainPlanMainWidget();
+                    },
+                  )
+                ]),
+            GoRoute(
+              path: RouterPath.PROGRESSHOME,
+              name: RouterPath.PROGRESSHOME,
+              pageBuilder: (context, state) => CustomTransitionPage(
+                child: Stack(
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        color: Colors.red,
+                        child: Text('test1'),
+                      ),
+                    )
+                  ],
+                ),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) =>
+                        FadeTransition(
+                  opacity: animation,
+                  child: child,
+                ),
+              ),
             ),
             GoRoute(
-              path: RouterPath.UPDATEHEIGHT,
-              name: RouterPath.UPDATEHEIGHT,
-              builder: (context, state) {
-                return ChangeHeightMainHomeWidget();
-              },
+              path: RouterPath.SEARCHHOME,
+              name: RouterPath.SEARCHHOME,
+              pageBuilder: (context, state) => CustomTransitionPage(
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Container(
+                          width: 100,
+                          height: 100,
+                          color: Colors.blue,
+                          child: Text('test2'),
+                        ),
+                      )
+                    ],
+                  ),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) =>
+                          FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          )),
             ),
             GoRoute(
-              path: RouterPath.UPDATEWEIGHT,
-              name: RouterPath.UPDATEWEIGHT,
-              builder: (context, state) {
-                return ChangeWeightMainHomeWidget();
-              },
+              path: RouterPath.PROFILEHOME,
+              name: RouterPath.PROFILEHOME,
+              pageBuilder: (context, state) => CustomTransitionPage(
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Container(
+                          width: 100,
+                          height: 100,
+                          color: Colors.green,
+                          child: Text('test3'),
+                        ),
+                      )
+                    ],
+                  ),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) =>
+                          FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          )),
             ),
-            GoRoute(
-              path: RouterPath.SELECTTRAININGPLAN,
-              name: RouterPath.SELECTTRAININGPLAN,
-              builder: (context, state) {
-                return SelectTrainPlanMainWidget();
-              },
-            )
           ]),
       GoRoute(
         path: RouterPath.LOADING,

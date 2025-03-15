@@ -1,5 +1,5 @@
 import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_weight_age_provider.dart';
-import 'package:fitflow/features/auth/presentation/reset_password_page/snackbars/network_error_reset_pass_snacknar.dart';
+import 'package:fitflow/features/auth/presentation/reset_password_page/enter_recovery_code/network_error_snackbar.dart';
 import 'package:fitflow/features/home/home_main_screen/domain/providers/home_update_indicators_domain_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -18,7 +18,7 @@ import 'package:fitflow/features/train/presentation/train_plan/select_train_plan
 import 'package:fitflow/navigation/paths.dart';
 import 'package:fitflow/features/auth/presentation/auth_main_widget.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/home_main_widget.dart';
-import 'package:fitflow/features/loading/presentation/loading_widget.dart';
+import 'package:fitflow/features/loading/presentation/loading_main_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

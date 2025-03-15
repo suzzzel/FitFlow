@@ -15,6 +15,9 @@ final class RouterPath {
   static const String RESETPASSWORD = 'resetpass';
   static const String ENTERRECOVERYCODETOUPDATEPASS = 'enterrecoverycode';
   static const String UPDATEPASS = 'updatepass';
+  static const String PROGRESSHOME = '/progresshome';
+  static const String SEARCHHOME = '/searchhome';
+  static const String PROFILEHOME = '/profilehome';
   static const String UPDATEAGE = 'updateage';
   static const String UPDATEHEIGHT = 'updateheight';
   static const String UPDATEWEIGHT = 'updateweight';

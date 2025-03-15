@@ -41,4 +41,6 @@ flutter:
     - assets/logo/
     - assets/auth/
     - assets/leading/
+    - assets/loading/
+    - assets/navbar/
     - assets/home/

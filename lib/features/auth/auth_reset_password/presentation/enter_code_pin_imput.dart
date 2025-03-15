@@ -1,7 +1,7 @@
 import 'package:fitflow/features/auth/auth_reset_password/domain/models/reset_pass_enums.dart';
 import 'package:fitflow/features/auth/auth_reset_password/domain/providers/valid_otp_code.dart';
 import 'package:fitflow/features/auth/auth_reset_password/presentation/controllers/enter_code_to_reset_password_controller.dart';
-import 'package:fitflow/features/auth/presentation/reset_password_page/snackbars/network_error_reset_pass_snacknar.dart';
+import 'package:fitflow/features/auth/presentation/reset_password_page/enter_recovery_code/network_error_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
