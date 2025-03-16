@@ -23,6 +23,7 @@ class GetTrainingPlanRepoData extends GetTrainingPlanDataImpl {
           log('offline');
           final trainingDay = TrainingPlanClass.fromMap(x.toJson());
           trainingPlan.add(trainingDay);
+          log('${DateTime.now().difference(DateTime.parse(trainingPlan.first.dataCreatingPlan)).inDays}');
           log(trainingDay.toString());
         }
         return trainingPlan;
@@ -37,6 +38,7 @@ class GetTrainingPlanRepoData extends GetTrainingPlanDataImpl {
           final trainingDay = TrainingPlanClass.fromMap(x);
           log(trainingDay.toString());
           trainingPlan.add(trainingDay);
+          log('${DateTime.now().difference(DateTime.parse(trainingPlan.first.dataCreatingPlan)).inDays}');
           await database.managers.trainingPlanTable.create((train) => train(
               idUser: x['idUser'],
               dayOfWeek: x['dayOfWeek'],
@@ -47,7 +49,8 @@ class GetTrainingPlanRepoData extends GetTrainingPlanDataImpl {
               exerciseThree: Value(x['exerciseThree']),
               exerciseFour: Value(x['exerciseFour']),
               exerciseFive: Value(x['exerciseFive']),
-              reqReps: x['reqReps']));
+              reqReps: x['reqReps'],
+              dataCreatingPlan: x['dataCreatingPlan'].toString()));
         }
         return trainingPlan;
       }

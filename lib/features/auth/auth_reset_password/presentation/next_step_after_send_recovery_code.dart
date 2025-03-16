@@ -52,9 +52,7 @@ class NextStepAfterSendRecoveryCodeButton extends ConsumerWidget {
                       showNetworkError(context);
                     }
                   }
-                : () {
-                    // showNotValidEmailResetPasswordError(context);
-                  },
+                : () {},
             style: ButtonStyle(
                 fixedSize: WidgetStatePropertyAll(
                     Size(MediaQuery.of(context).size.width, 60)),

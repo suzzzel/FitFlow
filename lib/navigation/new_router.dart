@@ -389,7 +389,13 @@ GoRouter newRouter(Ref ref) {
       ShellRoute(
           builder: (context, state, child) {
             String name;
+            double fontSize = 20;
+            FontWeight fontWeight = FontWeight.w500;
             switch (state.fullPath) {
+              case '/home':
+                name = 'FIT FLOW';
+                fontSize = 36;
+                fontWeight = FontWeight.w700;
               default:
                 name = '';
                 break;
@@ -412,9 +418,19 @@ GoRouter newRouter(Ref ref) {
                     textScaler: const TextScaler.linear(1),
                     textAlign: TextAlign.center,
                     style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 24,
-                    ),
+                        fontWeight: fontWeight,
+                        fontSize: fontSize,
+                        shadows: state.fullPath == '/home'
+                            ? [
+                                Shadow(
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 20,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondaryFixed
+                                        .withOpacity(0.67))
+                              ]
+                            : null),
                   ),
                 ),
                 leading: state.fullPath == RouterPath.HOME ||

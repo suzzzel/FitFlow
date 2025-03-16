@@ -9,6 +9,7 @@ import 'package:fitflow/features/train/get_training_plan/domain/providers/get_tr
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class HomeMainWidget extends ConsumerWidget {
   const HomeMainWidget({super.key});
@@ -21,20 +22,26 @@ class HomeMainWidget extends ConsumerWidget {
         ref.watch(getTrainingPlanDomainProviderAsyncProvider(id: user.id!));
     return Stack(
       children: [
-        WelcomeInformationWidget(user: user),
+        // WelcomeInformationWidget(user: user),
         Padding(
-          padding: const EdgeInsets.only(top: 167),
+          padding:
+              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.125),
           child: ListView(
-            padding: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: 50),
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             children: [
               // IndicatorsMainWidget(user: user),
-              const WelcomeTrain(),
+
+              WelcomeTrain(
+                todayDate:
+                    '${DateFormat.MMM().format(DateTime.now())}, ${DateTime.now().day}',
+              ),
               TrainingPlanMainWidget(
                 trainingPlan: trainingPlan.hasValue ? trainingPlan.value : [],
                 isPlanLoading: trainingPlan.isLoading,
               ),
+
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

@@ -11,4 +11,5 @@ class TrainingPlanTable extends Table {
   TextColumn get exerciseFour => text().nullable()();
   TextColumn get exerciseFive => text().nullable()();
   TextColumn get reqReps => text()();
+  TextColumn get dataCreatingPlan => text()();
 }

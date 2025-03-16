@@ -613,6 +613,12 @@ class $TrainingPlanTableTable extends TrainingPlanTable
   late final GeneratedColumn<String> reqReps = GeneratedColumn<String>(
       'req_reps', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _dataCreatingPlanMeta =
+      const VerificationMeta('dataCreatingPlan');
+  @override
+  late final GeneratedColumn<String> dataCreatingPlan = GeneratedColumn<String>(
+      'data_creating_plan', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         idUser,
@@ -624,7 +630,8 @@ class $TrainingPlanTableTable extends TrainingPlanTable
         exerciseThree,
         exerciseFour,
         exerciseFive,
-        reqReps
+        reqReps,
+        dataCreatingPlan
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -701,6 +708,14 @@ class $TrainingPlanTableTable extends TrainingPlanTable
     } else if (isInserting) {
       context.missing(_reqRepsMeta);
     }
+    if (data.containsKey('data_creating_plan')) {
+      context.handle(
+          _dataCreatingPlanMeta,
+          dataCreatingPlan.isAcceptableOrUnknown(
+              data['data_creating_plan']!, _dataCreatingPlanMeta));
+    } else if (isInserting) {
+      context.missing(_dataCreatingPlanMeta);
+    }
     return context;
   }
 
@@ -730,6 +745,8 @@ class $TrainingPlanTableTable extends TrainingPlanTable
           .read(DriftSqlType.string, data['${effectivePrefix}exercise_five']),
       reqReps: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}req_reps'])!,
+      dataCreatingPlan: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}data_creating_plan'])!,
     );
   }
 
@@ -751,6 +768,7 @@ class TrainingPlanTableData extends DataClass
   final String? exerciseFour;
   final String? exerciseFive;
   final String reqReps;
+  final String dataCreatingPlan;
   const TrainingPlanTableData(
       {required this.idUser,
       required this.dayOfWeek,
@@ -761,7 +779,8 @@ class TrainingPlanTableData extends DataClass
       this.exerciseThree,
       this.exerciseFour,
       this.exerciseFive,
-      required this.reqReps});
+      required this.reqReps,
+      required this.dataCreatingPlan});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -787,6 +806,7 @@ class TrainingPlanTableData extends DataClass
       map['exercise_five'] = Variable<String>(exerciseFive);
     }
     map['req_reps'] = Variable<String>(reqReps);
+    map['data_creating_plan'] = Variable<String>(dataCreatingPlan);
     return map;
   }
 
@@ -814,6 +834,7 @@ class TrainingPlanTableData extends DataClass
           ? const Value.absent()
           : Value(exerciseFive),
       reqReps: Value(reqReps),
+      dataCreatingPlan: Value(dataCreatingPlan),
     );
   }
 
@@ -831,6 +852,7 @@ class TrainingPlanTableData extends DataClass
       exerciseFour: serializer.fromJson<String?>(json['exerciseFour']),
       exerciseFive: serializer.fromJson<String?>(json['exerciseFive']),
       reqReps: serializer.fromJson<String>(json['reqReps']),
+      dataCreatingPlan: serializer.fromJson<String>(json['dataCreatingPlan']),
     );
   }
   @override
@@ -847,6 +869,7 @@ class TrainingPlanTableData extends DataClass
       'exerciseFour': serializer.toJson<String?>(exerciseFour),
       'exerciseFive': serializer.toJson<String?>(exerciseFive),
       'reqReps': serializer.toJson<String>(reqReps),
+      'dataCreatingPlan': serializer.toJson<String>(dataCreatingPlan),
     };
   }
 
@@ -860,7 +883,8 @@ class TrainingPlanTableData extends DataClass
           Value<String?> exerciseThree = const Value.absent(),
           Value<String?> exerciseFour = const Value.absent(),
           Value<String?> exerciseFive = const Value.absent(),
-          String? reqReps}) =>
+          String? reqReps,
+          String? dataCreatingPlan}) =>
       TrainingPlanTableData(
         idUser: idUser ?? this.idUser,
         dayOfWeek: dayOfWeek ?? this.dayOfWeek,
@@ -877,6 +901,7 @@ class TrainingPlanTableData extends DataClass
         exerciseFive:
             exerciseFive.present ? exerciseFive.value : this.exerciseFive,
         reqReps: reqReps ?? this.reqReps,
+        dataCreatingPlan: dataCreatingPlan ?? this.dataCreatingPlan,
       );
   TrainingPlanTableData copyWithCompanion(TrainingPlanTableCompanion data) {
     return TrainingPlanTableData(
@@ -901,6 +926,9 @@ class TrainingPlanTableData extends DataClass
           ? data.exerciseFive.value
           : this.exerciseFive,
       reqReps: data.reqReps.present ? data.reqReps.value : this.reqReps,
+      dataCreatingPlan: data.dataCreatingPlan.present
+          ? data.dataCreatingPlan.value
+          : this.dataCreatingPlan,
     );
   }
 
@@ -916,7 +944,8 @@ class TrainingPlanTableData extends DataClass
           ..write('exerciseThree: $exerciseThree, ')
           ..write('exerciseFour: $exerciseFour, ')
           ..write('exerciseFive: $exerciseFive, ')
-          ..write('reqReps: $reqReps')
+          ..write('reqReps: $reqReps, ')
+          ..write('dataCreatingPlan: $dataCreatingPlan')
           ..write(')'))
         .toString();
   }
@@ -932,7 +961,8 @@ class TrainingPlanTableData extends DataClass
       exerciseThree,
       exerciseFour,
       exerciseFive,
-      reqReps);
+      reqReps,
+      dataCreatingPlan);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -946,7 +976,8 @@ class TrainingPlanTableData extends DataClass
           other.exerciseThree == this.exerciseThree &&
           other.exerciseFour == this.exerciseFour &&
           other.exerciseFive == this.exerciseFive &&
-          other.reqReps == this.reqReps);
+          other.reqReps == this.reqReps &&
+          other.dataCreatingPlan == this.dataCreatingPlan);
 }
 
 class TrainingPlanTableCompanion
@@ -961,6 +992,7 @@ class TrainingPlanTableCompanion
   final Value<String?> exerciseFour;
   final Value<String?> exerciseFive;
   final Value<String> reqReps;
+  final Value<String> dataCreatingPlan;
   final Value<int> rowid;
   const TrainingPlanTableCompanion({
     this.idUser = const Value.absent(),
@@ -973,6 +1005,7 @@ class TrainingPlanTableCompanion
     this.exerciseFour = const Value.absent(),
     this.exerciseFive = const Value.absent(),
     this.reqReps = const Value.absent(),
+    this.dataCreatingPlan = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   TrainingPlanTableCompanion.insert({
@@ -986,11 +1019,13 @@ class TrainingPlanTableCompanion
     this.exerciseFour = const Value.absent(),
     this.exerciseFive = const Value.absent(),
     required String reqReps,
+    required String dataCreatingPlan,
     this.rowid = const Value.absent(),
   })  : idUser = Value(idUser),
         dayOfWeek = Value(dayOfWeek),
         exerciseOne = Value(exerciseOne),
-        reqReps = Value(reqReps);
+        reqReps = Value(reqReps),
+        dataCreatingPlan = Value(dataCreatingPlan);
   static Insertable<TrainingPlanTableData> custom({
     Expression<String>? idUser,
     Expression<String>? dayOfWeek,
@@ -1002,6 +1037,7 @@ class TrainingPlanTableCompanion
     Expression<String>? exerciseFour,
     Expression<String>? exerciseFive,
     Expression<String>? reqReps,
+    Expression<String>? dataCreatingPlan,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -1015,6 +1051,7 @@ class TrainingPlanTableCompanion
       if (exerciseFour != null) 'exercise_four': exerciseFour,
       if (exerciseFive != null) 'exercise_five': exerciseFive,
       if (reqReps != null) 'req_reps': reqReps,
+      if (dataCreatingPlan != null) 'data_creating_plan': dataCreatingPlan,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -1030,6 +1067,7 @@ class TrainingPlanTableCompanion
       Value<String?>? exerciseFour,
       Value<String?>? exerciseFive,
       Value<String>? reqReps,
+      Value<String>? dataCreatingPlan,
       Value<int>? rowid}) {
     return TrainingPlanTableCompanion(
       idUser: idUser ?? this.idUser,
@@ -1042,6 +1080,7 @@ class TrainingPlanTableCompanion
       exerciseFour: exerciseFour ?? this.exerciseFour,
       exerciseFive: exerciseFive ?? this.exerciseFive,
       reqReps: reqReps ?? this.reqReps,
+      dataCreatingPlan: dataCreatingPlan ?? this.dataCreatingPlan,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -1079,6 +1118,9 @@ class TrainingPlanTableCompanion
     if (reqReps.present) {
       map['req_reps'] = Variable<String>(reqReps.value);
     }
+    if (dataCreatingPlan.present) {
+      map['data_creating_plan'] = Variable<String>(dataCreatingPlan.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -1098,6 +1140,7 @@ class TrainingPlanTableCompanion
           ..write('exerciseFour: $exerciseFour, ')
           ..write('exerciseFive: $exerciseFive, ')
           ..write('reqReps: $reqReps, ')
+          ..write('dataCreatingPlan: $dataCreatingPlan, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -2794,6 +2837,7 @@ typedef $$TrainingPlanTableTableCreateCompanionBuilder
   Value<String?> exerciseFour,
   Value<String?> exerciseFive,
   required String reqReps,
+  required String dataCreatingPlan,
   Value<int> rowid,
 });
 typedef $$TrainingPlanTableTableUpdateCompanionBuilder
@@ -2808,6 +2852,7 @@ typedef $$TrainingPlanTableTableUpdateCompanionBuilder
   Value<String?> exerciseFour,
   Value<String?> exerciseFive,
   Value<String> reqReps,
+  Value<String> dataCreatingPlan,
   Value<int> rowid,
 });
 
@@ -2850,6 +2895,10 @@ class $$TrainingPlanTableTableFilterComposer
 
   ColumnFilters<String> get reqReps => $composableBuilder(
       column: $table.reqReps, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get dataCreatingPlan => $composableBuilder(
+      column: $table.dataCreatingPlan,
+      builder: (column) => ColumnFilters(column));
 }
 
 class $$TrainingPlanTableTableOrderingComposer
@@ -2894,6 +2943,10 @@ class $$TrainingPlanTableTableOrderingComposer
 
   ColumnOrderings<String> get reqReps => $composableBuilder(
       column: $table.reqReps, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get dataCreatingPlan => $composableBuilder(
+      column: $table.dataCreatingPlan,
+      builder: (column) => ColumnOrderings(column));
 }
 
 class $$TrainingPlanTableTableAnnotationComposer
@@ -2934,6 +2987,9 @@ class $$TrainingPlanTableTableAnnotationComposer
 
   GeneratedColumn<String> get reqReps =>
       $composableBuilder(column: $table.reqReps, builder: (column) => column);
+
+  GeneratedColumn<String> get dataCreatingPlan => $composableBuilder(
+      column: $table.dataCreatingPlan, builder: (column) => column);
 }
 
 class $$TrainingPlanTableTableTableManager extends RootTableManager<
@@ -2975,6 +3031,7 @@ class $$TrainingPlanTableTableTableManager extends RootTableManager<
             Value<String?> exerciseFour = const Value.absent(),
             Value<String?> exerciseFive = const Value.absent(),
             Value<String> reqReps = const Value.absent(),
+            Value<String> dataCreatingPlan = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               TrainingPlanTableCompanion(
@@ -2988,6 +3045,7 @@ class $$TrainingPlanTableTableTableManager extends RootTableManager<
             exerciseFour: exerciseFour,
             exerciseFive: exerciseFive,
             reqReps: reqReps,
+            dataCreatingPlan: dataCreatingPlan,
             rowid: rowid,
           ),
           createCompanionCallback: ({
@@ -3001,6 +3059,7 @@ class $$TrainingPlanTableTableTableManager extends RootTableManager<
             Value<String?> exerciseFour = const Value.absent(),
             Value<String?> exerciseFive = const Value.absent(),
             required String reqReps,
+            required String dataCreatingPlan,
             Value<int> rowid = const Value.absent(),
           }) =>
               TrainingPlanTableCompanion.insert(
@@ -3014,6 +3073,7 @@ class $$TrainingPlanTableTableTableManager extends RootTableManager<
             exerciseFour: exerciseFour,
             exerciseFive: exerciseFive,
             reqReps: reqReps,
+            dataCreatingPlan: dataCreatingPlan,
             rowid: rowid,
           ),
           withReferenceMapper: (p0) => p0
