@@ -2,6 +2,7 @@ import 'package:fitflow/features/auth/auth_sign_out/presentation/sign_out_button
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
 import 'package:fitflow/features/general_providers/drift_app_database_provider.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/components/indicators/indicators_main_widget.dart';
+import 'package:fitflow/features/home/presentation/home_main_screen/components/progress_temp_week_main_widget.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/components/train_start_main_widget.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/components/welcome_info_widget.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/components/welcome_train.dart';
@@ -41,7 +42,7 @@ class HomeMainWidget extends ConsumerWidget {
                 trainingPlan: trainingPlan.hasValue ? trainingPlan.value : [],
                 isPlanLoading: trainingPlan.isLoading,
               ),
-
+              const ProgressTempWeekMainWidget(),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

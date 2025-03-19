@@ -8,7 +8,7 @@ class WelcomeTrain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 17, right: 212, top: 5),
+      padding: const EdgeInsets.only(left: 44, top: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -24,7 +24,7 @@ class WelcomeTrain extends StatelessWidget {
                   GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 6,
           ),
           ShaderMask(
@@ -34,7 +34,9 @@ class WelcomeTrain extends StatelessWidget {
               Theme.of(context).colorScheme.secondaryFixed,
             ]).createShader(bounds),
             child: Text(
-              todayDate,
+              _translateDate(
+                  todayMonth: todayDate.split(',').first,
+                  todayDate: todayDate.split(',').last),
               style:
                   GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w500),
             ),
@@ -42,5 +44,36 @@ class WelcomeTrain extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+String _translateDate({required String todayMonth, required String todayDate}) {
+  switch (todayMonth) {
+    case 'Dec':
+      return "Дек,$todayDate";
+    case 'Jan':
+      return "Янв,$todayDate";
+    case 'Feb':
+      return "Фев,$todayDate";
+    case 'Mar':
+      return "Мар,$todayDate";
+    case 'Apr':
+      return "Апр,$todayDate";
+    case 'May':
+      return "Май,$todayDate";
+    case 'Jun':
+      return "Июн,$todayDate";
+    case 'Jul':
+      return "Июл,$todayDate";
+    case 'Aug':
+      return "Авг,$todayDate";
+    case 'Sept':
+      return "Сен,$todayDate";
+    case 'Oct':
+      return "Окт,$todayDate";
+    case 'Nov':
+      return "Ноя,$todayDate";
+    default:
+      return todayDate;
   }
 }
