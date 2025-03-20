@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:drift/drift.dart';
 import 'package:fitflow/features/db/app_database.dart';
 import 'package:fitflow/features/train/get_training_plan/data/repo/get_training_plan_impl.dart';
-import 'package:fitflow/features/train/get_training_plan/models/training_plan_class.dart';
+import 'package:fitflow/features/train/get_training_plan/domain/models/training_plan_class.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class GetTrainingPlanRepoData extends GetTrainingPlanDataImpl {

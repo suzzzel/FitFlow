@@ -6,6 +6,7 @@ import 'package:fitflow/features/home/presentation/home_main_screen/components/p
 import 'package:fitflow/features/home/presentation/home_main_screen/components/train_start_main_widget.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/components/welcome_info_widget.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/components/welcome_train.dart';
+import 'package:fitflow/features/train/get_temp_week_progress/data/providers/get_temp_week_progress_data_provider.dart';
 import 'package:fitflow/features/train/get_training_plan/domain/providers/get_training_plan_domain_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -69,15 +70,19 @@ class HomeMainWidget extends ConsumerWidget {
                           ])),
                   ElevatedButton(
                       onPressed: () {
+                        // ref
+                        //     .read(localDatabaseProvider)
+                        //     .managers
+                        //     .trainingPlanTable
+                        //     .delete();
                         ref
-                            .read(localDatabaseProvider)
-                            .managers
-                            .trainingPlanTable
-                            .delete();
+                            .read(getTempWeekProgressDataProvider)
+                            .getTempWeekTrainings();
                       },
                       child: const Text('clear')),
                 ],
               ),
+              const ProgressTempWeekMainWidget(),
             ],
           ),
         ),

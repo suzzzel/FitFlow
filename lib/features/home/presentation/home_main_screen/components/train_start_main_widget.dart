@@ -1,4 +1,4 @@
-import 'package:fitflow/features/train/get_training_plan/models/training_plan_class.dart';
+import 'package:fitflow/features/train/get_training_plan/domain/models/training_plan_class.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';

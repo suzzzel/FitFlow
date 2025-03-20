@@ -1689,12 +1689,17 @@ class $TrainingTableTable extends TrainingTable
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $TrainingTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idUserMeta = const VerificationMeta('idUser');
+  @override
+  late final GeneratedColumn<String> idUser = GeneratedColumn<String>(
+      'id_user', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _dayOfTrainingMeta =
       const VerificationMeta('dayOfTraining');
   @override
-  late final GeneratedColumn<DateTime> dayOfTraining =
-      GeneratedColumn<DateTime>('day_of_training', aliasedName, false,
-          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  late final GeneratedColumn<String> dayOfTraining = GeneratedColumn<String>(
+      'day_of_training', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _mainMuscleMeta =
       const VerificationMeta('mainMuscle');
   @override
@@ -1729,14 +1734,14 @@ class $TrainingTableTable extends TrainingTable
       const VerificationMeta('countRepsExTwo');
   @override
   late final GeneratedColumn<int> countRepsExTwo = GeneratedColumn<int>(
-      'count_reps_ex_two', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      'count_reps_ex_two', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _maxWeightExTwoMeta =
       const VerificationMeta('maxWeightExTwo');
   @override
   late final GeneratedColumn<String> maxWeightExTwo = GeneratedColumn<String>(
-      'max_weight_ex_two', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'max_weight_ex_two', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _exerciseThreeMeta =
       const VerificationMeta('exerciseThree');
   @override
@@ -1747,14 +1752,14 @@ class $TrainingTableTable extends TrainingTable
       const VerificationMeta('countRepsExThree');
   @override
   late final GeneratedColumn<int> countRepsExThree = GeneratedColumn<int>(
-      'count_reps_ex_three', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      'count_reps_ex_three', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _maxWeightExThreeMeta =
       const VerificationMeta('maxWeightExThree');
   @override
   late final GeneratedColumn<String> maxWeightExThree = GeneratedColumn<String>(
-      'max_weight_ex_three', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'max_weight_ex_three', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _exerciseFourMeta =
       const VerificationMeta('exerciseFour');
   @override
@@ -1765,14 +1770,14 @@ class $TrainingTableTable extends TrainingTable
       const VerificationMeta('countRepsExFour');
   @override
   late final GeneratedColumn<int> countRepsExFour = GeneratedColumn<int>(
-      'count_reps_ex_four', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      'count_reps_ex_four', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _maxWeightExFourMeta =
       const VerificationMeta('maxWeightExFour');
   @override
   late final GeneratedColumn<String> maxWeightExFour = GeneratedColumn<String>(
-      'max_weight_ex_four', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'max_weight_ex_four', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _exerciseFiveMeta =
       const VerificationMeta('exerciseFive');
   @override
@@ -1783,16 +1788,23 @@ class $TrainingTableTable extends TrainingTable
       const VerificationMeta('countRepsExFive');
   @override
   late final GeneratedColumn<int> countRepsExFive = GeneratedColumn<int>(
-      'count_reps_ex_five', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      'count_reps_ex_five', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _maxWeightExFiveMeta =
       const VerificationMeta('maxWeightExFive');
   @override
   late final GeneratedColumn<String> maxWeightExFive = GeneratedColumn<String>(
-      'max_weight_ex_five', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'max_weight_ex_five', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _percentOfTrainDoneMeta =
+      const VerificationMeta('percentOfTrainDone');
+  @override
+  late final GeneratedColumn<int> percentOfTrainDone = GeneratedColumn<int>(
+      'percent_of_train_done', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
+        idUser,
         dayOfTraining,
         mainMuscle,
         exerciseOne,
@@ -1809,7 +1821,8 @@ class $TrainingTableTable extends TrainingTable
         maxWeightExFour,
         exerciseFive,
         countRepsExFive,
-        maxWeightExFive
+        maxWeightExFive,
+        percentOfTrainDone
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -1821,6 +1834,12 @@ class $TrainingTableTable extends TrainingTable
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
+    if (data.containsKey('id_user')) {
+      context.handle(_idUserMeta,
+          idUser.isAcceptableOrUnknown(data['id_user']!, _idUserMeta));
+    } else if (isInserting) {
+      context.missing(_idUserMeta);
+    }
     if (data.containsKey('day_of_training')) {
       context.handle(
           _dayOfTrainingMeta,
@@ -1870,16 +1889,12 @@ class $TrainingTableTable extends TrainingTable
           _countRepsExTwoMeta,
           countRepsExTwo.isAcceptableOrUnknown(
               data['count_reps_ex_two']!, _countRepsExTwoMeta));
-    } else if (isInserting) {
-      context.missing(_countRepsExTwoMeta);
     }
     if (data.containsKey('max_weight_ex_two')) {
       context.handle(
           _maxWeightExTwoMeta,
           maxWeightExTwo.isAcceptableOrUnknown(
               data['max_weight_ex_two']!, _maxWeightExTwoMeta));
-    } else if (isInserting) {
-      context.missing(_maxWeightExTwoMeta);
     }
     if (data.containsKey('exercise_three')) {
       context.handle(
@@ -1892,16 +1907,12 @@ class $TrainingTableTable extends TrainingTable
           _countRepsExThreeMeta,
           countRepsExThree.isAcceptableOrUnknown(
               data['count_reps_ex_three']!, _countRepsExThreeMeta));
-    } else if (isInserting) {
-      context.missing(_countRepsExThreeMeta);
     }
     if (data.containsKey('max_weight_ex_three')) {
       context.handle(
           _maxWeightExThreeMeta,
           maxWeightExThree.isAcceptableOrUnknown(
               data['max_weight_ex_three']!, _maxWeightExThreeMeta));
-    } else if (isInserting) {
-      context.missing(_maxWeightExThreeMeta);
     }
     if (data.containsKey('exercise_four')) {
       context.handle(
@@ -1914,16 +1925,12 @@ class $TrainingTableTable extends TrainingTable
           _countRepsExFourMeta,
           countRepsExFour.isAcceptableOrUnknown(
               data['count_reps_ex_four']!, _countRepsExFourMeta));
-    } else if (isInserting) {
-      context.missing(_countRepsExFourMeta);
     }
     if (data.containsKey('max_weight_ex_four')) {
       context.handle(
           _maxWeightExFourMeta,
           maxWeightExFour.isAcceptableOrUnknown(
               data['max_weight_ex_four']!, _maxWeightExFourMeta));
-    } else if (isInserting) {
-      context.missing(_maxWeightExFourMeta);
     }
     if (data.containsKey('exercise_five')) {
       context.handle(
@@ -1936,16 +1943,20 @@ class $TrainingTableTable extends TrainingTable
           _countRepsExFiveMeta,
           countRepsExFive.isAcceptableOrUnknown(
               data['count_reps_ex_five']!, _countRepsExFiveMeta));
-    } else if (isInserting) {
-      context.missing(_countRepsExFiveMeta);
     }
     if (data.containsKey('max_weight_ex_five')) {
       context.handle(
           _maxWeightExFiveMeta,
           maxWeightExFive.isAcceptableOrUnknown(
               data['max_weight_ex_five']!, _maxWeightExFiveMeta));
+    }
+    if (data.containsKey('percent_of_train_done')) {
+      context.handle(
+          _percentOfTrainDoneMeta,
+          percentOfTrainDone.isAcceptableOrUnknown(
+              data['percent_of_train_done']!, _percentOfTrainDoneMeta));
     } else if (isInserting) {
-      context.missing(_maxWeightExFiveMeta);
+      context.missing(_percentOfTrainDoneMeta);
     }
     return context;
   }
@@ -1956,8 +1967,10 @@ class $TrainingTableTable extends TrainingTable
   TrainingTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return TrainingTableData(
+      idUser: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id_user'])!,
       dayOfTraining: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}day_of_training'])!,
+          DriftSqlType.string, data['${effectivePrefix}day_of_training'])!,
       mainMuscle: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}main_muscle']),
       exerciseOne: attachedDatabase.typeMapping
@@ -1969,27 +1982,29 @@ class $TrainingTableTable extends TrainingTable
       exerciseTwo: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}exercise_two']),
       countRepsExTwo: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}count_reps_ex_two'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}count_reps_ex_two']),
       maxWeightExTwo: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}max_weight_ex_two'])!,
+          DriftSqlType.string, data['${effectivePrefix}max_weight_ex_two']),
       exerciseThree: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}exercise_three']),
       countRepsExThree: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}count_reps_ex_three'])!,
+          DriftSqlType.int, data['${effectivePrefix}count_reps_ex_three']),
       maxWeightExThree: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}max_weight_ex_three'])!,
+          DriftSqlType.string, data['${effectivePrefix}max_weight_ex_three']),
       exerciseFour: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}exercise_four']),
-      countRepsExFour: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}count_reps_ex_four'])!,
+      countRepsExFour: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}count_reps_ex_four']),
       maxWeightExFour: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}max_weight_ex_four'])!,
+          DriftSqlType.string, data['${effectivePrefix}max_weight_ex_four']),
       exerciseFive: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}exercise_five']),
-      countRepsExFive: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}count_reps_ex_five'])!,
+      countRepsExFive: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}count_reps_ex_five']),
       maxWeightExFive: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}max_weight_ex_five'])!,
+          DriftSqlType.string, data['${effectivePrefix}max_weight_ex_five']),
+      percentOfTrainDone: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}percent_of_train_done'])!,
     );
   }
 
@@ -2001,45 +2016,50 @@ class $TrainingTableTable extends TrainingTable
 
 class TrainingTableData extends DataClass
     implements Insertable<TrainingTableData> {
-  final DateTime dayOfTraining;
+  final String idUser;
+  final String dayOfTraining;
   final String? mainMuscle;
   final String exerciseOne;
   final int countRepsExOne;
   final String maxWeightExOne;
   final String? exerciseTwo;
-  final int countRepsExTwo;
-  final String maxWeightExTwo;
+  final int? countRepsExTwo;
+  final String? maxWeightExTwo;
   final String? exerciseThree;
-  final int countRepsExThree;
-  final String maxWeightExThree;
+  final int? countRepsExThree;
+  final String? maxWeightExThree;
   final String? exerciseFour;
-  final int countRepsExFour;
-  final String maxWeightExFour;
+  final int? countRepsExFour;
+  final String? maxWeightExFour;
   final String? exerciseFive;
-  final int countRepsExFive;
-  final String maxWeightExFive;
+  final int? countRepsExFive;
+  final String? maxWeightExFive;
+  final int percentOfTrainDone;
   const TrainingTableData(
-      {required this.dayOfTraining,
+      {required this.idUser,
+      required this.dayOfTraining,
       this.mainMuscle,
       required this.exerciseOne,
       required this.countRepsExOne,
       required this.maxWeightExOne,
       this.exerciseTwo,
-      required this.countRepsExTwo,
-      required this.maxWeightExTwo,
+      this.countRepsExTwo,
+      this.maxWeightExTwo,
       this.exerciseThree,
-      required this.countRepsExThree,
-      required this.maxWeightExThree,
+      this.countRepsExThree,
+      this.maxWeightExThree,
       this.exerciseFour,
-      required this.countRepsExFour,
-      required this.maxWeightExFour,
+      this.countRepsExFour,
+      this.maxWeightExFour,
       this.exerciseFive,
-      required this.countRepsExFive,
-      required this.maxWeightExFive});
+      this.countRepsExFive,
+      this.maxWeightExFive,
+      required this.percentOfTrainDone});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['day_of_training'] = Variable<DateTime>(dayOfTraining);
+    map['id_user'] = Variable<String>(idUser);
+    map['day_of_training'] = Variable<String>(dayOfTraining);
     if (!nullToAbsent || mainMuscle != null) {
       map['main_muscle'] = Variable<String>(mainMuscle);
     }
@@ -2049,28 +2069,46 @@ class TrainingTableData extends DataClass
     if (!nullToAbsent || exerciseTwo != null) {
       map['exercise_two'] = Variable<String>(exerciseTwo);
     }
-    map['count_reps_ex_two'] = Variable<int>(countRepsExTwo);
-    map['max_weight_ex_two'] = Variable<String>(maxWeightExTwo);
+    if (!nullToAbsent || countRepsExTwo != null) {
+      map['count_reps_ex_two'] = Variable<int>(countRepsExTwo);
+    }
+    if (!nullToAbsent || maxWeightExTwo != null) {
+      map['max_weight_ex_two'] = Variable<String>(maxWeightExTwo);
+    }
     if (!nullToAbsent || exerciseThree != null) {
       map['exercise_three'] = Variable<String>(exerciseThree);
     }
-    map['count_reps_ex_three'] = Variable<int>(countRepsExThree);
-    map['max_weight_ex_three'] = Variable<String>(maxWeightExThree);
+    if (!nullToAbsent || countRepsExThree != null) {
+      map['count_reps_ex_three'] = Variable<int>(countRepsExThree);
+    }
+    if (!nullToAbsent || maxWeightExThree != null) {
+      map['max_weight_ex_three'] = Variable<String>(maxWeightExThree);
+    }
     if (!nullToAbsent || exerciseFour != null) {
       map['exercise_four'] = Variable<String>(exerciseFour);
     }
-    map['count_reps_ex_four'] = Variable<int>(countRepsExFour);
-    map['max_weight_ex_four'] = Variable<String>(maxWeightExFour);
+    if (!nullToAbsent || countRepsExFour != null) {
+      map['count_reps_ex_four'] = Variable<int>(countRepsExFour);
+    }
+    if (!nullToAbsent || maxWeightExFour != null) {
+      map['max_weight_ex_four'] = Variable<String>(maxWeightExFour);
+    }
     if (!nullToAbsent || exerciseFive != null) {
       map['exercise_five'] = Variable<String>(exerciseFive);
     }
-    map['count_reps_ex_five'] = Variable<int>(countRepsExFive);
-    map['max_weight_ex_five'] = Variable<String>(maxWeightExFive);
+    if (!nullToAbsent || countRepsExFive != null) {
+      map['count_reps_ex_five'] = Variable<int>(countRepsExFive);
+    }
+    if (!nullToAbsent || maxWeightExFive != null) {
+      map['max_weight_ex_five'] = Variable<String>(maxWeightExFive);
+    }
+    map['percent_of_train_done'] = Variable<int>(percentOfTrainDone);
     return map;
   }
 
   TrainingTableCompanion toCompanion(bool nullToAbsent) {
     return TrainingTableCompanion(
+      idUser: Value(idUser),
       dayOfTraining: Value(dayOfTraining),
       mainMuscle: mainMuscle == null && nullToAbsent
           ? const Value.absent()
@@ -2081,23 +2119,40 @@ class TrainingTableData extends DataClass
       exerciseTwo: exerciseTwo == null && nullToAbsent
           ? const Value.absent()
           : Value(exerciseTwo),
-      countRepsExTwo: Value(countRepsExTwo),
-      maxWeightExTwo: Value(maxWeightExTwo),
+      countRepsExTwo: countRepsExTwo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(countRepsExTwo),
+      maxWeightExTwo: maxWeightExTwo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(maxWeightExTwo),
       exerciseThree: exerciseThree == null && nullToAbsent
           ? const Value.absent()
           : Value(exerciseThree),
-      countRepsExThree: Value(countRepsExThree),
-      maxWeightExThree: Value(maxWeightExThree),
+      countRepsExThree: countRepsExThree == null && nullToAbsent
+          ? const Value.absent()
+          : Value(countRepsExThree),
+      maxWeightExThree: maxWeightExThree == null && nullToAbsent
+          ? const Value.absent()
+          : Value(maxWeightExThree),
       exerciseFour: exerciseFour == null && nullToAbsent
           ? const Value.absent()
           : Value(exerciseFour),
-      countRepsExFour: Value(countRepsExFour),
-      maxWeightExFour: Value(maxWeightExFour),
+      countRepsExFour: countRepsExFour == null && nullToAbsent
+          ? const Value.absent()
+          : Value(countRepsExFour),
+      maxWeightExFour: maxWeightExFour == null && nullToAbsent
+          ? const Value.absent()
+          : Value(maxWeightExFour),
       exerciseFive: exerciseFive == null && nullToAbsent
           ? const Value.absent()
           : Value(exerciseFive),
-      countRepsExFive: Value(countRepsExFive),
-      maxWeightExFive: Value(maxWeightExFive),
+      countRepsExFive: countRepsExFive == null && nullToAbsent
+          ? const Value.absent()
+          : Value(countRepsExFive),
+      maxWeightExFive: maxWeightExFive == null && nullToAbsent
+          ? const Value.absent()
+          : Value(maxWeightExFive),
+      percentOfTrainDone: Value(percentOfTrainDone),
     );
   }
 
@@ -2105,91 +2160,114 @@ class TrainingTableData extends DataClass
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return TrainingTableData(
-      dayOfTraining: serializer.fromJson<DateTime>(json['dayOfTraining']),
+      idUser: serializer.fromJson<String>(json['idUser']),
+      dayOfTraining: serializer.fromJson<String>(json['dayOfTraining']),
       mainMuscle: serializer.fromJson<String?>(json['mainMuscle']),
       exerciseOne: serializer.fromJson<String>(json['exerciseOne']),
       countRepsExOne: serializer.fromJson<int>(json['countRepsExOne']),
       maxWeightExOne: serializer.fromJson<String>(json['maxWeightExOne']),
       exerciseTwo: serializer.fromJson<String?>(json['exerciseTwo']),
-      countRepsExTwo: serializer.fromJson<int>(json['countRepsExTwo']),
-      maxWeightExTwo: serializer.fromJson<String>(json['maxWeightExTwo']),
+      countRepsExTwo: serializer.fromJson<int?>(json['countRepsExTwo']),
+      maxWeightExTwo: serializer.fromJson<String?>(json['maxWeightExTwo']),
       exerciseThree: serializer.fromJson<String?>(json['exerciseThree']),
-      countRepsExThree: serializer.fromJson<int>(json['countRepsExThree']),
-      maxWeightExThree: serializer.fromJson<String>(json['maxWeightExThree']),
+      countRepsExThree: serializer.fromJson<int?>(json['countRepsExThree']),
+      maxWeightExThree: serializer.fromJson<String?>(json['maxWeightExThree']),
       exerciseFour: serializer.fromJson<String?>(json['exerciseFour']),
-      countRepsExFour: serializer.fromJson<int>(json['countRepsExFour']),
-      maxWeightExFour: serializer.fromJson<String>(json['maxWeightExFour']),
+      countRepsExFour: serializer.fromJson<int?>(json['countRepsExFour']),
+      maxWeightExFour: serializer.fromJson<String?>(json['maxWeightExFour']),
       exerciseFive: serializer.fromJson<String?>(json['exerciseFive']),
-      countRepsExFive: serializer.fromJson<int>(json['countRepsExFive']),
-      maxWeightExFive: serializer.fromJson<String>(json['maxWeightExFive']),
+      countRepsExFive: serializer.fromJson<int?>(json['countRepsExFive']),
+      maxWeightExFive: serializer.fromJson<String?>(json['maxWeightExFive']),
+      percentOfTrainDone: serializer.fromJson<int>(json['percentOfTrainDone']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'dayOfTraining': serializer.toJson<DateTime>(dayOfTraining),
+      'idUser': serializer.toJson<String>(idUser),
+      'dayOfTraining': serializer.toJson<String>(dayOfTraining),
       'mainMuscle': serializer.toJson<String?>(mainMuscle),
       'exerciseOne': serializer.toJson<String>(exerciseOne),
       'countRepsExOne': serializer.toJson<int>(countRepsExOne),
       'maxWeightExOne': serializer.toJson<String>(maxWeightExOne),
       'exerciseTwo': serializer.toJson<String?>(exerciseTwo),
-      'countRepsExTwo': serializer.toJson<int>(countRepsExTwo),
-      'maxWeightExTwo': serializer.toJson<String>(maxWeightExTwo),
+      'countRepsExTwo': serializer.toJson<int?>(countRepsExTwo),
+      'maxWeightExTwo': serializer.toJson<String?>(maxWeightExTwo),
       'exerciseThree': serializer.toJson<String?>(exerciseThree),
-      'countRepsExThree': serializer.toJson<int>(countRepsExThree),
-      'maxWeightExThree': serializer.toJson<String>(maxWeightExThree),
+      'countRepsExThree': serializer.toJson<int?>(countRepsExThree),
+      'maxWeightExThree': serializer.toJson<String?>(maxWeightExThree),
       'exerciseFour': serializer.toJson<String?>(exerciseFour),
-      'countRepsExFour': serializer.toJson<int>(countRepsExFour),
-      'maxWeightExFour': serializer.toJson<String>(maxWeightExFour),
+      'countRepsExFour': serializer.toJson<int?>(countRepsExFour),
+      'maxWeightExFour': serializer.toJson<String?>(maxWeightExFour),
       'exerciseFive': serializer.toJson<String?>(exerciseFive),
-      'countRepsExFive': serializer.toJson<int>(countRepsExFive),
-      'maxWeightExFive': serializer.toJson<String>(maxWeightExFive),
+      'countRepsExFive': serializer.toJson<int?>(countRepsExFive),
+      'maxWeightExFive': serializer.toJson<String?>(maxWeightExFive),
+      'percentOfTrainDone': serializer.toJson<int>(percentOfTrainDone),
     };
   }
 
   TrainingTableData copyWith(
-          {DateTime? dayOfTraining,
+          {String? idUser,
+          String? dayOfTraining,
           Value<String?> mainMuscle = const Value.absent(),
           String? exerciseOne,
           int? countRepsExOne,
           String? maxWeightExOne,
           Value<String?> exerciseTwo = const Value.absent(),
-          int? countRepsExTwo,
-          String? maxWeightExTwo,
+          Value<int?> countRepsExTwo = const Value.absent(),
+          Value<String?> maxWeightExTwo = const Value.absent(),
           Value<String?> exerciseThree = const Value.absent(),
-          int? countRepsExThree,
-          String? maxWeightExThree,
+          Value<int?> countRepsExThree = const Value.absent(),
+          Value<String?> maxWeightExThree = const Value.absent(),
           Value<String?> exerciseFour = const Value.absent(),
-          int? countRepsExFour,
-          String? maxWeightExFour,
+          Value<int?> countRepsExFour = const Value.absent(),
+          Value<String?> maxWeightExFour = const Value.absent(),
           Value<String?> exerciseFive = const Value.absent(),
-          int? countRepsExFive,
-          String? maxWeightExFive}) =>
+          Value<int?> countRepsExFive = const Value.absent(),
+          Value<String?> maxWeightExFive = const Value.absent(),
+          int? percentOfTrainDone}) =>
       TrainingTableData(
+        idUser: idUser ?? this.idUser,
         dayOfTraining: dayOfTraining ?? this.dayOfTraining,
         mainMuscle: mainMuscle.present ? mainMuscle.value : this.mainMuscle,
         exerciseOne: exerciseOne ?? this.exerciseOne,
         countRepsExOne: countRepsExOne ?? this.countRepsExOne,
         maxWeightExOne: maxWeightExOne ?? this.maxWeightExOne,
         exerciseTwo: exerciseTwo.present ? exerciseTwo.value : this.exerciseTwo,
-        countRepsExTwo: countRepsExTwo ?? this.countRepsExTwo,
-        maxWeightExTwo: maxWeightExTwo ?? this.maxWeightExTwo,
+        countRepsExTwo:
+            countRepsExTwo.present ? countRepsExTwo.value : this.countRepsExTwo,
+        maxWeightExTwo:
+            maxWeightExTwo.present ? maxWeightExTwo.value : this.maxWeightExTwo,
         exerciseThree:
             exerciseThree.present ? exerciseThree.value : this.exerciseThree,
-        countRepsExThree: countRepsExThree ?? this.countRepsExThree,
-        maxWeightExThree: maxWeightExThree ?? this.maxWeightExThree,
+        countRepsExThree: countRepsExThree.present
+            ? countRepsExThree.value
+            : this.countRepsExThree,
+        maxWeightExThree: maxWeightExThree.present
+            ? maxWeightExThree.value
+            : this.maxWeightExThree,
         exerciseFour:
             exerciseFour.present ? exerciseFour.value : this.exerciseFour,
-        countRepsExFour: countRepsExFour ?? this.countRepsExFour,
-        maxWeightExFour: maxWeightExFour ?? this.maxWeightExFour,
+        countRepsExFour: countRepsExFour.present
+            ? countRepsExFour.value
+            : this.countRepsExFour,
+        maxWeightExFour: maxWeightExFour.present
+            ? maxWeightExFour.value
+            : this.maxWeightExFour,
         exerciseFive:
             exerciseFive.present ? exerciseFive.value : this.exerciseFive,
-        countRepsExFive: countRepsExFive ?? this.countRepsExFive,
-        maxWeightExFive: maxWeightExFive ?? this.maxWeightExFive,
+        countRepsExFive: countRepsExFive.present
+            ? countRepsExFive.value
+            : this.countRepsExFive,
+        maxWeightExFive: maxWeightExFive.present
+            ? maxWeightExFive.value
+            : this.maxWeightExFive,
+        percentOfTrainDone: percentOfTrainDone ?? this.percentOfTrainDone,
       );
   TrainingTableData copyWithCompanion(TrainingTableCompanion data) {
     return TrainingTableData(
+      idUser: data.idUser.present ? data.idUser.value : this.idUser,
       dayOfTraining: data.dayOfTraining.present
           ? data.dayOfTraining.value
           : this.dayOfTraining,
@@ -2238,12 +2316,16 @@ class TrainingTableData extends DataClass
       maxWeightExFive: data.maxWeightExFive.present
           ? data.maxWeightExFive.value
           : this.maxWeightExFive,
+      percentOfTrainDone: data.percentOfTrainDone.present
+          ? data.percentOfTrainDone.value
+          : this.percentOfTrainDone,
     );
   }
 
   @override
   String toString() {
     return (StringBuffer('TrainingTableData(')
+          ..write('idUser: $idUser, ')
           ..write('dayOfTraining: $dayOfTraining, ')
           ..write('mainMuscle: $mainMuscle, ')
           ..write('exerciseOne: $exerciseOne, ')
@@ -2260,13 +2342,15 @@ class TrainingTableData extends DataClass
           ..write('maxWeightExFour: $maxWeightExFour, ')
           ..write('exerciseFive: $exerciseFive, ')
           ..write('countRepsExFive: $countRepsExFive, ')
-          ..write('maxWeightExFive: $maxWeightExFive')
+          ..write('maxWeightExFive: $maxWeightExFive, ')
+          ..write('percentOfTrainDone: $percentOfTrainDone')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hash(
+      idUser,
       dayOfTraining,
       mainMuscle,
       exerciseOne,
@@ -2283,11 +2367,13 @@ class TrainingTableData extends DataClass
       maxWeightExFour,
       exerciseFive,
       countRepsExFive,
-      maxWeightExFive);
+      maxWeightExFive,
+      percentOfTrainDone);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is TrainingTableData &&
+          other.idUser == this.idUser &&
           other.dayOfTraining == this.dayOfTraining &&
           other.mainMuscle == this.mainMuscle &&
           other.exerciseOne == this.exerciseOne &&
@@ -2304,29 +2390,33 @@ class TrainingTableData extends DataClass
           other.maxWeightExFour == this.maxWeightExFour &&
           other.exerciseFive == this.exerciseFive &&
           other.countRepsExFive == this.countRepsExFive &&
-          other.maxWeightExFive == this.maxWeightExFive);
+          other.maxWeightExFive == this.maxWeightExFive &&
+          other.percentOfTrainDone == this.percentOfTrainDone);
 }
 
 class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
-  final Value<DateTime> dayOfTraining;
+  final Value<String> idUser;
+  final Value<String> dayOfTraining;
   final Value<String?> mainMuscle;
   final Value<String> exerciseOne;
   final Value<int> countRepsExOne;
   final Value<String> maxWeightExOne;
   final Value<String?> exerciseTwo;
-  final Value<int> countRepsExTwo;
-  final Value<String> maxWeightExTwo;
+  final Value<int?> countRepsExTwo;
+  final Value<String?> maxWeightExTwo;
   final Value<String?> exerciseThree;
-  final Value<int> countRepsExThree;
-  final Value<String> maxWeightExThree;
+  final Value<int?> countRepsExThree;
+  final Value<String?> maxWeightExThree;
   final Value<String?> exerciseFour;
-  final Value<int> countRepsExFour;
-  final Value<String> maxWeightExFour;
+  final Value<int?> countRepsExFour;
+  final Value<String?> maxWeightExFour;
   final Value<String?> exerciseFive;
-  final Value<int> countRepsExFive;
-  final Value<String> maxWeightExFive;
+  final Value<int?> countRepsExFive;
+  final Value<String?> maxWeightExFive;
+  final Value<int> percentOfTrainDone;
   final Value<int> rowid;
   const TrainingTableCompanion({
+    this.idUser = const Value.absent(),
     this.dayOfTraining = const Value.absent(),
     this.mainMuscle = const Value.absent(),
     this.exerciseOne = const Value.absent(),
@@ -2344,41 +2434,39 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
     this.exerciseFive = const Value.absent(),
     this.countRepsExFive = const Value.absent(),
     this.maxWeightExFive = const Value.absent(),
+    this.percentOfTrainDone = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   TrainingTableCompanion.insert({
-    required DateTime dayOfTraining,
+    required String idUser,
+    required String dayOfTraining,
     this.mainMuscle = const Value.absent(),
     required String exerciseOne,
     required int countRepsExOne,
     required String maxWeightExOne,
     this.exerciseTwo = const Value.absent(),
-    required int countRepsExTwo,
-    required String maxWeightExTwo,
+    this.countRepsExTwo = const Value.absent(),
+    this.maxWeightExTwo = const Value.absent(),
     this.exerciseThree = const Value.absent(),
-    required int countRepsExThree,
-    required String maxWeightExThree,
+    this.countRepsExThree = const Value.absent(),
+    this.maxWeightExThree = const Value.absent(),
     this.exerciseFour = const Value.absent(),
-    required int countRepsExFour,
-    required String maxWeightExFour,
+    this.countRepsExFour = const Value.absent(),
+    this.maxWeightExFour = const Value.absent(),
     this.exerciseFive = const Value.absent(),
-    required int countRepsExFive,
-    required String maxWeightExFive,
+    this.countRepsExFive = const Value.absent(),
+    this.maxWeightExFive = const Value.absent(),
+    required int percentOfTrainDone,
     this.rowid = const Value.absent(),
-  })  : dayOfTraining = Value(dayOfTraining),
+  })  : idUser = Value(idUser),
+        dayOfTraining = Value(dayOfTraining),
         exerciseOne = Value(exerciseOne),
         countRepsExOne = Value(countRepsExOne),
         maxWeightExOne = Value(maxWeightExOne),
-        countRepsExTwo = Value(countRepsExTwo),
-        maxWeightExTwo = Value(maxWeightExTwo),
-        countRepsExThree = Value(countRepsExThree),
-        maxWeightExThree = Value(maxWeightExThree),
-        countRepsExFour = Value(countRepsExFour),
-        maxWeightExFour = Value(maxWeightExFour),
-        countRepsExFive = Value(countRepsExFive),
-        maxWeightExFive = Value(maxWeightExFive);
+        percentOfTrainDone = Value(percentOfTrainDone);
   static Insertable<TrainingTableData> custom({
-    Expression<DateTime>? dayOfTraining,
+    Expression<String>? idUser,
+    Expression<String>? dayOfTraining,
     Expression<String>? mainMuscle,
     Expression<String>? exerciseOne,
     Expression<int>? countRepsExOne,
@@ -2395,9 +2483,11 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
     Expression<String>? exerciseFive,
     Expression<int>? countRepsExFive,
     Expression<String>? maxWeightExFive,
+    Expression<int>? percentOfTrainDone,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
+      if (idUser != null) 'id_user': idUser,
       if (dayOfTraining != null) 'day_of_training': dayOfTraining,
       if (mainMuscle != null) 'main_muscle': mainMuscle,
       if (exerciseOne != null) 'exercise_one': exerciseOne,
@@ -2415,30 +2505,35 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
       if (exerciseFive != null) 'exercise_five': exerciseFive,
       if (countRepsExFive != null) 'count_reps_ex_five': countRepsExFive,
       if (maxWeightExFive != null) 'max_weight_ex_five': maxWeightExFive,
+      if (percentOfTrainDone != null)
+        'percent_of_train_done': percentOfTrainDone,
       if (rowid != null) 'rowid': rowid,
     });
   }
 
   TrainingTableCompanion copyWith(
-      {Value<DateTime>? dayOfTraining,
+      {Value<String>? idUser,
+      Value<String>? dayOfTraining,
       Value<String?>? mainMuscle,
       Value<String>? exerciseOne,
       Value<int>? countRepsExOne,
       Value<String>? maxWeightExOne,
       Value<String?>? exerciseTwo,
-      Value<int>? countRepsExTwo,
-      Value<String>? maxWeightExTwo,
+      Value<int?>? countRepsExTwo,
+      Value<String?>? maxWeightExTwo,
       Value<String?>? exerciseThree,
-      Value<int>? countRepsExThree,
-      Value<String>? maxWeightExThree,
+      Value<int?>? countRepsExThree,
+      Value<String?>? maxWeightExThree,
       Value<String?>? exerciseFour,
-      Value<int>? countRepsExFour,
-      Value<String>? maxWeightExFour,
+      Value<int?>? countRepsExFour,
+      Value<String?>? maxWeightExFour,
       Value<String?>? exerciseFive,
-      Value<int>? countRepsExFive,
-      Value<String>? maxWeightExFive,
+      Value<int?>? countRepsExFive,
+      Value<String?>? maxWeightExFive,
+      Value<int>? percentOfTrainDone,
       Value<int>? rowid}) {
     return TrainingTableCompanion(
+      idUser: idUser ?? this.idUser,
       dayOfTraining: dayOfTraining ?? this.dayOfTraining,
       mainMuscle: mainMuscle ?? this.mainMuscle,
       exerciseOne: exerciseOne ?? this.exerciseOne,
@@ -2456,6 +2551,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
       exerciseFive: exerciseFive ?? this.exerciseFive,
       countRepsExFive: countRepsExFive ?? this.countRepsExFive,
       maxWeightExFive: maxWeightExFive ?? this.maxWeightExFive,
+      percentOfTrainDone: percentOfTrainDone ?? this.percentOfTrainDone,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -2463,8 +2559,11 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    if (idUser.present) {
+      map['id_user'] = Variable<String>(idUser.value);
+    }
     if (dayOfTraining.present) {
-      map['day_of_training'] = Variable<DateTime>(dayOfTraining.value);
+      map['day_of_training'] = Variable<String>(dayOfTraining.value);
     }
     if (mainMuscle.present) {
       map['main_muscle'] = Variable<String>(mainMuscle.value);
@@ -2514,6 +2613,9 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
     if (maxWeightExFive.present) {
       map['max_weight_ex_five'] = Variable<String>(maxWeightExFive.value);
     }
+    if (percentOfTrainDone.present) {
+      map['percent_of_train_done'] = Variable<int>(percentOfTrainDone.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -2523,6 +2625,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
   @override
   String toString() {
     return (StringBuffer('TrainingTableCompanion(')
+          ..write('idUser: $idUser, ')
           ..write('dayOfTraining: $dayOfTraining, ')
           ..write('mainMuscle: $mainMuscle, ')
           ..write('exerciseOne: $exerciseOne, ')
@@ -2540,6 +2643,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
           ..write('exerciseFive: $exerciseFive, ')
           ..write('countRepsExFive: $countRepsExFive, ')
           ..write('maxWeightExFive: $maxWeightExFive, ')
+          ..write('percentOfTrainDone: $percentOfTrainDone, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -3359,44 +3463,48 @@ typedef $$ExerciseTableTableProcessedTableManager = ProcessedTableManager<
     PrefetchHooks Function()>;
 typedef $$TrainingTableTableCreateCompanionBuilder = TrainingTableCompanion
     Function({
-  required DateTime dayOfTraining,
+  required String idUser,
+  required String dayOfTraining,
   Value<String?> mainMuscle,
   required String exerciseOne,
   required int countRepsExOne,
   required String maxWeightExOne,
   Value<String?> exerciseTwo,
-  required int countRepsExTwo,
-  required String maxWeightExTwo,
+  Value<int?> countRepsExTwo,
+  Value<String?> maxWeightExTwo,
   Value<String?> exerciseThree,
-  required int countRepsExThree,
-  required String maxWeightExThree,
+  Value<int?> countRepsExThree,
+  Value<String?> maxWeightExThree,
   Value<String?> exerciseFour,
-  required int countRepsExFour,
-  required String maxWeightExFour,
+  Value<int?> countRepsExFour,
+  Value<String?> maxWeightExFour,
   Value<String?> exerciseFive,
-  required int countRepsExFive,
-  required String maxWeightExFive,
+  Value<int?> countRepsExFive,
+  Value<String?> maxWeightExFive,
+  required int percentOfTrainDone,
   Value<int> rowid,
 });
 typedef $$TrainingTableTableUpdateCompanionBuilder = TrainingTableCompanion
     Function({
-  Value<DateTime> dayOfTraining,
+  Value<String> idUser,
+  Value<String> dayOfTraining,
   Value<String?> mainMuscle,
   Value<String> exerciseOne,
   Value<int> countRepsExOne,
   Value<String> maxWeightExOne,
   Value<String?> exerciseTwo,
-  Value<int> countRepsExTwo,
-  Value<String> maxWeightExTwo,
+  Value<int?> countRepsExTwo,
+  Value<String?> maxWeightExTwo,
   Value<String?> exerciseThree,
-  Value<int> countRepsExThree,
-  Value<String> maxWeightExThree,
+  Value<int?> countRepsExThree,
+  Value<String?> maxWeightExThree,
   Value<String?> exerciseFour,
-  Value<int> countRepsExFour,
-  Value<String> maxWeightExFour,
+  Value<int?> countRepsExFour,
+  Value<String?> maxWeightExFour,
   Value<String?> exerciseFive,
-  Value<int> countRepsExFive,
-  Value<String> maxWeightExFive,
+  Value<int?> countRepsExFive,
+  Value<String?> maxWeightExFive,
+  Value<int> percentOfTrainDone,
   Value<int> rowid,
 });
 
@@ -3409,7 +3517,10 @@ class $$TrainingTableTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<DateTime> get dayOfTraining => $composableBuilder(
+  ColumnFilters<String> get idUser => $composableBuilder(
+      column: $table.idUser, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get dayOfTraining => $composableBuilder(
       column: $table.dayOfTraining, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get mainMuscle => $composableBuilder(
@@ -3469,6 +3580,10 @@ class $$TrainingTableTableFilterComposer
   ColumnFilters<String> get maxWeightExFive => $composableBuilder(
       column: $table.maxWeightExFive,
       builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get percentOfTrainDone => $composableBuilder(
+      column: $table.percentOfTrainDone,
+      builder: (column) => ColumnFilters(column));
 }
 
 class $$TrainingTableTableOrderingComposer
@@ -3480,7 +3595,10 @@ class $$TrainingTableTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<DateTime> get dayOfTraining => $composableBuilder(
+  ColumnOrderings<String> get idUser => $composableBuilder(
+      column: $table.idUser, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get dayOfTraining => $composableBuilder(
       column: $table.dayOfTraining,
       builder: (column) => ColumnOrderings(column));
 
@@ -3544,6 +3662,10 @@ class $$TrainingTableTableOrderingComposer
   ColumnOrderings<String> get maxWeightExFive => $composableBuilder(
       column: $table.maxWeightExFive,
       builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get percentOfTrainDone => $composableBuilder(
+      column: $table.percentOfTrainDone,
+      builder: (column) => ColumnOrderings(column));
 }
 
 class $$TrainingTableTableAnnotationComposer
@@ -3555,7 +3677,10 @@ class $$TrainingTableTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<DateTime> get dayOfTraining => $composableBuilder(
+  GeneratedColumn<String> get idUser =>
+      $composableBuilder(column: $table.idUser, builder: (column) => column);
+
+  GeneratedColumn<String> get dayOfTraining => $composableBuilder(
       column: $table.dayOfTraining, builder: (column) => column);
 
   GeneratedColumn<String> get mainMuscle => $composableBuilder(
@@ -3605,6 +3730,9 @@ class $$TrainingTableTableAnnotationComposer
 
   GeneratedColumn<String> get maxWeightExFive => $composableBuilder(
       column: $table.maxWeightExFive, builder: (column) => column);
+
+  GeneratedColumn<int> get percentOfTrainDone => $composableBuilder(
+      column: $table.percentOfTrainDone, builder: (column) => column);
 }
 
 class $$TrainingTableTableTableManager extends RootTableManager<
@@ -3633,26 +3761,29 @@ class $$TrainingTableTableTableManager extends RootTableManager<
           createComputedFieldComposer: () =>
               $$TrainingTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
-            Value<DateTime> dayOfTraining = const Value.absent(),
+            Value<String> idUser = const Value.absent(),
+            Value<String> dayOfTraining = const Value.absent(),
             Value<String?> mainMuscle = const Value.absent(),
             Value<String> exerciseOne = const Value.absent(),
             Value<int> countRepsExOne = const Value.absent(),
             Value<String> maxWeightExOne = const Value.absent(),
             Value<String?> exerciseTwo = const Value.absent(),
-            Value<int> countRepsExTwo = const Value.absent(),
-            Value<String> maxWeightExTwo = const Value.absent(),
+            Value<int?> countRepsExTwo = const Value.absent(),
+            Value<String?> maxWeightExTwo = const Value.absent(),
             Value<String?> exerciseThree = const Value.absent(),
-            Value<int> countRepsExThree = const Value.absent(),
-            Value<String> maxWeightExThree = const Value.absent(),
+            Value<int?> countRepsExThree = const Value.absent(),
+            Value<String?> maxWeightExThree = const Value.absent(),
             Value<String?> exerciseFour = const Value.absent(),
-            Value<int> countRepsExFour = const Value.absent(),
-            Value<String> maxWeightExFour = const Value.absent(),
+            Value<int?> countRepsExFour = const Value.absent(),
+            Value<String?> maxWeightExFour = const Value.absent(),
             Value<String?> exerciseFive = const Value.absent(),
-            Value<int> countRepsExFive = const Value.absent(),
-            Value<String> maxWeightExFive = const Value.absent(),
+            Value<int?> countRepsExFive = const Value.absent(),
+            Value<String?> maxWeightExFive = const Value.absent(),
+            Value<int> percentOfTrainDone = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               TrainingTableCompanion(
+            idUser: idUser,
             dayOfTraining: dayOfTraining,
             mainMuscle: mainMuscle,
             exerciseOne: exerciseOne,
@@ -3670,29 +3801,33 @@ class $$TrainingTableTableTableManager extends RootTableManager<
             exerciseFive: exerciseFive,
             countRepsExFive: countRepsExFive,
             maxWeightExFive: maxWeightExFive,
+            percentOfTrainDone: percentOfTrainDone,
             rowid: rowid,
           ),
           createCompanionCallback: ({
-            required DateTime dayOfTraining,
+            required String idUser,
+            required String dayOfTraining,
             Value<String?> mainMuscle = const Value.absent(),
             required String exerciseOne,
             required int countRepsExOne,
             required String maxWeightExOne,
             Value<String?> exerciseTwo = const Value.absent(),
-            required int countRepsExTwo,
-            required String maxWeightExTwo,
+            Value<int?> countRepsExTwo = const Value.absent(),
+            Value<String?> maxWeightExTwo = const Value.absent(),
             Value<String?> exerciseThree = const Value.absent(),
-            required int countRepsExThree,
-            required String maxWeightExThree,
+            Value<int?> countRepsExThree = const Value.absent(),
+            Value<String?> maxWeightExThree = const Value.absent(),
             Value<String?> exerciseFour = const Value.absent(),
-            required int countRepsExFour,
-            required String maxWeightExFour,
+            Value<int?> countRepsExFour = const Value.absent(),
+            Value<String?> maxWeightExFour = const Value.absent(),
             Value<String?> exerciseFive = const Value.absent(),
-            required int countRepsExFive,
-            required String maxWeightExFive,
+            Value<int?> countRepsExFive = const Value.absent(),
+            Value<String?> maxWeightExFive = const Value.absent(),
+            required int percentOfTrainDone,
             Value<int> rowid = const Value.absent(),
           }) =>
               TrainingTableCompanion.insert(
+            idUser: idUser,
             dayOfTraining: dayOfTraining,
             mainMuscle: mainMuscle,
             exerciseOne: exerciseOne,
@@ -3710,6 +3845,7 @@ class $$TrainingTableTableTableManager extends RootTableManager<
             exerciseFive: exerciseFive,
             countRepsExFive: countRepsExFive,
             maxWeightExFive: maxWeightExFive,
+            percentOfTrainDone: percentOfTrainDone,
             rowid: rowid,
           ),
           withReferenceMapper: (p0) => p0

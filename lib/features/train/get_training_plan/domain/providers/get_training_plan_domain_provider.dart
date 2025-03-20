@@ -1,5 +1,5 @@
 import 'package:fitflow/features/train/get_training_plan/data/providers/get_training_plan_data_provider.dart';
-import 'package:fitflow/features/train/get_training_plan/models/training_plan_class.dart';
+import 'package:fitflow/features/train/get_training_plan/domain/models/training_plan_class.dart';
 import 'package:fitflow/features/train/get_training_plan/domain/repo/get_training_plan_domain_repo.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
