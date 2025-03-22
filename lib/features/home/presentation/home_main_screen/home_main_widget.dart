@@ -43,7 +43,8 @@ class HomeMainWidget extends ConsumerWidget {
                 trainingPlan: trainingPlan.hasValue ? trainingPlan.value : [],
                 isPlanLoading: trainingPlan.isLoading,
               ),
-              const ProgressTempWeekMainWidget(),
+              // const ProgressTempWeekMainWidget(),
+              NewTempWeekProgress(),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

@@ -2,12 +2,13 @@
 import 'dart:convert';
 
 class TrainingDayClass {
-  final String idUser;
-  final String dayOfTraining;
+  final bool isChillday;
+  final String? idUser;
+  final String? dayOfTraining;
   final String? mainMuscle;
-  final String exerciseOne;
-  final int countRepsExOne;
-  final String maxWeightExOne;
+  final String? exerciseOne;
+  final int? countRepsExOne;
+  final String? maxWeightExOne;
   final String? exerciseTwo;
   final int? countRepsExTwo;
   final String? maxWeightExTwo;
@@ -20,14 +21,15 @@ class TrainingDayClass {
   final String? exerciseFive;
   final int? countRepsExFive;
   final String? maxWeightExFive;
-  final int percentOfTrainDone;
+  final int? percentOfTrainDone;
   TrainingDayClass({
-    required this.idUser,
-    required this.dayOfTraining,
+    required this.isChillday,
+    this.idUser,
+    this.dayOfTraining,
     this.mainMuscle,
-    required this.exerciseOne,
-    required this.countRepsExOne,
-    required this.maxWeightExOne,
+    this.exerciseOne,
+    this.countRepsExOne,
+    this.maxWeightExOne,
     this.exerciseTwo,
     this.countRepsExTwo,
     this.maxWeightExTwo,
@@ -40,10 +42,11 @@ class TrainingDayClass {
     this.exerciseFive,
     this.countRepsExFive,
     this.maxWeightExFive,
-    required this.percentOfTrainDone,
+    this.percentOfTrainDone,
   });
 
   TrainingDayClass copyWith({
+    bool? isChillday,
     String? idUser,
     String? dayOfTraining,
     String? mainMuscle,
@@ -65,6 +68,7 @@ class TrainingDayClass {
     int? percentOfTrainDone,
   }) {
     return TrainingDayClass(
+      isChillday: isChillday ?? this.isChillday,
       idUser: idUser ?? this.idUser,
       dayOfTraining: dayOfTraining ?? this.dayOfTraining,
       mainMuscle: mainMuscle ?? this.mainMuscle,
@@ -89,6 +93,7 @@ class TrainingDayClass {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'isChillday': isChillday,
       'idUser': idUser,
       'dayOfTraining': dayOfTraining,
       'mainMuscle': mainMuscle,
@@ -113,13 +118,19 @@ class TrainingDayClass {
 
   factory TrainingDayClass.fromMap(Map<String, dynamic> map) {
     return TrainingDayClass(
-      idUser: map['idUser'] as String,
-      dayOfTraining: map['dayOfTraining'] as String,
+      isChillday: map['isChillday'] as bool,
+      idUser: map['idUser'] != null ? map['idUser'] as String : null,
+      dayOfTraining:
+          map['dayOfTraining'] != null ? map['dayOfTraining'] as String : null,
       mainMuscle:
           map['mainMuscle'] != null ? map['mainMuscle'] as String : null,
-      exerciseOne: map['exerciseOne'] as String,
-      countRepsExOne: map['countRepsExOne'] as int,
-      maxWeightExOne: map['maxWeightExOne'] as String,
+      exerciseOne:
+          map['exerciseOne'] != null ? map['exerciseOne'] as String : null,
+      countRepsExOne:
+          map['countRepsExOne'] != null ? map['countRepsExOne'] as int : null,
+      maxWeightExOne: map['maxWeightExOne'] != null
+          ? map['maxWeightExOne'] as String
+          : null,
       exerciseTwo:
           map['exerciseTwo'] != null ? map['exerciseTwo'] as String : null,
       countRepsExTwo:
@@ -149,7 +160,9 @@ class TrainingDayClass {
       maxWeightExFive: map['maxWeightExFive'] != null
           ? map['maxWeightExFive'] as String
           : null,
-      percentOfTrainDone: map['percentOfTrainDone'] as int,
+      percentOfTrainDone: map['percentOfTrainDone'] != null
+          ? map['percentOfTrainDone'] as int
+          : null,
     );
   }
 
@@ -160,14 +173,15 @@ class TrainingDayClass {
 
   @override
   String toString() {
-    return 'TrainingDayClass(idUser: $idUser, dayOfTraining: $dayOfTraining, mainMuscle: $mainMuscle, exerciseOne: $exerciseOne, countRepsExOne: $countRepsExOne, maxWeightExOne: $maxWeightExOne, exerciseTwo: $exerciseTwo, countRepsExTwo: $countRepsExTwo, maxWeightExTwo: $maxWeightExTwo, exerciseThree: $exerciseThree, countRepsExThree: $countRepsExThree, maxWeightExThree: $maxWeightExThree, exerciseFour: $exerciseFour, countRepsExFour: $countRepsExFour, maxWeightExFour: $maxWeightExFour, exerciseFive: $exerciseFive, countRepsExFive: $countRepsExFive, maxWeightExFive: $maxWeightExFive, percentOfTrainDone: $percentOfTrainDone)';
+    return 'TrainingDayClass(isChillday: $isChillday, idUser: $idUser, dayOfTraining: $dayOfTraining, mainMuscle: $mainMuscle, exerciseOne: $exerciseOne, countRepsExOne: $countRepsExOne, maxWeightExOne: $maxWeightExOne, exerciseTwo: $exerciseTwo, countRepsExTwo: $countRepsExTwo, maxWeightExTwo: $maxWeightExTwo, exerciseThree: $exerciseThree, countRepsExThree: $countRepsExThree, maxWeightExThree: $maxWeightExThree, exerciseFour: $exerciseFour, countRepsExFour: $countRepsExFour, maxWeightExFour: $maxWeightExFour, exerciseFive: $exerciseFive, countRepsExFive: $countRepsExFive, maxWeightExFive: $maxWeightExFive, percentOfTrainDone: $percentOfTrainDone)';
   }
 
   @override
   bool operator ==(covariant TrainingDayClass other) {
     if (identical(this, other)) return true;
 
-    return other.idUser == idUser &&
+    return other.isChillday == isChillday &&
+        other.idUser == idUser &&
         other.dayOfTraining == dayOfTraining &&
         other.mainMuscle == mainMuscle &&
         other.exerciseOne == exerciseOne &&
@@ -190,7 +204,8 @@ class TrainingDayClass {
 
   @override
   int get hashCode {
-    return idUser.hashCode ^
+    return isChillday.hashCode ^
+        idUser.hashCode ^
         dayOfTraining.hashCode ^
         mainMuscle.hashCode ^
         exerciseOne.hashCode ^

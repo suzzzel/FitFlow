@@ -24,25 +24,46 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
         DateTime.now().subtract(Duration(days: daysToSubstract));
 
     try {
-      final List<TrainingDayClass> offlineTrainings = [];
+      final List<TrainingDayClass> listTrainingsOfWeek = [];
+      final trainPlan = await database.managers.trainingPlanTable.get();
       for (int x = 0; x != currentWeekday; x++) {
         final dayToFind =
             DateFormat('yyyy-MM-dd').format(startOfWeek.add(Duration(days: x)));
+        final String weekDayThisDayStringVersion =
+            DateFormat('EEEE').format(DateTime.parse(dayToFind)).toLowerCase();
         final trainDay = await database.managers.trainingTable
             .filter((day) => day.dayOfTraining(dayToFind))
             .getSingleOrNull();
-        if (trainDay == null) {
-          continue;
-        } else {
-          offlineTrainings
-              .add(TrainingDayClass.fromJson(trainDay.toJsonString()));
-          continue;
-        }
+
+        final isThisWorkdayOrChillday = trainPlan
+            .any((element) => element.dayOfWeek == weekDayThisDayStringVersion);
+        listTrainingsOfWeek.add(TrainingDayClass(
+            isChillday: isThisWorkdayOrChillday,
+            dayOfTraining: trainDay?.dayOfTraining,
+            mainMuscle: trainDay?.mainMuscle,
+            idUser: trainDay?.idUser,
+            exerciseOne: trainDay?.exerciseOne,
+            exerciseTwo: trainDay?.exerciseTwo,
+            exerciseThree: trainDay?.exerciseThree,
+            exerciseFour: trainDay?.exerciseFour,
+            exerciseFive: trainDay?.exerciseFive,
+            countRepsExOne: trainDay?.countRepsExOne,
+            countRepsExTwo: trainDay?.countRepsExTwo,
+            countRepsExThree: trainDay?.countRepsExThree,
+            countRepsExFour: trainDay?.countRepsExFour,
+            countRepsExFive: trainDay?.countRepsExFive,
+            maxWeightExOne: trainDay?.maxWeightExOne,
+            maxWeightExTwo: trainDay?.maxWeightExTwo,
+            maxWeightExThree: trainDay?.maxWeightExThree,
+            maxWeightExFour: trainDay?.maxWeightExFour,
+            maxWeightExFive: trainDay?.maxWeightExFive,
+            percentOfTrainDone: trainDay?.percentOfTrainDone));
+        // listTrainingsOfWeek.add(TrainingDayClass.fromJson(trainDay.toJsonString()));
       }
-      for (var x in offlineTrainings) {
+      for (var x in listTrainingsOfWeek) {
         log(x.toString());
       }
-      return offlineTrainings;
+      return listTrainingsOfWeek;
     } catch (e) {
       rethrow;
     }
