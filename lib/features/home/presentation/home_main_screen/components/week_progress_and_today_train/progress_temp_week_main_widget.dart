@@ -1,35 +1,26 @@
 import 'dart:developer';
 
-import 'package:fitflow/features/db/training_table.dart';
 import 'package:fitflow/features/train/get_temp_week_progress/domain/models/training_day_for_domain.dart';
-import 'package:fitflow/features/train/get_temp_week_progress/domain/providers/get_temp_week_progress_domain_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
-class ProgressTempWeekMainWidget extends ConsumerWidget {
-  const ProgressTempWeekMainWidget({super.key});
+class ProgressTempWeekNew extends StatelessWidget {
+  final List<TrainingDayForDomain> trainings;
+  const ProgressTempWeekNew({super.key, required this.trainings});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final progressList =
-        ref.watch(getTempWeekProgressDomainProviderAsyncProvider);
-    return Padding(
-      padding: const EdgeInsets.only(left: 37, right: 29),
-      child: Container(
-        height: 198,
-        padding: const EdgeInsets.only(left: 15, right: 24, top: 11, bottom: 8),
-        decoration: BoxDecoration(
-            color: const Color.fromRGBO(42, 44, 56, 1),
-            borderRadius: BorderRadius.circular(20)),
-        child: progressList.isLoading
-            ? const SizedBox(
-                width: 50,
-                height: 50,
-                child: Center(child: CircularProgressIndicator()))
-            : Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                ..._progressTempWeek(progressList.value!, context),
-              ]),
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          color: const Color.fromRGBO(42, 44, 56, 1),
+          borderRadius: BorderRadius.circular(20)),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 15, right: 24, top: 11),
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          ..._progressTempWeek(trainings, context),
+        ]),
       ),
     );
   }
@@ -66,6 +57,7 @@ class ProgressTempWeekMainWidget extends ConsumerWidget {
         log(tempProgress[x].percentOfTrainDone.toString());
       }
       thisWeek.add(Column(
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Stack(
@@ -127,10 +119,17 @@ class ProgressTempWeekMainWidget extends ConsumerWidget {
                   : const SizedBox()
             ],
           ),
-          Text(
-            tempDay,
-            style: GoogleFonts.inter(
-                fontWeight: FontWeight.w500, fontSize: 13, color: Colors.white),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: FittedBox(
+              child: Text(
+                tempDay,
+                style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 13,
+                    color: Colors.white),
+              ),
+            ),
           )
         ],
       ));

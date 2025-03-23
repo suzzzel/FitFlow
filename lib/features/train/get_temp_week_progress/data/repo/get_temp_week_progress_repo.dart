@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -22,9 +20,9 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
     final int daysToSubstract = currentWeekday - 1;
     final DateTime startOfWeek =
         DateTime.now().subtract(Duration(days: daysToSubstract));
+    final List<TrainingDayClass> listTrainingsOfWeek = [];
 
     try {
-      final List<TrainingDayClass> listTrainingsOfWeek = [];
       final trainPlan = await database.managers.trainingPlanTable.get();
       if (DateTime.now().millisecondsSinceEpoch <
           DateTime.parse(trainPlan[1].dataCreatingPlan)
@@ -46,49 +44,33 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
                 trainDay?.percentOfTrainDone == null;
         if (isTodayATrainAndIsAlreadyExist) {
           continue;
+        } else {
+          listTrainingsOfWeek.add(TrainingDayClass(
+              isChillday: !isThisWorkdayOrChillday,
+              dayOfTraining: trainDay?.dayOfTraining,
+              mainMuscle: trainDay?.mainMuscle,
+              idUser: trainDay?.idUser,
+              exerciseOne: trainDay?.exerciseOne,
+              exerciseTwo: trainDay?.exerciseTwo,
+              exerciseThree: trainDay?.exerciseThree,
+              exerciseFour: trainDay?.exerciseFour,
+              exerciseFive: trainDay?.exerciseFive,
+              countRepsExOne: trainDay?.countRepsExOne,
+              countRepsExTwo: trainDay?.countRepsExTwo,
+              countRepsExThree: trainDay?.countRepsExThree,
+              countRepsExFour: trainDay?.countRepsExFour,
+              countRepsExFive: trainDay?.countRepsExFive,
+              maxWeightExOne: trainDay?.maxWeightExOne,
+              maxWeightExTwo: trainDay?.maxWeightExTwo,
+              maxWeightExThree: trainDay?.maxWeightExThree,
+              maxWeightExFour: trainDay?.maxWeightExFour,
+              maxWeightExFive: trainDay?.maxWeightExFive,
+              percentOfTrainDone: trainDay?.percentOfTrainDone));
         }
-        listTrainingsOfWeek.add(TrainingDayClass(
-            isChillday: !isThisWorkdayOrChillday,
-            dayOfTraining: trainDay?.dayOfTraining,
-            mainMuscle: trainDay?.mainMuscle,
-            idUser: trainDay?.idUser,
-            exerciseOne: trainDay?.exerciseOne,
-            exerciseTwo: trainDay?.exerciseTwo,
-            exerciseThree: trainDay?.exerciseThree,
-            exerciseFour: trainDay?.exerciseFour,
-            exerciseFive: trainDay?.exerciseFive,
-            countRepsExOne: trainDay?.countRepsExOne,
-            countRepsExTwo: trainDay?.countRepsExTwo,
-            countRepsExThree: trainDay?.countRepsExThree,
-            countRepsExFour: trainDay?.countRepsExFour,
-            countRepsExFive: trainDay?.countRepsExFive,
-            maxWeightExOne: trainDay?.maxWeightExOne,
-            maxWeightExTwo: trainDay?.maxWeightExTwo,
-            maxWeightExThree: trainDay?.maxWeightExThree,
-            maxWeightExFour: trainDay?.maxWeightExFour,
-            maxWeightExFive: trainDay?.maxWeightExFive,
-            percentOfTrainDone: trainDay?.percentOfTrainDone));
-        // listTrainingsOfWeek.add(TrainingDayClass.fromJson(trainDay.toJsonString()));
-      }
-      for (var x in listTrainingsOfWeek) {
-        log(x.toString());
       }
       return listTrainingsOfWeek;
     } catch (e) {
       rethrow;
     }
-    // try {
-    //   await database.managers.trainingTable.create((f) => f(
-    //       dayOfTraining: '2025-03-19',
-    //       exerciseOne: '112',
-    //       countRepsExOne: 5,
-    //       maxWeightExOne: '110',
-    //       percentOfTrainDone: 25,
-    //       idUser: 'test'));
-    //   // await database.managers.trainingTable.delete();
-    //   return [];
-    // } catch (e) {
-    //   rethrow;
-    // }
   }
 }
