@@ -26,6 +26,11 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
     try {
       final List<TrainingDayClass> listTrainingsOfWeek = [];
       final trainPlan = await database.managers.trainingPlanTable.get();
+      if (DateTime.now().millisecondsSinceEpoch <
+          DateTime.parse(trainPlan[1].dataCreatingPlan)
+              .millisecondsSinceEpoch) {
+        return [];
+      }
       for (int x = 0; x != currentWeekday; x++) {
         final dayToFind =
             DateFormat('yyyy-MM-dd').format(startOfWeek.add(Duration(days: x)));
@@ -34,11 +39,16 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
         final trainDay = await database.managers.trainingTable
             .filter((day) => day.dayOfTraining(dayToFind))
             .getSingleOrNull();
-
         final isThisWorkdayOrChillday = trainPlan
             .any((element) => element.dayOfWeek == weekDayThisDayStringVersion);
+        final isTodayATrainAndIsAlreadyExist =
+            dayToFind == DateFormat('yyyy-MM-dd').format(DateTime.now()) &&
+                trainDay?.percentOfTrainDone == null;
+        if (isTodayATrainAndIsAlreadyExist) {
+          continue;
+        }
         listTrainingsOfWeek.add(TrainingDayClass(
-            isChillday: isThisWorkdayOrChillday,
+            isChillday: !isThisWorkdayOrChillday,
             dayOfTraining: trainDay?.dayOfTraining,
             mainMuscle: trainDay?.mainMuscle,
             idUser: trainDay?.idUser,

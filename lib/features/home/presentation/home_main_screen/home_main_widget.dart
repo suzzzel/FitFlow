@@ -43,8 +43,7 @@ class HomeMainWidget extends ConsumerWidget {
                 trainingPlan: trainingPlan.hasValue ? trainingPlan.value : [],
                 isPlanLoading: trainingPlan.isLoading,
               ),
-              // const ProgressTempWeekMainWidget(),
-              NewTempWeekProgress(),
+              const ProgressTempWeekMainWidget(),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,13 +73,43 @@ class HomeMainWidget extends ConsumerWidget {
                         // ref
                         //     .read(localDatabaseProvider)
                         //     .managers
+                        //     .trainingTable
+                        //     .delete();
+                        // ref
+                        //     .read(localDatabaseProvider)
+                        //     .managers
                         //     .trainingPlanTable
                         //     .delete();
+                        // ref
+                        //     .read(localDatabaseProvider)
+                        //     .managers
+                        //     .trainingTable
+                        //     .create((f) => f(
+                        //         dayOfTraining: '2025-03-19',
+                        //         exerciseOne: '112',
+                        //         countRepsExOne: 5,
+                        //         maxWeightExOne: '110',
+                        //         percentOfTrainDone: 70,
+                        //         idUser: 'test'));
                         ref
-                            .read(getTempWeekProgressDataProvider)
-                            .getTempWeekTrainings();
+                            .read(localDatabaseProvider)
+                            .managers
+                            .trainingTable
+                            .create((f) => f(
+                                dayOfTraining: '2025-03-23',
+                                exerciseOne: '115',
+                                countRepsExOne: 5,
+                                maxWeightExOne: '110',
+                                percentOfTrainDone: 65,
+                                idUser: 'test'));
+                        // ref
+                        //     .read(localDatabaseProvider)
+                        //     .managers
+                        //     .trainingTable
+                        //     .filter((f) => f.dayOfTraining('2025-03-19'))
+                        //     .delete();
                       },
-                      child: const Text('clear')),
+                      child: const Text('stage button :)')),
                 ],
               ),
               const ProgressTempWeekMainWidget(),

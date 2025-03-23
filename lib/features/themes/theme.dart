@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 
 ThemeData mainTheme = ThemeData(
     colorScheme: const ColorScheme.light(
-        tertiary: Color.fromRGBO(151, 151, 151, 0.6),
+        tertiary: Color.fromRGBO(168, 188, 176, 1),
+        tertiaryContainer: Color.fromRGBO(197, 217, 205, 1),
         onTertiary: Colors.black,
         onPrimary: Colors.black,
         error: Color.fromRGBO(64, 35, 215, 1),
         errorContainer: Color.fromRGBO(184, 45, 45, 1),
+        tertiaryFixed: Color.fromRGBO(237, 229, 143, 1),
+        tertiaryFixedDim: Color.fromRGBO(250, 31, 34, 1),
         primary: Color.fromRGBO(152, 59, 203, 1),
         primaryFixed: Color.fromRGBO(204, 143, 237, 1),
         secondaryFixed: Color.fromRGBO(107, 80, 246, 1),
