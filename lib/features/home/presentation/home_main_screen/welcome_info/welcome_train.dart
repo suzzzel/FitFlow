@@ -4,7 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class WelcomeTrain extends StatelessWidget {
   final String todayDate;
-  const WelcomeTrain({super.key, required this.todayDate});
+  final bool isPlanExist;
+  final bool isTodayChillday;
+  const WelcomeTrain(
+      {super.key,
+      required this.todayDate,
+      required this.isPlanExist,
+      required this.isTodayChillday});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +26,11 @@ class WelcomeTrain extends StatelessWidget {
               Theme.of(context).colorScheme.secondaryFixed,
             ]).createShader(bounds),
             child: Text(
-              'Моя тренировка',
+              isPlanExist && !isTodayChillday
+                  ? 'Моя тренировка'
+                  : !isPlanExist
+                      ? 'Начните первую тренировку'
+                      : 'У вас нет активной тренировки',
               style:
                   GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700),
             ),

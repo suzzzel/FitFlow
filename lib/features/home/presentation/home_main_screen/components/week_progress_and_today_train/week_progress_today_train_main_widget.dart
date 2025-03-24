@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:fitflow/features/home/presentation/home_main_screen/components/today_date_home_screen_text.dart';
+import 'package:fitflow/features/home/presentation/home_main_screen/components/week_progress_and_today_train/chill_day_button.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/components/week_progress_and_today_train/progress_temp_week_main_widget.dart';
-import 'package:fitflow/features/home/presentation/home_main_screen/today_info/train_start_main_widget.dart';
+import 'package:fitflow/features/home/presentation/home_main_screen/components/week_progress_and_today_train/start_train_button.dart';
+import 'package:fitflow/features/home/presentation/home_main_screen/today_info/train_info_main_widget.dart';
 import 'package:fitflow/features/train/get_temp_week_progress/domain/providers/get_temp_week_progress_domain_provider.dart';
 import 'package:fitflow/features/train/get_training_plan/domain/models/training_plan_class.dart';
 import 'package:flutter/material.dart';
@@ -269,130 +271,9 @@ class _WeekProgressTodayTrainMainWidgetState
                                                           element.dayOfWeek ==
                                                           weekDayNow) !=
                                                   -1
-                                              ? Container(
-                                                  margin: const EdgeInsets.only(
-                                                      left: 24, right: 24),
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 4,
-                                                          bottom: 4,
-                                                          left: 7,
-                                                          right: 8),
-                                                  height: 64,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              16),
-                                                      color: Colors.white),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              99),
-                                                                  gradient:
-                                                                      LinearGradient(
-                                                                          colors: [
-                                                                        Theme.of(context)
-                                                                            .colorScheme
-                                                                            .primaryFixed
-                                                                            .withOpacity(0.3),
-                                                                        Theme.of(context)
-                                                                            .colorScheme
-                                                                            .secondaryFixed
-                                                                            .withOpacity(0.3)
-                                                                      ])),
-                                                          width: 56,
-                                                          height: 56,
-                                                          child: IconButton(
-                                                            onPressed: () {},
-                                                            icon: Image.asset(
-                                                                'assets/home/training_start.png'),
-                                                          )),
-                                                      TextButton(
-                                                        onPressed: () {},
-                                                        style: const ButtonStyle(
-                                                            overlayColor:
-                                                                WidgetStatePropertyAll(
-                                                                    Colors
-                                                                        .transparent),
-                                                            padding:
-                                                                WidgetStatePropertyAll(
-                                                                    EdgeInsets
-                                                                        .all(
-                                                                            0))),
-                                                        child: ShaderMask(
-                                                            blendMode: BlendMode
-                                                                .srcATop,
-                                                            shaderCallback: (bounds) =>
-                                                                LinearGradient(
-                                                                        colors: [
-                                                                      Theme.of(
-                                                                              context)
-                                                                          .colorScheme
-                                                                          .primaryFixed,
-                                                                      Theme.of(
-                                                                              context)
-                                                                          .colorScheme
-                                                                          .secondaryFixed,
-                                                                    ])
-                                                                    .createShader(
-                                                                        bounds),
-                                                            child: Text(
-                                                                'Начать\nтренировку',
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: GoogleFonts.inter(
-                                                                    fontSize:
-                                                                        15,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700))),
-                                                      ),
-                                                      Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              99),
-                                                                  gradient:
-                                                                      LinearGradient(
-                                                                          colors: [
-                                                                        Theme.of(context)
-                                                                            .colorScheme
-                                                                            .primaryFixed
-                                                                            .withOpacity(0.3),
-                                                                        Theme.of(context)
-                                                                            .colorScheme
-                                                                            .secondaryFixed
-                                                                            .withOpacity(0.3)
-                                                                      ])),
-                                                          width: 56,
-                                                          height: 56,
-                                                          child: IconButton(
-                                                            onPressed: () {},
-                                                            icon: Image.asset(
-                                                                'assets/home/training_start_second.png'),
-                                                          )),
-                                                    ],
-                                                  ))
+                                              ? const StartTrainButton()
                                               // Перенести на домейн уровень, в верстке не должно быть такой истории
-                                              : Center(
-                                                  child: Container(
-                                                    height: 100,
-                                                    width: 100,
-                                                    color: Colors.white,
-                                                    child: Text('chill day'),
-                                                  ),
-                                                ),
+                                              : const ChillDayButton(),
                                 ),
                               )
                             ],
