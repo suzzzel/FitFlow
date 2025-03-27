@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fitflow/features/train/get_temp_week_progress/domain/models/training_day_for_domain.dart';
 import 'package:flutter/material.dart';
 
@@ -53,9 +51,7 @@ class ProgressTempWeekNew extends StatelessWidget {
           tempDay = 'Вс';
           break;
       }
-      if (tempProgress.length > x) {
-        log(tempProgress[x].percentOfTrainDone.toString());
-      }
+
       thisWeek.add(Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

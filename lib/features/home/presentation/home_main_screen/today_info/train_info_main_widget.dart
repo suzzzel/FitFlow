@@ -1,9 +1,10 @@
+import 'dart:developer';
+
 import 'package:fitflow/features/home/presentation/home_main_screen/today_info/chill_day_info.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/today_info/empty_train_plan_info.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/today_info/train_day_info_train_exist.dart';
 import 'package:fitflow/features/train/get_training_plan/domain/models/training_plan_class.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class TrainingPlanMainWidget extends StatelessWidget {
   final DateTime timeNow;
@@ -98,23 +99,41 @@ class TrainingPlanMainWidget extends StatelessWidget {
   }
 
   int _getWeekDay(String weekday) {
-    switch (weekday) {
-      case 'monday':
-        return 1;
-      case 'tuesday':
-        return 2;
-      case 'wednesday':
-        return 3;
-      case 'thursday':
-        return 4;
-      case 'friday':
-        return 5;
-      case 'saturday':
-        return 6;
-      case 'sunday':
-        return 7;
-      default:
-        return 0;
+    List newList = [
+      'clear',
+      'clear',
+      'clear',
+      'clear',
+      'clear',
+      'clear',
+      'clear',
+    ];
+    for (var x in trainingPlan!) {
+      switch (x.dayOfWeek) {
+        case 'monday':
+          newList.insert(0, x.dayOfWeek);
+          break;
+        case 'tuesday':
+          newList.insert(1, x.dayOfWeek);
+          break;
+        case 'wednesday':
+          newList.insert(2, x.dayOfWeek);
+          break;
+        case 'thursday':
+          newList.insert(3, x.dayOfWeek);
+          break;
+        case 'friday':
+          newList.insert(4, x.dayOfWeek);
+          break;
+        case 'saturday':
+          newList.insert(5, x.dayOfWeek);
+          break;
+        case 'sunday':
+          newList.insert(6, x.dayOfWeek);
+          break;
+      }
     }
+    newList.removeWhere((item) => item == 'clear');
+    return newList.indexWhere((item) => weekday == item) + 1;
   }
 }
