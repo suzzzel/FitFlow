@@ -1,9 +1,9 @@
 import 'package:fitflow/features/home/presentation/home_main_screen/today_info/chill_day_info.dart';
+import 'package:fitflow/features/home/presentation/home_main_screen/today_info/empty_train_plan_info.dart';
 import 'package:fitflow/features/home/presentation/home_main_screen/today_info/train_day_info_train_exist.dart';
 import 'package:fitflow/features/train/get_training_plan/domain/models/training_plan_class.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class TrainingPlanMainWidget extends StatelessWidget {
   final DateTime timeNow;
@@ -47,11 +47,7 @@ class TrainingPlanMainWidget extends StatelessWidget {
                   ),
                 )
               : trainingPlan!.isEmpty
-                  ? ElevatedButton(
-                      onPressed: () {
-                        context.goNamed('newtrainplan');
-                      },
-                      child: const Text('create button'))
+                  ? const EmptyTrainPlanInfo()
                   : trainingPlan!.indexWhere(
                               (element) => element.dayOfWeek == weekDayNow) !=
                           -1

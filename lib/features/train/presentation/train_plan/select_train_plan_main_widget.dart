@@ -15,27 +15,32 @@ class _SelectTrainPlanMainWidgetState
     extends ConsumerState<SelectTrainPlanMainWidget> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              context.pop();
-            },
-            icon: Image.asset('assets/leading/arrow.png')),
-        centerTitle: true,
-        title: FittedBox(
-          child: Text(
-            'План занятий',
-            style: GoogleFonts.inter(
-                color: Theme.of(context).colorScheme.secondary,
-                fontSize: 24,
-                fontWeight: FontWeight.w500),
+    return Padding(
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.15),
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              color: Colors.green,
+              child: Column(
+                children: [
+                  Row(
+                    children: [Icon(Icons.abc)],
+                  ),
+                  Container()
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
-      body: Stack(
-        children: [],
+          Expanded(
+            child: Container(
+              color: Colors.purple,
+              child: Column(
+                children: [Row(), Container()],
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

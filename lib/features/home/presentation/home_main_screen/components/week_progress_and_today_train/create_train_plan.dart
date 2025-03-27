@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ChillDayButton extends StatelessWidget {
-  const ChillDayButton({super.key});
+class CreateTrainPlanButton extends StatelessWidget {
+  const CreateTrainPlanButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +14,8 @@ class ChillDayButton extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             gradient: LinearGradient(colors: [
-              Theme.of(context).colorScheme.tertiaryContainer,
-              Theme.of(context).colorScheme.tertiary,
+              Theme.of(context).colorScheme.tertiaryFixedDim,
+              Theme.of(context).colorScheme.tertiaryFixed,
             ])),
         child: Row(
           children: [
@@ -28,32 +29,32 @@ class ChillDayButton extends StatelessWidget {
                 width: 56,
                 height: 56,
                 child: IconButton(
-                  onPressed: () {},
-                  icon: Image.asset('assets/home/training_chill.png'),
+                  onPressed: () {
+                    context.goNamed('newtrainplan');
+                  },
+                  icon: Image.asset('assets/home/create_plan.png'),
                 )),
             Padding(
               padding: const EdgeInsets.only(left: 13),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.goNamed('newtrainplan');
+                },
                 style: const ButtonStyle(
                     overlayColor: WidgetStatePropertyAll(Colors.transparent),
                     padding: WidgetStatePropertyAll(EdgeInsets.all(0))),
-                child: ShaderMask(
-                    blendMode: BlendMode.srcATop,
-                    shaderCallback: (bounds) => LinearGradient(colors: [
-                          Theme.of(context).colorScheme.primaryFixed,
-                          Theme.of(context).colorScheme.secondaryFixed,
-                        ]).createShader(bounds),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.40,
-                      child: FittedBox(
-                        child: Text('Сегодня день отдыха!',
-                            textScaler: const TextScaler.linear(1),
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.inter(
-                                fontSize: 15, fontWeight: FontWeight.w700)),
-                      ),
-                    )),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.40,
+                  child: FittedBox(
+                    child: Text('Создать программу',
+                        textScaler: const TextScaler.linear(1),
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.inter(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white)),
+                  ),
+                ),
               ),
             ),
           ],

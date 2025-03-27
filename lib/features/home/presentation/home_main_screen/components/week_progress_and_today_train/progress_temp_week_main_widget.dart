@@ -70,53 +70,74 @@ class ProgressTempWeekNew extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     color: const Color.fromRGBO(22, 24, 24, 1)),
               ),
-              tempProgress.length > x
-                  ? Container(
-                      width: 30,
-                      height: tempProgress[x].percentOfTrainDone == 0
-                          ? 154
-                          : 154 / 100 * tempProgress[x].percentOfTrainDone,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        gradient: LinearGradient(
-                            stops: tempProgress[x].percentOfTrainDone > 0 &&
-                                    !tempProgress[x].isChillDay
-                                ? [0, 100]
-                                : [0.67, 1],
-                            colors: tempProgress[x].isChillDay
-                                ? [
-                                    Theme.of(context)
-                                        .colorScheme
-                                        .tertiaryContainer,
-                                    Theme.of(context).colorScheme.tertiary,
-                                  ]
-                                : tempProgress[x].percentOfTrainDone > 70
+              tempProgress.isNotEmpty
+                  ? tempProgress.length > x
+                      ? Container(
+                          width: 30,
+                          height: tempProgress[x].percentOfTrainDone == 0
+                              ? 154
+                              : 154 / 100 * tempProgress[x].percentOfTrainDone,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            gradient: LinearGradient(
+                                stops: tempProgress[x].percentOfTrainDone > 0 &&
+                                        !tempProgress[x].isChillDay
+                                    ? [0, 100]
+                                    : [0.67, 1],
+                                colors: tempProgress[x].isChillDay
                                     ? [
                                         Theme.of(context)
                                             .colorScheme
-                                            .secondaryFixed,
-                                        Theme.of(context)
-                                            .colorScheme
-                                            .primaryFixed,
+                                            .tertiaryContainer,
+                                        Theme.of(context).colorScheme.tertiary,
                                       ]
-                                    : tempProgress[x].percentOfTrainDone != 0
+                                    : tempProgress[x].percentOfTrainDone > 70
                                         ? [
                                             Theme.of(context)
                                                 .colorScheme
-                                                .tertiaryFixedDim,
+                                                .secondaryFixed,
                                             Theme.of(context)
                                                 .colorScheme
-                                                .tertiaryFixed,
+                                                .primaryFixed,
                                           ]
-                                        : [
-                                            Theme.of(context)
-                                                .colorScheme
-                                                .errorContainer,
-                                            Theme.of(context).colorScheme.error,
-                                          ]),
+                                        : tempProgress[x].percentOfTrainDone !=
+                                                0
+                                            ? [
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .tertiaryFixedDim,
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .tertiaryFixed,
+                                              ]
+                                            : [
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .errorContainer,
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .error,
+                                              ]),
+                          ),
+                        )
+                      : const SizedBox()
+                  : Container(
+                      width: 30,
+                      height: 154,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(colors: [
+                          Theme.of(context)
+                              .colorScheme
+                              .secondaryFixed
+                              .withOpacity(0.1),
+                          Theme.of(context)
+                              .colorScheme
+                              .primaryFixed
+                              .withOpacity(0.1),
+                        ]),
                       ),
                     )
-                  : const SizedBox()
             ],
           ),
           Padding(

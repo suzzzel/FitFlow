@@ -396,6 +396,10 @@ GoRouter newRouter(Ref ref) {
                 name = 'FIT FLOW';
                 fontSize = 36;
                 fontWeight = FontWeight.w700;
+              case '/home/newtrainplan':
+                name = 'Выберите существующий план\nили составьте личный';
+                fontSize = 20;
+                fontWeight = FontWeight.w500;
               default:
                 name = '';
                 break;
@@ -407,30 +411,33 @@ GoRouter newRouter(Ref ref) {
                 centerTitle: true,
                 forceMaterialTransparency: true,
                 backgroundColor: Colors.transparent,
+                leadingWidth: 35,
                 title: ShaderMask(
                   blendMode: BlendMode.srcATop,
                   shaderCallback: (bounds) => LinearGradient(colors: [
                     Theme.of(context).colorScheme.primaryFixed,
                     Theme.of(context).colorScheme.secondaryFixed,
                   ]).createShader(bounds),
-                  child: Text(
-                    name,
-                    textScaler: const TextScaler.linear(1),
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.inter(
-                        fontWeight: fontWeight,
-                        fontSize: fontSize,
-                        shadows: state.fullPath == '/home'
-                            ? [
-                                Shadow(
-                                    offset: const Offset(0, 4),
-                                    blurRadius: 20,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondaryFixed
-                                        .withOpacity(0.67))
-                              ]
-                            : null),
+                  child: FittedBox(
+                    child: Text(
+                      name,
+                      textScaler: const TextScaler.linear(1),
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.inter(
+                          fontWeight: fontWeight,
+                          fontSize: fontSize,
+                          shadows: state.fullPath == '/home'
+                              ? [
+                                  Shadow(
+                                      offset: const Offset(0, 4),
+                                      blurRadius: 20,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondaryFixed
+                                          .withOpacity(0.67))
+                                ]
+                              : null),
+                    ),
                   ),
                 ),
                 leading: state.fullPath == RouterPath.HOME ||
@@ -467,37 +474,42 @@ GoRouter newRouter(Ref ref) {
                   ),
                   const BackgroundWidget(),
                   child,
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Navbar(
-                      onItemChanged: (int newPosition) {
-                        switch (newPosition) {
-                          case 0:
-                            context.goNamed('/home');
-                          case 1:
-                            context.goNamed('/progresshome');
-                          case 2:
-                            context.goNamed('/searchhome');
-                          case 3:
-                            context.goNamed('/profilehome');
-                        }
-                      },
-                      navBarItems: [
-                        NavBarData(
-                            text: 'Главная',
-                            iconPath: 'assets/navbar/home.png'),
-                        NavBarData(
-                            text: 'Прогресс',
-                            iconPath: 'assets/navbar/progress.png'),
-                        NavBarData(
-                            text: 'Поиск',
-                            iconPath: 'assets/navbar/search.png'),
-                        NavBarData(
-                            text: 'Профиль',
-                            iconPath: 'assets/navbar/profile.png')
-                      ],
-                    ),
-                  )
+                  state.fullPath == RouterPath.HOME ||
+                          state.fullPath == RouterPath.SEARCHHOME ||
+                          state.fullPath == RouterPath.PROGRESSHOME ||
+                          state.fullPath == RouterPath.PROFILEHOME
+                      ? Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Navbar(
+                            onItemChanged: (int newPosition) {
+                              switch (newPosition) {
+                                case 0:
+                                  context.goNamed('/home');
+                                case 1:
+                                  context.goNamed('/progresshome');
+                                case 2:
+                                  context.goNamed('/searchhome');
+                                case 3:
+                                  context.goNamed('/profilehome');
+                              }
+                            },
+                            navBarItems: [
+                              NavBarData(
+                                  text: 'Главная',
+                                  iconPath: 'assets/navbar/home.png'),
+                              NavBarData(
+                                  text: 'Прогресс',
+                                  iconPath: 'assets/navbar/progress.png'),
+                              NavBarData(
+                                  text: 'Поиск',
+                                  iconPath: 'assets/navbar/search.png'),
+                              NavBarData(
+                                  text: 'Профиль',
+                                  iconPath: 'assets/navbar/profile.png')
+                            ],
+                          ),
+                        )
+                      : SizedBox()
                 ],
               ),
             );
@@ -507,7 +519,7 @@ GoRouter newRouter(Ref ref) {
                 path: RouterPath.HOME,
                 name: RouterPath.HOME,
                 pageBuilder: (context, state) => CustomTransitionPage(
-                      child: HomeMainWidget(),
+                      child: const HomeMainWidget(),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) =>
                               FadeTransition(
@@ -540,9 +552,15 @@ GoRouter newRouter(Ref ref) {
                   GoRoute(
                     path: RouterPath.SELECTTRAININGPLAN,
                     name: RouterPath.SELECTTRAININGPLAN,
-                    builder: (context, state) {
-                      return SelectTrainPlanMainWidget();
-                    },
+                    pageBuilder: (context, state) => CustomTransitionPage(
+                      child: const SelectTrainPlanMainWidget(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) =>
+                              FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      ),
+                    ),
                   )
                 ]),
             GoRoute(
