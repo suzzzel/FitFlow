@@ -27,7 +27,7 @@ Stream<AppUserState> authState(Ref ref) {
           if (data.event != AuthChangeEvent.initialSession) {
             await Future.delayed(const Duration(seconds: 1));
           }
-          streamController.add(const AppUserState.unknown());
+          // streamController.add(const AppUserState.unknown()); ??? need test
           for (int x = 0; x != 5; x++) {
             try {
               final userData = await supabaseClient

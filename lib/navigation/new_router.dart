@@ -19,12 +19,12 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sig
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/level/select_level_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/select_weight_main_widget.dart';
 import 'package:fitflow/features/background/background_widget.dart';
-import 'package:fitflow/features/home/presentation/home_main_screen/home_main_widget.dart';
-import 'package:fitflow/features/home/presentation/indicators/age_changer/change_age_main_home_widget.dart';
-import 'package:fitflow/features/home/presentation/indicators/height_changer/change_height_main_home_widget.dart';
-import 'package:fitflow/features/home/presentation/indicators/weight_changer/change_weight_main_home_widget.dart';
+import 'package:fitflow/features/home/create_training_plan/create_training_plan_main_widget.dart';
+import 'package:fitflow/features/home/home_main_screen/home_main_widget.dart';
+import 'package:fitflow/features/home/future_profile_indicators/presentation/indicators/age_changer/change_age_main_home_widget.dart';
+import 'package:fitflow/features/home/future_profile_indicators/presentation/indicators/height_changer/change_height_main_home_widget.dart';
+import 'package:fitflow/features/home/future_profile_indicators/presentation/indicators/weight_changer/change_weight_main_home_widget.dart';
 import 'package:fitflow/features/loading/presentation/loading_main_widget.dart';
-import 'package:fitflow/features/train/presentation/train_plan/select_train_plan_main_widget.dart';
 import 'package:fitflow/navigation/home_navigation_bar/navbar.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:flutter/material.dart';
@@ -401,7 +401,7 @@ GoRouter newRouter(Ref ref) {
                 fontSize = 20;
                 fontWeight = FontWeight.w500;
               default:
-                name = '';
+                name = ' ';
                 break;
             }
             return Scaffold(
@@ -418,25 +418,27 @@ GoRouter newRouter(Ref ref) {
                     Theme.of(context).colorScheme.primaryFixed,
                     Theme.of(context).colorScheme.secondaryFixed,
                   ]).createShader(bounds),
-                  child: FittedBox(
-                    child: Text(
-                      name,
-                      textScaler: const TextScaler.linear(1),
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                          fontWeight: fontWeight,
-                          fontSize: fontSize,
-                          shadows: state.fullPath == '/home'
-                              ? [
-                                  Shadow(
-                                      offset: const Offset(0, 4),
-                                      blurRadius: 20,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryFixed
-                                          .withOpacity(0.67))
-                                ]
-                              : null),
+                  child: SizedBox(
+                    child: FittedBox(
+                      child: Text(
+                        name,
+                        textScaler: const TextScaler.linear(1),
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.inter(
+                            fontWeight: fontWeight,
+                            fontSize: fontSize,
+                            shadows: state.fullPath == '/home'
+                                ? [
+                                    Shadow(
+                                        offset: const Offset(0, 4),
+                                        blurRadius: 20,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondaryFixed
+                                            .withOpacity(0.67))
+                                  ]
+                                : null),
+                      ),
                     ),
                   ),
                 ),
@@ -553,7 +555,7 @@ GoRouter newRouter(Ref ref) {
                     path: RouterPath.SELECTTRAININGPLAN,
                     name: RouterPath.SELECTTRAININGPLAN,
                     pageBuilder: (context, state) => CustomTransitionPage(
-                      child: const SelectTrainPlanMainWidget(),
+                      child: const CreateTrainingPlanMainWidget(),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) =>
                               FadeTransition(

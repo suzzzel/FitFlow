@@ -45,3 +45,4 @@ flutter:
     - assets/loading/
     - assets/navbar/
     - assets/home/
+    - assets/create_training_plan/
