@@ -1,7 +1,7 @@
-import 'package:fitflow/features/home/home_main_screen/components/week_progress_and_today_train/chill_day/chill_day_button.dart';
+import 'package:fitflow/features/home/home_main_screen/components/week_progress_and_today_train/components/chill_day/chill_day_button.dart';
 import 'package:fitflow/features/home/home_main_screen/components/week_progress_and_today_train/components/loading_home_train_today.dart';
-import 'package:fitflow/features/home/home_main_screen/components/week_progress_and_today_train/empty_plan/create_train_plan.dart';
-import 'package:fitflow/features/home/home_main_screen/components/week_progress_and_today_train/train_day/start_train_button.dart';
+import 'package:fitflow/features/home/home_main_screen/components/week_progress_and_today_train/components/empty_plan/create_train_plan.dart';
+import 'package:fitflow/features/home/home_main_screen/components/week_progress_and_today_train/components/train_day/start_train_button.dart';
 import 'package:fitflow/features/train/get_training_plan/domain/models/training_plan_class.dart';
 import 'package:flutter/material.dart';
 

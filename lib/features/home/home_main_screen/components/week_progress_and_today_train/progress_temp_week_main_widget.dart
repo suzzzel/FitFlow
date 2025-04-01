@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-class ProgressTempWeekNew extends StatelessWidget {
+class ProgressTempWeek extends StatelessWidget {
   final List<TrainingDayForDomain> trainings;
-  const ProgressTempWeekNew({super.key, required this.trainings});
+  const ProgressTempWeek({super.key, required this.trainings});
 
   @override
   Widget build(BuildContext context) {

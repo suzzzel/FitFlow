@@ -89,7 +89,7 @@ class _WeekProgressTodayTrainMainWidgetState
                         Padding(
                           padding: EdgeInsets.only(
                               left: screenPad, right: screenPad, top: 20),
-                          child: ProgressTempWeekNew(
+                          child: ProgressTempWeek(
                             trainings: progressList.value!,
                           ),
                         ),

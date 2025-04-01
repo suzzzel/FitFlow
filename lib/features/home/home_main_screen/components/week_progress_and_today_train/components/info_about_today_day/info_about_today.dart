@@ -33,25 +33,31 @@ class InfoAboutToday extends ConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: todayTrain.isLoading
-                    ? const CircularProgressIndicator(
-                        strokeWidth: 2,
-                      )
-                    : Text(
-                        textAlign: TextAlign.center,
-                        isActivityTodayExist
-                            ? todayTrain.value != null
-                                ? todayTrain.value!.percentOfTrainDone
-                                    .toString()
-                                : 'Пока нет акт'
-                            : 'Пока нет активности',
-                        style: GoogleFonts.inter(
-                            fontSize: 10,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500),
-                      ),
-              ),
+                  fit: BoxFit.scaleDown,
+                  child: todayTrain.isLoading
+                      ? const CircularProgressIndicator(
+                          strokeWidth: 2,
+                        )
+                      // Если true - то план есть, и есть активность сегодня (в т.ч. должна быть согласно плану)
+                      : isActivityTodayExist
+                          // Сегодня была тренировка?
+                          ? todayTrain.value != null
+                              // Была - процент выполнения
+                              ? Text(
+                                  '${todayTrain.value!.percentOfTrainDone}',
+                                  style: const TextStyle(color: Colors.white),
+                                )
+                              // Должна быть, но пока её нет
+                              : const Text(
+                                  'пока нет акт',
+                                  style: TextStyle(color: Colors.purple),
+                                )
+                          :
+                          // НЕТ плана тренировки ИЛИ день отдыха
+                          const Text(
+                              'Пока нет активности',
+                              style: TextStyle(color: Colors.red),
+                            )),
             ),
           ),
         ),

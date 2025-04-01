@@ -555,7 +555,8 @@ GoRouter newRouter(Ref ref) {
                     path: RouterPath.SELECTTRAININGPLAN,
                     name: RouterPath.SELECTTRAININGPLAN,
                     pageBuilder: (context, state) => CustomTransitionPage(
-                      child: const CreateTrainingPlanMainWidget(),
+                      // child: const CreateTrainingPlanMainWidget(),
+                      child: SelectWayOfCreatingTrainPlanMainWidget(),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) =>
                               FadeTransition(

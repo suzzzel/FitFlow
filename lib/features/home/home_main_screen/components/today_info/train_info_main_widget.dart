@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:fitflow/features/home/home_main_screen/today_info/chill_day_info.dart';
-import 'package:fitflow/features/home/home_main_screen/today_info/empty_train_plan_info.dart';
-import 'package:fitflow/features/home/home_main_screen/today_info/train_day_info_train_exist.dart';
+import 'package:fitflow/features/home/home_main_screen/components/today_info/chill_day_info.dart';
+import 'package:fitflow/features/home/home_main_screen/components/today_info/empty_train_plan_info.dart';
+import 'package:fitflow/features/home/home_main_screen/components/today_info/train_day_info_train_exist.dart';
 import 'package:fitflow/features/train/get_training_plan/domain/models/training_plan_class.dart';
 import 'package:flutter/material.dart';
 

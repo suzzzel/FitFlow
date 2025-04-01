@@ -1,7 +1,7 @@
 import 'package:fitflow/features/auth/auth_state_new/domain/models/app_user.dart';
-import 'package:fitflow/features/home/home_main_screen/components/indicators/age_indicator.dart';
-import 'package:fitflow/features/home/home_main_screen/components/indicators/height_indicator.dart';
-import 'package:fitflow/features/home/home_main_screen/components/indicators/weight_indicator.dart';
+import 'package:fitflow/features/home/future_profile_indicators/indicators/age_indicator.dart';
+import 'package:fitflow/features/home/future_profile_indicators/indicators/height_indicator.dart';
+import 'package:fitflow/features/home/future_profile_indicators/indicators/weight_indicator.dart';
 import 'package:flutter/material.dart';
 
 class IndicatorsMainWidget extends StatelessWidget {
