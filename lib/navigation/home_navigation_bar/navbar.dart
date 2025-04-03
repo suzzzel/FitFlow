@@ -4,18 +4,23 @@ import 'package:google_fonts/google_fonts.dart';
 
 typedef OnItemChanged = void Function(int newPosition);
 
-class Navbar extends StatefulWidget {
+class NavBar extends StatefulWidget {
   final OnItemChanged onItemChanged;
   final List<NavBarData> navBarItems;
-  const Navbar(
-      {super.key, required this.onItemChanged, required this.navBarItems});
+  final int currentIndex; // Вынес индекс для родителя
+
+  const NavBar({
+    super.key,
+    required this.onItemChanged,
+    required this.navBarItems,
+    required this.currentIndex,
+  });
 
   @override
-  State<Navbar> createState() => _NavbarState();
+  State<NavBar> createState() => _NavBarState();
 }
 
-class _NavbarState extends State<Navbar> {
-  int _selectedItem = 0;
+class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,19 +48,17 @@ class _NavbarState extends State<Navbar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ...widget.navBarItems.map((item) => GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _selectedItem = widget.navBarItems.indexOf(item);
-                  });
-                  widget.onItemChanged(_selectedItem);
-                },
-                child: NavBarItem(
-                  key: UniqueKey(),
-                  data: item,
-                  isSelected: widget.navBarItems.indexOf(item) == _selectedItem,
-                ),
-              )),
+          ...widget.navBarItems.map((item) {
+            final index = widget.navBarItems.indexOf(item);
+            return GestureDetector(
+              onTap: () => widget.onItemChanged(index),
+              child: NavBarItem(
+                key: UniqueKey(),
+                data: item,
+                isSelected: index == widget.currentIndex,
+              ),
+            );
+          }),
         ],
       ),
     );
@@ -66,7 +69,11 @@ class NavBarItem extends StatefulWidget {
   final NavBarData data;
   final bool isSelected;
 
-  const NavBarItem({super.key, required this.data, required this.isSelected});
+  const NavBarItem({
+    super.key,
+    required this.data,
+    required this.isSelected,
+  });
 
   @override
   State<NavBarItem> createState() => _NavBarItemState();
@@ -75,21 +82,28 @@ class NavBarItem extends StatefulWidget {
 class _NavBarItemState extends State<NavBarItem>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> sizeAnimation;
+  late Animation<double> _widthAnimation;
+
   @override
   void initState() {
-    _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 400));
-    sizeAnimation = Tween<double>(begin: 0, end: widget.isSelected ? 17 : 0)
-        .animate(_controller)
-      ..addListener(() {
-        setState(() {});
-      });
-
-    if (widget.isSelected) {
-      _controller.forward();
-    }
     super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _widthAnimation = Tween<double>(begin: 0, end: 17).animate(_controller)
+      ..addListener(() => setState(() {}));
+
+    if (widget.isSelected) _controller.forward();
+  }
+
+  // сделал корректное отображение анимации
+  @override
+  void didUpdateWidget(NavBarItem oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isSelected != oldWidget.isSelected) {
+      widget.isSelected ? _controller.forward() : _controller.reverse();
+    }
   }
 
   @override
@@ -100,19 +114,22 @@ class _NavBarItemState extends State<NavBarItem>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
       height: 45,
+      duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(99),
-          gradient: widget.isSelected
-              ? LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                      Theme.of(context).colorScheme.primaryFixed,
-                      Theme.of(context).colorScheme.secondaryFixed,
-                    ])
-              : null),
+        borderRadius: BorderRadius.circular(99),
+        gradient: widget.isSelected
+            ? LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Theme.of(context).colorScheme.primaryFixed,
+                  Theme.of(context).colorScheme.secondaryFixed,
+                ],
+              )
+            : null,
+      ),
       child: Padding(
         padding: const EdgeInsets.only(left: 17, right: 23),
         child: Row(
@@ -126,17 +143,18 @@ class _NavBarItemState extends State<NavBarItem>
                 ),
               ),
             ),
-            SizedBox(
-              width: sizeAnimation.value,
-            ),
+            SizedBox(width: _widthAnimation.value),
             widget.isSelected
-                ? FittedBox(
+                ? AnimatedOpacity(
+                    duration: const Duration(milliseconds: 200),
+                    opacity: widget.isSelected ? 1.0 : 0.0,
                     child: Text(
                       widget.data.text,
                       style: GoogleFonts.inter(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
                     ),
                   )
                 : const SizedBox()

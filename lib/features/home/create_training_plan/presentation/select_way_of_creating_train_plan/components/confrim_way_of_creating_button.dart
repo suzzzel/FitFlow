@@ -1,22 +1,20 @@
 import 'dart:math';
 
-import 'package:fitflow/features/auth/auth_sign_up/domain/providers/reg_user_provider.dart';
-import 'package:fitflow/features/auth/auth_sign_up/domain/providers/select_gender_provider.dart';
+import 'package:fitflow/features/home/create_training_plan/domain/providers/select_way_of_creating_train_plan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class NextStepAfterGenderButton extends ConsumerWidget {
-  const NextStepAfterGenderButton({super.key});
+class ConfrimWayOfCreatingButton extends ConsumerWidget {
+  const ConfrimWayOfCreatingButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final genderController = ref.watch(selectGenderProvider);
+    final genderController = ref.watch(selectWayOfCreatingTrainPlanProvider);
     return Padding(
       padding: const EdgeInsets.only(
-        left: 39,
-        right: 39,
+        left: 44,
+        right: 43,
       ),
       child: Container(
         decoration: BoxDecoration(
@@ -34,10 +32,10 @@ class NextStepAfterGenderButton extends ConsumerWidget {
             onPressed: genderController == 0
                 ? null
                 : () {
-                    ref
-                        .read(regUserProvider.notifier)
-                        .addGender(genderController == 1 ? true : false);
-                    context.goNamed('weight');
+                    // ref
+                    //     .read(regUserProvider.notifier)
+                    //     .addGender(genderController == 1 ? true : false);
+                    // context.goNamed('weight');
                   },
             style: ButtonStyle(
                 fixedSize: WidgetStatePropertyAll(

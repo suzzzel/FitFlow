@@ -11,6 +11,7 @@ import 'package:fitflow/features/home/home_main_screen/components/welcome_info/w
 import 'package:fitflow/features/train/get_training_plan/domain/providers/get_training_plan_domain_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -93,16 +94,17 @@ class HomeMainWidget extends ConsumerWidget {
                       child: Center(
                         child: ElevatedButton(
                             onPressed: () {
-                              ref
-                                  .read(localDatabaseProvider)
-                                  .managers
-                                  .trainingTable
-                                  .delete();
-                              ref
-                                  .read(localDatabaseProvider)
-                                  .managers
-                                  .trainingPlanTable
-                                  .delete();
+                              context.goNamed('/progresshome');
+                              // ref
+                              //     .read(localDatabaseProvider)
+                              //     .managers
+                              //     .trainingTable
+                              //     .delete();
+                              // ref
+                              //     .read(localDatabaseProvider)
+                              //     .managers
+                              //     .trainingPlanTable
+                              //     .delete();
                               // ref
                               //     .read(localDatabaseProvider)
                               //     .managers

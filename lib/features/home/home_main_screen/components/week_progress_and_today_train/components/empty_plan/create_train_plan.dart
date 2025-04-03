@@ -1,3 +1,4 @@
+import 'package:fitflow/navigation/home_navigation_bar/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';

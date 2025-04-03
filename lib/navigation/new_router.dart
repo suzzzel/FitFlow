@@ -19,7 +19,7 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sig
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/level/select_level_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/select_weight_main_widget.dart';
 import 'package:fitflow/features/background/background_widget.dart';
-import 'package:fitflow/features/home/create_training_plan/create_training_plan_main_widget.dart';
+import 'package:fitflow/features/home/create_training_plan/presentation/select_way_of_creating_train_plan/select_way_of_creating_train_plan_main_widget.dart';
 import 'package:fitflow/features/home/home_main_screen/home_main_widget.dart';
 import 'package:fitflow/features/home/future_profile_indicators/presentation/indicators/age_changer/change_age_main_home_widget.dart';
 import 'package:fitflow/features/home/future_profile_indicators/presentation/indicators/height_changer/change_height_main_home_widget.dart';
@@ -482,35 +482,26 @@ GoRouter newRouter(Ref ref) {
                           state.fullPath == RouterPath.PROFILEHOME
                       ? Align(
                           alignment: Alignment.bottomCenter,
-                          child: Navbar(
-                            onItemChanged: (int newPosition) {
-                              switch (newPosition) {
-                                case 0:
-                                  context.goNamed('/home');
-                                case 1:
-                                  context.goNamed('/progresshome');
-                                case 2:
-                                  context.goNamed('/searchhome');
-                                case 3:
-                                  context.goNamed('/profilehome');
-                              }
-                            },
-                            navBarItems: [
-                              NavBarData(
-                                  text: 'Главная',
-                                  iconPath: 'assets/navbar/home.png'),
-                              NavBarData(
-                                  text: 'Прогресс',
-                                  iconPath: 'assets/navbar/progress.png'),
-                              NavBarData(
-                                  text: 'Поиск',
-                                  iconPath: 'assets/navbar/search.png'),
-                              NavBarData(
-                                  text: 'Профиль',
-                                  iconPath: 'assets/navbar/profile.png')
-                            ],
-                          ),
-                        )
+                          child: NavBar(
+                              onItemChanged: (int newPosition) {
+                                _onNavItemTapped(newPosition, context);
+                              },
+                              navBarItems: [
+                                NavBarData(
+                                    text: 'Главная',
+                                    iconPath: 'assets/navbar/home.png'),
+                                NavBarData(
+                                    text: 'Прогресс',
+                                    iconPath: 'assets/navbar/progress.png'),
+                                NavBarData(
+                                    text: 'Поиск',
+                                    iconPath: 'assets/navbar/search.png'),
+                                NavBarData(
+                                    text: 'Профиль',
+                                    iconPath: 'assets/navbar/profile.png')
+                              ],
+                              currentIndex:
+                                  _getCurrentIndex(state.fullPath.toString())))
                       : SizedBox()
                 ],
               ),
@@ -646,4 +637,34 @@ GoRouter newRouter(Ref ref) {
       ),
     ],
   );
+}
+
+// Для навигационного бара
+int _getCurrentIndex(String location) {
+  switch (location) {
+    case '/home':
+      return 0;
+    case '/progresshome':
+      return 1;
+    case '/searchhome':
+      return 2;
+    case '/profilehome':
+      return 3;
+    default:
+      return 0;
+  }
+}
+
+// Для навигационного бара
+void _onNavItemTapped(int index, BuildContext context) {
+  switch (index) {
+    case 0:
+      context.goNamed('/home');
+    case 1:
+      context.goNamed('/progresshome');
+    case 2:
+      context.goNamed('/searchhome');
+    case 3:
+      context.goNamed('/profilehome');
+  }
 }
