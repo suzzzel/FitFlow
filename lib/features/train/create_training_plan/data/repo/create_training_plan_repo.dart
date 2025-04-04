@@ -39,6 +39,55 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
       for (var x in trainingPlansFromSupabase) {
         final tempIdTrain = x['idTrain'];
         final isThisTrainPlanExistInMap = returnMap.containsKey(tempIdTrain);
+        late final String gifID;
+        for (int exercise = 0; exercise != 5; exercise++) {
+          String tempEx = '';
+          String tempExId = '';
+          switch (exercise) {
+            case 0:
+              tempEx = 'exOne';
+              tempExId = x['exOne'];
+            case 1:
+              tempEx = 'exTwo';
+              tempExId = x['exTwo'] ?? '';
+            case 2:
+              tempEx = 'exThree';
+              tempExId = x['exTwo'] ?? '';
+            case 3:
+              tempEx = 'exFour';
+              tempExId = x['exTwo'] ?? '';
+            case 4:
+              tempEx = 'exFive';
+              tempExId = x['exFive'] ?? '';
+          }
+          if (tempEx == '') {
+            break;
+          } else {
+            try {
+              tempExId = tempExId.padLeft(4, '0');
+              final bool exGifInLocaleMemory =
+                  await File('$exFolderPath/$tempExId.gif').exists();
+              if (exGifInLocaleMemory) {
+                gifID = tempExId;
+                log('find in locale');
+              } else {
+                log('go to online');
+                try {
+                  final Uint8List gifFromOnline = await supabase.storage
+                      .from('exercises.gifs')
+                      .download('assets/$tempExId.gif');
+                  final exGif = File('$exFolderPath/$tempExId.gif');
+                  exGif.writeAsBytesSync(gifFromOnline);
+                  gifID = tempExId;
+                  // НЕ ДОБАВЛЯТЬ В МОДЕЛЬ ТРЕН ДНЯ, А ИСКАТЬ ПО ИДУ УПРАЖНЕНИЯ! ПЕРЕДЕЛАТЬ
+                } catch (e) {
+                  log(e.runtimeType.toString());
+                  // подумать над заглушкой
+                }
+              }
+            } catch (e) {}
+          }
+        }
         if (isThisTrainPlanExistInMap) {
           returnMap[tempIdTrain]!.add(ReadyTrainingPlanModel(
               idTrain: tempIdTrain,
@@ -51,6 +100,7 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
               exThree: x['exThree'],
               exFour: x['exFour'],
               exFive: x['exFive'],
+              exGif: gifID,
               reqReps: x['reqReps']));
         } else {
           final List<ReadyTrainingPlanModel> newList = [
@@ -65,63 +115,65 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
                 exThree: x['exThree'],
                 exFour: x['exFour'],
                 exFive: x['exFive'],
+                exGif: gifID,
                 reqReps: x['reqReps'])
           ];
           returnMap.addAll({tempIdTrain: newList});
         }
       }
 
-      // Проходим итерацией по тренировочным планам
-      for (var trainPlan in returnMap.values) {
-        // Проходим итерацией по каждому дню в трен. плане
-        for (var trainDay in trainPlan) {
-          // Проходим итерацией по каждому упражнению в трен. дне
-          for (int exercise = 0; exercise != 5; exercise++) {
-            String tempEx = '';
-            String tempExId = '';
-            // НУЖНО ПРИВЕСТИ tempExId К ФОРМАТУ "0001"
-            switch (exercise) {
-              case 0:
-                tempEx = 'exOne';
-                tempExId = trainDay.exOne;
-              case 1:
-                tempEx = 'exTwo';
-                tempExId = trainDay.exTwo ?? '';
-              case 2:
-                tempEx = 'exThree';
-                tempExId = trainDay.exThree ?? '';
-              case 3:
-                tempEx = 'exFour';
-                tempExId = trainDay.exFour ?? '';
-              case 4:
-                tempEx = 'exFive';
-                tempExId = trainDay.exFive ?? '';
-            }
-            if (tempEx == '') {
-              break;
-            } else {
-              try {
-                final bool exGifInLocaleMemory =
-                    await File('$exFolderPath/$tempExId.gif').exists();
-                if (exGifInLocaleMemory) {
-                  final exGif = File('$exFolderPath/$tempExId.gif');
-                  trainDay = trainDay.copyWith(exGif: exGif);
-                  log('find in locale');
-                } else {
-                  log('go to online');
-                  final Uint8List gifFromOnline = await supabase.storage
-                      .from('exercises.gifs')
-                      .download('assets/$tempExId.gif');
-                  final exGif = File('$exFolderPath/$tempExId.gif');
-                  exGif.writeAsBytesSync(gifFromOnline);
-                  trainDay = trainDay.copyWith(exGif: exGif);
-                }
-              } catch (e) {}
-              log(trainDay.exGif?.path.toString() ?? 'asd');
-            }
-          }
-        }
-      }
+      // // Проходим итерацией по тренировочным планам
+      // for (var trainPlan in returnMap.values) {
+      //   // Проходим итерацией по каждому дню в трен. плане
+      //   for (var trainDay in trainPlan) {
+      //     // Проходим итерацией по каждому упражнению в трен. дне
+      //     for (int exercise = 0; exercise != 5; exercise++) {
+      //       String tempEx = '';
+      //       String tempExId = '';
+      //       switch (exercise) {
+      //         case 0:
+      //           tempEx = 'exOne';
+      //           tempExId = trainDay.exOne;
+      //         case 1:
+      //           tempEx = 'exTwo';
+      //           tempExId = trainDay.exTwo ?? '';
+      //         case 2:
+      //           tempEx = 'exThree';
+      //           tempExId = trainDay.exThree ?? '';
+      //         case 3:
+      //           tempEx = 'exFour';
+      //           tempExId = trainDay.exFour ?? '';
+      //         case 4:
+      //           tempEx = 'exFive';
+      //           tempExId = trainDay.exFive ?? '';
+      //       }
+      //       if (tempEx == '') {
+      //         break;
+      //       } else {
+      //         try {
+      //           tempExId = tempExId.padLeft(4, '0');
+      //           final bool exGifInLocaleMemory =
+      //               await File('$exFolderPath/$tempExId.gif').exists();
+      //           if (exGifInLocaleMemory) {
+      //             final exGif = File('$exFolderPath/$tempExId.gif');
+      //             trainDay = trainDay.copyWith(exGif: tempExId);
+      //             log('find in locale');
+      //           } else {
+      //             log('go to online');
+      //             tempExId = tempExId.padLeft(4, '0');
+      //             final Uint8List gifFromOnline = await supabase.storage
+      //                 .from('exercises.gifs')
+      //                 .download('assets/$tempExId.gif');
+      //             final exGif = File('$exFolderPath/$tempExId.gif');
+      //             exGif.writeAsBytesSync(gifFromOnline);
+      //             trainDay = trainDay.copyWith(exGif: tempExId);
+      //           }
+      //         } catch (e) {}
+      //         log(trainDay.exGif ?? 'asd');
+      //       }
+      //     }
+      //   }
+      // }
 
       return returnMap;
     } catch (e) {

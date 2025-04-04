@@ -12,7 +12,7 @@ class ReadyTrainingPlanModel {
   final String? exThree;
   final String? exFour;
   final String? exFive;
-  final File? exGif;
+  final String? exGif;
   final int reqReps;
 
   ReadyTrainingPlanModel({
@@ -45,7 +45,7 @@ class ReadyTrainingPlanModel {
     String? exThree,
     String? exFour,
     String? exFive,
-    File? exGif,
+    String? exGif,
     int? reqReps,
   }) {
     return ReadyTrainingPlanModel(

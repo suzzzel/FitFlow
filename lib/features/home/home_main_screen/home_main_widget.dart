@@ -94,17 +94,17 @@ class HomeMainWidget extends ConsumerWidget {
                       child: Center(
                         child: ElevatedButton(
                             onPressed: () {
-                              context.goNamed('/progresshome');
-                              // ref
-                              //     .read(localDatabaseProvider)
-                              //     .managers
-                              //     .trainingTable
-                              //     .delete();
-                              // ref
-                              //     .read(localDatabaseProvider)
-                              //     .managers
-                              //     .trainingPlanTable
-                              //     .delete();
+                              // context.goNamed('/progresshome');
+                              ref
+                                  .read(localDatabaseProvider)
+                                  .managers
+                                  .trainingTable
+                                  .delete();
+                              ref
+                                  .read(localDatabaseProvider)
+                                  .managers
+                                  .trainingPlanTable
+                                  .delete();
                               // ref
                               //     .read(localDatabaseProvider)
                               //     .managers
