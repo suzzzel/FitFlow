@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:fitflow/features/db/app_database.dart';
-import 'package:fitflow/features/train/get_temp_week_progress/domain/models/training_day_class.dart';
+import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/domain/models/training_day_class.dart';
 import 'package:fitflow/features/train/get_today_train_info/data/repo/get_today_train_info_impl.dart';
 
 class GetTodayTrainInfoData implements GetTodayTrainInfoImpl {

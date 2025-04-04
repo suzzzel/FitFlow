@@ -2,11 +2,11 @@ import 'package:fitflow/features/auth/auth_sign_out/presentation/sign_out_button
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
 import 'package:fitflow/features/general_providers/drift_app_database_provider.dart';
 import 'package:fitflow/features/home/future_profile_indicators/indicators/indicators_main_widget.dart';
-import 'package:fitflow/features/home/home_main_screen/components/week_progress_and_today_train/progress_temp_week_main_widget.dart';
-import 'package:fitflow/features/home/home_main_screen/components/week_progress_and_today_train/week_progress_today_train_main_widget.dart';
-import 'package:fitflow/features/home/home_main_screen/components/today_info/train_info_main_widget.dart';
+import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/presentation/progress_temp_week_main_widget.dart';
+import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/presentation/week_progress_today_train_main_widget.dart';
+import 'package:fitflow/features/train/get_today_train_info/presentation/train_info_main_widget.dart';
 import 'package:fitflow/features/home/home_main_screen/components/welcome_info/welcome_info_widget.dart';
-import 'package:fitflow/features/home/home_main_screen/components/welcome_info/welcome_train.dart';
+import 'package:fitflow/features/train/get_today_train_info/presentation/welcome_train.dart';
 
 import 'package:fitflow/features/train/get_training_plan/domain/providers/get_training_plan_domain_provider.dart';
 import 'package:flutter/material.dart';

@@ -19,7 +19,8 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sig
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/level/select_level_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/select_weight_main_widget.dart';
 import 'package:fitflow/features/background/background_widget.dart';
-import 'package:fitflow/features/home/create_training_plan/presentation/select_way_of_creating_train_plan/select_way_of_creating_train_plan_main_widget.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/ready_plan_way/select_ready_plan_main_widget.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/select_way_of_creating_train_plan_main_widget.dart';
 import 'package:fitflow/features/home/home_main_screen/home_main_widget.dart';
 import 'package:fitflow/features/home/future_profile_indicators/presentation/indicators/age_changer/change_age_main_home_widget.dart';
 import 'package:fitflow/features/home/future_profile_indicators/presentation/indicators/height_changer/change_height_main_home_widget.dart';
@@ -400,6 +401,10 @@ GoRouter newRouter(Ref ref) {
                 name = 'Выберите существующий план\nили составьте личный';
                 fontSize = 20;
                 fontWeight = FontWeight.w500;
+              case '/home/newtrainplan/readytrainplan':
+                name = 'FIT FLOW';
+                fontSize = 36;
+                fontWeight = FontWeight.w700;
               default:
                 name = ' ';
                 break;
@@ -543,19 +548,33 @@ GoRouter newRouter(Ref ref) {
                     },
                   ),
                   GoRoute(
-                    path: RouterPath.SELECTTRAININGPLAN,
-                    name: RouterPath.SELECTTRAININGPLAN,
-                    pageBuilder: (context, state) => CustomTransitionPage(
-                      // child: const CreateTrainingPlanMainWidget(),
-                      child: SelectWayOfCreatingTrainPlanMainWidget(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) =>
-                              FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      ),
-                    ),
-                  )
+                      path: RouterPath.SELECTTRAININGPLAN,
+                      name: RouterPath.SELECTTRAININGPLAN,
+                      pageBuilder: (context, state) => CustomTransitionPage(
+                            child:
+                                const SelectWayOfCreatingTrainPlanMainWidget(),
+                            transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) =>
+                                FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            ),
+                          ),
+                      routes: [
+                        GoRoute(
+                          path: RouterPath.SELECTREADYTRAININGPLAN,
+                          name: RouterPath.SELECTREADYTRAININGPLAN,
+                          pageBuilder: (context, state) => CustomTransitionPage(
+                            child: const SelectReadyPlanMainWidget(),
+                            transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) =>
+                                FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            ),
+                          ),
+                        )
+                      ])
                 ]),
             GoRoute(
               path: RouterPath.PROGRESSHOME,

@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:fitflow/features/train/get_temp_week_progress/domain/models/training_day_class.dart';
+import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/domain/models/training_day_class.dart';
 import 'package:fitflow/features/train/get_today_train_info/data/providers/get_today_train_info_provider_data.dart';
 import 'package:fitflow/features/train/get_today_train_info/domain/repo/get_today_train_info_domain.dart';
 
