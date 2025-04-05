@@ -19,6 +19,7 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sig
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/level/select_level_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/select_weight_main_widget.dart';
 import 'package:fitflow/features/background/background_widget.dart';
+import 'package:fitflow/features/train/create_training_plan/domain/providers/create_training_plan_domain_provider.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/ready_plan_way/select_ready_plan_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/select_way_of_creating_train_plan_main_widget.dart';
 import 'package:fitflow/features/home/home_main_screen/home_main_widget.dart';

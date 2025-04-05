@@ -21,6 +21,9 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
 
   @override
   Future<Map<int, List<ReadyTrainingPlanModel>>> getReadyTrainingPlans() async {
+    log('START START START');
+    log('START START START');
+    log('START START START');
     try {
       final appDir = await getApplicationDocumentsDirectory();
       final exFolderPath = '${appDir.path}/exGifs';
@@ -39,7 +42,6 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
       for (var x in trainingPlansFromSupabase) {
         final tempIdTrain = x['idTrain'];
         final isThisTrainPlanExistInMap = returnMap.containsKey(tempIdTrain);
-        late final String gifID;
         for (int exercise = 0; exercise != 5; exercise++) {
           String tempEx = '';
           String tempExId = '';
@@ -68,7 +70,6 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
               final bool exGifInLocaleMemory =
                   await File('$exFolderPath/$tempExId.gif').exists();
               if (exGifInLocaleMemory) {
-                gifID = tempExId;
                 log('find in locale');
               } else {
                 log('go to online');
@@ -78,7 +79,7 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
                       .download('assets/$tempExId.gif');
                   final exGif = File('$exFolderPath/$tempExId.gif');
                   exGif.writeAsBytesSync(gifFromOnline);
-                  gifID = tempExId;
+
                   // НЕ ДОБАВЛЯТЬ В МОДЕЛЬ ТРЕН ДНЯ, А ИСКАТЬ ПО ИДУ УПРАЖНЕНИЯ! ПЕРЕДЕЛАТЬ
                 } catch (e) {
                   log(e.runtimeType.toString());
@@ -100,7 +101,6 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
               exThree: x['exThree'],
               exFour: x['exFour'],
               exFive: x['exFive'],
-              exGif: gifID,
               reqReps: x['reqReps']));
         } else {
           final List<ReadyTrainingPlanModel> newList = [
@@ -115,7 +115,6 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
                 exThree: x['exThree'],
                 exFour: x['exFour'],
                 exFive: x['exFive'],
-                exGif: gifID,
                 reqReps: x['reqReps'])
           ];
           returnMap.addAll({tempIdTrain: newList});

@@ -12,7 +12,7 @@ class ReadyTrainingPlanModel {
   final String? exThree;
   final String? exFour;
   final String? exFive;
-  final String? exGif;
+
   final int reqReps;
 
   ReadyTrainingPlanModel({
@@ -26,12 +26,11 @@ class ReadyTrainingPlanModel {
     this.exThree,
     this.exFour,
     this.exFive,
-    this.exGif,
     required this.reqReps,
   });
   @override
   String toString() {
-    return 'ReadyTrainingPlanModel(idTrain: $idTrain, name: $name, level: $level, goal: $goal, weekday: $weekday, exOne: $exOne, exTwo: $exTwo, exThree: $exThree, exFour: $exFour, exFive: $exFive, exGif: $exGif, reqReps: $reqReps)';
+    return 'ReadyTrainingPlanModel(idTrain:$idTrain, name: $name, level: $level, goal: $goal, weekday: $weekday, exOne: $exOne, exTwo: $exTwo, exThree: $exThree, exFour: $exFour, exFive: $exFive, reqReps: $reqReps)';
   }
 
   ReadyTrainingPlanModel copyWith({
@@ -45,7 +44,6 @@ class ReadyTrainingPlanModel {
     String? exThree,
     String? exFour,
     String? exFive,
-    String? exGif,
     int? reqReps,
   }) {
     return ReadyTrainingPlanModel(
@@ -59,7 +57,6 @@ class ReadyTrainingPlanModel {
       exThree: exThree ?? this.exThree,
       exFour: exFour ?? this.exFour,
       exFive: exFive ?? this.exFive,
-      exGif: exGif ?? this.exGif,
       reqReps: reqReps ?? this.reqReps,
     );
   }
