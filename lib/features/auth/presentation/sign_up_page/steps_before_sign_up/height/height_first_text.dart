@@ -16,23 +16,30 @@ class HeightFirstText extends StatelessWidget {
           width: 348,
           height: 93,
           child: FittedBox(
-              child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                      text: 'Рост',
-                      style: GoogleFonts.inter(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Theme.of(context).colorScheme.onPrimary),
-                      children: [
-                        TextSpan(
-                            text:
-                                ' - важный параметр для создания\nперсональной программы\nтренировок.',
-                            style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                                color: Theme.of(context).colorScheme.onPrimary))
-                      ])))),
+              child: ShaderMask(
+            blendMode: BlendMode.srcATop,
+            shaderCallback: (bounds) => LinearGradient(colors: [
+              Theme.of(context).colorScheme.primaryFixed,
+              Theme.of(context).colorScheme.secondaryFixed,
+            ]).createShader(bounds),
+            child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                    text: 'Рост',
+                    style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                        color: Theme.of(context).colorScheme.onPrimary),
+                    children: [
+                      TextSpan(
+                          text:
+                              ' - важный параметр для создания\nперсональной программы\nтренировок.',
+                          style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: Theme.of(context).colorScheme.onPrimary))
+                    ])),
+          ))),
     );
   }
 }

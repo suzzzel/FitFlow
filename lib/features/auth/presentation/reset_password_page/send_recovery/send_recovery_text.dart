@@ -7,16 +7,24 @@ class SendRecoveryText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: 311,
+        width: 331,
         height: 66,
         child: FittedBox(
-            child: Text(
-          'Введите свою электронную почту, чтобы\nмы могли отправить вам 6-значный\nкод для подтверждения.',
-          textAlign: TextAlign.center,
-          style: GoogleFonts.inter(
-              color: Theme.of(context).colorScheme.onPrimary,
+            child: ShaderMask(
+          blendMode: BlendMode.srcATop,
+          shaderCallback: (bounds) => LinearGradient(colors: [
+            Theme.of(context).colorScheme.primaryFixed,
+            Theme.of(context).colorScheme.secondaryFixed,
+          ]).createShader(bounds),
+          child: Text(
+            'Введите свою электронную почту, чтобы\nмы могли отправить вам 6-значный\nкод для подтверждения.',
+            textScaler: const TextScaler.linear(1),
+            textAlign: TextAlign.center,
+            style: GoogleFonts.inter(
+              fontWeight: FontWeight.w500,
               fontSize: 16,
-              fontWeight: FontWeight.w500),
+            ),
+          ),
         )));
   }
 }

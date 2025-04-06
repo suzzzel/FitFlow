@@ -1,7 +1,7 @@
 import 'package:fitflow/features/auth/auth_reset_password/domain/models/reset_pass_enums.dart';
 import 'package:fitflow/features/auth/auth_reset_password/domain/providers/valid_otp_code.dart';
 import 'package:fitflow/features/auth/auth_reset_password/presentation/controllers/enter_code_to_reset_password_controller.dart';
-import 'package:fitflow/features/auth/presentation/reset_password_page/snackbars/network_error_reset_pass_snacknar.dart';
+import 'package:fitflow/features/auth/presentation/reset_password_page/enter_recovery_code/network_error_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -66,7 +66,7 @@ class _EnterCodePinImputState extends ConsumerState<EnterCodePinImput> {
                     break;
                   case EnterRecoveryCodeStatus.networkError:
                     // ignore: use_build_context_synchronously
-                    showNetworkErrorResetPass(context);
+                    showNetworkError(context);
                 }
               },
               showCursor: false,
@@ -87,7 +87,8 @@ final defaultPinTheme = PinTheme(
   textStyle: GoogleFonts.inter(
       fontSize: 20, color: Colors.black, fontWeight: FontWeight.w500),
   decoration: BoxDecoration(
-    border: Border.all(color: const Color.fromRGBO(17, 83, 141, 1), width: 2),
+    color: const Color.fromRGBO(217, 217, 217, 1),
+    border: Border.all(color: const Color.fromRGBO(204, 143, 237, 1), width: 2),
     borderRadius: BorderRadius.circular(10),
   ),
 );

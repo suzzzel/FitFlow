@@ -23,7 +23,9 @@ dependencies:
   drift_flutter: ^0.2.4
   path_provider: ^2.1.1
   image_picker: ^1.1.2
-
+  intl: ^0.20.2
+  smooth_page_indicator: ^1.2.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -40,11 +42,7 @@ flutter:
     - assets/logo/
     - assets/auth/
     - assets/leading/
-
-targets:
-  $default:
-    builders:
-      drift_dev:
-        options:
-          databases:
-            local_database: lib/features/db/app_database.dart
+    - assets/loading/
+    - assets/navbar/
+    - assets/home/
+    - assets/create_training_plan/

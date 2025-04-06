@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 class AppUser {
-  final int? id;
+  final String? id;
   // ignore: non_constant_identifier_names
   final String? created_at;
   final String? name;
@@ -51,7 +51,7 @@ class AppUser {
 
   factory AppUser.fromMap(Map<String, dynamic> map) {
     return AppUser(
-      id: map['id'] as int,
+      id: map['id'],
       created_at: DateTime.parse(map['created_at']).toString(),
       name: map['name'] != null ? map['name'] as String : null,
       age: map['age'] != null ? map['age'] as int : null,
@@ -70,7 +70,7 @@ class AppUser {
       AppUser.fromMap(json.decode(source) as Map<String, dynamic>);
 
   AppUser copyWith({
-    int? id,
+    String? id,
     String? created_at,
     String? name,
     int? age,

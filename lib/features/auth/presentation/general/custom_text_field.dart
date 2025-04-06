@@ -49,12 +49,21 @@ class CustomTextField extends StatelessWidget {
           padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).size.height * 0.008),
           child: FittedBox(
-            child: Text(
-              labelText,
-              style: GoogleFonts.inter(
-                  color: Theme.of(context).colorScheme.secondary,
+            child: ShaderMask(
+              blendMode: BlendMode.srcATop,
+              shaderCallback: (bounds) => const LinearGradient(colors: [
+                Color.fromRGBO(204, 143, 237, 1),
+                Color.fromRGBO(107, 80, 246, 1),
+              ]).createShader(bounds),
+              child: Text(
+                labelText,
+                textScaler: const TextScaler.linear(1),
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w500,
                   fontSize: 16,
-                  fontWeight: FontWeight.w500),
+                ),
+              ),
             ),
           ),
         ),

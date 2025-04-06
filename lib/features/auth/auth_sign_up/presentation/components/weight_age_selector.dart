@@ -7,10 +7,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WeightAgeSelector extends ConsumerStatefulWidget {
+  final int? initialChange;
   final bool gender;
   final bool weightOrAge;
   const WeightAgeSelector(
-      {super.key, required this.weightOrAge, required this.gender});
+      {super.key,
+      required this.weightOrAge,
+      required this.gender,
+      this.initialChange});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -26,9 +30,11 @@ class _WeightHeightSelectorState extends ConsumerState<WeightAgeSelector> {
 
   @override
   void initState() {
-    currentIndex = widget.weightOrAge
-        ? weightCount ~/ (widget.gender ? 5 : 9)
-        : ageCount ~/ 4;
+    currentIndex = widget.initialChange == null
+        ? widget.weightOrAge
+            ? weightCount ~/ (widget.gender ? 5 : 9)
+            : ageCount ~/ 4
+        : widget.initialChange!;
     super.initState();
   }
 
@@ -44,11 +50,29 @@ class _WeightHeightSelectorState extends ConsumerState<WeightAgeSelector> {
                 widget.weightOrAge ? weightCount : ageCount, (int index) {
               return Center(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 3,
+                  ),
                   child: Container(
                       width: MediaQuery.of(context).size.width * 0.3,
                       height: MediaQuery.of(context).size.height * 0.13,
-                      color: Theme.of(context).colorScheme.secondary,
+                      decoration: BoxDecoration(
+                          boxShadow: currentIndex == index
+                              ? [
+                                  const BoxShadow(
+                                      offset: Offset(0, 4),
+                                      blurRadius: 20,
+                                      color: Color.fromRGBO(107, 80, 246, 0.7))
+                                ]
+                              : null,
+                          borderRadius: BorderRadius.circular(19),
+                          gradient: LinearGradient(
+                              begin: AlignmentDirectional.topCenter,
+                              end: AlignmentDirectional.bottomCenter,
+                              colors: [
+                                Theme.of(context).colorScheme.primaryFixed,
+                                Theme.of(context).colorScheme.secondaryFixed,
+                              ])),
                       child: Align(
                         alignment: Alignment.center,
                         child: FittedBox(
@@ -83,9 +107,12 @@ class _WeightHeightSelectorState extends ConsumerState<WeightAgeSelector> {
             options: CarouselOptions(
               viewportFraction: 0.3,
               pageSnapping: false,
-              initialPage: widget.weightOrAge
-                  ? weightCount ~/ (widget.gender ? 5 : 9)
-                  : ageCount ~/ 4,
+              enlargeCenterPage: true,
+              initialPage: widget.initialChange == null
+                  ? widget.weightOrAge
+                      ? weightCount ~/ (widget.gender ? 5 : 9)
+                      : ageCount ~/ 4
+                  : widget.initialChange!,
               onPageChanged: (index, reason) {
                 setState(() {
                   currentIndex = index;
@@ -101,10 +128,17 @@ class _WeightHeightSelectorState extends ConsumerState<WeightAgeSelector> {
             alignment: const Alignment(0, 0.18),
             child: Transform.rotate(
               angle: pi / 180,
-              child: Image.asset(
-                'assets/auth/weight_age_arrow.png',
-                width: 31,
-                height: 18,
+              child: ShaderMask(
+                blendMode: BlendMode.srcATop,
+                shaderCallback: (bounds) => LinearGradient(colors: [
+                  Theme.of(context).colorScheme.primaryFixed,
+                  Theme.of(context).colorScheme.secondaryFixed,
+                ]).createShader(bounds),
+                child: Image.asset(
+                  'assets/auth/weight_age_arrow.png',
+                  width: 31,
+                  height: 18,
+                ),
               ),
             ),
           ),

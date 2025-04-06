@@ -23,7 +23,7 @@ class AuthSignUpData implements AuthSignUpDataImpl {
         try {
           final Map<String, dynamic> userToSupabase = user.toMap();
           userToSupabase.remove('id');
-          await supabase.from('users').insert(userToSupabase);
+          await supabase.from('app_users').insert(userToSupabase);
           await Future.delayed(const Duration(seconds: 1));
           return SignUpState.success;
         } catch (e) {

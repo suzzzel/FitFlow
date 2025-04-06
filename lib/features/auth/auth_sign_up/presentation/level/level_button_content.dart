@@ -26,24 +26,37 @@ class _LevelButtonContentState extends State<LevelButtonContent> {
             child: FittedBox(
                 child: Image.asset(widget.iconLevel,
                     color: widget.isPrimary
+                        ? Colors.white
+                        : Colors.white.withOpacity(0.6)))),
+        const Spacer(),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: FittedBox(
+            child: ShaderMask(
+              blendMode: BlendMode.srcATop,
+              shaderCallback: (bounds) => LinearGradient(colors: [
+                Theme.of(context)
+                    .colorScheme
+                    .primaryFixed
+                    .withOpacity(widget.isPrimary ? 1 : 0.5),
+                Theme.of(context)
+                    .colorScheme
+                    .secondaryFixed
+                    .withOpacity(widget.isPrimary ? 1 : 0.5),
+              ]).createShader(bounds),
+              child: Text(
+                widget.level,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                    fontSize: widget.isPrimary ? 32 : 24,
+                    fontWeight: FontWeight.w500,
+                    color: widget.isPrimary
                         ? Theme.of(context).colorScheme.secondary
                         : Theme.of(context)
                             .colorScheme
                             .tertiary
-                            .withOpacity(1)))),
-        const Spacer(),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: FittedBox(
-            child: Text(
-              widget.level,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.inter(
-                  fontSize: widget.isPrimary ? 32 : 24,
-                  fontWeight: FontWeight.w500,
-                  color: widget.isPrimary
-                      ? Theme.of(context).colorScheme.secondary
-                      : Theme.of(context).colorScheme.tertiary.withOpacity(1)),
+                            .withOpacity(1)),
+              ),
             ),
           ),
         ),

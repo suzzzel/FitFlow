@@ -5,7 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HeightSelector extends ConsumerStatefulWidget {
-  const HeightSelector({super.key});
+  final int? initialChange;
+  const HeightSelector({super.key, this.initialChange});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _AgeSelectorState();
@@ -17,8 +18,9 @@ class _AgeSelectorState extends ConsumerState<HeightSelector> {
 
   @override
   void initState() {
-    currentIndex = 50;
-
+    currentIndex = widget.initialChange == null
+        ? 50
+        : widget.initialChange! - heightCorrection;
     super.initState();
   }
 
@@ -33,10 +35,9 @@ class _AgeSelectorState extends ConsumerState<HeightSelector> {
             items: List<Widget>.generate(100, (int index) {
               return Center(
                 child: SizedBox(
-                    width: heightMainProv.state == index
+                    width: currentIndex == index
                         ? MediaQuery.of(context).size.height * 0.175
-                        : index == heightMainProv.state - 1 ||
-                                index == heightMainProv.state + 1
+                        : index == currentIndex - 1 || index == currentIndex + 1
                             ? MediaQuery.of(context).size.height * 0.15
                             : MediaQuery.of(context).size.height * 0.12,
                     child: FittedBox(
@@ -47,24 +48,18 @@ class _AgeSelectorState extends ConsumerState<HeightSelector> {
                         textScaler: const TextScaler.linear(1),
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500,
-                            fontSize: heightMainProv.state == index
+                            fontSize: currentIndex == index
                                 ? 80
-                                : index == heightMainProv.state - 1 ||
-                                        index == heightMainProv.state + 1
+                                : index == currentIndex - 1 ||
+                                        index == currentIndex + 1
                                     ? 70
                                     : 60,
-                            color: heightMainProv.state == index
-                                ? Theme.of(context).colorScheme.secondary
-                                : index == heightMainProv.state - 1 ||
-                                        index == heightMainProv.state + 1
-                                    ? Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary
-                                        .withOpacity(0.75)
-                                    : Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary
-                                        .withOpacity(0.5)),
+                            color: currentIndex == index
+                                ? Colors.white.withOpacity(0.9)
+                                : index == currentIndex - 1 ||
+                                        index == currentIndex + 1
+                                    ? Colors.white.withOpacity(0.7)
+                                    : Colors.white.withOpacity(0.6)),
                       ),
                     )),
               );
@@ -73,11 +68,12 @@ class _AgeSelectorState extends ConsumerState<HeightSelector> {
               viewportFraction: 0.2,
               pageSnapping: false,
               scrollDirection: Axis.vertical,
-              initialPage: heightMainProv.state,
+              enableInfiniteScroll: false,
+              initialPage: currentIndex,
               onPageChanged: (index, reason) {
                 setState(() {
-                  currentIndex = index + heightCorrection;
-                  heightMainProv.state = index;
+                  currentIndex = index;
+                  heightMainProv.state = index + heightCorrection;
                 });
               },
             )),

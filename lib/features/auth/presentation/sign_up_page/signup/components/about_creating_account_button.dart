@@ -11,6 +11,10 @@ class AboutCreateAccButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final shader = LinearGradient(colors: [
+      Theme.of(context).colorScheme.primaryFixed,
+      Theme.of(context).colorScheme.secondaryFixed,
+    ]).createShader(const Rect.fromLTWH(0.0, 0.0, 320.0, 80.0));
     return Align(
       alignment: const Alignment(0, 1),
       child: Padding(
@@ -32,16 +36,15 @@ class AboutCreateAccButton extends StatelessWidget {
                           style: GoogleFonts.inter(
                               fontWeight: FontWeight.w500,
                               fontSize: 10,
-                              color: Theme.of(context).colorScheme.onPrimary),
+                              color: Theme.of(context).colorScheme.onSecondary),
                           children: [
                             TextSpan(
                                 text: ' условями\nпользования',
                                 style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 10,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary)),
+                                  foreground: Paint()..shader = shader,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 10,
+                                )),
                             TextSpan(
                                 text: ' и',
                                 style: GoogleFonts.inter(
@@ -49,15 +52,14 @@ class AboutCreateAccButton extends StatelessWidget {
                                     fontSize: 10,
                                     color: Theme.of(context)
                                         .colorScheme
-                                        .onPrimary)),
+                                        .onSecondary)),
                             TextSpan(
                                 text: ' политикой конфиденциальности',
                                 style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 10,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary)),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 10,
+                                  foreground: Paint()..shader = shader,
+                                )),
                           ]))),
             ),
           )),

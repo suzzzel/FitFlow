@@ -17,7 +17,7 @@ class ErrorSignInWidget extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 color: error
                     ? const Color.fromRGBO(255, 10, 10, 0.8)
-                    : Theme.of(context).colorScheme.surface),
+                    : Colors.transparent),
           ),
         ));
   }

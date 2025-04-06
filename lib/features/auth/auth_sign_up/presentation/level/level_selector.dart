@@ -22,16 +22,14 @@ class _LevelSelectorState extends ConsumerState<LevelSelector> {
       });
     }
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).size.height * 0.068),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: levelSelect.state == 'beginner' ? 46 : 71,
-            ),
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.height * 0.07),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 31),
             child: AnimatedContainer(
               curve: Curves.easeInOut,
               duration: const Duration(milliseconds: 300),
@@ -51,19 +49,13 @@ class _LevelSelectorState extends ConsumerState<LevelSelector> {
                       tempLevel: 'beginner'),
                   child: LevelButtonContent(
                     isPrimary: levelSelect.state == 'beginner' ? true : false,
-                    level: 'Новичок',
+                    level: 'Только\nначинаю',
                     iconLevel: 'assets/auth/beginner.png',
                   )),
             ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).size.height * 0.068),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: levelSelect.state == 'skilled' ? 46 : 71,
-            ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 31),
             child: AnimatedContainer(
               curve: Curves.easeInOut,
               duration: const Duration(milliseconds: 300),
@@ -83,17 +75,12 @@ class _LevelSelectorState extends ConsumerState<LevelSelector> {
                       tempLevel: 'skilled'),
                   child: LevelButtonContent(
                     isPrimary: levelSelect.state == 'skilled' ? true : false,
-                    level: 'Опытный',
+                    level: 'Занимался\nранее',
                     iconLevel: 'assets/auth/skilled.png',
                   )),
             ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: levelSelect.state == 'master' ? 46 : 71,
-          ),
-          child: AnimatedContainer(
+          AnimatedContainer(
             curve: Curves.easeInOut,
             duration: const Duration(milliseconds: 300),
             width: levelSelect.state == 'master'
@@ -112,12 +99,12 @@ class _LevelSelectorState extends ConsumerState<LevelSelector> {
                     tempLevel: 'master'),
                 child: LevelButtonContent(
                   isPrimary: levelSelect.state == 'master' ? true : false,
-                  level: 'Мастер',
+                  level: 'Занимаюсь\nрегулярно',
                   iconLevel: 'assets/auth/master.png',
                 )),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

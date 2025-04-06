@@ -6,13 +6,12 @@ ButtonStyle createLevelButtonStyle(
     required String tempLevel}) {
   return ButtonStyle(
       elevation: const WidgetStatePropertyAll(0),
-      backgroundColor:
-          WidgetStatePropertyAll(Theme.of(context).colorScheme.surface),
+      backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
       shape: WidgetStatePropertyAll(RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
           side: BorderSide(
               width: 2,
               color: level == tempLevel
-                  ? Theme.of(context).colorScheme.secondary
-                  : Theme.of(context).colorScheme.tertiary.withOpacity(1)))));
+                  ? Theme.of(context).colorScheme.primaryFixed
+                  : const Color.fromRGBO(31, 20, 145, 1)))));
 }

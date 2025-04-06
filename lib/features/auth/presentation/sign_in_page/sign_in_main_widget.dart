@@ -6,8 +6,6 @@ import 'package:fitflow/features/auth/presentation/sign_in_page/components/forgo
 import 'package:fitflow/features/auth/presentation/sign_in_page/components/password_imput_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SignInMainWidget extends ConsumerStatefulWidget {
   const SignInMainWidget({super.key});
@@ -23,63 +21,45 @@ class SignInMainWidgetState extends ConsumerState<SignInMainWidget> {
   bool obscurePassword = true;
 
   @override
+  void dispose() {
+    emailController.clear();
+    passwordController.clear();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final emailInput = ref.watch(emailOrNameProvider.notifier);
-    final passImput = ref.watch(passwordProvider.notifier);
     final firstImput = ref.watch(firstImputProvider);
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              context.pop();
-              ref.watch(firstImputProvider.notifier).state = true;
-              ref.watch(isDataSignInValidProvider.notifier).state = false;
-              emailInput.state = '';
-              passImput.state = '';
-            },
-            icon: Image.asset('assets/leading/arrow.png')),
-        centerTitle: true,
-        title: FittedBox(
-          child: Text(
-            'Авторизация',
-            style: GoogleFonts.inter(
-                color: Theme.of(context).colorScheme.secondary,
-                fontSize: 24,
-                fontWeight: FontWeight.w500),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        const Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 35),
+            child: SignInButton(),
           ),
         ),
-      ),
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          const Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 35),
-              child: SignInButton(),
+        Padding(
+          padding: const EdgeInsets.only(top: 250),
+          child: ErrorSignInWidget(error: !firstImput),
+        ),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            EmailOrNameImputWidget(
+                emailController: emailController, emailInput: emailInput),
+            PasswordImputWidget(
+              passwordController: passwordController,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 250),
-            child: ErrorSignInWidget(error: !firstImput),
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              EmailOrNameImputWidget(
-                  emailController: emailController, emailInput: emailInput),
-              PasswordImputWidget(
-                passwordController: passwordController,
-              ),
-              const ForgotPasswordWidget(),
-            ],
-          ),
-        ],
-      ),
+            const ForgotPasswordWidget(),
+          ],
+        ),
+      ],
     );
+    // );
   }
 }

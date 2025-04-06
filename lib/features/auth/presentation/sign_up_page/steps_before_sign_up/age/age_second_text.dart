@@ -16,14 +16,21 @@ class AgeSecondText extends StatelessWidget {
             left: 11,
             right: 11),
         child: SizedBox(
-          width: 371,
-          height: 80,
+          width: 335,
+          height: 39,
           child: FittedBox(
-            child: Text(
-              'Указание возраста поможет нам адаптировать\nтренировочные планы, рекомендации по\nпитанию и отслеживание прогресса под ваши\nфизиологические особенности.',
-              textAlign: TextAlign.center,
-              style:
-                  GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w500),
+            child: ShaderMask(
+              blendMode: BlendMode.srcATop,
+              shaderCallback: (bounds) => LinearGradient(colors: [
+                Theme.of(context).colorScheme.primaryFixed,
+                Theme.of(context).colorScheme.secondaryFixed,
+              ]).createShader(bounds),
+              child: Text(
+                'Указывайте честно, ваши данные не\nвидим даже мы :)',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                    fontSize: 16, fontWeight: FontWeight.w500),
+              ),
             ),
           ),
         ),

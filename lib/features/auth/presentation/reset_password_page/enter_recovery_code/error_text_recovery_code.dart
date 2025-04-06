@@ -18,14 +18,23 @@ class ErrorTextRecoveryCode extends StatelessWidget {
       alignment: const Alignment(0, -0.11),
       child: SizedBox(
           width: 208,
-          height: 22,
           child: state.isLoading
-              ? SizedBox(
-                  width: 41,
-                  height: 41,
-                  child: FittedBox(
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).colorScheme.secondary,
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 70),
+                  child: ShaderMask(
+                    blendMode: BlendMode.srcATop,
+                    shaderCallback: (bounds) => LinearGradient(colors: [
+                      Theme.of(context).colorScheme.primaryFixed,
+                      Theme.of(context).colorScheme.secondaryFixed,
+                    ]).createShader(bounds),
+                    child: const SizedBox(
+                      width: 41,
+                      height: 41,
+                      child: FittedBox(
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                        ),
+                      ),
                     ),
                   ),
                 )

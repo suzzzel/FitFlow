@@ -3,7 +3,7 @@ import 'package:fitflow/features/auth/auth_sign_in/domain/providers/auth_sign_in
 import 'package:fitflow/features/auth/auth_sign_in/domain/providers/valid_sign_in_data.dart';
 import 'package:fitflow/features/auth/auth_sign_in/presentation/controllers/sign_in_controller.dart';
 import 'package:fitflow/features/auth/presentation/general/custom_text_field.dart';
-import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/snackbars/network_error.dart';
+import 'package:fitflow/features/auth/presentation/sign_up_page/signup/components/snackbars/network_error_sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -26,7 +26,7 @@ class PasswordImputWidget extends ConsumerWidget {
     final isButtonActive = ref.watch(isDataSignInValidProvider.notifier);
     return Padding(
       padding: const EdgeInsets.only(
-        left: 46,
+        left: 47,
         right: 47,
       ),
       child: CustomTextField(
@@ -58,7 +58,7 @@ class PasswordImputWidget extends ConsumerWidget {
                 isButtonActive.state = false;
               case SignInState.networkError:
                 // ignore: use_build_context_synchronously
-                showNetworkError(context);
+                showNetworkErrorSignUp(context);
               case SignInState.notAuth:
                 firtImput.state = false;
             }

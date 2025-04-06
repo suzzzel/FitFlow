@@ -19,11 +19,18 @@ class WeightSecondText extends StatelessWidget {
           width: 371,
           height: 80,
           child: FittedBox(
-            child: Text(
-              'Указание вашего веса поможет нам рассчитать\nваши индивидуальные потребности в калориях и\nадаптировать тренировочные планы для\nдостижения ваших целей.',
-              textAlign: TextAlign.center,
-              style:
-                  GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w500),
+            child: ShaderMask(
+              blendMode: BlendMode.srcATop,
+              shaderCallback: (bounds) => LinearGradient(colors: [
+                Theme.of(context).colorScheme.primaryFixed,
+                Theme.of(context).colorScheme.secondaryFixed,
+              ]).createShader(bounds),
+              child: Text(
+                'Указывайте честно, ваши данные не видим даже\nмы :)',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                    fontSize: 15, fontWeight: FontWeight.w600),
+              ),
             ),
           ),
         ),
