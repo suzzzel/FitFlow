@@ -1,17 +1,12 @@
 import 'package:fitflow/features/auth/auth_sign_out/presentation/sign_out_button.dart';
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
 import 'package:fitflow/features/general_providers/drift_app_database_provider.dart';
-import 'package:fitflow/features/home/future_profile_indicators/indicators/indicators_main_widget.dart';
-import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/presentation/progress_temp_week_main_widget.dart';
 import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/presentation/week_progress_today_train_main_widget.dart';
 import 'package:fitflow/features/train/get_today_train_info/presentation/train_info_main_widget.dart';
-import 'package:fitflow/features/home/home_main_screen/components/welcome_info/welcome_info_widget.dart';
 import 'package:fitflow/features/train/get_today_train_info/presentation/welcome_train.dart';
-
 import 'package:fitflow/features/train/get_training_plan/domain/providers/get_training_plan_domain_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -28,7 +23,6 @@ class HomeMainWidget extends ConsumerWidget {
     final weekDayNow = DateFormat('EEEE').format(timeNow).toLowerCase();
     return Stack(
       children: [
-        // WelcomeInformationWidget(user: user),
         Padding(
           padding:
               EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.125),
@@ -37,8 +31,6 @@ class HomeMainWidget extends ConsumerWidget {
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             children: [
-              // IndicatorsMainWidget(user: user),
-
               WelcomeTrain(
                 isPlanExist: trainingPlan.hasValue == true &&
                     trainingPlan.value!.isNotEmpty,
@@ -95,27 +87,28 @@ class HomeMainWidget extends ConsumerWidget {
                         child: ElevatedButton(
                             onPressed: () {
                               // context.goNamed('/progresshome');
-                              ref
-                                  .read(localDatabaseProvider)
-                                  .managers
-                                  .trainingTable
-                                  .delete();
-                              ref
-                                  .read(localDatabaseProvider)
-                                  .managers
-                                  .trainingPlanTable
-                                  .delete();
                               // ref
                               //     .read(localDatabaseProvider)
                               //     .managers
                               //     .trainingTable
-                              //     .create((f) => f(
-                              //         dayOfTraining: '2025-04-01',
-                              //         exerciseOne: '2',
-                              //         countRepsExOne: 5,
-                              //         maxWeightExOne: '110',
-                              //         percentOfTrainDone: 70,
-                              //         idUser: 'test'));
+                              //     .delete();
+                              // ref
+                              //     .read(localDatabaseProvider)
+                              //     .managers
+                              //     .trainingPlanTable
+                              //     .delete();
+                              ref
+                                  .read(localDatabaseProvider)
+                                  .managers
+                                  .trainingTable
+                                  .create((f) => f(
+                                      dayOfTraining: '2025-04-07',
+                                      // типа сделал треню
+                                      exerciseOne: '2',
+                                      countRepsExOne: 5,
+                                      maxWeightExOne: '110',
+                                      percentOfTrainDone: 70,
+                                      idUser: 'test'));
                               // ref
                               //     .read(localDatabaseProvider)
                               //     .managers

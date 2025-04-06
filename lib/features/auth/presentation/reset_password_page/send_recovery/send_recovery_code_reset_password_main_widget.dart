@@ -34,7 +34,7 @@ class ResetPasswordMainWidgetState
           alignment: Alignment.bottomCenter,
           child: Padding(
             padding: EdgeInsets.only(bottom: 35),
-            child: NewNextStepAfterSendRecoveryCodeButton(),
+            child: NextStepAfterSendRecoveryCodeButton(),
           ),
         ),
         const Align(alignment: Alignment(0, 0.44), child: SendRecoveryText()),

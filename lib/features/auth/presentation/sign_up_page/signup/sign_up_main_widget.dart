@@ -67,7 +67,7 @@ class SignUpMainWidgetState extends ConsumerState<SignUpMainWidget> {
             PasswordSignUpRepeatImputWidget(
                 isValidRepeatPassword: isValidPasswordRepeatProv,
                 passwordRepeatController: passwordRepeatController),
-            SignUpButton(),
+            const SignUpButton(),
           ],
         ),
         const BackToAuthButton(),
