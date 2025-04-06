@@ -8,7 +8,7 @@ class SelectLevelMainWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Stack(
+    return const Stack(
       children: [
         Align(alignment: Alignment(0, 0.09), child: LevelSelector()),
         Align(

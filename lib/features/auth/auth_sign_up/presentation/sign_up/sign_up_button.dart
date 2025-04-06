@@ -44,7 +44,7 @@ class _NewSignUpButtonState extends ConsumerState<SignUpButton> {
     final userNotif = ref.watch(regUserProvider.notifier);
     final isButtonActive = ref.watch(isDataSignUpValidProvider.notifier);
     return Padding(
-      padding: const EdgeInsets.only(left: 21, right: 21, top: 18),
+      padding: const EdgeInsets.only(left: 22, right: 22, top: 18),
       child: Container(
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(99)),
@@ -79,7 +79,7 @@ class _NewSignUpButtonState extends ConsumerState<SignUpButton> {
                           user: ref.read(regUserProvider));
                   if (response != null) {
                     if (!response) {
-                      showError(false); // already ex
+                      showError(false); // already exist
                     } else {
                       showError(true); // network error
                     }

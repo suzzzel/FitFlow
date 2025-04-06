@@ -54,7 +54,7 @@ class _NameSignUpImputWidgetState extends State<NameSignUpImputWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        left: 46,
+        left: 47,
         right: 47,
       ),
       child: Stack(

@@ -17,8 +17,8 @@ class NextStepAfterLevelSelectButton extends ConsumerWidget {
     final prov = ref.watch(selectLevelProvider);
     return Padding(
       padding: const EdgeInsets.only(
-        left: 21,
-        right: 21,
+        left: 39,
+        right: 39,
       ),
       child: Container(
         decoration: BoxDecoration(
@@ -50,8 +50,8 @@ class NextStepAfterLevelSelectButton extends ConsumerWidget {
                 textScaler: const TextScaler.linear(1),
                 style: GoogleFonts.inter(
                     color: Theme.of(context).colorScheme.onSecondary,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700),
               ),
             )),
       ),

@@ -20,12 +20,13 @@ class SelectReadyPlanMainWidget extends ConsumerWidget {
       readyPlans.when(
           data: (readyPlans) {
             if (dir.isLoading) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             } else {
               log(readyPlans.toString());
               return ListView.builder(
                 itemCount: readyPlans.length,
                 itemBuilder: (context, index) {
+                  // ignore: unused_local_variable
                   final exFolderPath = '${dir.value!.path}/exGifs';
                   final trueIndex = index + 1;
                   return Padding(
@@ -119,7 +120,7 @@ class SelectReadyPlanMainWidget extends ConsumerWidget {
                                     ),
                               ),
                               Align(
-                                  alignment: Alignment(0, 0.5),
+                                  alignment: const Alignment(0, 0.5),
                                   child: FittedBox(
                                     child: Container(
                                       decoration: BoxDecoration(boxShadow: [

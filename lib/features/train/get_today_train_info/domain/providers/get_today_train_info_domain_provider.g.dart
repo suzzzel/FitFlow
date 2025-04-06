@@ -7,7 +7,7 @@ part of 'get_today_train_info_domain_provider.dart';
 // **************************************************************************
 
 String _$getTodayTrainInfoDomainProviderAsyncHash() =>
-    r'25402be8bf20725effdf0778837a97da0d9d9377';
+    r'0b70bd57b3f964aed52cfba446871a0fd2cba85e';
 
 /// See also [GetTodayTrainInfoDomainProviderAsync].
 @ProviderFor(GetTodayTrainInfoDomainProviderAsync)

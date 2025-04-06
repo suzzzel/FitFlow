@@ -18,7 +18,7 @@ class AuthSelectButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 44, right: 34),
+      padding: const EdgeInsets.only(left: 39, right: 39),
       child: Container(
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(99)),

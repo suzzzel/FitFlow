@@ -1,8 +1,6 @@
-import 'dart:developer';
-
-import 'package:fitflow/features/train/get_today_train_info/presentation/chill_day_info.dart';
-import 'package:fitflow/features/train/get_today_train_info/presentation/empty_train_plan_info.dart';
-import 'package:fitflow/features/train/get_today_train_info/presentation/train_day_info_train_exist.dart';
+import 'package:fitflow/features/train/get_today_train_info/presentation/chill_day_info/chill_day_info.dart';
+import 'package:fitflow/features/train/get_today_train_info/presentation/empty_train_plan_info/empty_train_plan_info.dart';
+import 'package:fitflow/features/train/get_today_train_info/presentation/train_day_train_today_info/train_day_info_train_exist.dart';
 import 'package:fitflow/features/train/get_training_plan/domain/models/training_plan_class.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +50,7 @@ class TrainingPlanMainWidget extends StatelessWidget {
                   : trainingPlan!.indexWhere(
                               (element) => element.dayOfWeek == weekDayNow) !=
                           -1
-                      ? TrainDayInfoTrainExist(
+                      ? TrainDayInfoTrainToday(
                           train: trainingPlan![trainingPlan!.indexWhere(
                               (element) => element.dayOfWeek == weekDayNow)],
                           numberOfWeek: timeNow
