@@ -1,5 +1,7 @@
+import 'dart:developer';
+
 import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/presentation/components/info_about_today_day/info_about_today.dart';
-import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/presentation/components/buttons_today_day/info_about_today_buttons.dart';
+import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/presentation/components/info_about_today_day/info_about_today_buttons.dart';
 import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/presentation/components/loading_home_train_today.dart';
 import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/presentation/components/page_indicator_home_screen.dart';
 import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/presentation/progress_temp_week_main_widget.dart';
@@ -68,11 +70,9 @@ class WeekProgressTodayTrainMainWidget extends ConsumerWidget {
                                           : false,
                                 ),
                                 InfoAboutTodayButton(
-                                  isPlanLoading: isPlanLoading,
-                                  trainingPlan: trainingPlan,
-                                  weekDayNow: weekDayNow,
-                                  todayTrain: todayTrain,
-                                )
+                                    isPlanLoading: isPlanLoading,
+                                    trainingPlan: trainingPlan,
+                                    weekDayNow: weekDayNow)
                               ],
                             ),
                           ),

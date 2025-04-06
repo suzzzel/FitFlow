@@ -50,7 +50,7 @@ class _UpdatePassMainWidgetState extends ConsumerState<UpdatePassMainWidget> {
           alignment: Alignment.bottomCenter,
           child: Padding(
             padding: EdgeInsets.only(bottom: 35),
-            child: NextStepAfterEnterNewPassword(),
+            child: NewNextStepAfterEnterNewPassword(),
           ),
         ),
       ],

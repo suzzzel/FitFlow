@@ -41,8 +41,8 @@ class _NewSignInButtonState extends ConsumerState<SignInButton> {
     final isButtonActive = ref.watch(isDataSignInValidProvider.notifier);
     return Padding(
       padding: const EdgeInsets.only(
-        left: 39,
-        right: 39,
+        left: 41,
+        right: 37,
       ),
       child: Container(
         decoration: BoxDecoration(

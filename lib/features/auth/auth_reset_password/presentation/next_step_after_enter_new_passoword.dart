@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class NextStepAfterEnterNewPassword extends ConsumerStatefulWidget {
-  const NextStepAfterEnterNewPassword({super.key});
+class NewNextStepAfterEnterNewPassword extends ConsumerStatefulWidget {
+  const NewNextStepAfterEnterNewPassword({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -16,7 +16,7 @@ class NextStepAfterEnterNewPassword extends ConsumerStatefulWidget {
 }
 
 class _NewNextStepAfterEnterNewPasswordState
-    extends ConsumerState<NextStepAfterEnterNewPassword> {
+    extends ConsumerState<NewNextStepAfterEnterNewPassword> {
   bool networkError = false;
   String text = 'Продолжить';
 

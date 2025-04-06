@@ -30,7 +30,7 @@ class _LevelButtonContentState extends State<LevelButtonContent> {
                         : Colors.white.withOpacity(0.6)))),
         const Spacer(),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           child: FittedBox(
             child: ShaderMask(
               blendMode: BlendMode.srcATop,

@@ -56,7 +56,7 @@ class _UpdatePassRepeatImput extends ConsumerState<UpdatePassRepeatImput> {
         ref.watch(passwordRepeatResetPasswordProvider.notifier);
     return Padding(
       padding: const EdgeInsets.only(
-        left: 47,
+        left: 46,
         right: 47,
       ),
       child: Stack(

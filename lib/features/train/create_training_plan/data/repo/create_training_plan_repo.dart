@@ -86,9 +86,7 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
                   // подумать над заглушкой
                 }
               }
-            } catch (e) {
-              // dodymat
-            }
+            } catch (e) {}
           }
         }
         if (isThisTrainPlanExistInMap) {

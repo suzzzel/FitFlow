@@ -17,8 +17,8 @@ class NextStepAfterGoalSelectButton extends ConsumerWidget {
     final prov = ref.watch(selectGoalProvider);
     return Padding(
       padding: const EdgeInsets.only(
-        left: 39,
-        right: 39,
+        left: 21,
+        right: 21,
       ),
       child: Container(
         decoration: BoxDecoration(

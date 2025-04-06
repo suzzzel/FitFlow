@@ -19,8 +19,8 @@ class NextStepAfterWeightAgeSelectButton extends ConsumerWidget {
         : ref.watch(selectAgeProvider);
     return Padding(
       padding: const EdgeInsets.only(
-        left: 39,
-        right: 39,
+        left: 42,
+        right: 36,
       ),
       child: Container(
         decoration: BoxDecoration(

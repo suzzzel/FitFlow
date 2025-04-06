@@ -26,7 +26,7 @@ class PasswordImputWidget extends ConsumerWidget {
     final isButtonActive = ref.watch(isDataSignInValidProvider.notifier);
     return Padding(
       padding: const EdgeInsets.only(
-        left: 47,
+        left: 46,
         right: 47,
       ),
       child: CustomTextField(

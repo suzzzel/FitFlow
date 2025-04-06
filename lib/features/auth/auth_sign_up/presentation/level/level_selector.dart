@@ -22,14 +22,16 @@ class _LevelSelectorState extends ConsumerState<LevelSelector> {
       });
     }
 
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.height * 0.07),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 31),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).size.height * 0.068),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: levelSelect.state == 'beginner' ? 46 : 71,
+            ),
             child: AnimatedContainer(
               curve: Curves.easeInOut,
               duration: const Duration(milliseconds: 300),
@@ -54,8 +56,14 @@ class _LevelSelectorState extends ConsumerState<LevelSelector> {
                   )),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 31),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).size.height * 0.068),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: levelSelect.state == 'skilled' ? 46 : 71,
+            ),
             child: AnimatedContainer(
               curve: Curves.easeInOut,
               duration: const Duration(milliseconds: 300),
@@ -80,7 +88,12 @@ class _LevelSelectorState extends ConsumerState<LevelSelector> {
                   )),
             ),
           ),
-          AnimatedContainer(
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: levelSelect.state == 'master' ? 46 : 71,
+          ),
+          child: AnimatedContainer(
             curve: Curves.easeInOut,
             duration: const Duration(milliseconds: 300),
             width: levelSelect.state == 'master'
@@ -102,9 +115,9 @@ class _LevelSelectorState extends ConsumerState<LevelSelector> {
                   level: 'Занимаюсь\nрегулярно',
                   iconLevel: 'assets/auth/master.png',
                 )),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 }
