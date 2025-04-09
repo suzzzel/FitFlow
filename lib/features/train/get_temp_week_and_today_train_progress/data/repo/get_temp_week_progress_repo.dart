@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -24,12 +26,16 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
 
     try {
       final trainPlan = await database.managers.trainingPlanTable.get();
+      log(DateTime.parse(trainPlan[0].dataCreatingPlan)
+          .millisecondsSinceEpoch
+          .toString());
       if (DateTime.now().millisecondsSinceEpoch <
-          DateTime.parse(trainPlan[1].dataCreatingPlan)
+          DateTime.parse(trainPlan[0].dataCreatingPlan)
               .millisecondsSinceEpoch) {
         return [];
       }
       for (int x = 0; x != currentWeekday; x++) {
+        await checkTrainingsDayInSupabase();
         final dayToFind =
             DateFormat('yyyy-MM-dd').format(startOfWeek.add(Duration(days: x)));
         final String weekDayThisDayStringVersion =
@@ -70,6 +76,29 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
       }
       return listTrainingsOfWeek;
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> checkTrainingsDayInSupabase() async {
+    try {
+      final userId = supabase.auth.currentUser!.id;
+      final trainingsFromOnline =
+          await supabase.from('trainings_users').select().eq('idUser', userId);
+      final trainingsFromOffline = await database.managers.trainingTable.get();
+      for (var x in trainingsFromOffline) {
+        if (x.idUser == userId) {
+          try {
+            trainingsFromOnline.firstWhere((train) =>
+                train['dayOfTraining'].toString() == x.dayOfTraining);
+          } catch (e) {
+            await supabase.from('trainings_users').insert(x.toJson());
+          }
+        }
+      }
+    } catch (e) {
+      log('error');
       rethrow;
     }
   }

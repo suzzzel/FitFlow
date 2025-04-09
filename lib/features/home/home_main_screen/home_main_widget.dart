@@ -87,28 +87,28 @@ class HomeMainWidget extends ConsumerWidget {
                         child: ElevatedButton(
                             onPressed: () {
                               // context.goNamed('/progresshome');
-                              // ref
-                              //     .read(localDatabaseProvider)
-                              //     .managers
-                              //     .trainingTable
-                              //     .delete();
-                              // ref
-                              //     .read(localDatabaseProvider)
-                              //     .managers
-                              //     .trainingPlanTable
-                              //     .delete();
                               ref
                                   .read(localDatabaseProvider)
                                   .managers
                                   .trainingTable
-                                  .create((f) => f(
-                                      dayOfTraining: '2025-04-07',
-                                      // типа сделал треню
-                                      exerciseOne: '2',
-                                      countRepsExOne: 5,
-                                      maxWeightExOne: '110',
-                                      percentOfTrainDone: 70,
-                                      idUser: 'test'));
+                                  .delete();
+                              ref
+                                  .read(localDatabaseProvider)
+                                  .managers
+                                  .trainingPlanTable
+                                  .delete();
+                              // ref
+                              //     .read(localDatabaseProvider)
+                              //     .managers
+                              //     .trainingTable
+                              //     .create((f) => f(
+                              //         dayOfTraining: '2025-04-07',
+                              //         // типа сделал треню
+                              //         exerciseOne: '2',
+                              //         countRepsExOne: 5,
+                              //         maxWeightExOne: '110',
+                              //         percentOfTrainDone: 70,
+                              //         idUser: user.id!));
                               // ref
                               //     .read(localDatabaseProvider)
                               //     .managers
