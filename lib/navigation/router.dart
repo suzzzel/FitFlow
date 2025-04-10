@@ -26,6 +26,7 @@ import 'package:fitflow/features/home/future_profile/presentation/indicators/age
 import 'package:fitflow/features/home/future_profile/presentation/indicators/height_changer/change_height_main_home_widget.dart';
 import 'package:fitflow/features/home/future_profile/presentation/indicators/weight_changer/change_weight_main_home_widget.dart';
 import 'package:fitflow/features/loading/presentation/loading_main_widget.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/view_done_plan_main_widget.dart';
 import 'package:fitflow/navigation/home_navigation_bar/navbar.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:flutter/material.dart';
@@ -401,6 +402,10 @@ GoRouter appRouter(Ref ref) {
                 name = 'FIT FLOW';
                 fontSize = 36;
                 fontWeight = FontWeight.w700;
+              case '/home/newtrainplan/readytrainplan/viewselectedplan':
+                name = 'FIT FLOW';
+                fontSize = 36;
+                fontWeight = FontWeight.w700;
               default:
                 name = ' ';
                 break;
@@ -428,7 +433,11 @@ GoRouter appRouter(Ref ref) {
                         style: GoogleFonts.inter(
                             fontWeight: fontWeight,
                             fontSize: fontSize,
-                            shadows: state.fullPath == '/home'
+                            shadows: state.fullPath == '/home' ||
+                                    state.fullPath ==
+                                        '/home/newtrainplan/readytrainplan' ||
+                                    state.fullPath ==
+                                        '/home/newtrainplan/readytrainplan/viewselectedplan'
                                 ? [
                                     Shadow(
                                         offset: const Offset(0, 4),
@@ -558,18 +567,40 @@ GoRouter appRouter(Ref ref) {
                           ),
                       routes: [
                         GoRoute(
-                          path: RouterPath.SELECTREADYTRAININGPLAN,
-                          name: RouterPath.SELECTREADYTRAININGPLAN,
-                          pageBuilder: (context, state) => CustomTransitionPage(
-                            child: const SelectReadyPlanMainWidget(),
-                            transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) =>
-                                FadeTransition(
-                              opacity: animation,
-                              child: child,
-                            ),
-                          ),
-                        )
+                            path: RouterPath.SELECTREADYTRAININGPLAN,
+                            name: RouterPath.SELECTREADYTRAININGPLAN,
+                            pageBuilder: (context, state) =>
+                                CustomTransitionPage(
+                                  child: const SelectReadyPlanMainWidget(),
+                                  transitionsBuilder: (context, animation,
+                                          secondaryAnimation, child) =>
+                                      FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  ),
+                                ),
+                            routes: [
+                              GoRoute(
+                                  path: RouterPath.VIEWSELECTEDPLAN,
+                                  name: RouterPath.VIEWSELECTEDPLAN,
+                                  pageBuilder: (context, state) {
+                                    final Map<String, dynamic> param =
+                                        state.extra as Map<String, dynamic>;
+                                    return CustomTransitionPage(
+                                      child: ViewDonePlanMainWidget(
+                                        isThisReadyPlanOrCustom:
+                                            param['isThisReadyPlanOrCustom'],
+                                        listOfDays: param['listOfTrainDays'],
+                                      ),
+                                      transitionsBuilder: (context, animation,
+                                              secondaryAnimation, child) =>
+                                          FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      ),
+                                    );
+                                  }),
+                            ])
                       ])
                 ]),
             GoRoute(

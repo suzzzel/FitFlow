@@ -53,6 +53,7 @@ Stream<AppUserState> authState(Ref ref) {
                 final print2 = await localDBManager.userInfoTable.get();
                 log(print2.single.toString());
                 streamController.add(AppUserState.auth(user));
+                streamController.close();
                 break;
               } else {
                 streamController.add(const AppUserState.unauth());
