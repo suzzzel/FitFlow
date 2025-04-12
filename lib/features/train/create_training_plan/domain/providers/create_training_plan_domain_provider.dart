@@ -5,7 +5,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 final createTrainPlanDomainProvider =
     FutureProvider.autoDispose<Map<int, List<ReadyTrainingPlanModel>>>(
         (ref) async {
-  final readyPlans =
-      await ref.read(getReadyPlansDataProvider).getReadyTrainingPlans();
+  final readyPlans = await ref
+      .read(getReadyPlansDataProvider)
+      .getReadyTrainingPlansAndDownloadGifsEx();
   return readyPlans;
 });

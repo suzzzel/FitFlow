@@ -1,5 +1,5 @@
-import 'package:fitflow/features/general_providers/drift_app_database_provider.dart';
-import 'package:fitflow/features/general_providers/supabase_provider.dart';
+import 'package:fitflow/features/general_comonents/drift_app_database_provider.dart';
+import 'package:fitflow/features/general_comonents/supabase_provider.dart';
 import 'package:fitflow/features/home/future_profile/data/repo/home_update_indicators_repo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:fitflow/features/general_providers/doc_provider.dart';
+import 'package:fitflow/features/general_comonents/doc_provider.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/models/ready_training_plan_model.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/create_training_plan_domain_provider.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/ready_plan_way/components/goal_text_ready_plan.dart';

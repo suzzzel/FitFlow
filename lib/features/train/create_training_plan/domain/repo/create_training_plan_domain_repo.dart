@@ -10,7 +10,8 @@ class CreateTrainingPlanDomainRepo implements CreateTrainingPlanDomainRepoImpl {
   });
   @override
   Future<Map<int, List<ReadyTrainingPlanModel>>> getReadyTrainingPlans() async {
-    final readyPlans = await createTrainingPlanRepo.getReadyTrainingPlans();
+    final readyPlans =
+        await createTrainingPlanRepo.getReadyTrainingPlansAndDownloadGifsEx();
     return readyPlans;
   }
 }

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:fitflow/features/general_comonents/exercise_model.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/models/ready_training_plan_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -20,7 +21,8 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
   final SupabaseClient supabase;
 
   @override
-  Future<Map<int, List<ReadyTrainingPlanModel>>> getReadyTrainingPlans() async {
+  Future<Map<int, List<ReadyTrainingPlanModel>>>
+      getReadyTrainingPlansAndDownloadGifsEx() async {
     log('START START START');
     log('START START START');
     log('START START START');
@@ -34,7 +36,8 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
           .from('ready_training_plans')
           .select()
           .eq('level', tempUser.level)
-          .eq('goal', tempUser.goal);
+          .eq('goal', tempUser.goal)
+          .order('weekdayInt', ascending: true);
       if (trainingPlansFromSupabase.isEmpty) {
         trainingPlansFromSupabase =
             await supabase.from('ready_training_plans').select();
@@ -54,10 +57,10 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
               tempExId = x['exTwo'] ?? '';
             case 2:
               tempEx = 'exThree';
-              tempExId = x['exTwo'] ?? '';
+              tempExId = x['exThree'] ?? '';
             case 3:
               tempEx = 'exFour';
-              tempExId = x['exTwo'] ?? '';
+              tempExId = x['exFour'] ?? '';
             case 4:
               tempEx = 'exFive';
               tempExId = x['exFive'] ?? '';
@@ -67,23 +70,23 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
           } else {
             try {
               tempExId = tempExId.padLeft(4, '0');
-              final bool exGifInLocaleMemory =
-                  await File('$exFolderPath/$tempExId.gif').exists();
-              if (exGifInLocaleMemory) {
-                log('find in locale');
-              } else {
-                log('go to online');
-                try {
-                  final Uint8List gifFromOnline = await supabase.storage
-                      .from('exercises.gifs')
-                      .download('assets/$tempExId.gif');
-                  final exGif = File('$exFolderPath/$tempExId.gif');
-                  exGif.writeAsBytesSync(gifFromOnline);
-
-                  // НЕ ДОБАВЛЯТЬ В МОДЕЛЬ ТРЕН ДНЯ, А ИСКАТЬ ПО ИДУ УПРАЖНЕНИЯ! ПЕРЕДЕЛАТЬ
-                } catch (e) {
-                  log(e.runtimeType.toString());
-                  // подумать над заглушкой
+              if (tempExId != '0000') {
+                final bool exGifInLocaleMemory =
+                    await File('$exFolderPath/$tempExId.gif').exists();
+                if (exGifInLocaleMemory) {
+                  log('find in locale');
+                } else {
+                  log('go to online');
+                  try {
+                    final Uint8List gifFromOnline = await supabase.storage
+                        .from('exercises.gifs')
+                        .download('assets/$tempExId.gif');
+                    final exGif = File('$exFolderPath/$tempExId.gif');
+                    exGif.writeAsBytesSync(gifFromOnline);
+                  } catch (e) {
+                    log(e.runtimeType.toString());
+                    // подумать над заглушкой
+                  }
                 }
               }
             } catch (e) {
@@ -122,61 +125,52 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
           returnMap.addAll({tempIdTrain: newList});
         }
       }
-
-      // // Проходим итерацией по тренировочным планам
-      // for (var trainPlan in returnMap.values) {
-      //   // Проходим итерацией по каждому дню в трен. плане
-      //   for (var trainDay in trainPlan) {
-      //     // Проходим итерацией по каждому упражнению в трен. дне
-      //     for (int exercise = 0; exercise != 5; exercise++) {
-      //       String tempEx = '';
-      //       String tempExId = '';
-      //       switch (exercise) {
-      //         case 0:
-      //           tempEx = 'exOne';
-      //           tempExId = trainDay.exOne;
-      //         case 1:
-      //           tempEx = 'exTwo';
-      //           tempExId = trainDay.exTwo ?? '';
-      //         case 2:
-      //           tempEx = 'exThree';
-      //           tempExId = trainDay.exThree ?? '';
-      //         case 3:
-      //           tempEx = 'exFour';
-      //           tempExId = trainDay.exFour ?? '';
-      //         case 4:
-      //           tempEx = 'exFive';
-      //           tempExId = trainDay.exFive ?? '';
-      //       }
-      //       if (tempEx == '') {
-      //         break;
-      //       } else {
-      //         try {
-      //           tempExId = tempExId.padLeft(4, '0');
-      //           final bool exGifInLocaleMemory =
-      //               await File('$exFolderPath/$tempExId.gif').exists();
-      //           if (exGifInLocaleMemory) {
-      //             final exGif = File('$exFolderPath/$tempExId.gif');
-      //             trainDay = trainDay.copyWith(exGif: tempExId);
-      //             log('find in locale');
-      //           } else {
-      //             log('go to online');
-      //             tempExId = tempExId.padLeft(4, '0');
-      //             final Uint8List gifFromOnline = await supabase.storage
-      //                 .from('exercises.gifs')
-      //                 .download('assets/$tempExId.gif');
-      //             final exGif = File('$exFolderPath/$tempExId.gif');
-      //             exGif.writeAsBytesSync(gifFromOnline);
-      //             trainDay = trainDay.copyWith(exGif: tempExId);
-      //           }
-      //         } catch (e) {}
-      //         log(trainDay.exGif ?? 'asd');
-      //       }
-      //     }
-      //   }
-      // }
-
+      // await getInfoExercises(trainingPlanId: '1');
       return returnMap;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<ExerciseModel>> getInfoExercises(
+      {required String trainingPlanId}) async {
+    final List<ExerciseModel> exList = [];
+    try {
+      final trainPlan = await supabase
+          .from('ready_training_plans')
+          .select()
+          .eq('idTrain', trainingPlanId)
+          .order('weekdayInt', ascending: true);
+      // Отдельно каждый день
+      final List<ReadyTrainingPlanModel> days = trainPlan
+          .map((element) => ReadyTrainingPlanModel.fromMap(element))
+          .toList();
+      // Отдельно пройдем по упражнениям в каждом дне
+      for (var day in days) {
+        final listOfEx = [
+          day.exOne,
+          day.exTwo,
+          day.exThree,
+          day.exFour,
+          day.exFive
+        ];
+
+        final List<Future<ExerciseModel>> futures =
+            listOfEx.where((exId) => exId != null).map((exId) async {
+          final exData = await supabase
+              .from('exercises')
+              .select()
+              .eq('id', exId!)
+              .single()
+              .catchError((e) => log(e.toString()));
+          return ExerciseModel.fromJson(exData);
+        }).toList();
+
+        final List<ExerciseModel> results = await Future.wait(futures);
+        exList.addAll(results);
+      }
+      return exList;
     } catch (e) {
       rethrow;
     }

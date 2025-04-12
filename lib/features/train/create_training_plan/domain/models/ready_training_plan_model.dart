@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class ReadyTrainingPlanModel {
   final int idTrain;
@@ -58,4 +60,42 @@ class ReadyTrainingPlanModel {
       reqReps: reqReps ?? this.reqReps,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'idTrain': idTrain,
+      'name': name,
+      'level': level,
+      'goal': goal,
+      'weekday': weekday,
+      'exOne': exOne,
+      'exTwo': exTwo,
+      'exThree': exThree,
+      'exFour': exFour,
+      'exFive': exFive,
+      'reqReps': reqReps,
+    };
+  }
+
+  factory ReadyTrainingPlanModel.fromMap(Map<String, dynamic> map) {
+    return ReadyTrainingPlanModel(
+      idTrain: map['idTrain'] as int,
+      name: map['name'] as String,
+      level: map['level'] as String,
+      goal: map['goal'] as String,
+      weekday: map['weekday'] as String,
+      exOne: map['exOne'] as String,
+      exTwo: map['exTwo'] != null ? map['exTwo'] as String : null,
+      exThree: map['exThree'] != null ? map['exThree'] as String : null,
+      exFour: map['exFour'] != null ? map['exFour'] as String : null,
+      exFive: map['exFive'] != null ? map['exFive'] as String : null,
+      reqReps: map['reqReps'] as int,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory ReadyTrainingPlanModel.fromJson(String source) =>
+      ReadyTrainingPlanModel.fromMap(
+          json.decode(source) as Map<String, dynamic>);
 }
