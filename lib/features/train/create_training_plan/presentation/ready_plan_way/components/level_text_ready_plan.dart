@@ -8,24 +8,20 @@ class LevelTextReadyPlan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10),
-      child: SizedBox(
-        child: ShaderMask(
-          blendMode: BlendMode.srcATop,
-          shaderCallback: (bounds) => LinearGradient(colors: [
-            Theme.of(context).colorScheme.primaryFixed,
-            Theme.of(context).colorScheme.secondaryFixed,
-          ]).createShader(bounds),
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Text(
-              'Сложность: ${_getDifficultRU(tempDiff: level)}',
-              textAlign: TextAlign.center,
-              textScaler: const TextScaler.linear(1),
-              style:
-                  GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700),
-            ),
+    return SizedBox(
+      child: ShaderMask(
+        blendMode: BlendMode.srcATop,
+        shaderCallback: (bounds) => LinearGradient(colors: [
+          Theme.of(context).colorScheme.primaryFixed,
+          Theme.of(context).colorScheme.secondaryFixed,
+        ]).createShader(bounds),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            'Сложность: ${_getDifficultRU(tempDiff: level)}',
+            textAlign: TextAlign.center,
+            textScaler: const TextScaler.linear(1),
+            style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700),
           ),
         ),
       ),

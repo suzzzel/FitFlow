@@ -15,11 +15,13 @@ class GoalTextReadyPlan extends StatelessWidget {
           Theme.of(context).colorScheme.primaryFixed,
           Theme.of(context).colorScheme.secondaryFixed,
         ]).createShader(bounds),
-        child: Text(
-          'Развивает: ${_getGoalRU(goal: goal)}',
-          textAlign: TextAlign.center,
-          textScaler: const TextScaler.linear(1),
-          style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700),
+        child: FittedBox(
+          child: Text(
+            'Развивает: ${_getGoalRU(goal: goal)}',
+            textAlign: TextAlign.center,
+            textScaler: const TextScaler.linear(1),
+            style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700),
+          ),
         ),
       ),
     );

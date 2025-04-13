@@ -12,7 +12,8 @@ class ReadyTrainingPlanModel {
   final String? exThree;
   final String? exFour;
   final String? exFive;
-
+  final String mainMuscle;
+  final String? secondaryMuscle;
   final int reqReps;
 
   ReadyTrainingPlanModel({
@@ -26,12 +27,10 @@ class ReadyTrainingPlanModel {
     this.exThree,
     this.exFour,
     this.exFive,
+    required this.mainMuscle,
+    this.secondaryMuscle,
     required this.reqReps,
   });
-  @override
-  String toString() {
-    return 'ReadyTrainingPlanModel(idTrain:$idTrain, name: $name, level: $level, goal: $goal, weekday: $weekday, exOne: $exOne, exTwo: $exTwo, exThree: $exThree, exFour: $exFour, exFive: $exFive, reqReps: $reqReps)';
-  }
 
   ReadyTrainingPlanModel copyWith({
     int? idTrain,
@@ -44,6 +43,8 @@ class ReadyTrainingPlanModel {
     String? exThree,
     String? exFour,
     String? exFive,
+    String? mainMuscle,
+    String? secondaryMuscle,
     int? reqReps,
   }) {
     return ReadyTrainingPlanModel(
@@ -57,6 +58,8 @@ class ReadyTrainingPlanModel {
       exThree: exThree ?? this.exThree,
       exFour: exFour ?? this.exFour,
       exFive: exFive ?? this.exFive,
+      mainMuscle: mainMuscle ?? this.mainMuscle,
+      secondaryMuscle: secondaryMuscle ?? this.secondaryMuscle,
       reqReps: reqReps ?? this.reqReps,
     );
   }
@@ -73,6 +76,8 @@ class ReadyTrainingPlanModel {
       'exThree': exThree,
       'exFour': exFour,
       'exFive': exFive,
+      'mainMuscle': mainMuscle,
+      'secondaryMuscle': secondaryMuscle,
       'reqReps': reqReps,
     };
   }
@@ -89,6 +94,10 @@ class ReadyTrainingPlanModel {
       exThree: map['exThree'] != null ? map['exThree'] as String : null,
       exFour: map['exFour'] != null ? map['exFour'] as String : null,
       exFive: map['exFive'] != null ? map['exFive'] as String : null,
+      mainMuscle: map['mainMuscle'] as String,
+      secondaryMuscle: map['secondaryMuscle'] != null
+          ? map['secondaryMuscle'] as String
+          : null,
       reqReps: map['reqReps'] as int,
     );
   }
@@ -98,4 +107,45 @@ class ReadyTrainingPlanModel {
   factory ReadyTrainingPlanModel.fromJson(String source) =>
       ReadyTrainingPlanModel.fromMap(
           json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() {
+    return 'ReadyTrainingPlanModel(idTrain: $idTrain, name: $name, level: $level, goal: $goal, weekday: $weekday, exOne: $exOne, exTwo: $exTwo, exThree: $exThree, exFour: $exFour, exFive: $exFive, mainMuscle: $mainMuscle, secondaryMuscle: $secondaryMuscle, reqReps: $reqReps)';
+  }
+
+  @override
+  bool operator ==(covariant ReadyTrainingPlanModel other) {
+    if (identical(this, other)) return true;
+
+    return other.idTrain == idTrain &&
+        other.name == name &&
+        other.level == level &&
+        other.goal == goal &&
+        other.weekday == weekday &&
+        other.exOne == exOne &&
+        other.exTwo == exTwo &&
+        other.exThree == exThree &&
+        other.exFour == exFour &&
+        other.exFive == exFive &&
+        other.mainMuscle == mainMuscle &&
+        other.secondaryMuscle == secondaryMuscle &&
+        other.reqReps == reqReps;
+  }
+
+  @override
+  int get hashCode {
+    return idTrain.hashCode ^
+        name.hashCode ^
+        level.hashCode ^
+        goal.hashCode ^
+        weekday.hashCode ^
+        exOne.hashCode ^
+        exTwo.hashCode ^
+        exThree.hashCode ^
+        exFour.hashCode ^
+        exFive.hashCode ^
+        mainMuscle.hashCode ^
+        secondaryMuscle.hashCode ^
+        reqReps.hashCode;
+  }
 }

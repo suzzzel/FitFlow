@@ -12,9 +12,8 @@ class NameReadyPlan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.only(right: 10, left: 10),
       child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.5,
         child: ShaderMask(
           blendMode: BlendMode.srcATop,
           shaderCallback: (bounds) => LinearGradient(colors: [

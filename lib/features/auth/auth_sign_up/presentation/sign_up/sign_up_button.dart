@@ -20,12 +20,14 @@ class _NewSignUpButtonState extends ConsumerState<SignUpButton> {
   String text = 'Создать аккаунт';
 
   void showError(bool newtworkOrAlreadyExist) async {
-    setState(() {
-      networkError = true;
-      text = newtworkOrAlreadyExist
-          ? 'Отсутствует подключение к сети'
-          : 'Аккаунт уже существует';
-    });
+    if (mounted) {
+      setState(() {
+        networkError = true;
+        text = newtworkOrAlreadyExist
+            ? 'Отсутствует подключение к сети'
+            : 'Аккаунт уже существует';
+      });
+    }
     await Future.delayed(const Duration(seconds: 3));
     if (mounted) {
       setState(() {

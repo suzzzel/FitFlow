@@ -6,4 +6,6 @@ abstract class CreateTrainingPlanRepoImpl {
       getReadyTrainingPlansAndDownloadGifsEx();
   Future<List<ExerciseModel>> getInfoExercises(
       {required String trainingPlanId});
+
+  Future<bool> confirmPlan({required List<ReadyTrainingPlanModel> days});
 }

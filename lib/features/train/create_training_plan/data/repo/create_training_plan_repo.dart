@@ -3,8 +3,11 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:drift/drift.dart';
 import 'package:fitflow/features/general_comonents/exercise_model.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/models/ready_training_plan_model.dart';
+import 'package:fitflow/features/train/get_training_plan/domain/models/training_plan_class.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -23,9 +26,6 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
   @override
   Future<Map<int, List<ReadyTrainingPlanModel>>>
       getReadyTrainingPlansAndDownloadGifsEx() async {
-    log('START START START');
-    log('START START START');
-    log('START START START');
     try {
       final appDir = await getApplicationDocumentsDirectory();
       final exFolderPath = '${appDir.path}/exGifs';
@@ -39,8 +39,10 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
           .eq('goal', tempUser.goal)
           .order('weekdayInt', ascending: true);
       if (trainingPlansFromSupabase.isEmpty) {
-        trainingPlansFromSupabase =
-            await supabase.from('ready_training_plans').select();
+        trainingPlansFromSupabase = await supabase
+            .from('ready_training_plans')
+            .select()
+            .order('weekdayInt', ascending: true);
       }
       for (var x in trainingPlansFromSupabase) {
         final tempIdTrain = x['idTrain'];
@@ -106,6 +108,8 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
               exThree: x['exThree'],
               exFour: x['exFour'],
               exFive: x['exFive'],
+              mainMuscle: x['mainMuscle'],
+              secondaryMuscle: x['secondaryMuscle'],
               reqReps: x['reqReps']));
         } else {
           final List<ReadyTrainingPlanModel> newList = [
@@ -120,6 +124,8 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
                 exThree: x['exThree'],
                 exFour: x['exFour'],
                 exFive: x['exFive'],
+                mainMuscle: x['mainMuscle'],
+                secondaryMuscle: x['secondaryMuscle'],
                 reqReps: x['reqReps'])
           ];
           returnMap.addAll({tempIdTrain: newList});
@@ -173,6 +179,49 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
       return exList;
     } catch (e) {
       rethrow;
+    }
+  }
+
+  @override
+  Future<bool> confirmPlan({required List<ReadyTrainingPlanModel> days}) async {
+    try {
+      final int currentWeekday = DateTime.now().weekday;
+      final int daysToSubstract = currentWeekday - 1;
+      final DateTime startOfWeek =
+          DateTime.now().subtract(Duration(days: daysToSubstract));
+      final statOfWeekFormatted =
+          DateFormat('yyyy-MM-dd').format(startOfWeek).toString();
+      for (var x in days) {
+        await database.managers.trainingPlanTable.create((element) => element(
+            dataCreatingPlan: statOfWeekFormatted,
+            dayOfWeek: x.weekday,
+            exerciseOne: x.exOne,
+            exerciseTwo: Value(x.exTwo),
+            exerciseThree: Value(x.exThree),
+            exerciseFour: Value(x.exFour),
+            exerciseFive: Value(x.exFive),
+            mainMuscle: Value(x.mainMuscle),
+            secondaryMuscle: Value(x.secondaryMuscle),
+            idUser: supabase.auth.currentUser!.aud,
+            reqReps: x.reqReps.toString()));
+        final tempDay = TrainingPlanClass(
+            idUser: supabase.auth.currentUser!.id,
+            dayOfWeek: x.weekday,
+            exerciseOne: x.exOne,
+            exerciseTwo: x.exTwo,
+            exerciseThree: x.exThree,
+            exerciseFour: x.exFour,
+            exerciseFive: x.exFive,
+            mainMuscle: x.mainMuscle,
+            secondaryMuscle: x.secondaryMuscle,
+            reqReps: x.reqReps.toString(),
+            dataCreatingPlan: statOfWeekFormatted);
+        await supabase.from('training_plan_users').insert(tempDay.toMap());
+      }
+      return true;
+    } catch (e) {
+      log(e.runtimeType.toString());
+      return false;
     }
   }
 }

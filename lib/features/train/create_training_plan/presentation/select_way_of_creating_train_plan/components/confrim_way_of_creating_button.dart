@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:fitflow/features/train/create_training_plan/domain/providers/create_training_plan_domain_provider.dart';
+import 'package:fitflow/features/train/create_training_plan/domain/providers/get_ready_training_plan_domain_provider.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/select_way_of_creating_train_plan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,7 +35,7 @@ class ConfrimWayOfCreatingButton extends ConsumerWidget {
                 ? null
                 : () {
                     context.goNamed('readytrainplan');
-                    ref.invalidate(createTrainPlanDomainProvider);
+                    ref.invalidate(getReadyTrainPlanDomainProvider);
                   },
             style: ButtonStyle(
                 fixedSize: WidgetStatePropertyAll(

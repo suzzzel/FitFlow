@@ -15,12 +15,11 @@ class TrainingReadyPlanDays extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: 190,
         child: Center(
-          child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: _getWeekDay(lengthWeekDays, trainDays, context)),
-        ));
+      child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: _getWeekDay(lengthWeekDays, trainDays, context)),
+    ));
   }
 }
 
@@ -31,7 +30,9 @@ List<Widget> _getWeekDay(int lengthWeekdays,
   for (int i = 0; i != lengthWeekdays; i++) {
     final ruWeekday = _ruWeekday(traindays[i].weekday);
     widgets.add(Container(
-      margin: const EdgeInsets.only(right: 5),
+      margin: i != lengthWeekdays - 1
+          ? const EdgeInsets.only(right: 18)
+          : const EdgeInsets.all(0),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           gradient: LinearGradient(

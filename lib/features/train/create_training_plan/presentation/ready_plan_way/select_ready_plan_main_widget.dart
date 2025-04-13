@@ -3,9 +3,8 @@ import 'dart:io';
 
 import 'package:fitflow/features/general_comonents/doc_provider.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/models/ready_training_plan_model.dart';
-import 'package:fitflow/features/train/create_training_plan/domain/providers/create_training_plan_domain_provider.dart';
+import 'package:fitflow/features/train/create_training_plan/domain/providers/get_ready_training_plan_domain_provider.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/ready_plan_way/components/goal_text_ready_plan.dart';
-import 'package:fitflow/features/train/create_training_plan/presentation/ready_plan_way/components/image_ready_plan_.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/ready_plan_way/components/level_text_ready_plan.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/ready_plan_way/components/name_text_ready_plan.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/ready_plan_way/components/training_ready_plan_days.dart';
@@ -19,7 +18,7 @@ class SelectReadyPlanMainWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AsyncValue<Map<int, List<ReadyTrainingPlanModel>>> readyPlans =
-        ref.watch(createTrainPlanDomainProvider);
+        ref.watch(getReadyTrainPlanDomainProvider);
     AsyncValue<Directory> dir = ref.watch(documentsDirectoryProvider);
     return Stack(alignment: Alignment.center, children: [
       readyPlans.when(
@@ -35,8 +34,6 @@ class SelectReadyPlanMainWidget extends ConsumerWidget {
                   padding: const EdgeInsets.only(top: 61),
                   itemCount: readyPlans.length,
                   itemBuilder: (context, index) {
-                    // ignore: unused_local_variable
-                    final exFolderPath = '${dir.value!.path}/exGifs';
                     final trueIndex = index + 1;
                     return Align(
                       alignment: Alignment.topCenter,
@@ -71,48 +68,31 @@ class SelectReadyPlanMainWidget extends ConsumerWidget {
                                               .withOpacity(0.1),
                                         ])),
                                 height: 146,
+                                width: double.maxFinite,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 19, top: 15, right: 10),
-                                  child: Stack(
+                                  padding:
+                                      const EdgeInsets.only(top: 8, bottom: 12),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Row(
-                                          children: [
-                                            const ImageReadyPlan(),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                top: 7,
-                                              ),
-                                              child: Column(
-                                                children: [
-                                                  NameReadyPlan(
-                                                      name:
-                                                          readyPlans[trueIndex]!
-                                                              .first
-                                                              .name),
-                                                  TrainingReadyPlanDays(
-                                                      lengthWeekDays:
-                                                          readyPlans[trueIndex]!
-                                                              .length,
-                                                      trainDays: readyPlans[
-                                                          trueIndex]!),
-                                                  LevelTextReadyPlan(
-                                                    level: readyPlans[
-                                                            trueIndex]![index]
-                                                        .level,
-                                                  ),
-                                                  GoalTextReadyPlan(
-                                                      goal: readyPlans[
-                                                              trueIndex]![index]
-                                                          .goal),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                      NameReadyPlan(
+                                          name: readyPlans[trueIndex]!
+                                              .first
+                                              .name),
+                                      TrainingReadyPlanDays(
+                                          lengthWeekDays:
+                                              readyPlans[trueIndex]!.length,
+                                          trainDays: readyPlans[trueIndex]!),
+                                      LevelTextReadyPlan(
+                                        level:
+                                            readyPlans[trueIndex]!.first.level,
                                       ),
+                                      GoalTextReadyPlan(
+                                          goal: readyPlans[trueIndex]!
+                                              .first
+                                              .goal),
                                     ],
                                   ),
                                 )),
