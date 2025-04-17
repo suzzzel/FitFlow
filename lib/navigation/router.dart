@@ -19,13 +19,14 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sig
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/level/select_level_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/select_weight_main_widget.dart';
 import 'package:fitflow/features/background/background_widget.dart';
-import 'package:fitflow/features/train/create_training_plan/presentation/ready_plan_way/select_ready_plan_main_widget.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/ready_plan_way/select_ready_plan_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/select_way_of_creating_train_plan_main_widget.dart';
 import 'package:fitflow/features/home/home_main_screen/home_main_widget.dart';
 import 'package:fitflow/features/home/future_profile/presentation/indicators/age_changer/change_age_main_home_widget.dart';
 import 'package:fitflow/features/home/future_profile/presentation/indicators/height_changer/change_height_main_home_widget.dart';
 import 'package:fitflow/features/home/future_profile/presentation/indicators/weight_changer/change_weight_main_home_widget.dart';
 import 'package:fitflow/features/loading/presentation/loading_main_widget.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/edit_day_in_plan_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/view_done_plan_main_widget.dart';
 import 'package:fitflow/navigation/home_navigation_bar/navbar.dart';
 import 'package:fitflow/navigation/paths.dart';
@@ -590,7 +591,32 @@ GoRouter appRouter(Ref ref) {
                                       child: ViewDonePlanMainWidget(
                                         isThisReadyPlanOrCustom:
                                             param['isThisReadyPlanOrCustom'],
-                                        listOfDays: param['listOfTrainDays'],
+                                        listOfDaysReadyPlan:
+                                            param['listOfTrainDays'],
+                                      ),
+                                      transitionsBuilder: (context, animation,
+                                              secondaryAnimation, child) =>
+                                          FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      ),
+                                    );
+                                  }),
+                              GoRoute(
+                                  path: RouterPath.EDITDAYINPLAN,
+                                  name: RouterPath.EDITDAYINPLAN,
+                                  pageBuilder: (context, state) {
+                                    final Map<String, dynamic> param =
+                                        state.extra as Map<String, dynamic>;
+                                    return CustomTransitionPage(
+                                      child: EditDayInPlanMainWidget(
+                                        dayName: param['dayName'],
+                                        exercises: param['exercises'],
+                                        dir: param['dir'],
+                                        thisDayExCustomPlan:
+                                            param['thisDayExCustomPlan'],
+                                        thisDayExReadyPlan:
+                                            param['thisDayExReadyPlan'],
                                       ),
                                       transitionsBuilder: (context, animation,
                                               secondaryAnimation, child) =>

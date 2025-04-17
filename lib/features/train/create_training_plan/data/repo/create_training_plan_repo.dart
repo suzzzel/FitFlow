@@ -139,7 +139,7 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
   }
 
   @override
-  Future<List<ExerciseModel>> getInfoExercises(
+  Future<List<ExerciseModel>> getInfoExercisesReadyPlan(
       {required String trainingPlanId}) async {
     final List<ExerciseModel> exList = [];
     try {

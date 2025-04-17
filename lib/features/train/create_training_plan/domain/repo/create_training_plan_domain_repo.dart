@@ -17,10 +17,10 @@ class CreateTrainingPlanDomainRepo implements CreateTrainingPlanDomainRepoImpl {
   }
 
   @override
-  Future<List<ExerciseModel>> getInfoAboutTempExercises(
+  Future<List<ExerciseModel>> getInfoAboutTempExercisesReadyPlan(
       {required String idTrainingPlan}) async {
     try {
-      final exercises = await createTrainingPlanRepo.getInfoExercises(
+      final exercises = await createTrainingPlanRepo.getInfoExercisesReadyPlan(
           trainingPlanId: idTrainingPlan);
       return exercises;
     } on Exception {

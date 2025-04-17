@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:fitflow/features/general_comonents/doc_provider.dart';
 import 'package:fitflow/features/general_comonents/exercise_model.dart';
+import 'package:fitflow/features/train/create_training_plan/domain/models/custom_training_plan_model.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/models/ready_training_plan_model.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/get_info_exercises_domain_provider.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/controllers/confrim_ready_plan_controller.dart';
@@ -13,163 +14,187 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ViewDonePlanMainWidget extends ConsumerWidget {
   final bool isThisReadyPlanOrCustom;
-  final List<ReadyTrainingPlanModel> listOfDays;
+  final List<ReadyTrainingPlanModel>? listOfDaysReadyPlan;
+  final List<CustomTrainingPlanModel>? listOfDaysCustomPlan;
+  final List<ExerciseModel>? exercisesCustomPlan;
   const ViewDonePlanMainWidget(
       {super.key,
       required this.isThisReadyPlanOrCustom,
-      required this.listOfDays});
+      this.listOfDaysReadyPlan,
+      this.exercisesCustomPlan,
+      this.listOfDaysCustomPlan});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final buttonAddedPlanState = ref.watch(confrimReadyPlanControllerProvider);
     AsyncValue<Directory> dir = ref.watch(documentsDirectoryProvider);
-    AsyncValue<List<ExerciseModel>> exercises = ref.watch(
-        getInfoExercisesDataProvider(listOfDays.first.idTrain.toString()));
+    AsyncValue<List<ExerciseModel>>? exercisesReadyPlan = ref.watch(
+        getInfoExercisesReadyPlanDataProvider(
+            listOfDaysReadyPlan?.first.idTrain.toString() ?? ''));
     return Stack(alignment: Alignment.center, children: [
       dir.when(
           data: (readyPlans) {
             if (dir.isLoading) {
               return const CircularProgressIndicator();
             } else {
-              return exercises.when(
-                  data: (exercises) {
-                    return Padding(
-                      padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.125),
-                      // Рисуем отдельно ДЕНЬ в тренировочном плане
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 33, right: 33),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.only(top: 61),
-                          itemCount: listOfDays.length + 1,
-                          itemBuilder: (context, index) {
-                            // Кнопка сохранения плана после ListView
-                            if (index == listOfDays.length) {
-                              return Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 6, right: 6, top: 32, bottom: 54),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(99)),
-                                      gradient: LinearGradient(
-                                          colors: [
-                                            Theme.of(context)
-                                                .colorScheme
-                                                .secondary,
-                                            Theme.of(context)
-                                                .colorScheme
-                                                .primary,
-                                          ],
-                                          transform:
-                                              const GradientRotation(pi / 4))),
-                                  child: ElevatedButton(
-                                      onPressed: () async {
-                                        final addedPlan = await ref
-                                            .read(
-                                                confrimReadyPlanControllerProvider
-                                                    .notifier)
-                                            .confirmReadyPlan(days: listOfDays);
-                                        if (addedPlan) {
-                                          // ignore: use_build_context_synchronously
-                                          context.goNamed('/home');
-                                        }
-                                      },
-                                      style: ButtonStyle(
-                                          fixedSize: WidgetStatePropertyAll(
-                                              Size(
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  60)),
-                                          backgroundColor:
-                                              const WidgetStatePropertyAll(
-                                                  Colors.transparent)),
-                                      child: !buttonAddedPlanState.isLoading
-                                          ? FittedBox(
-                                              child: Text(
-                                                'Продолжить',
-                                                textScaler:
-                                                    const TextScaler.linear(1),
-                                                style: GoogleFonts.inter(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondary,
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.w700),
-                                              ),
-                                            )
-                                          : const CircularProgressIndicator()),
-                                ),
-                              );
-                            } else {
-                              // конкретный день в тренировочном плане
-                              final thisDay = listOfDays[index];
-                              return Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 5,
-                                    ),
-                                    child: ShaderMask(
-                                        blendMode: BlendMode.srcATop,
-                                        shaderCallback: (bounds) =>
-                                            LinearGradient(colors: [
-                                              Theme.of(context)
-                                                  .colorScheme
-                                                  .primaryFixed,
-                                              Theme.of(context)
-                                                  .colorScheme
-                                                  .secondaryFixed,
-                                            ]).createShader(bounds),
-                                        child: Text(
-                                          _ruWeekday(listOfDays[index].weekday),
-                                          style: GoogleFonts.inter(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w700),
-                                        )),
-                                  ),
-                                  Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(24),
-                                          gradient: LinearGradient(
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter,
-                                              colors: [
-                                                Theme.of(context)
-                                                    .colorScheme
-                                                    .primaryFixed
-                                                    .withOpacity(0.1),
-                                                Theme.of(context)
-                                                    .colorScheme
-                                                    .secondaryFixed
-                                                    .withOpacity(0.1),
-                                              ])),
-                                      child: Center(
-                                        child: _buildDayExercises(
-                                            thisDay: thisDay,
-                                            exercises: exercises,
-                                            dir: dir.value!,
-                                            context: context),
-                                      )),
-                                ],
-                              );
-                            }
-                          },
-                        ),
-                      ),
+              return isThisReadyPlanOrCustom
+                  ? exercisesReadyPlan!.when(
+                      data: (exercises) {
+                        return ReadyPlanExercisesNeedDecomposite(
+                            listOfDaysReadyPlan: listOfDaysReadyPlan,
+                            buttonAddedPlanState: buttonAddedPlanState,
+                            dir: dir,
+                            exercises: exercises);
+                      },
+                      error: (err, stack) => Text('Error: $err'),
+                      loading: () => const CircularProgressIndicator())
+                  : CustomPlanExercisesChernovik(
+                      listOfDaysCustomPlan: listOfDaysCustomPlan!,
+                      exercisesCustomPlan: exercisesCustomPlan!,
                     );
-                  },
-                  error: (err, stack) => Text('Error: $err'),
-                  loading: () => const CircularProgressIndicator());
             }
           },
           error: (err, stack) => Text('Error: $err'),
           loading: () => const CircularProgressIndicator()),
     ]);
+  }
+}
+
+class CustomPlanExercisesChernovik extends ConsumerWidget {
+  const CustomPlanExercisesChernovik({
+    super.key,
+    required this.exercisesCustomPlan,
+    required this.listOfDaysCustomPlan,
+  });
+
+  final List<CustomTrainingPlanModel> listOfDaysCustomPlan;
+  final List<ExerciseModel> exercisesCustomPlan;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container();
+  }
+}
+
+class ReadyPlanExercisesNeedDecomposite extends ConsumerWidget {
+  const ReadyPlanExercisesNeedDecomposite(
+      {super.key,
+      required this.listOfDaysReadyPlan,
+      required this.buttonAddedPlanState,
+      required this.dir,
+      required this.exercises});
+
+  final List<ReadyTrainingPlanModel>? listOfDaysReadyPlan;
+  final AsyncValue<void> buttonAddedPlanState;
+  final AsyncValue<Directory> dir;
+  final List<ExerciseModel> exercises;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.125),
+      // Рисуем отдельно ДЕНЬ в тренировочном плане
+      child: Padding(
+        padding: const EdgeInsets.only(left: 33, right: 33),
+        child: ListView.builder(
+          shrinkWrap: true,
+          padding: const EdgeInsets.only(top: 61),
+          itemCount: listOfDaysReadyPlan!.length + 1,
+          itemBuilder: (context, index) {
+            // Кнопка сохранения плана после ListView
+            if (index == listOfDaysReadyPlan!.length) {
+              return Padding(
+                padding: const EdgeInsets.only(
+                    left: 6, right: 6, top: 32, bottom: 54),
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(99)),
+                      gradient: LinearGradient(colors: [
+                        Theme.of(context).colorScheme.secondary,
+                        Theme.of(context).colorScheme.primary,
+                      ], transform: const GradientRotation(pi / 4))),
+                  child: ElevatedButton(
+                      onPressed: () async {
+                        final addedPlan = await ref
+                            .read(confrimReadyPlanControllerProvider.notifier)
+                            .confirmReadyPlan(days: listOfDaysReadyPlan!);
+                        if (addedPlan) {
+                          // ignore: use_build_context_synchronously
+                          context.goNamed('/home');
+                        }
+                      },
+                      style: ButtonStyle(
+                          fixedSize: WidgetStatePropertyAll(
+                              Size(MediaQuery.of(context).size.width, 60)),
+                          backgroundColor:
+                              const WidgetStatePropertyAll(Colors.transparent)),
+                      child: !buttonAddedPlanState.isLoading
+                          ? FittedBox(
+                              child: Text(
+                                'Продолжить',
+                                textScaler: const TextScaler.linear(1),
+                                style: GoogleFonts.inter(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondary,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            )
+                          : const CircularProgressIndicator()),
+                ),
+              );
+            } else {
+              // конкретный день в тренировочном плане
+              final thisDay = listOfDaysReadyPlan![index];
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 5,
+                    ),
+                    child: ShaderMask(
+                        blendMode: BlendMode.srcATop,
+                        shaderCallback: (bounds) => LinearGradient(colors: [
+                              Theme.of(context).colorScheme.primaryFixed,
+                              Theme.of(context).colorScheme.secondaryFixed,
+                            ]).createShader(bounds),
+                        child: Text(
+                          _ruWeekday(listOfDaysReadyPlan![index].weekday),
+                          style: GoogleFonts.inter(
+                              fontSize: 15, fontWeight: FontWeight.w700),
+                        )),
+                  ),
+                  Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(24),
+                          gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Theme.of(context)
+                                    .colorScheme
+                                    .primaryFixed
+                                    .withOpacity(0.1),
+                                Theme.of(context)
+                                    .colorScheme
+                                    .secondaryFixed
+                                    .withOpacity(0.1),
+                              ])),
+                      child: Center(
+                        child: _buildDayExercises(
+                            thisDay: thisDay,
+                            exercises: exercises,
+                            dir: dir.value!,
+                            context: context),
+                      )),
+                ],
+              );
+            }
+          },
+        ),
+      ),
+    );
   }
 }
 
@@ -225,6 +250,16 @@ Widget _buildDayExercises(
             exercises: exercises,
             dir: dir,
             context: context),
+        ElevatedButton(
+            onPressed: () {
+              context.goNamed('editdayinplan', extra: {
+                'thisDayExReadyPlan': thisDay,
+                'dayName': thisDay.weekday,
+                'exercises': exercises,
+                'dir': dir
+              });
+            },
+            child: Text('change'))
       ],
     ),
   );
@@ -240,13 +275,11 @@ Widget _exercisesRow(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: dayExercises.map((exId) {
-      print(dir.path);
       final exGifFolderPath = '${dir.path}/exGifs';
       if (exId != null) {
         final exName =
             exercises.where((ex) => ex.id.toString() == exId).first.name;
         final exIdGif = exId.padLeft(4, '0');
-
         final exGifFile = File('$exGifFolderPath/$exIdGif.gif');
         return Column(
           children: [
@@ -278,11 +311,6 @@ Widget _exercisesRow(
                         width: 65,
                         height: 65,
                       ),
-                      // child: Image.asset(
-                      //   exGif,
-                      //   width: 65,
-                      //   height: 65,
-                      // ),
                     ),
                   ),
                 ),

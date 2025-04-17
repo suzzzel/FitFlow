@@ -4,6 +4,6 @@ import 'package:fitflow/features/train/create_training_plan/domain/models/ready_
 abstract class CreateTrainingPlanDomainRepoImpl {
   Future<Map<int, List<ReadyTrainingPlanModel>>> getReadyTrainingPlans();
 
-  Future<List<ExerciseModel>> getInfoAboutTempExercises(
+  Future<List<ExerciseModel>> getInfoAboutTempExercisesReadyPlan(
       {required String idTrainingPlan});
 }

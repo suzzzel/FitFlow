@@ -42,5 +42,6 @@ final class RouterPath {
   static const String SELECTTRAININGPLAN = 'newtrainplan';
   static const String SELECTREADYTRAININGPLAN = 'readytrainplan';
   static const String VIEWSELECTEDPLAN = 'viewselectedplan';
+  static const String EDITDAYINPLAN = 'editdayinplan';
   // создание тренировочного плана
 }

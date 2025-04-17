@@ -4,7 +4,8 @@ import 'package:fitflow/features/train/create_training_plan/domain/models/ready_
 abstract class CreateTrainingPlanRepoImpl {
   Future<Map<int, List<ReadyTrainingPlanModel>>>
       getReadyTrainingPlansAndDownloadGifsEx();
-  Future<List<ExerciseModel>> getInfoExercises(
+
+  Future<List<ExerciseModel>> getInfoExercisesReadyPlan(
       {required String trainingPlanId});
 
   Future<bool> confirmPlan({required List<ReadyTrainingPlanModel> days});
