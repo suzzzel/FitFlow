@@ -3,26 +3,24 @@ import 'dart:math';
 
 import 'package:fitflow/features/general_comonents/doc_provider.dart';
 import 'package:fitflow/features/general_comonents/exercise_model.dart';
-import 'package:fitflow/features/train/create_training_plan/domain/models/custom_training_plan_model.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/models/ready_training_plan_model.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/get_info_exercises_domain_provider.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/controllers/confrim_ready_plan_controller.dart';
+import 'package:fitflow/features/train/create_training_plan/domain/providers/temp_train_plan_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ViewDonePlanMainWidget extends ConsumerWidget {
-  final bool isThisReadyPlanOrCustom;
+  final bool isPlanBeenChanged;
   final List<ReadyTrainingPlanModel>? listOfDaysReadyPlan;
-  final List<CustomTrainingPlanModel>? listOfDaysCustomPlan;
-  final List<ExerciseModel>? exercisesCustomPlan;
-  const ViewDonePlanMainWidget(
-      {super.key,
-      required this.isThisReadyPlanOrCustom,
-      this.listOfDaysReadyPlan,
-      this.exercisesCustomPlan,
-      this.listOfDaysCustomPlan});
+
+  const ViewDonePlanMainWidget({
+    super.key,
+    required this.isPlanBeenChanged,
+    this.listOfDaysReadyPlan,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,15 +29,24 @@ class ViewDonePlanMainWidget extends ConsumerWidget {
     AsyncValue<List<ExerciseModel>>? exercisesReadyPlan = ref.watch(
         getInfoExercisesReadyPlanDataProvider(
             listOfDaysReadyPlan?.first.idTrain.toString() ?? ''));
+    final tempTrainProv = ref.watch(tempTrainPlanProvider);
     return Stack(alignment: Alignment.center, children: [
       dir.when(
           data: (readyPlans) {
             if (dir.isLoading) {
               return const CircularProgressIndicator();
             } else {
-              return isThisReadyPlanOrCustom
+              return !isPlanBeenChanged
                   ? exercisesReadyPlan!.when(
                       data: (exercises) {
+                        WidgetsBinding.instance.addPostFrameCallback(
+                          (_) {
+                            _updateTempPlainProvider(
+                                ref: ref,
+                                exercises: exercises,
+                                listOfDaysReadyPlan: listOfDaysReadyPlan!);
+                          },
+                        );
                         return ReadyPlanExercisesNeedDecomposite(
                             listOfDaysReadyPlan: listOfDaysReadyPlan,
                             buttonAddedPlanState: buttonAddedPlanState,
@@ -48,31 +55,24 @@ class ViewDonePlanMainWidget extends ConsumerWidget {
                       },
                       error: (err, stack) => Text('Error: $err'),
                       loading: () => const CircularProgressIndicator())
-                  : CustomPlanExercisesChernovik(
-                      listOfDaysCustomPlan: listOfDaysCustomPlan!,
-                      exercisesCustomPlan: exercisesCustomPlan!,
+                  : ListView.builder(
+                      itemCount: tempTrainProv.exercisesByWeekday.length,
+                      itemBuilder: (context, index) {
+                        final weekday =
+                            tempTrainProv.exercisesByWeekday.keys.toList();
+                        return Text(
+                          tempTrainProv.exercisesByWeekday.keys
+                              .firstWhere((key) => key == weekday[index])
+                              .toString(),
+                          style: const TextStyle(color: Colors.white),
+                        );
+                      },
                     );
             }
           },
           error: (err, stack) => Text('Error: $err'),
           loading: () => const CircularProgressIndicator()),
     ]);
-  }
-}
-
-class CustomPlanExercisesChernovik extends ConsumerWidget {
-  const CustomPlanExercisesChernovik({
-    super.key,
-    required this.exercisesCustomPlan,
-    required this.listOfDaysCustomPlan,
-  });
-
-  final List<CustomTrainingPlanModel> listOfDaysCustomPlan;
-  final List<ExerciseModel> exercisesCustomPlan;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Container();
   }
 }
 
@@ -115,9 +115,11 @@ class ReadyPlanExercisesNeedDecomposite extends ConsumerWidget {
                       ], transform: const GradientRotation(pi / 4))),
                   child: ElevatedButton(
                       onPressed: () async {
+                        final tempTrainPlan = ref.read(tempTrainPlanProvider);
                         final addedPlan = await ref
                             .read(confrimReadyPlanControllerProvider.notifier)
-                            .confirmReadyPlan(days: listOfDaysReadyPlan!);
+                            .confirmReadyPlan(
+                                days: tempTrainPlan.exercisesByWeekday);
                         if (addedPlan) {
                           // ignore: use_build_context_synchronously
                           context.goNamed('/home');
@@ -186,7 +188,8 @@ class ReadyPlanExercisesNeedDecomposite extends ConsumerWidget {
                             thisDay: thisDay,
                             exercises: exercises,
                             dir: dir.value!,
-                            context: context),
+                            context: context,
+                            ref: ref),
                       )),
                 ],
               );
@@ -223,7 +226,8 @@ Widget _buildDayExercises(
     {required ReadyTrainingPlanModel thisDay,
     required List<ExerciseModel> exercises,
     required Directory dir,
-    required BuildContext context}) {
+    required BuildContext context,
+    required WidgetRef ref}) {
   final dayExercises = [
     thisDay.exOne,
     thisDay.exTwo,
@@ -253,10 +257,8 @@ Widget _buildDayExercises(
         ElevatedButton(
             onPressed: () {
               context.goNamed('editdayinplan', extra: {
-                'thisDayExReadyPlan': thisDay,
-                'dayName': thisDay.weekday,
-                'exercises': exercises,
-                'dir': dir
+                'weekday': thisDay.weekday,
+                'isPlanBeenChanged': true,
               });
             },
             child: Text('change'))
@@ -342,4 +344,36 @@ Widget _exercisesRow(
       }
     }).toList(),
   );
+}
+
+void _updateTempPlainProvider(
+    {required WidgetRef ref,
+    required List<ExerciseModel> exercises,
+    required List<ReadyTrainingPlanModel> listOfDaysReadyPlan}) {
+  final tempPlanNotifier = ref.read(tempTrainPlanProvider.notifier);
+  // Очищаем предыдущие данные
+  tempPlanNotifier.reset();
+
+  for (final day in listOfDaysReadyPlan) {
+    final dayExercises = [
+      day.exOne,
+      day.exTwo,
+      day.exThree,
+      day.exFour,
+      day.exFive
+    ];
+
+    for (var exId in dayExercises) {
+      if (exId != null) {
+        final exercise = exercises.firstWhere(
+          (ex) => ex.id.toString() == exId,
+          orElse: () => throw Exception('Exercise $exId not found'),
+        );
+        tempPlanNotifier.addExercise(
+          weekday: day.weekday,
+          exercise: exercise,
+        );
+      }
+    }
+  }
 }

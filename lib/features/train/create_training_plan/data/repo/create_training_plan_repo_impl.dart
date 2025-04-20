@@ -8,5 +8,5 @@ abstract class CreateTrainingPlanRepoImpl {
   Future<List<ExerciseModel>> getInfoExercisesReadyPlan(
       {required String trainingPlanId});
 
-  Future<bool> confirmPlan({required List<ReadyTrainingPlanModel> days});
+  Future<bool> confirmPlan({required Map<String, List<ExerciseModel>> days});
 }

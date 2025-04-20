@@ -183,7 +183,8 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
   }
 
   @override
-  Future<bool> confirmPlan({required List<ReadyTrainingPlanModel> days}) async {
+  Future<bool> confirmPlan(
+      {required Map<String, List<ExerciseModel>> days}) async {
     try {
       final int currentWeekday = DateTime.now().weekday;
       final int daysToSubstract = currentWeekday - 1;
@@ -191,30 +192,51 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
           DateTime.now().subtract(Duration(days: daysToSubstract));
       final statOfWeekFormatted =
           DateFormat('yyyy-MM-dd').format(startOfWeek).toString();
-      for (var x in days) {
+      for (var x in days.entries) {
+        final String weekday = x.key;
+        final List<ExerciseModel> exercises = x.value;
+        final exIds = exercises.take(5).map((e) => e.id.toString()).toList();
+        final exOne = exIds.isNotEmpty ? exIds[0] : null;
+        final exTwo = exIds.length > 1 ? exIds[1] : null;
+        final exThree = exIds.length > 2 ? exIds[2] : null;
+        final exFour = exIds.length > 3 ? exIds[3] : null;
+        final exFive = exIds.length > 4 ? exIds[4] : null;
+        final mainMuscle = exercises.isNotEmpty ? exercises[0].target : null;
+        final secondaryMuscles = exercises
+            .expand((ex) => [
+                  ex.secondaryMuscleZero,
+                  ex.secondaryMuscleOne,
+                  ex.secondaryMuscleTwo,
+                  ex.secondaryMuscleThree,
+                  ex.secondaryMuscleFour,
+                  ex.secondaryMuscleFive,
+                ])
+            .whereType<String>()
+            .join(', ');
+
         await database.managers.trainingPlanTable.create((element) => element(
             dataCreatingPlan: statOfWeekFormatted,
-            dayOfWeek: x.weekday,
-            exerciseOne: x.exOne,
-            exerciseTwo: Value(x.exTwo),
-            exerciseThree: Value(x.exThree),
-            exerciseFour: Value(x.exFour),
-            exerciseFive: Value(x.exFive),
-            mainMuscle: Value(x.mainMuscle),
-            secondaryMuscle: Value(x.secondaryMuscle),
+            dayOfWeek: weekday,
+            exerciseOne: exOne!,
+            exerciseTwo: Value(exTwo),
+            exerciseThree: Value(exThree),
+            exerciseFour: Value(exFour),
+            exerciseFive: Value(exFive),
+            mainMuscle: Value(mainMuscle),
+            secondaryMuscle: Value(secondaryMuscles),
             idUser: supabase.auth.currentUser!.aud,
-            reqReps: x.reqReps.toString()));
+            reqReps: '20'));
         final tempDay = TrainingPlanClass(
             idUser: supabase.auth.currentUser!.id,
-            dayOfWeek: x.weekday,
-            exerciseOne: x.exOne,
-            exerciseTwo: x.exTwo,
-            exerciseThree: x.exThree,
-            exerciseFour: x.exFour,
-            exerciseFive: x.exFive,
-            mainMuscle: x.mainMuscle,
-            secondaryMuscle: x.secondaryMuscle,
-            reqReps: x.reqReps.toString(),
+            dayOfWeek: weekday,
+            exerciseOne: exOne!,
+            exerciseTwo: exTwo,
+            exerciseThree: exThree,
+            exerciseFour: exFour,
+            exerciseFive: exFive,
+            mainMuscle: mainMuscle,
+            secondaryMuscle: secondaryMuscles,
+            reqReps: '20',
             dataCreatingPlan: statOfWeekFormatted);
         await supabase.from('training_plan_users').insert(tempDay.toMap());
       }

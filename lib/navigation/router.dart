@@ -27,6 +27,7 @@ import 'package:fitflow/features/home/future_profile/presentation/indicators/hei
 import 'package:fitflow/features/home/future_profile/presentation/indicators/weight_changer/change_weight_main_home_widget.dart';
 import 'package:fitflow/features/loading/presentation/loading_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/edit_day_in_plan_main_widget.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/vied_done_new.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/view_done_plan_main_widget.dart';
 import 'package:fitflow/navigation/home_navigation_bar/navbar.dart';
 import 'package:fitflow/navigation/paths.dart';
@@ -461,6 +462,10 @@ GoRouter appRouter(Ref ref) {
                     : IconButton(
                         onPressed: () {
                           switch (state.fullPath) {
+                            case '/home/newtrainplan/readytrainplan/viewselectedplan/editdayinplan':
+                              context.goNamed('viewselectedplan', extra: {
+                                'isPlanBeenChanged': true,
+                              });
                             default:
                               context.pop();
                           }
@@ -588,9 +593,9 @@ GoRouter appRouter(Ref ref) {
                                     final Map<String, dynamic> param =
                                         state.extra as Map<String, dynamic>;
                                     return CustomTransitionPage(
-                                      child: ViewDonePlanMainWidget(
-                                        isThisReadyPlanOrCustom:
-                                            param['isThisReadyPlanOrCustom'],
+                                      child: ViewDonePlanMainWidgetNew(
+                                        isPlanBeenChanged:
+                                            param['isPlanBeenChanged'],
                                         listOfDaysReadyPlan:
                                             param['listOfTrainDays'],
                                       ),
@@ -601,31 +606,30 @@ GoRouter appRouter(Ref ref) {
                                         child: child,
                                       ),
                                     );
-                                  }),
-                              GoRoute(
-                                  path: RouterPath.EDITDAYINPLAN,
-                                  name: RouterPath.EDITDAYINPLAN,
-                                  pageBuilder: (context, state) {
-                                    final Map<String, dynamic> param =
-                                        state.extra as Map<String, dynamic>;
-                                    return CustomTransitionPage(
-                                      child: EditDayInPlanMainWidget(
-                                        dayName: param['dayName'],
-                                        exercises: param['exercises'],
-                                        dir: param['dir'],
-                                        thisDayExCustomPlan:
-                                            param['thisDayExCustomPlan'],
-                                        thisDayExReadyPlan:
-                                            param['thisDayExReadyPlan'],
-                                      ),
-                                      transitionsBuilder: (context, animation,
-                                              secondaryAnimation, child) =>
-                                          FadeTransition(
-                                        opacity: animation,
-                                        child: child,
-                                      ),
-                                    );
-                                  }),
+                                  },
+                                  routes: [
+                                    GoRoute(
+                                        path: RouterPath.EDITDAYINPLAN,
+                                        name: RouterPath.EDITDAYINPLAN,
+                                        pageBuilder: (context, state) {
+                                          final Map<String, dynamic> param =
+                                              state.extra
+                                                  as Map<String, dynamic>;
+                                          return CustomTransitionPage(
+                                            child: EditDayInPlanMainWidget(
+                                              weekday: param['weekday'],
+                                            ),
+                                            transitionsBuilder: (context,
+                                                    animation,
+                                                    secondaryAnimation,
+                                                    child) =>
+                                                FadeTransition(
+                                              opacity: animation,
+                                              child: child,
+                                            ),
+                                          );
+                                        }),
+                                  ]),
                             ])
                       ])
                 ]),

@@ -47,7 +47,7 @@ class SelectReadyPlanMainWidget extends ConsumerWidget {
                             borderRadius: BorderRadius.circular(24),
                             onTap: () {
                               context.goNamed('viewselectedplan', extra: {
-                                'isThisReadyPlanOrCustom': true,
+                                'isPlanBeenChanged': false,
                                 'listOfTrainDays': readyPlans[trueIndex]
                               });
                             },

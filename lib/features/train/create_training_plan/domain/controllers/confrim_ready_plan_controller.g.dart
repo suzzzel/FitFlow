@@ -7,7 +7,7 @@ part of 'confrim_ready_plan_controller.dart';
 // **************************************************************************
 
 String _$confrimReadyPlanControllerHash() =>
-    r'37f65bf2c2e184dc076b2958937eef9bc00e3416';
+    r'c3bbd40dd633ad79f3d8c747125079d8dae54152';
 
 /// See also [ConfrimReadyPlanController].
 @ProviderFor(ConfrimReadyPlanController)
