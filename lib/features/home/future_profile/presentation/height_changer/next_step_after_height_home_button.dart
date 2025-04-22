@@ -51,6 +51,7 @@ class _NextStepAfterHeightHomeButtonState
                   }
                 : () {},
             style: ButtonStyle(
+                elevation: const WidgetStatePropertyAll(0),
                 fixedSize: WidgetStatePropertyAll(
                     Size(MediaQuery.of(context).size.width, 70)),
                 backgroundColor: WidgetStatePropertyAll(

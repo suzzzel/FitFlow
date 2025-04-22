@@ -38,6 +38,7 @@ class ConfrimWayOfCreatingButton extends ConsumerWidget {
                     ref.invalidate(getReadyTrainPlanDomainProvider);
                   },
             style: ButtonStyle(
+                elevation: const WidgetStatePropertyAll(0),
                 fixedSize: WidgetStatePropertyAll(
                     Size(MediaQuery.of(context).size.width, 60)),
                 backgroundColor:

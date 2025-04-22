@@ -11,6 +11,7 @@ class StartTrainTextIndiseButton extends StatelessWidget {
     return TextButton(
       onPressed: () {},
       style: const ButtonStyle(
+          elevation: WidgetStatePropertyAll(0),
           overlayColor: WidgetStatePropertyAll(Colors.transparent),
           padding: WidgetStatePropertyAll(EdgeInsets.all(0))),
       child: ShaderMask(

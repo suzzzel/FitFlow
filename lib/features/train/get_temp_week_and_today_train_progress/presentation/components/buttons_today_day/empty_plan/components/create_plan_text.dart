@@ -16,6 +16,7 @@ class CreatePlanTextInsideButton extends StatelessWidget {
           context.goNamed('newtrainplan');
         },
         style: const ButtonStyle(
+            elevation: WidgetStatePropertyAll(0),
             overlayColor: WidgetStatePropertyAll(Colors.transparent),
             padding: WidgetStatePropertyAll(EdgeInsets.all(0))),
         child: SizedBox(

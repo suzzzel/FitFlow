@@ -30,6 +30,7 @@ class AuthSelectButton extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           child: TextButton(
             style: ButtonStyle(
+                elevation: const WidgetStatePropertyAll(0),
                 textStyle: WidgetStatePropertyAll(GoogleFonts.poppins(
                     fontSize: 20, fontWeight: FontWeight.bold)),
                 foregroundColor: const WidgetStatePropertyAll(Colors.white)),

@@ -40,6 +40,7 @@ class NextStepAfterGenderButton extends ConsumerWidget {
                     context.goNamed('weight');
                   },
             style: ButtonStyle(
+                elevation: const WidgetStatePropertyAll(0),
                 fixedSize: WidgetStatePropertyAll(
                     Size(MediaQuery.of(context).size.width, 60)),
                 backgroundColor:

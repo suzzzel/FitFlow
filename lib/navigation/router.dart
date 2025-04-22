@@ -27,8 +27,8 @@ import 'package:fitflow/features/home/future_profile/presentation/indicators/hei
 import 'package:fitflow/features/home/future_profile/presentation/indicators/weight_changer/change_weight_main_home_widget.dart';
 import 'package:fitflow/features/loading/presentation/loading_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/edit_day_in_plan_main_widget.dart';
-import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/vied_done_new.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/view_done_plan_main_widget.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/ready_plan_not_changed_view_main_widget.dart';
 import 'package:fitflow/navigation/home_navigation_bar/navbar.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:flutter/material.dart';
@@ -593,7 +593,7 @@ GoRouter appRouter(Ref ref) {
                                     final Map<String, dynamic> param =
                                         state.extra as Map<String, dynamic>;
                                     return CustomTransitionPage(
-                                      child: ViewDonePlanMainWidgetNew(
+                                      child: ViewDonePlanMainWidget(
                                         isPlanBeenChanged:
                                             param['isPlanBeenChanged'],
                                         listOfDaysReadyPlan:

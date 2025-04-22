@@ -33,6 +33,7 @@ class NextStepAfterGoalSelectButton extends ConsumerWidget {
               context.goNamed('level');
             },
             style: ButtonStyle(
+                elevation: const WidgetStatePropertyAll(0),
                 fixedSize: WidgetStatePropertyAll(
                     Size(MediaQuery.of(context).size.width, 60)),
                 backgroundColor:
