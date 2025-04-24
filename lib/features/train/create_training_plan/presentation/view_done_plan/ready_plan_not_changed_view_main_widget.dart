@@ -24,61 +24,58 @@ class ReadyPlanExercisesNotChangedPlan extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.125),
-      // Рисуем отдельно ДЕНЬ в тренировочном плане
-      child: Padding(
-        padding: const EdgeInsets.only(left: 33, right: 33),
-        child: ListView.builder(
-          shrinkWrap: true,
-          padding: const EdgeInsets.only(top: 61),
-          itemCount: listOfDaysReadyPlan!.length + 1,
-          itemBuilder: (context, index) {
-            // Кнопка сохранения плана после ListView
-            if (index == listOfDaysReadyPlan!.length) {
-              return ButtonConfirmPlan(
-                  buttonAddedPlanState: buttonAddedPlanState);
-            } else {
-              // конкретный день в тренировочном плане
-              final thisDay = listOfDaysReadyPlan![index];
-              return Column(
-                children: [
-                  RuWeekdayTrainPlan(
-                    weekday: listOfDaysReadyPlan![index].weekday,
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(24),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Theme.of(context)
-                                    .colorScheme
-                                    .primaryFixed
-                                    .withOpacity(0.1),
-                                Theme.of(context)
-                                    .colorScheme
-                                    .secondaryFixed
-                                    .withOpacity(0.1),
-                              ])),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          top: 15,
-                        ),
-                        child: Center(
-                          child: _buildDayExercises(
-                              thisDay: thisDay,
-                              exercises: exercises,
-                              dir: dir.value!,
-                              context: context,
-                              ref: ref),
-                        ),
-                      )),
-                ],
-              );
-            }
-          },
-        ),
+      padding: EdgeInsets.only(
+          left: 33, right: 33, top: MediaQuery.of(context).size.height * 0.125),
+      child: ListView.builder(
+        shrinkWrap: true,
+        padding: const EdgeInsets.only(top: 61),
+        itemCount: listOfDaysReadyPlan!.length + 1,
+        itemBuilder: (context, index) {
+          // Кнопка сохранения плана после ListView
+          if (index == listOfDaysReadyPlan!.length) {
+            return ButtonConfirmPlan(
+                buttonAddedPlanState: buttonAddedPlanState);
+          } else {
+            // конкретный день в тренировочном плане
+            final thisDay = listOfDaysReadyPlan![index];
+            return Column(
+              children: [
+                RuWeekdayTrainPlan(
+                  weekday: listOfDaysReadyPlan![index].weekday,
+                ),
+                Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Theme.of(context)
+                                  .colorScheme
+                                  .primaryFixed
+                                  .withOpacity(0.1),
+                              Theme.of(context)
+                                  .colorScheme
+                                  .secondaryFixed
+                                  .withOpacity(0.1),
+                            ])),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 15,
+                      ),
+                      child: Center(
+                        child: _buildDayExercises(
+                            thisDay: thisDay,
+                            exercises: exercises,
+                            dir: dir.value!,
+                            context: context,
+                            ref: ref),
+                      ),
+                    )),
+              ],
+            );
+          }
+        },
       ),
     );
   }
@@ -98,7 +95,7 @@ Widget _buildDayExercises(
     thisDay.exFive
   ];
   return Padding(
-    padding: const EdgeInsets.only(bottom: 12, left: 27, right: 27),
+    padding: const EdgeInsets.only(bottom: 12, left: 10, right: 10),
     child: Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -117,6 +114,7 @@ Widget _buildDayExercises(
             context: context),
         EditThisDayButton(
           weekday: thisDay.weekday,
+          dir: dir,
         )
       ],
     ),

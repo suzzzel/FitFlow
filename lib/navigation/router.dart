@@ -28,7 +28,6 @@ import 'package:fitflow/features/home/future_profile/presentation/indicators/wei
 import 'package:fitflow/features/loading/presentation/loading_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/edit_day_in_plan_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/view_done_plan_main_widget.dart';
-import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/ready_plan_not_changed_view_main_widget.dart';
 import 'package:fitflow/navigation/home_navigation_bar/navbar.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:flutter/material.dart';
@@ -408,6 +407,10 @@ GoRouter appRouter(Ref ref) {
                 name = 'FIT FLOW';
                 fontSize = 36;
                 fontWeight = FontWeight.w700;
+              case '/home/newtrainplan/readytrainplan/viewselectedplan/editdayinplan':
+                name = 'Изменить тренировку';
+                fontSize = 20;
+                fontWeight = FontWeight.w500;
               default:
                 name = ' ';
                 break;
@@ -618,6 +621,7 @@ GoRouter appRouter(Ref ref) {
                                           return CustomTransitionPage(
                                             child: EditDayInPlanMainWidget(
                                               weekday: param['weekday'],
+                                              dir: param['dir'],
                                             ),
                                             transitionsBuilder: (context,
                                                     animation,

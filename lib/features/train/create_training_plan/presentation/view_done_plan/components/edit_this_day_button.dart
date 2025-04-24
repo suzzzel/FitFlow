@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditThisDayButton extends StatelessWidget {
-  const EditThisDayButton({super.key, required this.weekday});
+  const EditThisDayButton(
+      {super.key, required this.weekday, required this.dir});
 
   final String weekday;
+  final Directory dir;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +31,7 @@ class EditThisDayButton extends StatelessWidget {
             context.goNamed('editdayinplan', extra: {
               'weekday': weekday,
               'isPlanBeenChanged': true,
+              'dir': dir
             });
           },
           style: const ButtonStyle(

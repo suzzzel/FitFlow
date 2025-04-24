@@ -57,9 +57,13 @@ class ViewDonePlanMainWidget extends ConsumerWidget {
               );
             } else {
               return Padding(
-                padding: const EdgeInsets.only(left: 33, right: 33),
+                padding: EdgeInsets.only(
+                    left: 33,
+                    right: 33,
+                    top: MediaQuery.of(context).size.height * 0.125),
                 child: ListView.builder(
                   shrinkWrap: true,
+                  padding: const EdgeInsets.only(top: 61),
                   itemCount: tempTrainProv.exercisesByWeekday.length + 1,
                   itemBuilder: (context, index) {
                     // Кнопка сохранения плана после ListView
@@ -100,7 +104,7 @@ class ViewDonePlanMainWidget extends ConsumerWidget {
     final firstRow = dayExercises.take(3).toList();
     final secondRow = dayExercises.skip(3).take(2).toList();
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12, left: 27, right: 27),
+      padding: const EdgeInsets.only(bottom: 12, left: 10, right: 10),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -120,7 +124,10 @@ class ViewDonePlanMainWidget extends ConsumerWidget {
               firstLine: false,
               context: context,
             ),
-          EditThisDayButton(weekday: weekday)
+          EditThisDayButton(
+            weekday: weekday,
+            dir: dir,
+          )
         ],
       ),
     );
