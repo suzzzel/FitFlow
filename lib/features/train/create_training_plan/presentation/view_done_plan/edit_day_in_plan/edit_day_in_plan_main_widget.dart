@@ -1,11 +1,15 @@
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:fitflow/features/general_comonents/drift_app_database_provider.dart';
 import 'package:fitflow/features/general_comonents/exercise_model.dart';
+import 'package:fitflow/features/general_comonents/supabase_provider.dart';
+import 'package:fitflow/features/search/search_ex/data/repo/search_ex_repo.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/temp_train_plan_provider.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/components/ru_week_day_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class EditDayInPlanMainWidget extends ConsumerWidget {
   final String weekday;
@@ -17,6 +21,9 @@ class EditDayInPlanMainWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tempTrainProv = ref.watch(tempTrainPlanProvider);
     final exGifFolderPath = '${dir.path}/exGifs';
+    final testSP = ref.read(supabaseProvider);
+    final testDB = ref.read(localDatabaseProvider);
+    final testSearch = SearchExerciseRepo(database: testDB, supabase: testSP);
     return Stack(
       alignment: Alignment.topCenter,
       children: [
@@ -55,16 +62,21 @@ class EditDayInPlanMainWidget extends ConsumerWidget {
                         child: FittedBox(
                           child: IconButton(
                               onPressed: () {
-                                ref
-                                    .read(tempTrainPlanProvider.notifier)
-                                    .addExercise(
-                                        weekday: weekday,
-                                        exercise: ExerciseModel(
-                                            id: 9,
-                                            bodyPart: 'талия',
-                                            equipment: 'медицинский мяч',
-                                            name: 'скручивания с мячом',
-                                            target: 'прэсс'));
+                                // ref
+                                //     .read(tempTrainPlanProvider.notifier)
+                                //     .addExercise(
+                                //         weekday: weekday,
+                                //         exercise: ExerciseModel(
+                                //             id: 9,
+                                //             bodyPart: 'талия',
+                                //             equipment: 'медицинский мяч',
+                                //             name: 'скручивания с мячом',
+                                //             target: 'прэсс'));
+                                // context.pushNamed(
+                                //   'findnewexercisewheneditplan',
+                                // );
+                                testSearch.searchExercisesByUserRequest(
+                                    nameOfExercise: 'тяга', numberOfPage: 1);
                               },
                               color: Theme.of(context)
                                   .colorScheme

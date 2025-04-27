@@ -632,7 +632,27 @@ GoRouter appRouter(Ref ref) {
                                               child: child,
                                             ),
                                           );
-                                        }),
+                                        },
+                                        routes: [
+                                          GoRoute(
+                                              path: RouterPath
+                                                  .FINDNEWEXERCISEWHENEDITPLAN,
+                                              name: RouterPath
+                                                  .FINDNEWEXERCISEWHENEDITPLAN,
+                                              pageBuilder: (context, state) {
+                                                return CustomTransitionPage(
+                                                  child: Container(),
+                                                  transitionsBuilder: (context,
+                                                          animation,
+                                                          secondaryAnimation,
+                                                          child) =>
+                                                      FadeTransition(
+                                                    opacity: animation,
+                                                    child: child,
+                                                  ),
+                                                );
+                                              }),
+                                        ]),
                                   ]),
                             ])
                       ])

@@ -44,4 +44,9 @@ final class RouterPath {
   static const String VIEWSELECTEDPLAN = 'viewselectedplan';
   static const String EDITDAYINPLAN = 'editdayinplan';
   // создание тренировочного плана
+
+  // поиск любого упражнения
+  static const String FINDNEWEXERCISEWHENEDITPLAN =
+      'findnewexercisewheneditplan';
+  // поиск любого упражнения
 }
