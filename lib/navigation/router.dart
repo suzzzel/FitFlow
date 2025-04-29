@@ -408,9 +408,9 @@ GoRouter appRouter(Ref ref) {
                 fontSize = 36;
                 fontWeight = FontWeight.w700;
               case '/home/newtrainplan/readytrainplan/viewselectedplan/editdayinplan':
-                name = 'Изменить тренировку';
+                name = 'Редкатировать план\nтренировки';
                 fontSize = 20;
-                fontWeight = FontWeight.w500;
+                fontWeight = FontWeight.w700;
               default:
                 name = ' ';
                 break;

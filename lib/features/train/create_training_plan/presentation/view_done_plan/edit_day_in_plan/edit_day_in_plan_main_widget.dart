@@ -1,15 +1,18 @@
 import 'dart:io';
-
-import 'package:dotted_border/dotted_border.dart';
-import 'package:fitflow/features/general_comonents/drift_app_database_provider.dart';
+import 'dart:math';
 import 'package:fitflow/features/general_comonents/exercise_model.dart';
-import 'package:fitflow/features/general_comonents/supabase_provider.dart';
-import 'package:fitflow/features/search/search_ex/data/repo/search_ex_repo.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/temp_train_plan_provider.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/components/ru_week_day_text.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/components/add_another_exercise_button.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/components/change_exercise_button.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/components/delete_exrcise_button.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/components/exercise_image.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/components/exercise_name.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/components/max_length_day_exercise_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class EditDayInPlanMainWidget extends ConsumerWidget {
   final String weekday;
@@ -21,226 +24,165 @@ class EditDayInPlanMainWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tempTrainProv = ref.watch(tempTrainPlanProvider);
     final exGifFolderPath = '${dir.path}/exGifs';
-    final testSP = ref.read(supabaseProvider);
-    final testDB = ref.read(localDatabaseProvider);
-    final testSearch = SearchExerciseRepo(database: testDB, supabase: testSP);
     return Stack(
       alignment: Alignment.topCenter,
       children: [
         Align(
-          alignment: const Alignment(0, -0.7),
+          alignment: const Alignment(0, -0.67),
           child: RuWeekdayTrainPlan(
             weekday: weekday,
           ),
         ),
         Padding(
-          padding:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.18),
+          padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.2,
+              bottom: MediaQuery.of(context).size.height * 0.15),
           child: ListView.builder(
             itemCount: tempTrainProv.exercisesByWeekday[weekday]!.length + 1,
-            padding: const EdgeInsets.only(top: 15),
+            padding: const EdgeInsets.only(
+              top: 1,
+            ),
             itemBuilder: (context, index) {
               final exercises = tempTrainProv.exercisesByWeekday[weekday];
               if (exercises!.length - 1 < index && index < 5) {
-                return Padding(
-                  padding: const EdgeInsets.only(
-                      left: 15, right: 15, top: 5, bottom: 5),
-                  child: DottedBorder(
-                    dashPattern: const [5, 3, 5, 3],
-                    color: Theme.of(context).colorScheme.primary,
-                    borderType: BorderType.RRect,
-                    radius: const Radius.circular(20),
-                    strokeWidth: 1,
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 65,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20)),
-                      child: SizedBox(
-                        width: 60,
-                        height: 60,
-                        child: FittedBox(
-                          child: IconButton(
-                              onPressed: () {
-                                // ref
-                                //     .read(tempTrainPlanProvider.notifier)
-                                //     .addExercise(
-                                //         weekday: weekday,
-                                //         exercise: ExerciseModel(
-                                //             id: 9,
-                                //             bodyPart: 'талия',
-                                //             equipment: 'медицинский мяч',
-                                //             name: 'скручивания с мячом',
-                                //             target: 'прэсс'));
-                                // context.pushNamed(
-                                //   'findnewexercisewheneditplan',
-                                // );
-                                testSearch.searchExercisesByUserRequest(
-                                    nameOfExercise: 'тяга', numberOfPage: 1);
-                              },
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withOpacity(0.85),
-                              icon: const Icon(Icons.add_circle_outline)),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
+                return AddExerciseButton();
               } else if (index == 5) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
-                  child: SizedBox(
-                    height: 65,
-                    child: ShaderMask(
-                      blendMode: BlendMode.srcATop,
-                      shaderCallback: (bounds) => LinearGradient(colors: [
-                        Theme.of(context).colorScheme.primaryFixed,
-                        Theme.of(context).colorScheme.secondaryFixed
-                      ]).createShader(bounds),
-                      child: const Text(
-                          textAlign: TextAlign.center,
-                          softWrap: true,
-                          'Согласно текущим исследованиям, пять упражнений достаточно для того, что бы дать необхдимую нагрузку организму.'),
-                    ),
-                  ),
-                );
+                return MaxLengthDayExercisesInfo();
               } else {
                 final exName =
                     exercises[index].name.substring(0, 1).toUpperCase() +
                         exercises[index].name.substring(1);
                 final exIdGif = exercises[index].id.toString().padLeft(4, '0');
                 final exGifFile = File('$exGifFolderPath/$exIdGif.gif');
-                return Padding(
-                  padding: const EdgeInsets.only(
-                      left: 15, right: 15, top: 5, bottom: 15),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 65,
-                        width: 65,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Center(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(4),
-                            child: ShaderMask(
-                              blendMode: BlendMode.srcATop,
-                              shaderCallback: (bounds) =>
-                                  LinearGradient(colors: [
-                                Theme.of(context)
-                                    .colorScheme
-                                    .primaryFixed
-                                    .withOpacity(0.4),
-                                Theme.of(context)
-                                    .colorScheme
-                                    .secondaryFixed
-                                    .withOpacity(0.4),
-                              ]).createShader(bounds),
-                              child: Image.file(
-                                exGifFile,
-                                width: 65,
-                                height: 65,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.45,
-                          child: Text(
-                            textAlign: TextAlign.center,
-                            exName,
-                            softWrap: true,
-                            maxLines: 3,
-                            overflow: TextOverflow.clip,
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 17,
-                        ),
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(colors: [
-                                Theme.of(context)
-                                    .colorScheme
-                                    .primaryFixed
-                                    .withOpacity(0.7),
-                                Theme.of(context)
-                                    .colorScheme
-                                    .secondaryFixed
-                                    .withOpacity(0.7),
-                              ]),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: FittedBox(
-                            child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.edit,
-                                  color: Colors.white.withOpacity(0.85),
-                                )),
-                          ),
-                        ),
-                      ),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 17,
-                        ),
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(colors: [
-                                Theme.of(context)
-                                    .colorScheme
-                                    .secondary
-                                    .withOpacity(0.7),
-                                Theme.of(context)
-                                    .colorScheme
-                                    .errorContainer
-                                    .withOpacity(0.7),
-                              ]),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: FittedBox(
-                            child: IconButton(
-                                onPressed: () {
-                                  ref
-                                      .read(tempTrainPlanProvider.notifier)
-                                      .deleteExercise(
-                                          weekday: weekday,
-                                          exercise: exercises[index]);
-                                },
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Colors.red.withOpacity(0.85),
-                                )),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                );
+                return ExercisesInDayInfo(
+                    exGifFile: exGifFile,
+                    lengthOfExercises: exercises.length,
+                    exName: exName,
+                    weekday: weekday,
+                    exercises: exercises[index]);
               }
             },
           ),
         ),
+        BackToViewDonePlanButton(),
       ],
     );
   }
 }
+
+class BackToViewDonePlanButton extends StatelessWidget {
+  const BackToViewDonePlanButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 39,
+          right: 39,
+          bottom: 35,
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(99)),
+              gradient: LinearGradient(colors: [
+                Theme.of(context).colorScheme.secondary,
+                Theme.of(context).colorScheme.primary,
+              ], transform: const GradientRotation(pi / 4))),
+          child: ElevatedButton(
+              onPressed: () {
+                context.pop();
+              },
+              style: ButtonStyle(
+                  elevation: const WidgetStatePropertyAll(0),
+                  fixedSize: WidgetStatePropertyAll(
+                      Size(MediaQuery.of(context).size.width, 60)),
+                  backgroundColor:
+                      const WidgetStatePropertyAll(Colors.transparent)),
+              child: FittedBox(
+                child: Text(
+                  'Продолжить',
+                  textScaler: const TextScaler.linear(1),
+                  style: GoogleFonts.inter(
+                      color: Theme.of(context).colorScheme.onSecondary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700),
+                ),
+              )),
+        ),
+      ),
+    );
+  }
+}
+
+class ExercisesInDayInfo extends ConsumerWidget {
+  const ExercisesInDayInfo({
+    super.key,
+    required this.exGifFile,
+    required this.exName,
+    required this.weekday,
+    required this.exercises,
+    required this.lengthOfExercises,
+  });
+
+  final File exGifFile;
+  final String exName;
+  final String weekday;
+  final int lengthOfExercises;
+  final ExerciseModel exercises;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 34, right: 34, top: 10),
+      child: Container(
+        padding:
+            const EdgeInsets.only(top: 19, bottom: 19, left: 23, right: 15),
+        height: 103,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            gradient: LinearGradient(colors: [
+              Theme.of(context).colorScheme.primaryFixed.withOpacity(0.1),
+              Theme.of(context).colorScheme.secondaryFixed.withOpacity(0.1),
+            ])),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ExerciseImage(exGifFile: exGifFile),
+            ExerciseName(exName: exName),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Align(
+                    alignment: lengthOfExercises > 1
+                        ? Alignment.topCenter
+                        : Alignment.center,
+                    child: const ChangeExercisesInDayButton()),
+                lengthOfExercises > 1
+                    ? Align(
+                        alignment: Alignment.bottomCenter,
+                        child: DeleteExercisesInDayButton(
+                            weekday: weekday, exercises: exercises),
+                      )
+                    : const SizedBox()
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
 
 
 /*
