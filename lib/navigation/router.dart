@@ -19,6 +19,7 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sig
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/level/select_level_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/select_weight_main_widget.dart';
 import 'package:fitflow/features/background/background_widget.dart';
+import 'package:fitflow/features/search/search_ex/presentation/search_ex_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/ready_plan_way/select_ready_plan_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/select_way_of_creating_train_plan_main_widget.dart';
 import 'package:fitflow/features/home/home_main_screen/home_main_widget.dart';
@@ -411,6 +412,10 @@ GoRouter appRouter(Ref ref) {
                 name = 'Редкатировать план\nтренировки';
                 fontSize = 20;
                 fontWeight = FontWeight.w700;
+              case '/home/newtrainplan/readytrainplan/viewselectedplan/editdayinplan/findnewexercisewheneditplan':
+                name = 'Найти упражнение';
+                fontSize = 20;
+                fontWeight = FontWeight.w700;
               default:
                 name = ' ';
                 break;
@@ -635,23 +640,20 @@ GoRouter appRouter(Ref ref) {
                                         },
                                         routes: [
                                           GoRoute(
-                                              path: RouterPath
-                                                  .FINDNEWEXERCISEWHENEDITPLAN,
-                                              name: RouterPath
-                                                  .FINDNEWEXERCISEWHENEDITPLAN,
-                                              pageBuilder: (context, state) {
-                                                return CustomTransitionPage(
-                                                  child: Container(),
-                                                  transitionsBuilder: (context,
-                                                          animation,
-                                                          secondaryAnimation,
-                                                          child) =>
-                                                      FadeTransition(
-                                                    opacity: animation,
-                                                    child: child,
-                                                  ),
-                                                );
-                                              }),
+                                            path: RouterPath
+                                                .FINDNEWEXERCISEWHENEDITPLAN,
+                                            name: RouterPath
+                                                .FINDNEWEXERCISEWHENEDITPLAN,
+                                            pageBuilder: (context, state) {
+                                              final Map<String, dynamic> param =
+                                                  state.extra
+                                                      as Map<String, dynamic>;
+                                              return NoTransitionPage(
+                                                  child: SearchExMainWidget(
+                                                dir: param['dir'],
+                                              ));
+                                            },
+                                          ),
                                         ]),
                                   ]),
                             ])

@@ -1,12 +1,12 @@
-import 'dart:developer';
+import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AddExerciseButton extends StatelessWidget {
-  const AddExerciseButton({
-    super.key,
-  });
+  final Directory dir;
+  const AddExerciseButton({super.key, required this.dir});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,8 @@ class AddExerciseButton extends StatelessWidget {
           strokeWidth: 1,
           child: InkWell(
             onTap: () {
-              log('zalupa');
+              context.pushNamed('findnewexercisewheneditplan',
+                  extra: {'dir': dir});
             },
             child: Container(
               height: 103,
@@ -47,21 +48,8 @@ class AddExerciseButton extends StatelessWidget {
                     child: IconButton(
                         iconSize: 33,
                         onPressed: () {
-                          // ref
-                          //     .read(tempTrainPlanProvider.notifier)
-                          //     .addExercise(
-                          //         weekday: weekday,
-                          //         exercise: ExerciseModel(
-                          //             id: 9,
-                          //             bodyPart: 'талия',
-                          //             equipment: 'медицинский мяч',
-                          //             name: 'скручивания с мячом',
-                          //             target: 'прэсс'));
-                          // context.pushNamed(
-                          //   'findnewexercisewheneditplan',
-                          // );
-                          // testSearch.searchExercisesByUserRequest(
-                          //     nameOfExercise: 'тяга', numberOfPage: 1);
+                          context.pushNamed('findnewexercisewheneditplan',
+                              extra: {'dir': dir});
                         },
                         icon: const Icon(Icons.add)),
                   ),

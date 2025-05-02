@@ -45,7 +45,9 @@ class EditDayInPlanMainWidget extends ConsumerWidget {
             itemBuilder: (context, index) {
               final exercises = tempTrainProv.exercisesByWeekday[weekday];
               if (exercises!.length - 1 < index && index < 5) {
-                return AddExerciseButton();
+                return AddExerciseButton(
+                  dir: dir,
+                );
               } else if (index == 5) {
                 return MaxLengthDayExercisesInfo();
               } else {
