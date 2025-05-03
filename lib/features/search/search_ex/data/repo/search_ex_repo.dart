@@ -27,9 +27,9 @@ class SearchExerciseRepo implements SearchExercisesRepoImpl {
           .from('exercises')
           .select()
           .ilike('name', '%$nameOfExercise%')
-          .range(rangeLimit - 10, rangeLimit);
+          .range(rangeLimit - 10, rangeLimit - 1);
       if (findExercises.isEmpty) {
-        throw Exception(['list is empty']);
+        return [];
       } else {
         final listExercises = findExercises
             .map((exercise) => ExerciseModel.fromJson(exercise))
@@ -52,7 +52,7 @@ class SearchExerciseRepo implements SearchExercisesRepoImpl {
               final exGif = File('$exFolderPath/$tempExIdToGif.gif');
               exGif.writeAsBytesSync(gifFromOnline);
             } catch (e) {
-              throw Exception(['gif error']);
+              continue;
               // подумать над заглушкой
             }
           }
@@ -60,7 +60,7 @@ class SearchExerciseRepo implements SearchExercisesRepoImpl {
         return listExercises;
       }
     } catch (e) {
-      throw Exception(['another error']);
+      rethrow;
     }
   }
 }
