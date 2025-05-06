@@ -1,4 +1,3 @@
-import 'package:fitflow/features/auth/auth_sign_in/domain/providers/valid_sign_in_data.dart';
 import 'package:fitflow/features/general_comonents/exercise_model.dart';
 import 'package:fitflow/features/search/search_ex/data/providers/search_ex_data_provider.dart';
 import 'package:fitflow/features/search/search_ex/domain/providers/next_page_search_provider.dart';
@@ -17,19 +16,36 @@ class SearchResultDomainProvider extends _$SearchResultDomainProvider {
     return _fetchInitExercises();
   }
 
-  Future<void> searchExercise(
-      {required String nameOfExercise, required int numberOfPage}) async {
+  Future<void> searchExercise({
+    required String nameOfExercise,
+    required int numberOfPage,
+    required bool usingFilter,
+    String? bodyPartFilter,
+    String? targetMuscleFilter,
+    String? equipment,
+  }) async {
     final searchDataProvider = ref.read(searchExDataProvider);
 
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       return await searchDataProvider.searchExercisesByUserRequest(
-          nameOfExercise: nameOfExercise, numberOfPage: numberOfPage);
+          nameOfExercise: nameOfExercise,
+          numberOfPage: numberOfPage,
+          usingFilter: usingFilter,
+          targetMuscleFilter: targetMuscleFilter,
+          bodyPartFilter: bodyPartFilter,
+          equipment: equipment);
     });
   }
 
-  Future<void> newDownloadNextPage(
-      {required String nameOfExercise, required int prevPage}) async {
+  Future<void> newDownloadNextPage({
+    required String nameOfExercise,
+    required int prevPage,
+    required bool usingFilter,
+    String? bodyPartFilter,
+    String? targetMuscleFilter,
+    String? equipment,
+  }) async {
     final nextPageExist = ref.read(nextPageSearchProvider);
     if (!nextPageExist) return;
     final searchDataProvider = ref.read(searchExDataProvider);
@@ -39,7 +55,12 @@ class SearchResultDomainProvider extends _$SearchResultDomainProvider {
         const AsyncValue<List<ExerciseModel>>.loading().copyWithPrevious(state);
     try {
       final nextPage = await searchDataProvider.searchExercisesByUserRequest(
-          nameOfExercise: nameOfExercise, numberOfPage: prevPage + 1);
+          nameOfExercise: nameOfExercise,
+          numberOfPage: prevPage + 1,
+          usingFilter: usingFilter,
+          targetMuscleFilter: targetMuscleFilter,
+          bodyPartFilter: bodyPartFilter,
+          equipment: equipment);
       ref.read(nextPageSearchProvider.notifier).state = nextPage.isNotEmpty;
       state = AsyncData([...prevValue, ...nextPage]);
     } catch (e, st) {

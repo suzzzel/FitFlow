@@ -16,18 +16,105 @@ class SearchExerciseRepo implements SearchExercisesRepoImpl {
     required this.supabase,
   });
   @override
-  Future<List<ExerciseModel>> searchExercisesByUserRequest(
-      {required String nameOfExercise, required int numberOfPage}) async {
+  Future<List<ExerciseModel>> searchExercisesByUserRequest({
+    required String nameOfExercise,
+    required int numberOfPage,
+    required bool usingFilter,
+    String? bodyPartFilter,
+    String? targetMuscleFilter,
+    String? equipment,
+  }) async {
     final rangeLimit = numberOfPage * 10;
     try {
+      List<Map<String, dynamic>> findExercises = [];
       final appDirForPreloadGif = await getApplicationDocumentsDirectory();
       final exFolderPath = '${appDirForPreloadGif.path}/exGifs';
       await Directory(exFolderPath).create(recursive: true);
-      final List<Map<String, dynamic>> findExercises = await supabase
-          .from('exercises')
-          .select()
-          .ilike('name', '%$nameOfExercise%')
-          .range(rangeLimit - 10, rangeLimit - 1);
+      // Ни один фильтр не выбран юзером
+      if (!usingFilter) {
+        findExercises = await supabase
+            .from('exercises')
+            .select()
+            .ilike('name', '%$nameOfExercise%')
+            .eq('body', '')
+            .range(rangeLimit - 10, rangeLimit - 1);
+      } else {
+        // Все фильтры выбраны юзером
+        if (bodyPartFilter != null &&
+            targetMuscleFilter != null &&
+            equipment != null) {
+          findExercises = await supabase
+              .from('exercises')
+              .select()
+              .eq('bodyPart', bodyPartFilter)
+              .eq('target', targetMuscleFilter)
+              .eq('equipment', equipment)
+              .range(rangeLimit - 10, rangeLimit - 1);
+        }
+        // Выбран фильтр по "части тела"
+        else if (bodyPartFilter != null &&
+            targetMuscleFilter == null &&
+            equipment == null) {
+          findExercises = await supabase
+              .from('exercises')
+              .select()
+              .eq('bodyPart', bodyPartFilter)
+              .range(rangeLimit - 10, rangeLimit - 1);
+        }
+        // Выбран фильтр по "целевой мышце"
+        else if (bodyPartFilter == null &&
+            targetMuscleFilter != null &&
+            equipment == null) {
+          findExercises = await supabase
+              .from('exercises')
+              .select()
+              .eq('target', targetMuscleFilter)
+              .range(rangeLimit - 10, rangeLimit - 1);
+        }
+        // Выбран фильтр по "оборудование"
+        else if (bodyPartFilter == null &&
+            targetMuscleFilter == null &&
+            equipment != null) {
+          findExercises = await supabase
+              .from('exercises')
+              .select()
+              .eq('equipment', equipment)
+              .range(rangeLimit - 10, rangeLimit - 1);
+        }
+        // Выбран фильтр по "части тела" и "целевой мышце"
+        else if (bodyPartFilter != null &&
+            targetMuscleFilter != null &&
+            equipment == null) {
+          findExercises = await supabase
+              .from('exercises')
+              .select()
+              .eq('bodyPart', bodyPartFilter)
+              .eq('target', targetMuscleFilter)
+              .range(rangeLimit - 10, rangeLimit - 1);
+        }
+        // Выбран фильтр по "части тела" и "оборудование"
+        else if (bodyPartFilter != null &&
+            targetMuscleFilter == null &&
+            equipment != null) {
+          findExercises = await supabase
+              .from('exercises')
+              .select()
+              .eq('bodyPart', bodyPartFilter)
+              .eq('equipment', equipment)
+              .range(rangeLimit - 10, rangeLimit - 1);
+        }
+        // Выбран фильтр по "целевой мышце" и "оборудование"
+        else if (bodyPartFilter == null &&
+            targetMuscleFilter != null &&
+            equipment != null) {
+          findExercises = await supabase
+              .from('exercises')
+              .select()
+              .eq('target', targetMuscleFilter)
+              .eq('equipment', equipment)
+              .range(rangeLimit - 10, rangeLimit - 1);
+        }
+      }
       if (findExercises.isEmpty) {
         return [];
       } else {

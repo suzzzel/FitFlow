@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:fitflow/features/auth/auth_sign_in/domain/providers/valid_sign_in_data.dart';
 import 'package:fitflow/features/auth/presentation/general/custom_text_field.dart';
 import 'package:fitflow/features/general_comonents/exercise_model.dart';
+import 'package:fitflow/features/search/search_ex/domain/models/filters_list.dart';
 import 'package:fitflow/features/search/search_ex/domain/providers/current_page_search_provider.dart';
 import 'package:fitflow/features/search/search_ex/domain/providers/next_page_search_provider.dart';
 import 'package:fitflow/features/search/search_ex/domain/providers/search_result_domain_provider.dart';
@@ -22,16 +23,19 @@ class SearchExMainWidget extends ConsumerStatefulWidget {
 
 class _SearchExMainWidgetState extends ConsumerState<SearchExMainWidget> {
   final controller = TextEditingController();
+  String? _bodyPartFilter;
+  String? _targetFilter;
+  String? _equipmentFilter;
 
-  void search({required String userRequest}) {
+  void _search({required String userRequest}) {
     if (userRequest.isEmpty) {
     } else {
       setState(() {
         ref.read(currentSearchPageProvider.notifier).state = 1;
         ref.read(nextPageSearchProvider.notifier).state = true;
-        ref
-            .read(searchResultDomainProviderProvider.notifier)
-            .searchExercise(nameOfExercise: userRequest, numberOfPage: 1);
+        // ref
+        //     .read(searchResultDomainProviderProvider.notifier)
+        //     .searchExercise(nameOfExercise: userRequest, numberOfPage: 1);
       });
     }
   }
@@ -65,23 +69,75 @@ class _SearchExMainWidgetState extends ConsumerState<SearchExMainWidget> {
                 keyboardType: TextInputType.text,
                 isImputRight: true,
                 onFieldSubmitted: (value) {
-                  search(userRequest: controller.text);
+                  _search(userRequest: controller.text);
                 },
                 suffixIcon: IconButton(
                     onPressed: () {
-                      search(userRequest: controller.text);
+                      _search(userRequest: controller.text);
                     },
                     icon: const Icon(Icons.search)),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: Container(
-                height: 40,
-                width: 100,
-                color: Colors.red,
-                child: const Text('filters'),
-              ),
+              child: ElevatedButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                      backgroundColor: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(0.5),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      showDragHandle: true,
+                      context: context,
+                      builder: (context) {
+                        return StatefulBuilder(builder:
+                            (context, StateSetter setModalBottomSheetState) {
+                          return ListView(
+                            primary: true,
+                            children: [
+                              Text('JOPA'),
+                              SizedBox(
+                                height: 200,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: bodyPartList.length,
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      title: Text(bodyPartList[index]),
+                                      leading: Radio(
+                                        value: bodyPartList[index],
+                                        groupValue: _bodyPartFilter,
+                                        onChanged: (value) {
+                                          setModalBottomSheetState(() {
+                                            _bodyPartFilter = value;
+                                            log(_bodyPartFilter ?? 'jopa');
+                                          });
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Text('JOPA'),
+                              SizedBox(
+                                height: 200,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: 20,
+                                  itemBuilder: (context, index) {
+                                    return Text(index.toString());
+                                  },
+                                ),
+                              ),
+                            ],
+                          );
+                        });
+                      },
+                    );
+                  },
+                  child: Text('filters')),
             ),
           ],
         ),
@@ -187,12 +243,12 @@ class LoadingNewPageButton extends ConsumerWidget {
       _ when searchProvState.value!.isNotEmpty && !searchProvState.isLoading =>
         ElevatedButton(
           onPressed: () {
-            ref
-                .read(searchResultDomainProviderProvider.notifier)
-                .newDownloadNextPage(
-                  nameOfExercise: tempRequest,
-                  prevPage: currenPageProv,
-                );
+            // ref
+            //     .read(searchResultDomainProviderProvider.notifier)
+            //     .newDownloadNextPage(
+            //       nameOfExercise: tempRequest,
+            //       prevPage: currenPageProv,
+            //     );
             ref.read(currentSearchPageProvider.notifier).state++;
           },
           child: const Text('Загрузить еще'),
