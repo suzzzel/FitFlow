@@ -52,6 +52,7 @@ Stream<AppUserState> authState(Ref ref) {
                     level: user.level!));
                 final print2 = await localDBManager.userInfoTable.get();
                 log(print2.single.toString());
+                log('online');
                 streamController.add(AppUserState.auth(user));
                 streamController.close();
                 break;

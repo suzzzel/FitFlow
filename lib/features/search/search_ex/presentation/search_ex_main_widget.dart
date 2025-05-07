@@ -97,40 +97,81 @@ class _SearchExMainWidgetState extends ConsumerState<SearchExMainWidget> {
                           return ListView(
                             primary: true,
                             children: [
-                              Text('JOPA'),
-                              SizedBox(
-                                height: 200,
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: bodyPartList.length,
-                                  itemBuilder: (context, index) {
-                                    return ListTile(
-                                      title: Text(bodyPartList[index]),
-                                      leading: Radio(
-                                        value: bodyPartList[index],
-                                        groupValue: _bodyPartFilter,
-                                        onChanged: (value) {
-                                          setModalBottomSheetState(() {
-                                            _bodyPartFilter = value;
-                                            log(_bodyPartFilter ?? 'jopa');
-                                          });
-                                        },
-                                      ),
-                                    );
-                                  },
-                                ),
+                              const Center(
+                                  child: Text(
+                                'Часть тела',
+                                style: TextStyle(color: Colors.white),
+                              )),
+                              Column(
+                                children: List.generate(
+                                    bodyPartList.length,
+                                    (int index) => ListTile(
+                                          title: Text(bodyPartList[index]),
+                                          leading: Radio(
+                                            value: bodyPartList[index],
+                                            groupValue: _bodyPartFilter,
+                                            onChanged: (value) {
+                                              setModalBottomSheetState(() {
+                                                _bodyPartFilter = value;
+                                                log(_bodyPartFilter ?? 'jopa');
+                                              });
+                                            },
+                                          ),
+                                        )),
                               ),
-                              Text('JOPA'),
-                              SizedBox(
-                                height: 200,
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: 20,
-                                  itemBuilder: (context, index) {
-                                    return Text(index.toString());
-                                  },
-                                ),
+                              const Center(
+                                  child: Text(
+                                'Целевая мышца',
+                                style: TextStyle(color: Colors.white),
+                              )),
+                              Column(
+                                children: List.generate(
+                                    targetList.length,
+                                    (int index) => ListTile(
+                                          title: Text(targetList[index]),
+                                          leading: Radio(
+                                            value: targetList[index],
+                                            groupValue: _targetFilter,
+                                            onChanged: (value) {
+                                              setModalBottomSheetState(() {
+                                                _targetFilter = value;
+                                                log(_targetFilter ?? 'jopa');
+                                              });
+                                            },
+                                          ),
+                                        )),
                               ),
+                              const Center(
+                                  child: Text(
+                                'Оборудование',
+                                style: TextStyle(color: Colors.white),
+                              )),
+                              Column(
+                                children: List.generate(
+                                    equipmentList.length,
+                                    (int index) => ListTile(
+                                          title: Text(equipmentList[index]),
+                                          leading: Radio(
+                                            value: equipmentList[index],
+                                            groupValue: _equipmentFilter,
+                                            onChanged: (value) {
+                                              setModalBottomSheetState(() {
+                                                _equipmentFilter = value;
+                                                log(_equipmentFilter ?? 'jopa');
+                                              });
+                                            },
+                                          ),
+                                        )),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(
+                                      onPressed: () {}, child: Text('reset')),
+                                  ElevatedButton(
+                                      onPressed: () {}, child: Text('save'))
+                                ],
+                              )
                             ],
                           );
                         });
