@@ -16,6 +16,10 @@ class SearchResultDomainProvider extends _$SearchResultDomainProvider {
     return _fetchInitExercises();
   }
 
+  Future<void> resetList() async {
+    state = const AsyncData([]);
+  }
+
   Future<void> searchExercise({
     required String nameOfExercise,
     required int numberOfPage,

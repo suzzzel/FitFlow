@@ -36,7 +36,6 @@ class SearchExerciseRepo implements SearchExercisesRepoImpl {
             .from('exercises')
             .select()
             .ilike('name', '%$nameOfExercise%')
-            .eq('body', '')
             .range(rangeLimit - 10, rangeLimit - 1);
       } else {
         // Все фильтры выбраны юзером
@@ -46,6 +45,7 @@ class SearchExerciseRepo implements SearchExercisesRepoImpl {
           findExercises = await supabase
               .from('exercises')
               .select()
+              .ilike('name', '%$nameOfExercise%')
               .eq('bodyPart', bodyPartFilter)
               .eq('target', targetMuscleFilter)
               .eq('equipment', equipment)
@@ -58,6 +58,7 @@ class SearchExerciseRepo implements SearchExercisesRepoImpl {
           findExercises = await supabase
               .from('exercises')
               .select()
+              .ilike('name', '%$nameOfExercise%')
               .eq('bodyPart', bodyPartFilter)
               .range(rangeLimit - 10, rangeLimit - 1);
         }
@@ -68,6 +69,7 @@ class SearchExerciseRepo implements SearchExercisesRepoImpl {
           findExercises = await supabase
               .from('exercises')
               .select()
+              .ilike('name', '%$nameOfExercise%')
               .eq('target', targetMuscleFilter)
               .range(rangeLimit - 10, rangeLimit - 1);
         }
@@ -78,6 +80,7 @@ class SearchExerciseRepo implements SearchExercisesRepoImpl {
           findExercises = await supabase
               .from('exercises')
               .select()
+              .ilike('name', '%$nameOfExercise%')
               .eq('equipment', equipment)
               .range(rangeLimit - 10, rangeLimit - 1);
         }
@@ -88,6 +91,7 @@ class SearchExerciseRepo implements SearchExercisesRepoImpl {
           findExercises = await supabase
               .from('exercises')
               .select()
+              .ilike('name', '%$nameOfExercise%')
               .eq('bodyPart', bodyPartFilter)
               .eq('target', targetMuscleFilter)
               .range(rangeLimit - 10, rangeLimit - 1);
@@ -99,6 +103,7 @@ class SearchExerciseRepo implements SearchExercisesRepoImpl {
           findExercises = await supabase
               .from('exercises')
               .select()
+              .ilike('name', '%$nameOfExercise%')
               .eq('bodyPart', bodyPartFilter)
               .eq('equipment', equipment)
               .range(rangeLimit - 10, rangeLimit - 1);
@@ -110,6 +115,7 @@ class SearchExerciseRepo implements SearchExercisesRepoImpl {
           findExercises = await supabase
               .from('exercises')
               .select()
+              .ilike('name', '%$nameOfExercise%')
               .eq('target', targetMuscleFilter)
               .eq('equipment', equipment)
               .range(rangeLimit - 10, rangeLimit - 1);
