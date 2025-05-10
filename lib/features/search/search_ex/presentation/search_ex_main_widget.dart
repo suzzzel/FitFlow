@@ -13,7 +13,13 @@ import 'package:go_router/go_router.dart';
 
 class SearchExMainWidget extends ConsumerStatefulWidget {
   final Directory dir;
-  const SearchExMainWidget({super.key, required this.dir});
+  final String? weekday;
+  final bool isPlanEdit;
+  const SearchExMainWidget(
+      {super.key,
+      required this.dir,
+      required this.isPlanEdit,
+      required this.weekday});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -82,6 +88,8 @@ class _SearchExMainWidgetState extends ConsumerState<SearchExMainWidget> {
           child: ListViewSearchExRiverpodState(
             tempUserRequest: controller.text,
             dir: widget.dir,
+            weekday: widget.weekday,
+            isPlanEdit: widget.isPlanEdit,
           ),
         ),
         Column(

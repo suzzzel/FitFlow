@@ -6,7 +6,9 @@ import 'package:go_router/go_router.dart';
 
 class AddExerciseButton extends StatelessWidget {
   final Directory dir;
-  const AddExerciseButton({super.key, required this.dir});
+  final String weekday;
+  const AddExerciseButton(
+      {super.key, required this.dir, required this.weekday});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class AddExerciseButton extends StatelessWidget {
           child: InkWell(
             onTap: () {
               context.pushNamed('findnewexercisewheneditplan',
-                  extra: {'dir': dir});
+                  extra: {'dir': dir, 'weekday': weekday});
             },
             child: Container(
               height: 103,
@@ -49,7 +51,7 @@ class AddExerciseButton extends StatelessWidget {
                         iconSize: 33,
                         onPressed: () {
                           context.pushNamed('findnewexercisewheneditplan',
-                              extra: {'dir': dir});
+                              extra: {'dir': dir, 'weekday': weekday});
                         },
                         icon: const Icon(Icons.add)),
                   ),

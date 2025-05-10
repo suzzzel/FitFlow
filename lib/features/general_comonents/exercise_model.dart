@@ -90,4 +90,48 @@ class ExerciseModel {
       _$ExerciseModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ExerciseModelToJson(this);
+
+  List<String> getSecondaryMuscles() {
+    final List<String> returnList = [];
+    final listSecondaryMuscle = [
+      secondaryMuscleZero,
+      secondaryMuscleOne,
+      secondaryMuscleTwo,
+      secondaryMuscleThree,
+      secondaryMuscleFour,
+      secondaryMuscleFive
+    ];
+    for (var x in listSecondaryMuscle) {
+      if (x == null) {
+        continue;
+      } else {
+        returnList.add(x);
+      }
+    }
+    return returnList;
+  }
+
+  List<String> getInstructions() {
+    final List<String> returnList = [];
+    final listInstructions = [
+      instructionsZero,
+      instructionsOne,
+      instructionsThree,
+      instructionsFour,
+      instructionsFive,
+      instructionsSix,
+      instructionsSeven,
+      instructionsEight,
+      instructionsNine,
+      instructionsTen
+    ];
+    for (var x in listInstructions) {
+      if (x == null) {
+        continue;
+      } else {
+        returnList.add(x);
+      }
+    }
+    return returnList;
+  }
 }

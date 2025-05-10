@@ -12,15 +12,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ListOfExercices extends ConsumerWidget {
   final List<ExerciseModel> exercises;
   final Directory dir;
+  final bool isPlanEdit;
+  final String? weekday;
 
   final String tempUserRequest;
 
-  const ListOfExercices({
-    super.key,
-    required this.dir,
-    required this.exercises,
-    required this.tempUserRequest,
-  });
+  const ListOfExercices(
+      {super.key,
+      required this.dir,
+      required this.exercises,
+      required this.tempUserRequest,
+      required this.isPlanEdit,
+      required this.weekday});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,7 +38,12 @@ class ListOfExercices extends ConsumerWidget {
               final exIdGif = exercises[index].id.toString().padLeft(4, '0');
               final exGifFile = File('${dir.path}/exGifs/$exIdGif.gif');
               return ExerciseSearchWidget(
-                  exGifFile: exGifFile, dir: dir, exercise: exercises[index]);
+                exGifFile: exGifFile,
+                dir: dir,
+                weekday: weekday,
+                exercise: exercises[index],
+                isPlanEdit: isPlanEdit,
+              );
             },
             childCount: exercises.length,
           ),
@@ -54,10 +62,16 @@ class ListOfExercices extends ConsumerWidget {
 
 class ListViewSearchExRiverpodState extends ConsumerWidget {
   final Directory dir;
+  final bool isPlanEdit;
+  final String? weekday;
   final String tempUserRequest;
 
   const ListViewSearchExRiverpodState(
-      {super.key, required this.dir, required this.tempUserRequest});
+      {super.key,
+      required this.dir,
+      required this.tempUserRequest,
+      required this.isPlanEdit,
+      required this.weekday});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -76,12 +90,16 @@ class ListViewSearchExRiverpodState extends ConsumerWidget {
       AsyncData(value: final items) => ListOfExercices(
           tempUserRequest: tempUserRequest,
           exercises: items,
+          weekday: weekday,
           dir: dir,
+          isPlanEdit: isPlanEdit,
         ),
       AsyncLoading(value: final items?) => ListOfExercices(
           tempUserRequest: tempUserRequest,
           exercises: items,
+          weekday: weekday,
           dir: dir,
+          isPlanEdit: isPlanEdit,
         ),
       AsyncLoading() => const Center(child: CircularProgressIndicator()),
       AsyncError(:final error) => ErrorWidget(error),

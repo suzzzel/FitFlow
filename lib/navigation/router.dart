@@ -651,6 +651,8 @@ GoRouter appRouter(Ref ref) {
                                               return NoTransitionPage(
                                                   child: SearchExMainWidget(
                                                 dir: param['dir'],
+                                                isPlanEdit: true,
+                                                weekday: param['weekday'],
                                               ));
                                             },
                                           ),

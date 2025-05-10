@@ -47,6 +47,7 @@ class EditDayInPlanMainWidget extends ConsumerWidget {
               if (exercises!.length - 1 < index && index < 5) {
                 return AddExerciseButton(
                   dir: dir,
+                  weekday: weekday,
                 );
               } else if (index == 5) {
                 return MaxLengthDayExercisesInfo();
@@ -154,7 +155,11 @@ class ExercisesInDayInfo extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ExerciseImage(exGifFile: exGifFile),
+            ExerciseImage(
+              exGifFile: exGifFile,
+              heightinDetailView: null,
+              widthInDetailView: null,
+            ),
             ExerciseName(exName: exName),
             Row(
               mainAxisSize: MainAxisSize.min,
