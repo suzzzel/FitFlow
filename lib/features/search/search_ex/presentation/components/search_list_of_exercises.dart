@@ -5,7 +5,6 @@ import 'package:fitflow/features/search/search_ex/domain/providers/current_page_
 import 'package:fitflow/features/search/search_ex/domain/providers/search_result_domain_provider.dart';
 import 'package:fitflow/features/search/search_ex/presentation/components/exercise_ui_widget.dart';
 import 'package:fitflow/features/search/search_ex/presentation/components/new_page_load_button.dart';
-import 'package:fitflow/features/search/search_ex/presentation/search_ex_main_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

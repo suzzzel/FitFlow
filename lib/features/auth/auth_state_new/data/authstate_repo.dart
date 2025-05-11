@@ -83,6 +83,7 @@ Stream<AppUserState> authState(Ref ref) {
                             level: user.single.level,
                             offlineMode: true));
                     streamController.add(AppUserState.auth(offlineUserMode));
+                    break;
                   } catch (e) {
                     log(e.runtimeType.toString());
                   }

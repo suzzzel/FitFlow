@@ -33,10 +33,15 @@ class ConfrimWayOfCreatingButton extends ConsumerWidget {
         child: ElevatedButton(
             onPressed: wayController == 0
                 ? null
-                : () {
-                    context.goNamed('readytrainplan');
-                    ref.invalidate(getReadyTrainPlanDomainProvider);
-                  },
+                : wayController == 1
+                    ? () {
+                        context.goNamed('readytrainplan');
+                        ref.invalidate(getReadyTrainPlanDomainProvider);
+                      }
+                    : () {
+                        context.goNamed('customtrainplan');
+                        ref.invalidate(getReadyTrainPlanDomainProvider);
+                      },
             style: ButtonStyle(
                 elevation: const WidgetStatePropertyAll(0),
                 fixedSize: WidgetStatePropertyAll(

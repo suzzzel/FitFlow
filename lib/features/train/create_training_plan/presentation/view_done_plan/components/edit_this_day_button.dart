@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -6,10 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 class EditThisDayButton extends StatelessWidget {
   const EditThisDayButton(
-      {super.key, required this.weekday, required this.dir});
+      {super.key,
+      required this.weekday,
+      required this.dir,
+      required this.isThisViewReadyOrCustomPlan});
 
   final String weekday;
   final Directory dir;
+  final bool isThisViewReadyOrCustomPlan;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +33,17 @@ class EditThisDayButton extends StatelessWidget {
           )),
       child: ElevatedButton(
           onPressed: () {
-            context.goNamed('editdayinplan', extra: {
-              'weekday': weekday,
-              'isPlanBeenChanged': true,
-              'dir': dir
-            });
+            isThisViewReadyOrCustomPlan
+                ? context.goNamed('editdayinplan', extra: {
+                    'weekday': weekday,
+                    'isPlanBeenChanged': true,
+                    'dir': dir
+                  })
+                : context.goNamed('editdayincustomplan', extra: {
+                    'weekday': weekday,
+                    'isPlanBeenChanged': true,
+                    'dir': dir
+                  });
           },
           style: const ButtonStyle(
               elevation: WidgetStatePropertyAll(0),

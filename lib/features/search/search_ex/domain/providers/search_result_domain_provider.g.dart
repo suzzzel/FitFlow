@@ -7,7 +7,7 @@ part of 'search_result_domain_provider.dart';
 // **************************************************************************
 
 String _$searchResultDomainProviderHash() =>
-    r'01f848286fd610bc1c442c9c02da2a241f3683e3';
+    r'fc91e9a152374fdd98b506e1c54c45e9fdc0088b';
 
 /// See also [SearchResultDomainProvider].
 @ProviderFor(SearchResultDomainProvider)

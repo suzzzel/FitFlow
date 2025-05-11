@@ -65,11 +65,11 @@ class ReadyPlanExercisesNotChangedPlan extends ConsumerWidget {
                       ),
                       child: Center(
                         child: _buildDayExercises(
-                            thisDay: thisDay,
-                            exercises: exercises,
-                            dir: dir.value!,
-                            context: context,
-                            ref: ref),
+                          thisDay: thisDay,
+                          exercises: exercises,
+                          dir: dir.value!,
+                          context: context,
+                        ),
                       ),
                     )),
               ],
@@ -81,12 +81,12 @@ class ReadyPlanExercisesNotChangedPlan extends ConsumerWidget {
   }
 }
 
-Widget _buildDayExercises(
-    {required ReadyTrainingPlanModel thisDay,
-    required List<ExerciseModel> exercises,
-    required Directory dir,
-    required BuildContext context,
-    required WidgetRef ref}) {
+Widget _buildDayExercises({
+  required ReadyTrainingPlanModel thisDay,
+  required List<ExerciseModel> exercises,
+  required Directory dir,
+  required BuildContext context,
+}) {
   final dayExercises = [
     thisDay.exOne,
     thisDay.exTwo,
@@ -113,6 +113,7 @@ Widget _buildDayExercises(
             dir: dir,
             context: context),
         EditThisDayButton(
+          isThisViewReadyOrCustomPlan: true,
           weekday: thisDay.weekday,
           dir: dir,
         )

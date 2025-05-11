@@ -35,7 +35,7 @@ class ViewDonePlanMainWidget extends ConsumerWidget {
       alignment: Alignment.center,
       children: [
         dir.when(
-          data: (readyPlans) {
+          data: (readyDirectory) {
             if (!isPlanBeenChanged) {
               return exercisesReadyPlan!.when(
                 data: (exercises) {
@@ -125,6 +125,7 @@ class ViewDonePlanMainWidget extends ConsumerWidget {
               context: context,
             ),
           EditThisDayButton(
+            isThisViewReadyOrCustomPlan: true,
             weekday: weekday,
             dir: dir,
           )
@@ -179,7 +180,7 @@ class ViewDonePlanMainWidget extends ConsumerWidget {
       required List<ExerciseModel> exercises,
       required List<ReadyTrainingPlanModel> listOfDaysReadyPlan}) {
     final tempPlanNotifier = ref.read(tempTrainPlanProvider.notifier);
-    // Очищаем предыдущие данные
+
     tempPlanNotifier.reset();
 
     for (final day in listOfDaysReadyPlan) {
