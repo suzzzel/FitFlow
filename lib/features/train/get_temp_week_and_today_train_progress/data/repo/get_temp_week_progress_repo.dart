@@ -34,6 +34,10 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
               .millisecondsSinceEpoch) {
         return [];
       }
+      final allExercise = await database.managers.exerciseTable.get();
+      for (var x in allExercise) {
+        log(x.toString());
+      }
       for (int x = 0; x != currentWeekday; x++) {
         await checkTrainingsDayInSupabase();
         final dayToFind =

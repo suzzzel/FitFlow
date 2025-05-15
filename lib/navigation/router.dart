@@ -652,7 +652,6 @@ GoRouter appRouter(Ref ref) {
                                                       as Map<String, dynamic>;
                                               return NoTransitionPage(
                                                   child: SearchExMainWidget(
-                                                dir: param['dir'],
                                                 isPlanEdit: true,
                                                 weekday: param['weekday'],
                                               ));
@@ -687,7 +686,6 @@ GoRouter appRouter(Ref ref) {
                                             state.extra as Map<String, dynamic>;
                                         return NoTransitionPage(
                                             child: SearchExMainWidget(
-                                          dir: param['dir'],
                                           isPlanEdit: true,
                                           weekday: param['weekday'],
                                         ));
@@ -744,28 +742,21 @@ GoRouter appRouter(Ref ref) {
               ),
             ),
             GoRoute(
-              path: RouterPath.SEARCHHOME,
-              name: RouterPath.SEARCHHOME,
-              pageBuilder: (context, state) => CustomTransitionPage(
-                  child: Stack(
-                    children: [
-                      Center(
-                        child: Container(
-                          width: 100,
-                          height: 100,
-                          color: Colors.blue,
-                          child: const Text('test2'),
-                        ),
-                      )
-                    ],
-                  ),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) =>
-                          FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          )),
-            ),
+                path: RouterPath.SEARCHHOME,
+                name: RouterPath.SEARCHHOME,
+                pageBuilder: (context, state) {
+                  return CustomTransitionPage(
+                      child: SearchExMainWidget(
+                        isPlanEdit: false,
+                        weekday: null,
+                      ),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) =>
+                              FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              ));
+                }),
             GoRoute(
               path: RouterPath.PROFILEHOME,
               name: RouterPath.PROFILEHOME,

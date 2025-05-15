@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:fitflow/features/general_comonents/doc_provider.dart';
 import 'package:fitflow/features/general_comonents/exercise_model.dart';
+import 'package:fitflow/features/train/create_training_plan/domain/controllers/confrim_ready_plan_controller.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/select_weekday_custom_plan.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/temp_train_plan_provider.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/components/edit_this_day_button.dart';
@@ -69,6 +70,28 @@ class ViewCustomPlan extends ConsumerWidget {
                   );
                 }),
               ),
+              // NEED TEST BUTTON
+              ElevatedButton(
+                onPressed: weekdaysOrTrain.length ==
+                        tempTrainProv.exercisesByWeekday.length
+                    ? () async {
+                        final addedPlan = await ref
+                            .read(confrimReadyPlanControllerProvider.notifier)
+                            .confirmReadyPlan(
+                                days: tempTrainProv.exercisesByWeekday);
+                        if (addedPlan) {
+                          // ignore: use_build_context_synchronously
+                          context.goNamed('/home');
+                        }
+                      }
+                    : () {},
+                child: Text('SAVE'),
+                style: ButtonStyle(
+                    backgroundColor: weekdaysOrTrain.length ==
+                            tempTrainProv.exercisesByWeekday.length
+                        ? WidgetStatePropertyAll(Colors.green)
+                        : WidgetStatePropertyAll(Colors.red)),
+              )
             ],
           );
         },

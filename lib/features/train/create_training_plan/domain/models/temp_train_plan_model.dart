@@ -6,9 +6,8 @@ import 'package:fitflow/features/general_comonents/exercise_model.dart';
 
 class TempTrainPlanModel {
   final Map<String, List<ExerciseModel>> exercisesByWeekday;
-  TempTrainPlanModel({
-    required this.exercisesByWeekday,
-  });
+  final bool? customPlanReady;
+  TempTrainPlanModel({required this.exercisesByWeekday, this.customPlanReady});
 
   TempTrainPlanModel copyWith({
     Map<String, List<ExerciseModel>>? exercisesByWeekday,

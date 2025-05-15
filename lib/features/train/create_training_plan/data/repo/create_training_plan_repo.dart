@@ -213,7 +213,34 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
                 ])
             .whereType<String>()
             .join(', ');
-
+// TEST
+        for (var y in exercises) {
+          await database.managers.exerciseTable.create((ex) => ex(
+                id: y.id.toString(),
+                bodyPart: y.bodyPart,
+                equipment: y.equipment,
+                name: y.name,
+                target: y.target,
+                secondaryMuscleZero: Value(y.secondaryMuscleZero),
+                secondaryMuscleOne: Value(y.secondaryMuscleOne),
+                secondaryMuscleTwo: Value(y.secondaryMuscleTwo),
+                secondaryMuscleThree: Value(y.secondaryMuscleThree),
+                secondaryMuscleFour: Value(y.secondaryMuscleFour),
+                secondaryMuscleFive: Value(y.secondaryMuscleFive),
+                instructionsZero: Value(y.instructionsZero),
+                instructionsOne: Value(y.instructionsOne),
+                instructionsTwo: Value(y.instructionsTwo),
+                instructionsThree: Value(y.instructionsThree),
+                instructionsFour: Value(y.instructionsFour),
+                instructionsFive: Value(y.instructionsFive),
+                instructionsSix: Value(y.instructionsSix),
+                instructionsSeven: Value(y.instructionsSeven),
+                instructionsEight: Value(y.instructionsEight),
+                instructionsNine: Value(y.instructionsNine),
+                instructionsTen: Value(y.instructionsTen),
+              ));
+        }
+// TEST
         await database.managers.trainingPlanTable.create((element) => element(
             dataCreatingPlan: statOfWeekFormatted,
             dayOfWeek: weekday,
