@@ -92,17 +92,17 @@ class HomeMainWidget extends ConsumerWidget {
                                   .managers
                                   .trainingTable
                                   .delete();
-                              ref
-                                  .read(localDatabaseProvider)
-                                  .managers
-                                  .trainingPlanTable
-                                  .delete();
+                              // ref
+                              //     .read(localDatabaseProvider)
+                              //     .managers
+                              //     .trainingPlanTable
+                              //     .delete();
                               // ref
                               //     .read(localDatabaseProvider)
                               //     .managers
                               //     .trainingTable
                               //     .create((f) => f(
-                              //         dayOfTraining: '2025-04-07',
+                              //         dayOfTraining: '2025-05-22',
                               //         // типа сделал треню
                               //         exerciseOne: '2',
                               //         countRepsExOne: 5,

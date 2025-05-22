@@ -31,6 +31,7 @@ import 'package:fitflow/features/home/future_profile/presentation/indicators/wei
 import 'package:fitflow/features/loading/presentation/loading_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/edit_day_in_plan_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/view_done_plan_main_widget.dart';
+import 'package:fitflow/features/train/do_the_train/presentation/do_the_train_main_widget.dart';
 import 'package:fitflow/navigation/home_navigation_bar/navbar.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:flutter/material.dart';
@@ -746,7 +747,7 @@ GoRouter appRouter(Ref ref) {
                 name: RouterPath.SEARCHHOME,
                 pageBuilder: (context, state) {
                   return CustomTransitionPage(
-                      child: SearchExMainWidget(
+                      child: const SearchExMainWidget(
                         isPlanEdit: false,
                         weekday: null,
                       ),
@@ -780,6 +781,77 @@ GoRouter appRouter(Ref ref) {
                             child: child,
                           )),
             ),
+          ]),
+      ShellRoute(
+          builder: (context, state, child) {
+            return Scaffold(
+              extendBodyBehindAppBar: true,
+              resizeToAvoidBottomInset: false,
+              appBar: AppBar(
+                centerTitle: true,
+                forceMaterialTransparency: true,
+                backgroundColor: Colors.transparent,
+                leadingWidth: 35,
+                title: ShaderMask(
+                  blendMode: BlendMode.srcATop,
+                  shaderCallback: (bounds) => LinearGradient(colors: [
+                    Theme.of(context).colorScheme.primaryFixed,
+                    Theme.of(context).colorScheme.secondaryFixed,
+                  ]).createShader(bounds),
+                  child: SizedBox(
+                    child: FittedBox(
+                      child: Text(
+                        'Тренировка',
+                        textScaler: const TextScaler.linear(1),
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.inter(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                            shadows: [
+                              Shadow(
+                                  offset: const Offset(0, 4),
+                                  blurRadius: 20,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryFixed
+                                      .withOpacity(0.67))
+                            ]),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              body: Stack(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                          Color.fromRGBO(24, 29, 37, 1),
+                          Color.fromRGBO(42, 52, 112, 1)
+                        ])),
+                  ),
+                  const BackgroundWidget(),
+                  child,
+                ],
+              ),
+            );
+          },
+          routes: [
+            GoRoute(
+              path: RouterPath.TRAININGNOW,
+              name: RouterPath.TRAININGNOW,
+              pageBuilder: (context, state) => CustomTransitionPage(
+                  child: DoTheTrainMainWidget(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) =>
+                          FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          )),
+            )
           ]),
       GoRoute(
         path: RouterPath.LOADING,

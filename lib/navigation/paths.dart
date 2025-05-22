@@ -54,4 +54,8 @@ final class RouterPath {
   static const String FINDNEWEXERCISEINCUSTOMPLAN =
       'findnewexercisewheneditcustomplan';
   // поиск любого упражнения
+
+  // тренировка
+  static const String TRAININGNOW = '/trainnow';
+  // тренировка
 }
