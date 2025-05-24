@@ -92,11 +92,11 @@ class HomeMainWidget extends ConsumerWidget {
                                   .managers
                                   .trainingTable
                                   .delete();
-                              // ref
-                              //     .read(localDatabaseProvider)
-                              //     .managers
-                              //     .trainingPlanTable
-                              //     .delete();
+                              ref
+                                  .read(localDatabaseProvider)
+                                  .managers
+                                  .trainingPlanTable
+                                  .delete();
                               // ref
                               //     .read(localDatabaseProvider)
                               //     .managers

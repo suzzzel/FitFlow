@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 
 class ExerciseTable extends Table {
-  TextColumn get id => text()();
+  IntColumn get id => integer()();
   TextColumn get bodyPart => text()();
   TextColumn get equipment => text()();
   TextColumn get name => text()();

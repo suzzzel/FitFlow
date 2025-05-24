@@ -216,7 +216,7 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
 // TEST
         for (var y in exercises) {
           await database.managers.exerciseTable.create((ex) => ex(
-                id: y.id.toString(),
+                id: y.id,
                 bodyPart: y.bodyPart,
                 equipment: y.equipment,
                 name: y.name,

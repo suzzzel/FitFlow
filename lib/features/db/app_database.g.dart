@@ -1155,9 +1155,9 @@ class $ExerciseTableTable extends ExerciseTable
   $ExerciseTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _bodyPartMeta =
       const VerificationMeta('bodyPart');
   @override
@@ -1458,7 +1458,7 @@ class $ExerciseTableTable extends ExerciseTable
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return ExerciseTableData(
       id: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       bodyPart: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}body_part'])!,
       equipment: attachedDatabase.typeMapping
@@ -1513,7 +1513,7 @@ class $ExerciseTableTable extends ExerciseTable
 
 class ExerciseTableData extends DataClass
     implements Insertable<ExerciseTableData> {
-  final String id;
+  final int id;
   final String bodyPart;
   final String equipment;
   final String name;
@@ -1561,7 +1561,7 @@ class ExerciseTableData extends DataClass
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<String>(id);
+    map['id'] = Variable<int>(id);
     map['body_part'] = Variable<String>(bodyPart);
     map['equipment'] = Variable<String>(equipment);
     map['name'] = Variable<String>(name);
@@ -1685,7 +1685,7 @@ class ExerciseTableData extends DataClass
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return ExerciseTableData(
-      id: serializer.fromJson<String>(json['id']),
+      id: serializer.fromJson<int>(json['id']),
       bodyPart: serializer.fromJson<String>(json['bodyPart']),
       equipment: serializer.fromJson<String>(json['equipment']),
       name: serializer.fromJson<String>(json['name']),
@@ -1722,7 +1722,7 @@ class ExerciseTableData extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
+      'id': serializer.toJson<int>(id),
       'bodyPart': serializer.toJson<String>(bodyPart),
       'equipment': serializer.toJson<String>(equipment),
       'name': serializer.toJson<String>(name),
@@ -1748,7 +1748,7 @@ class ExerciseTableData extends DataClass
   }
 
   ExerciseTableData copyWith(
-          {String? id,
+          {int? id,
           String? bodyPart,
           String? equipment,
           String? name,
@@ -1972,7 +1972,7 @@ class ExerciseTableData extends DataClass
 }
 
 class ExerciseTableCompanion extends UpdateCompanion<ExerciseTableData> {
-  final Value<String> id;
+  final Value<int> id;
   final Value<String> bodyPart;
   final Value<String> equipment;
   final Value<String> name;
@@ -2021,7 +2021,7 @@ class ExerciseTableCompanion extends UpdateCompanion<ExerciseTableData> {
     this.rowid = const Value.absent(),
   });
   ExerciseTableCompanion.insert({
-    required String id,
+    required int id,
     required String bodyPart,
     required String equipment,
     required String name,
@@ -2050,7 +2050,7 @@ class ExerciseTableCompanion extends UpdateCompanion<ExerciseTableData> {
         name = Value(name),
         target = Value(target);
   static Insertable<ExerciseTableData> custom({
-    Expression<String>? id,
+    Expression<int>? id,
     Expression<String>? bodyPart,
     Expression<String>? equipment,
     Expression<String>? name,
@@ -2108,7 +2108,7 @@ class ExerciseTableCompanion extends UpdateCompanion<ExerciseTableData> {
   }
 
   ExerciseTableCompanion copyWith(
-      {Value<String>? id,
+      {Value<int>? id,
       Value<String>? bodyPart,
       Value<String>? equipment,
       Value<String>? name,
@@ -2162,7 +2162,7 @@ class ExerciseTableCompanion extends UpdateCompanion<ExerciseTableData> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<String>(id.value);
+      map['id'] = Variable<int>(id.value);
     }
     if (bodyPart.present) {
       map['body_part'] = Variable<String>(bodyPart.value);
@@ -3790,7 +3790,7 @@ typedef $$TrainingPlanTableTableProcessedTableManager = ProcessedTableManager<
     PrefetchHooks Function()>;
 typedef $$ExerciseTableTableCreateCompanionBuilder = ExerciseTableCompanion
     Function({
-  required String id,
+  required int id,
   required String bodyPart,
   required String equipment,
   required String name,
@@ -3816,7 +3816,7 @@ typedef $$ExerciseTableTableCreateCompanionBuilder = ExerciseTableCompanion
 });
 typedef $$ExerciseTableTableUpdateCompanionBuilder = ExerciseTableCompanion
     Function({
-  Value<String> id,
+  Value<int> id,
   Value<String> bodyPart,
   Value<String> equipment,
   Value<String> name,
@@ -3850,7 +3850,7 @@ class $$ExerciseTableTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
+  ColumnFilters<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get bodyPart => $composableBuilder(
@@ -3943,7 +3943,7 @@ class $$ExerciseTableTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
+  ColumnOrderings<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get bodyPart => $composableBuilder(
@@ -4036,7 +4036,7 @@ class $$ExerciseTableTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<String> get id =>
+  GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
   GeneratedColumn<String> get bodyPart =>
@@ -4129,7 +4129,7 @@ class $$ExerciseTableTableTableManager extends RootTableManager<
           createComputedFieldComposer: () =>
               $$ExerciseTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
+            Value<int> id = const Value.absent(),
             Value<String> bodyPart = const Value.absent(),
             Value<String> equipment = const Value.absent(),
             Value<String> name = const Value.absent(),
@@ -4179,7 +4179,7 @@ class $$ExerciseTableTableTableManager extends RootTableManager<
             rowid: rowid,
           ),
           createCompanionCallback: ({
-            required String id,
+            required int id,
             required String bodyPart,
             required String equipment,
             required String name,
