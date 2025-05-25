@@ -39,7 +39,6 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
         log(x.toString());
       }
       for (int x = 0; x != currentWeekday; x++) {
-        await checkTrainingsDayInSupabase();
         final dayToFind =
             DateFormat('yyyy-MM-dd').format(startOfWeek.add(Duration(days: x)));
         final String weekDayThisDayStringVersion =
@@ -78,6 +77,7 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
               percentOfTrainDone: trainDay?.percentOfTrainDone));
         }
       }
+      await checkTrainingsDayInSupabase();
       return listTrainingsOfWeek;
     } catch (e) {
       rethrow;
@@ -98,6 +98,7 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
                 train['dayOfTraining'].toString() == x.dayOfTraining);
           } catch (e) {
             await supabase.from('trainings_users').insert(x.toJson());
+            break;
           }
         }
       }

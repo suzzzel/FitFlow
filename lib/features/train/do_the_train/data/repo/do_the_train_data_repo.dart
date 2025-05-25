@@ -60,7 +60,8 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
     try {
       await database.managers.trainingTable.create((f) => f(
             idUser: train.idUser,
-            dayOfTraining: train.dayOfTraining.toString(),
+            dayOfTraining:
+                '${train.dayOfTraining.year}-${train.dayOfTraining.month.toString().padLeft(2, '0')}-${train.dayOfTraining.day.toString().padLeft(2, '0')}',
             exerciseOne: train.exerciseOne,
             countRepsExOne: 2,
             maxWeightExOne: '100',

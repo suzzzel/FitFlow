@@ -8,9 +8,72 @@ import 'package:intl/intl.dart';
 class TempTrainNotifier extends StateNotifier<TempTrainModel> {
   TempTrainNotifier(super.state);
 
-  void completeExercise() {
+  void completeExercise(
+      {required String maxWeightOnThatExercise,
+      required int countOfRepsOnThatExercise}) {
     TempTrainModel tempState = state;
-    tempState = tempState.copyWith(tempExercise: tempState.tempExercise + 1);
+    switch (state.tempExercise) {
+      case 1:
+        tempState = tempState.copyWith(
+            exOneSkipped: countOfRepsOnThatExercise == 0 ? true : false,
+            countRepsExOne: countOfRepsOnThatExercise == 0
+                ? null
+                : countOfRepsOnThatExercise,
+            tempExercise: tempState.tempExercise + 1,
+            maxWeightExOne: maxWeightOnThatExercise == '0'
+                ? null
+                : maxWeightOnThatExercise);
+        state = tempState;
+        break;
+      case 2:
+        tempState = tempState.copyWith(
+            exTwoSkipped: countOfRepsOnThatExercise == 0 ? true : false,
+            countRepsExTwo: countOfRepsOnThatExercise == 0
+                ? null
+                : countOfRepsOnThatExercise,
+            tempExercise: tempState.tempExercise + 1,
+            maxWeightExTwo: maxWeightOnThatExercise == '0'
+                ? null
+                : maxWeightOnThatExercise);
+        state = tempState;
+        break;
+      case 3:
+        tempState = tempState.copyWith(
+            exThreeSkipped: countOfRepsOnThatExercise == 0 ? true : false,
+            countRepsExThree: countOfRepsOnThatExercise == 0
+                ? null
+                : countOfRepsOnThatExercise,
+            tempExercise: tempState.tempExercise + 1,
+            maxWeightExThree: maxWeightOnThatExercise == '0'
+                ? null
+                : maxWeightOnThatExercise);
+        state = tempState;
+        break;
+      case 4:
+        tempState = tempState.copyWith(
+            exFourSkipped: countOfRepsOnThatExercise == 0 ? true : false,
+            countRepsExFour: countOfRepsOnThatExercise == 0
+                ? null
+                : countOfRepsOnThatExercise,
+            tempExercise: tempState.tempExercise + 1,
+            maxWeightExFour: maxWeightOnThatExercise == '0'
+                ? null
+                : maxWeightOnThatExercise);
+        state = tempState;
+        break;
+      case 5:
+        tempState = tempState.copyWith(
+            exFiveSkipped: countOfRepsOnThatExercise == 0 ? true : false,
+            countRepsExFive: countOfRepsOnThatExercise == 0
+                ? null
+                : countOfRepsOnThatExercise,
+            tempExercise: tempState.tempExercise + 1,
+            maxWeightExFive: maxWeightOnThatExercise == '0'
+                ? null
+                : maxWeightOnThatExercise);
+        state = tempState;
+        break;
+    }
     state = tempState;
   }
 

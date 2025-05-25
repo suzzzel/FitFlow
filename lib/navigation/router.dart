@@ -32,6 +32,7 @@ import 'package:fitflow/features/loading/presentation/loading_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/edit_day_in_plan_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/view_done_plan_main_widget.dart';
 import 'package:fitflow/features/train/do_the_train/presentation/do_the_train_main_widget.dart';
+import 'package:fitflow/features/train/do_the_train/presentation/exit_the_train.dart';
 import 'package:fitflow/navigation/home_navigation_bar/navbar.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:flutter/material.dart';
@@ -792,6 +793,17 @@ GoRouter appRouter(Ref ref) {
                 forceMaterialTransparency: true,
                 backgroundColor: Colors.transparent,
                 leadingWidth: 35,
+                leading: IconButton(
+                    onPressed: () {
+                      showAdaptiveDialog(
+                        context: context,
+                        builder: (context) => const ExitTheTrainButton(),
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.close,
+                      color: Colors.red,
+                    )),
                 title: ShaderMask(
                   blendMode: BlendMode.srcATop,
                   shaderCallback: (bounds) => LinearGradient(colors: [

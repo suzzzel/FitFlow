@@ -61,6 +61,38 @@ class TempTrainModel {
     this.exFiveSkipped,
   });
 
+  List<String> getExercise() {
+    final List<String> returnList = [];
+    final listExercise = [
+      exerciseOne,
+      exerciseTwo,
+      exerciseThree,
+      exerciseFour,
+      exerciseFive
+    ];
+    for (var x in listExercise) {
+      if (x == null) {
+        continue;
+      } else {
+        returnList.add(x);
+      }
+    }
+    return returnList;
+  }
+
+  bool isTrainWasAllSkipped() {
+    final listOfEx = getExercise();
+    final skippedBoolens = [
+      exOneSkipped,
+      exTwoSkipped,
+      exThreeSkipped,
+      exFourSkipped,
+      exFourSkipped
+    ];
+    final checkList = skippedBoolens.sublist(0, listOfEx.length);
+    return !checkList.contains(false);
+  }
+
   TempTrainModel copyWith({
     String? idUser,
     DateTime? dayOfTraining,
