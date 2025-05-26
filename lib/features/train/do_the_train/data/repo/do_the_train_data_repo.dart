@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:drift/drift.dart';
 import 'package:fitflow/features/train/do_the_train/domain/models/temp_train_model.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:fitflow/features/db/app_database.dart';
@@ -21,10 +22,12 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
   @override
   Future<ExerciseModel> getTempExercise(
       {required String tempExerciseId}) async {
+    const localSecureStorage = FlutterSecureStorage();
     try {
       final exercise = await database.managers.exerciseTable
           .filter((f) => f.id(int.parse(tempExerciseId)))
           .getSingle();
+      await localSecureStorage.write(key: 'isTrainGo', value: 'true');
       return ExerciseModel(
         id: exercise.id,
         bodyPart: exercise.bodyPart,
@@ -57,7 +60,9 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
 
   @override
   Future<void> saveTrain({required TempTrainModel train}) async {
+    const localSecureStorage = FlutterSecureStorage();
     try {
+      await localSecureStorage.write(key: 'isTrainGo', value: 'false');
       await database.managers.trainingTable.create((f) => f(
             idUser: train.idUser,
             dayOfTraining:
@@ -78,6 +83,7 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
             countRepsExFive: Value(train.countRepsExFive),
             maxWeightExFive: Value(train.maxWeightExFive),
             percentOfTrainDone: 100,
+            isTrainOver: Value(true),
           ));
       await supabase.from('trainings_users').insert({
         'idUser': train.idUser,

@@ -42,6 +42,7 @@ class GetTodayTrainInfoData implements GetTodayTrainInfoImpl {
         log(offlineTodayTrain.toString());
         return TrainingDayClass(
             isChillday: false,
+            isTrainOver: offlineTodayTrain.isTrainOver,
             percentOfTrainDone: offlineTodayTrain.percentOfTrainDone);
       }
     } catch (e) {

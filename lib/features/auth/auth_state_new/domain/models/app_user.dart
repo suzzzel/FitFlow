@@ -14,20 +14,21 @@ class AppUser {
   final int? weight;
   final String? level;
   final bool? offlineMode;
-  AppUser({
-    this.id,
-    // ignore: non_constant_identifier_names
-    this.created_at,
-    this.name,
-    this.age,
-    this.email,
-    this.goal,
-    this.sex,
-    this.offlineMode,
-    this.height,
-    this.weight,
-    this.level,
-  });
+  final bool? isTrainGo;
+  AppUser(
+      {this.id,
+      // ignore: non_constant_identifier_names
+      this.created_at,
+      this.name,
+      this.age,
+      this.email,
+      this.goal,
+      this.sex,
+      this.offlineMode,
+      this.height,
+      this.weight,
+      this.level,
+      this.isTrainGo});
 
   @override
   String toString() {

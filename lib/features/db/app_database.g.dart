@@ -2387,6 +2387,15 @@ class $TrainingTableTable extends TrainingTable
   late final GeneratedColumn<int> percentOfTrainDone = GeneratedColumn<int>(
       'percent_of_train_done', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _isTrainOverMeta =
+      const VerificationMeta('isTrainOver');
+  @override
+  late final GeneratedColumn<bool> isTrainOver = GeneratedColumn<bool>(
+      'is_train_over', aliasedName, true,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_train_over" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         idUser,
@@ -2407,7 +2416,8 @@ class $TrainingTableTable extends TrainingTable
         exerciseFive,
         countRepsExFive,
         maxWeightExFive,
-        percentOfTrainDone
+        percentOfTrainDone,
+        isTrainOver
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -2543,6 +2553,12 @@ class $TrainingTableTable extends TrainingTable
     } else if (isInserting) {
       context.missing(_percentOfTrainDoneMeta);
     }
+    if (data.containsKey('is_train_over')) {
+      context.handle(
+          _isTrainOverMeta,
+          isTrainOver.isAcceptableOrUnknown(
+              data['is_train_over']!, _isTrainOverMeta));
+    }
     return context;
   }
 
@@ -2590,6 +2606,8 @@ class $TrainingTableTable extends TrainingTable
           DriftSqlType.string, data['${effectivePrefix}max_weight_ex_five']),
       percentOfTrainDone: attachedDatabase.typeMapping.read(
           DriftSqlType.int, data['${effectivePrefix}percent_of_train_done'])!,
+      isTrainOver: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_train_over']),
     );
   }
 
@@ -2620,6 +2638,7 @@ class TrainingTableData extends DataClass
   final int? countRepsExFive;
   final String? maxWeightExFive;
   final int percentOfTrainDone;
+  final bool? isTrainOver;
   const TrainingTableData(
       {required this.idUser,
       required this.dayOfTraining,
@@ -2639,7 +2658,8 @@ class TrainingTableData extends DataClass
       this.exerciseFive,
       this.countRepsExFive,
       this.maxWeightExFive,
-      required this.percentOfTrainDone});
+      required this.percentOfTrainDone,
+      this.isTrainOver});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2688,6 +2708,9 @@ class TrainingTableData extends DataClass
       map['max_weight_ex_five'] = Variable<String>(maxWeightExFive);
     }
     map['percent_of_train_done'] = Variable<int>(percentOfTrainDone);
+    if (!nullToAbsent || isTrainOver != null) {
+      map['is_train_over'] = Variable<bool>(isTrainOver);
+    }
     return map;
   }
 
@@ -2738,6 +2761,9 @@ class TrainingTableData extends DataClass
           ? const Value.absent()
           : Value(maxWeightExFive),
       percentOfTrainDone: Value(percentOfTrainDone),
+      isTrainOver: isTrainOver == null && nullToAbsent
+          ? const Value.absent()
+          : Value(isTrainOver),
     );
   }
 
@@ -2764,6 +2790,7 @@ class TrainingTableData extends DataClass
       countRepsExFive: serializer.fromJson<int?>(json['countRepsExFive']),
       maxWeightExFive: serializer.fromJson<String?>(json['maxWeightExFive']),
       percentOfTrainDone: serializer.fromJson<int>(json['percentOfTrainDone']),
+      isTrainOver: serializer.fromJson<bool?>(json['isTrainOver']),
     );
   }
   @override
@@ -2789,6 +2816,7 @@ class TrainingTableData extends DataClass
       'countRepsExFive': serializer.toJson<int?>(countRepsExFive),
       'maxWeightExFive': serializer.toJson<String?>(maxWeightExFive),
       'percentOfTrainDone': serializer.toJson<int>(percentOfTrainDone),
+      'isTrainOver': serializer.toJson<bool?>(isTrainOver),
     };
   }
 
@@ -2811,7 +2839,8 @@ class TrainingTableData extends DataClass
           Value<String?> exerciseFive = const Value.absent(),
           Value<int?> countRepsExFive = const Value.absent(),
           Value<String?> maxWeightExFive = const Value.absent(),
-          int? percentOfTrainDone}) =>
+          int? percentOfTrainDone,
+          Value<bool?> isTrainOver = const Value.absent()}) =>
       TrainingTableData(
         idUser: idUser ?? this.idUser,
         dayOfTraining: dayOfTraining ?? this.dayOfTraining,
@@ -2849,6 +2878,7 @@ class TrainingTableData extends DataClass
             ? maxWeightExFive.value
             : this.maxWeightExFive,
         percentOfTrainDone: percentOfTrainDone ?? this.percentOfTrainDone,
+        isTrainOver: isTrainOver.present ? isTrainOver.value : this.isTrainOver,
       );
   TrainingTableData copyWithCompanion(TrainingTableCompanion data) {
     return TrainingTableData(
@@ -2904,6 +2934,8 @@ class TrainingTableData extends DataClass
       percentOfTrainDone: data.percentOfTrainDone.present
           ? data.percentOfTrainDone.value
           : this.percentOfTrainDone,
+      isTrainOver:
+          data.isTrainOver.present ? data.isTrainOver.value : this.isTrainOver,
     );
   }
 
@@ -2928,7 +2960,8 @@ class TrainingTableData extends DataClass
           ..write('exerciseFive: $exerciseFive, ')
           ..write('countRepsExFive: $countRepsExFive, ')
           ..write('maxWeightExFive: $maxWeightExFive, ')
-          ..write('percentOfTrainDone: $percentOfTrainDone')
+          ..write('percentOfTrainDone: $percentOfTrainDone, ')
+          ..write('isTrainOver: $isTrainOver')
           ..write(')'))
         .toString();
   }
@@ -2953,7 +2986,8 @@ class TrainingTableData extends DataClass
       exerciseFive,
       countRepsExFive,
       maxWeightExFive,
-      percentOfTrainDone);
+      percentOfTrainDone,
+      isTrainOver);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2976,7 +3010,8 @@ class TrainingTableData extends DataClass
           other.exerciseFive == this.exerciseFive &&
           other.countRepsExFive == this.countRepsExFive &&
           other.maxWeightExFive == this.maxWeightExFive &&
-          other.percentOfTrainDone == this.percentOfTrainDone);
+          other.percentOfTrainDone == this.percentOfTrainDone &&
+          other.isTrainOver == this.isTrainOver);
 }
 
 class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
@@ -2999,6 +3034,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
   final Value<int?> countRepsExFive;
   final Value<String?> maxWeightExFive;
   final Value<int> percentOfTrainDone;
+  final Value<bool?> isTrainOver;
   final Value<int> rowid;
   const TrainingTableCompanion({
     this.idUser = const Value.absent(),
@@ -3020,6 +3056,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
     this.countRepsExFive = const Value.absent(),
     this.maxWeightExFive = const Value.absent(),
     this.percentOfTrainDone = const Value.absent(),
+    this.isTrainOver = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   TrainingTableCompanion.insert({
@@ -3042,6 +3079,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
     this.countRepsExFive = const Value.absent(),
     this.maxWeightExFive = const Value.absent(),
     required int percentOfTrainDone,
+    this.isTrainOver = const Value.absent(),
     this.rowid = const Value.absent(),
   })  : idUser = Value(idUser),
         dayOfTraining = Value(dayOfTraining),
@@ -3069,6 +3107,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
     Expression<int>? countRepsExFive,
     Expression<String>? maxWeightExFive,
     Expression<int>? percentOfTrainDone,
+    Expression<bool>? isTrainOver,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -3092,6 +3131,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
       if (maxWeightExFive != null) 'max_weight_ex_five': maxWeightExFive,
       if (percentOfTrainDone != null)
         'percent_of_train_done': percentOfTrainDone,
+      if (isTrainOver != null) 'is_train_over': isTrainOver,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -3116,6 +3156,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
       Value<int?>? countRepsExFive,
       Value<String?>? maxWeightExFive,
       Value<int>? percentOfTrainDone,
+      Value<bool?>? isTrainOver,
       Value<int>? rowid}) {
     return TrainingTableCompanion(
       idUser: idUser ?? this.idUser,
@@ -3137,6 +3178,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
       countRepsExFive: countRepsExFive ?? this.countRepsExFive,
       maxWeightExFive: maxWeightExFive ?? this.maxWeightExFive,
       percentOfTrainDone: percentOfTrainDone ?? this.percentOfTrainDone,
+      isTrainOver: isTrainOver ?? this.isTrainOver,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -3201,6 +3243,9 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
     if (percentOfTrainDone.present) {
       map['percent_of_train_done'] = Variable<int>(percentOfTrainDone.value);
     }
+    if (isTrainOver.present) {
+      map['is_train_over'] = Variable<bool>(isTrainOver.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -3229,6 +3274,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
           ..write('countRepsExFive: $countRepsExFive, ')
           ..write('maxWeightExFive: $maxWeightExFive, ')
           ..write('percentOfTrainDone: $percentOfTrainDone, ')
+          ..write('isTrainOver: $isTrainOver, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -4271,6 +4317,7 @@ typedef $$TrainingTableTableCreateCompanionBuilder = TrainingTableCompanion
   Value<int?> countRepsExFive,
   Value<String?> maxWeightExFive,
   required int percentOfTrainDone,
+  Value<bool?> isTrainOver,
   Value<int> rowid,
 });
 typedef $$TrainingTableTableUpdateCompanionBuilder = TrainingTableCompanion
@@ -4294,6 +4341,7 @@ typedef $$TrainingTableTableUpdateCompanionBuilder = TrainingTableCompanion
   Value<int?> countRepsExFive,
   Value<String?> maxWeightExFive,
   Value<int> percentOfTrainDone,
+  Value<bool?> isTrainOver,
   Value<int> rowid,
 });
 
@@ -4373,6 +4421,9 @@ class $$TrainingTableTableFilterComposer
   ColumnFilters<int> get percentOfTrainDone => $composableBuilder(
       column: $table.percentOfTrainDone,
       builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isTrainOver => $composableBuilder(
+      column: $table.isTrainOver, builder: (column) => ColumnFilters(column));
 }
 
 class $$TrainingTableTableOrderingComposer
@@ -4455,6 +4506,9 @@ class $$TrainingTableTableOrderingComposer
   ColumnOrderings<int> get percentOfTrainDone => $composableBuilder(
       column: $table.percentOfTrainDone,
       builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isTrainOver => $composableBuilder(
+      column: $table.isTrainOver, builder: (column) => ColumnOrderings(column));
 }
 
 class $$TrainingTableTableAnnotationComposer
@@ -4522,6 +4576,9 @@ class $$TrainingTableTableAnnotationComposer
 
   GeneratedColumn<int> get percentOfTrainDone => $composableBuilder(
       column: $table.percentOfTrainDone, builder: (column) => column);
+
+  GeneratedColumn<bool> get isTrainOver => $composableBuilder(
+      column: $table.isTrainOver, builder: (column) => column);
 }
 
 class $$TrainingTableTableTableManager extends RootTableManager<
@@ -4569,6 +4626,7 @@ class $$TrainingTableTableTableManager extends RootTableManager<
             Value<int?> countRepsExFive = const Value.absent(),
             Value<String?> maxWeightExFive = const Value.absent(),
             Value<int> percentOfTrainDone = const Value.absent(),
+            Value<bool?> isTrainOver = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               TrainingTableCompanion(
@@ -4591,6 +4649,7 @@ class $$TrainingTableTableTableManager extends RootTableManager<
             countRepsExFive: countRepsExFive,
             maxWeightExFive: maxWeightExFive,
             percentOfTrainDone: percentOfTrainDone,
+            isTrainOver: isTrainOver,
             rowid: rowid,
           ),
           createCompanionCallback: ({
@@ -4613,6 +4672,7 @@ class $$TrainingTableTableTableManager extends RootTableManager<
             Value<int?> countRepsExFive = const Value.absent(),
             Value<String?> maxWeightExFive = const Value.absent(),
             required int percentOfTrainDone,
+            Value<bool?> isTrainOver = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               TrainingTableCompanion.insert(
@@ -4635,6 +4695,7 @@ class $$TrainingTableTableTableManager extends RootTableManager<
             countRepsExFive: countRepsExFive,
             maxWeightExFive: maxWeightExFive,
             percentOfTrainDone: percentOfTrainDone,
+            isTrainOver: isTrainOver,
             rowid: rowid,
           ),
           withReferenceMapper: (p0) => p0

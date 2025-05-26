@@ -34,10 +34,6 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
               .millisecondsSinceEpoch) {
         return [];
       }
-      final allExercise = await database.managers.exerciseTable.get();
-      for (var x in allExercise) {
-        log(x.toString());
-      }
       for (int x = 0; x != currentWeekday; x++) {
         final dayToFind =
             DateFormat('yyyy-MM-dd').format(startOfWeek.add(Duration(days: x)));
@@ -92,7 +88,7 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
           await supabase.from('trainings_users').select().eq('idUser', userId);
       final trainingsFromOffline = await database.managers.trainingTable.get();
       for (var x in trainingsFromOffline) {
-        if (x.idUser == userId) {
+        if (x.idUser == userId && x.isTrainOver == true) {
           try {
             trainingsFromOnline.firstWhere((train) =>
                 train['dayOfTraining'].toString() == x.dayOfTraining);

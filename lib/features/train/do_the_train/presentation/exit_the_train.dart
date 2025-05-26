@@ -38,6 +38,11 @@ class ExitTheTrainButton extends ConsumerWidget {
                           }
                         : () {
                             context.goNamed('/home');
+                            // test
+                            ref
+                                .read(completeTrainProvider)
+                                .completeTrain(train: trainNotifier);
+                            // test
                             ref.invalidate(tempTrainStateNotifierProvider);
                           },
                     child: Text('yes')),

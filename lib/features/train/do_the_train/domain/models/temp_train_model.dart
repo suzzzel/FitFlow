@@ -61,6 +61,12 @@ class TempTrainModel {
     this.exFiveSkipped,
   });
 
+  static TempTrainModel empty() => TempTrainModel(
+      idUser: '',
+      dayOfTraining: DateTime.now(),
+      tempExercise: 0,
+      exerciseOne: '-1');
+
   List<String> getExercise() {
     final List<String> returnList = [];
     final listExercise = [

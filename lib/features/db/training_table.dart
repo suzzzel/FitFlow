@@ -20,4 +20,5 @@ class TrainingTable extends Table {
   IntColumn get countRepsExFive => integer().nullable()();
   TextColumn get maxWeightExFive => text().nullable()();
   IntColumn get percentOfTrainDone => integer()();
+  BoolColumn get isTrainOver => boolean().nullable()();
 }

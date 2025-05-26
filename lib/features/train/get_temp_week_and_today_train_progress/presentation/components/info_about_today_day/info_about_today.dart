@@ -41,7 +41,8 @@ class InfoAboutToday extends ConsumerWidget {
                       // Если true - то план есть, и есть активность сегодня (в т.ч. должна быть согласно плану)
                       : isActivityTodayExist
                           // Сегодня была тренировка?
-                          ? todayTrain.value != null
+                          ? todayTrain.value != null &&
+                                  todayTrain.value?.isTrainOver == true
                               // Была - процент выполнения
                               ? HasActivityCircle(todayTrain: todayTrain)
                               // Должна быть, но пока её нет

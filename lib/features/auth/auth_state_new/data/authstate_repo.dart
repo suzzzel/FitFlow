@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:drift/drift.dart';
 import 'package:fitflow/features/auth/auth_state_new/domain/models/app_user.dart';
 import 'package:fitflow/features/auth/auth_state_new/domain/models/app_user_state.dart';
 import 'package:fitflow/features/general_comonents/drift_app_database_provider.dart';
@@ -38,6 +39,8 @@ Stream<AppUserState> authState(Ref ref) {
               if (userData != null) {
                 final user = AppUser.fromMap(userData);
                 localSecureStorage.write(key: 'name', value: user.name);
+                final isTrainGo =
+                    await localSecureStorage.read(key: 'isTrainGo');
                 localDBManager.userInfoTable.delete();
                 localDBManager.userInfoTable.create((value) => value(
                     id: user.id!,
@@ -47,13 +50,27 @@ Stream<AppUserState> authState(Ref ref) {
                     email: user.email!,
                     goal: user.goal!,
                     sex: user.sex!,
+                    isTrainGo: Value(isTrainGo == 'true' ? true : false),
                     height: user.height!,
                     weight: user.weight!,
                     level: user.level!));
                 final print2 = await localDBManager.userInfoTable.get();
                 log(print2.single.toString());
                 log('online');
-                streamController.add(AppUserState.auth(user));
+                streamController.add(AppUserState.auth(
+                  AppUser(
+                      id: user.id,
+                      created_at: user.created_at,
+                      name: user.name,
+                      age: user.age,
+                      email: user.email,
+                      goal: user.goal,
+                      sex: user.sex,
+                      isTrainGo: isTrainGo == 'true' ? true : false,
+                      height: user.height,
+                      weight: user.weight,
+                      level: user.level),
+                ));
                 streamController.close();
                 break;
               } else {
@@ -65,6 +82,8 @@ Stream<AppUserState> authState(Ref ref) {
                 continue;
               } else {
                 String? name = await localSecureStorage.read(key: 'name');
+                final isTrainGo =
+                    await localSecureStorage.read(key: 'isTrainGo');
                 if (name != null) {
                   try {
                     final AppUser offlineUserMode = await localDBManager
@@ -81,6 +100,7 @@ Stream<AppUserState> authState(Ref ref) {
                             height: user.single.height,
                             weight: user.single.weight,
                             level: user.single.level,
+                            isTrainGo: isTrainGo == 'true' ? true : false,
                             offlineMode: true));
                     streamController.add(AppUserState.auth(offlineUserMode));
                     break;

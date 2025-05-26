@@ -55,11 +55,15 @@ GoRouter appRouter(Ref ref) {
         log(state.matchedLocation);
         switch (status) {
           case 'auth':
-            switch (state.matchedLocation) {
-              case RouterPath.LOADING:
-                return RouterPath.HOME;
-              default:
-                return null;
+            if (stateUser.user!.isTrainGo == true) {
+              return RouterPath.TRAININGNOW;
+            } else {
+              switch (state.matchedLocation) {
+                case RouterPath.LOADING:
+                  return RouterPath.HOME;
+                default:
+                  return null;
+              }
             }
           case 'unauth':
             if (state.matchedLocation == RouterPath.LOADING) {
