@@ -22,12 +22,10 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
   @override
   Future<ExerciseModel> getTempExercise(
       {required String tempExerciseId}) async {
-    const localSecureStorage = FlutterSecureStorage();
     try {
       final exercise = await database.managers.exerciseTable
           .filter((f) => f.id(int.parse(tempExerciseId)))
           .getSingle();
-      await localSecureStorage.write(key: 'isTrainGo', value: 'true');
       return ExerciseModel(
         id: exercise.id,
         bodyPart: exercise.bodyPart,
@@ -59,32 +57,35 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
   }
 
   @override
-  Future<void> saveTrain({required TempTrainModel train}) async {
+  Future<bool> saveTrainEndExit({required TempTrainModel train}) async {
     const localSecureStorage = FlutterSecureStorage();
+    final dayOfTrain =
+        '${train.dayOfTraining.year}-${train.dayOfTraining.month.toString().padLeft(2, '0')}-${train.dayOfTraining.day.toString().padLeft(2, '0')}';
     try {
       await localSecureStorage.write(key: 'isTrainGo', value: 'false');
-      await database.managers.trainingTable.create((f) => f(
-            idUser: train.idUser,
-            dayOfTraining:
-                '${train.dayOfTraining.year}-${train.dayOfTraining.month.toString().padLeft(2, '0')}-${train.dayOfTraining.day.toString().padLeft(2, '0')}',
-            exerciseOne: train.exerciseOne,
-            countRepsExOne: 2,
-            maxWeightExOne: '100',
-            exerciseTwo: Value(train.exerciseTwo),
-            countRepsExTwo: Value(train.countRepsExTwo),
-            maxWeightExTwo: Value(train.maxWeightExTwo),
-            exerciseThree: Value(train.exerciseThree),
-            countRepsExThree: Value(train.countRepsExThree),
-            maxWeightExThree: Value(train.maxWeightExThree),
-            exerciseFour: Value(train.exerciseFour),
-            countRepsExFour: Value(train.countRepsExFour),
-            maxWeightExFour: Value(train.maxWeightExFour),
-            exerciseFive: Value(train.exerciseFive),
-            countRepsExFive: Value(train.countRepsExFive),
-            maxWeightExFive: Value(train.maxWeightExFive),
-            percentOfTrainDone: 100,
-            isTrainOver: Value(true),
-          ));
+      await database.managers.trainingTable
+          .filter((f) => f.dayOfTraining.equals(dayOfTrain))
+          .update((o) => o(
+                idUser: Value(train.idUser),
+                dayOfTraining: Value(dayOfTrain),
+                exerciseOne: Value(train.exerciseOne),
+                countRepsExOne: Value(2),
+                maxWeightExOne: Value('100'),
+                exerciseTwo: Value(train.exerciseTwo),
+                countRepsExTwo: Value(train.countRepsExTwo),
+                maxWeightExTwo: Value(train.maxWeightExTwo),
+                exerciseThree: Value(train.exerciseThree),
+                countRepsExThree: Value(train.countRepsExThree),
+                maxWeightExThree: Value(train.maxWeightExThree),
+                exerciseFour: Value(train.exerciseFour),
+                countRepsExFour: Value(train.countRepsExFour),
+                maxWeightExFour: Value(train.maxWeightExFour),
+                exerciseFive: Value(train.exerciseFive),
+                countRepsExFive: Value(train.countRepsExFive),
+                maxWeightExFive: Value(train.maxWeightExFive),
+                percentOfTrainDone: Value(100),
+                isTrainOver: const Value(true),
+              ));
       await supabase.from('trainings_users').insert({
         'idUser': train.idUser,
         'dayOfTraining': train.dayOfTraining.toString(),
@@ -104,10 +105,89 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
         'exerciseFive': train.exerciseFive,
         'countRepsExFive': train.countRepsExFive,
         'maxWeightExFive': train.maxWeightExFive,
-        'percentOfTrainDone': 100
+        'percentOfTrainDone': 100,
+        'isTrainOver': true
       });
+
+      return true;
     } catch (e) {
       rethrow;
     }
+  }
+
+  @override
+  Future<void> nextExercise({required TempTrainModel train}) async {
+    final dayOfTraining =
+        '${train.dayOfTraining.year}-${train.dayOfTraining.month.toString().padLeft(2, '0')}-${train.dayOfTraining.day.toString().padLeft(2, '0')}';
+    await database.managers.trainingTable
+                .filter((item) => item.dayOfTraining.equals(dayOfTraining))
+                .getSingleOrNull() !=
+            null
+        ? await database.managers.trainingTable
+            .filter((item) => item.dayOfTraining.equals(dayOfTraining))
+            .update((o) => o(
+                  exerciseOne: Value(train.exerciseOne),
+                  countRepsExOne: Value(12),
+                  maxWeightExOne: Value('100'),
+                  exerciseTwo: Value(train.exerciseTwo),
+                  countRepsExTwo: Value(train.countRepsExTwo),
+                  maxWeightExTwo: Value(train.maxWeightExTwo),
+                  exerciseThree: Value(train.exerciseThree),
+                  countRepsExThree: Value(train.countRepsExThree),
+                  maxWeightExThree: Value(train.maxWeightExThree),
+                  exerciseFour: Value(train.exerciseFour),
+                  countRepsExFour: Value(train.countRepsExFour),
+                  maxWeightExFour: Value(train.maxWeightExFour),
+                  exerciseFive: Value(train.exerciseFive),
+                  countRepsExFive: Value(train.countRepsExFive),
+                  maxWeightExFive: Value(train.maxWeightExFive),
+                ))
+        : await database.managers.trainingTable.create((f) => f(
+              idUser: train.idUser,
+              dayOfTraining:
+                  '${train.dayOfTraining.year}-${train.dayOfTraining.month.toString().padLeft(2, '0')}-${train.dayOfTraining.day.toString().padLeft(2, '0')}',
+              exerciseOne: train.exerciseOne,
+              countRepsExOne: 2,
+              maxWeightExOne: '100',
+              exerciseTwo: Value(train.exerciseTwo),
+              countRepsExTwo: Value(train.countRepsExTwo),
+              maxWeightExTwo: Value(train.maxWeightExTwo),
+              exerciseThree: Value(train.exerciseThree),
+              countRepsExThree: Value(train.countRepsExThree),
+              maxWeightExThree: Value(train.maxWeightExThree),
+              exerciseFour: Value(train.exerciseFour),
+              countRepsExFour: Value(train.countRepsExFour),
+              maxWeightExFour: Value(train.maxWeightExFour),
+              exerciseFive: Value(train.exerciseFive),
+              countRepsExFive: Value(train.countRepsExFive),
+              maxWeightExFive: Value(train.maxWeightExFive),
+              percentOfTrainDone: 100,
+              isTrainOver: Value(false),
+            ));
+
+    final all = await database.managers.trainingTable.get();
+    for (var x in all) {
+      log(x.dayOfTraining);
+    }
+  }
+
+  @override
+  Future<bool> exitFromTrainWithoutSave() async {
+    try {
+      const localSecureStorage = FlutterSecureStorage();
+      await database.managers.userInfoTable
+          .update((f) => f(isTrainGo: Value(false)));
+
+      await localSecureStorage.write(key: 'isTrainGo', value: 'false');
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<void> startTrain() async {
+    const localSecureStorage = FlutterSecureStorage();
+    await localSecureStorage.write(key: 'isTrainGo', value: 'true');
   }
 }

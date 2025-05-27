@@ -1,7 +1,11 @@
 import 'dart:developer';
 
+import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
+import 'package:fitflow/features/general_comonents/supabase_provider.dart';
 import 'package:fitflow/features/train/do_the_train/domain/providers/complete_train_provider.dart';
 import 'package:fitflow/features/train/do_the_train/domain/providers/temp_train_domain_provider.dart';
+import 'package:fitflow/features/train/get_today_train_info/data/providers/get_today_train_info_provider_data.dart';
+import 'package:fitflow/features/train/get_today_train_info/domain/providers/get_today_train_info_domain_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -30,19 +34,40 @@ class ExitTheTrainButton extends ConsumerWidget {
               children: [
                 ElevatedButton(
                     onPressed: trainNotifier.tempExercise > 1
-                        ? () {
-                            ref
+                        ? !trainNotifier.isTrainWasAllSkipped()
+                            ? () async {
+                                log('1');
+                                final isExitReady = await ref
+                                    .read(completeTrainProvider)
+                                    .completeTrainAndExit(train: trainNotifier);
+                                isExitReady
+                                    ? ref.refresh(authStateProvider)
+                                    : () {};
+                                context.goNamed('/home');
+                                ref.invalidate(
+                                    getTodayTrainInfoDomainProviderAsyncProvider);
+                                ref.invalidate(tempTrainStateNotifierProvider);
+                              }
+                            : () async {
+                                log('2');
+                                final isExitReady = await ref
+                                    .read(completeTrainProvider)
+                                    .exitFromTrainWithoutSaving();
+                                isExitReady
+                                    ? ref.refresh(authStateProvider)
+                                    : () {};
+                                context.goNamed('/home');
+                                ref.invalidate(tempTrainStateNotifierProvider);
+                              }
+                        : () async {
+                            log('3');
+                            final isExitReady = await ref
                                 .read(completeTrainProvider)
-                                .completeTrain(train: trainNotifier);
+                                .exitFromTrainWithoutSaving();
+                            isExitReady
+                                ? ref.refresh(authStateProvider)
+                                : () {};
                             context.goNamed('/home');
-                          }
-                        : () {
-                            context.goNamed('/home');
-                            // test
-                            ref
-                                .read(completeTrainProvider)
-                                .completeTrain(train: trainNotifier);
-                            // test
                             ref.invalidate(tempTrainStateNotifierProvider);
                           },
                     child: Text('yes')),

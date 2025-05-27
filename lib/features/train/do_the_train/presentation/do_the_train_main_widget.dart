@@ -22,11 +22,12 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
   bool isMainInstructionsOpen = false;
   List<bool> stepOfInstructionsOpen = [];
   List<String> instructions = [];
-  void _skipEx({required int tempExercise}) {
+  void _skipEx({required int tempExercise, required TempTrainModel train}) {
     setState(() {
       ref
           .read(tempTrainStateNotifierProvider.notifier)
           .skipExercise(tempExercise: tempExercise);
+      ref.read(completeTrainProvider).nextExercise(train: train);
       ref.invalidate(tempExerciseFutureProvider);
       stepOfInstructionsOpen = [];
       instructions = [];
@@ -46,7 +47,7 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
       case 5:
         return train.exerciseFive!;
       default:
-        return 'end';
+        return '1';
     }
   }
 
@@ -210,14 +211,16 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
                   ElevatedButton(
                       onPressed: () {
                         log(trainNotifier.toString());
-                        _skipEx(tempExercise: trainNotifier.tempExercise);
+                        _skipEx(
+                            tempExercise: trainNotifier.tempExercise,
+                            train: trainNotifier);
                       },
                       child: Text('SKIP EXERCISE')),
                   ElevatedButton(
                       onPressed: () {
                         ref
                             .read(completeTrainProvider)
-                            .completeTrain(train: trainNotifier);
+                            .completeTrainAndExit(train: trainNotifier);
                       },
                       child: Text('SAVE TRAIN'))
                 ],

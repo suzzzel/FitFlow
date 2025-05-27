@@ -9,7 +9,22 @@ class DoTheTrainDomainRepo implements DoTheTrainDomainRepoImpl {
     required this.dataRepo,
   });
   @override
-  Future<void> completeTrain({required TempTrainModel train}) async {
-    await dataRepo.saveTrain(train: train);
+  Future<bool> completeTrainAndExit({required TempTrainModel train}) async {
+    return await dataRepo.saveTrainEndExit(train: train);
+  }
+
+  @override
+  Future<bool> exitFromTrainWithoutSaving() async {
+    return await dataRepo.exitFromTrainWithoutSave();
+  }
+
+  @override
+  Future<void> startTrain() async {
+    await dataRepo.startTrain();
+  }
+
+  @override
+  Future<void> nextExercise({required TempTrainModel train}) async {
+    await dataRepo.nextExercise(train: train);
   }
 }

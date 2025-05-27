@@ -64,8 +64,8 @@ class TempTrainModel {
   static TempTrainModel empty() => TempTrainModel(
       idUser: '',
       dayOfTraining: DateTime.now(),
-      tempExercise: 0,
-      exerciseOne: '-1');
+      tempExercise: 1,
+      exerciseOne: '1');
 
   List<String> getExercise() {
     final List<String> returnList = [];
@@ -96,7 +96,7 @@ class TempTrainModel {
       exFourSkipped
     ];
     final checkList = skippedBoolens.sublist(0, listOfEx.length);
-    return !checkList.contains(false);
+    return !checkList.contains(false) && !checkList.contains(null);
   }
 
   TempTrainModel copyWith({
