@@ -1,9 +1,11 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:fitflow/features/db/app_database.dart';
 import 'package:fitflow/features/train/get_training_plan/data/repo/get_training_plan_impl.dart';
 import 'package:fitflow/features/train/get_training_plan/domain/models/training_plan_class.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class GetTrainingPlanRepoData extends GetTrainingPlanDataImpl {
@@ -35,6 +37,10 @@ class GetTrainingPlanRepoData extends GetTrainingPlanDataImpl {
         final List<TrainingPlanClass> trainingPlan = [];
         for (var x in onlinePlan) {
           log('online');
+                final appDir = await getApplicationDocumentsDirectory();
+      final exFolderPath = '${appDir.path}/exGifs';
+      await Directory(exFolderPath).create(recursive: true);
+      sdasda
           final trainingDay = TrainingPlanClass.fromMap(x);
           log(trainingDay.toString());
           trainingPlan.add(trainingDay);

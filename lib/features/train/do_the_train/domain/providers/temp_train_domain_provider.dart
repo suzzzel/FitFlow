@@ -1,5 +1,6 @@
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
 import 'package:fitflow/features/train/do_the_train/domain/models/temp_train_model.dart';
+import 'package:fitflow/features/train/do_the_train/domain/providers/complete_train_provider.dart';
 import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/domain/models/training_day_class.dart';
 import 'package:fitflow/features/train/get_today_train_info/domain/providers/get_today_train_info_domain_provider.dart';
 import 'package:fitflow/features/train/get_training_plan/domain/models/training_plan_class.dart';
@@ -125,19 +126,142 @@ final tempTrainStateNotifierProvider =
   return trainingPlan.when(
       data: (data) {
         final weekDayNow = DateFormat('EEEE').format(timeNow).toLowerCase();
-        final TrainingPlanClass thisTrain =
-            data[data.indexWhere((element) => element.dayOfWeek == weekDayNow)];
-        return isTrainAlreadyExist.when(
-            data: (existTrain) {
-              final prevTrain =
-                  _checkPrevTrain(existTrain: existTrain, idUser: user.id!);
-              if (prevTrain == null) {
+        if (data.indexWhere((element) => element.dayOfWeek == weekDayNow) ==
+            -1) {
+          ref.read(completeTrainProvider).exitFromTrainWithoutSaving();
+          return TempTrainNotifier(TempTrainModel.empty());
+        } else {
+          final TrainingPlanClass thisTrain = data[
+              data.indexWhere((element) => element.dayOfWeek == weekDayNow)];
+          return isTrainAlreadyExist.when(
+              data: (existTrain) {
+                final prevTrain =
+                    _checkPrevTrain(existTrain: existTrain, idUser: user.id!);
+                if (prevTrain == null) {
+                  final train = TempTrainModel(
+                    idUser: user.id!,
+                    dayOfTraining: dayOfTraining,
+                    tempExercise: 1,
+                    mainMuscle: thisTrain.mainMuscle,
+                    secondaryMuscle: thisTrain.secondaryMuscle,
+                    exerciseOne: thisTrain.exerciseOne,
+                    exerciseTwo: thisTrain.exerciseTwo,
+                    exerciseThree: thisTrain.exerciseThree,
+                    exerciseFour: thisTrain.exerciseFour,
+                    exerciseFive: thisTrain.exerciseFive,
+                  );
+                  return TempTrainNotifier(train);
+                } else if (prevTrain.countRepsExFive != null) {
+                  final train = TempTrainModel(
+                    idUser: user.id!,
+                    dayOfTraining: dayOfTraining,
+                    tempExercise: 5,
+                    exerciseOne: thisTrain.exerciseOne,
+                    countRepsExOne: prevTrain.countRepsExOne,
+                    maxWeightExOne: prevTrain.maxWeightExOne,
+                    exerciseTwo: thisTrain.exerciseTwo,
+                    countRepsExTwo: prevTrain.countRepsExTwo,
+                    maxWeightExTwo: prevTrain.maxWeightExTwo,
+                    exerciseThree: thisTrain.exerciseThree,
+                    countRepsExThree: prevTrain.countRepsExThree,
+                    maxWeightExThree: prevTrain.maxWeightExThree,
+                    exerciseFour: thisTrain.exerciseFour,
+                    countRepsExFour: prevTrain.countRepsExFour,
+                    maxWeightExFour: prevTrain.maxWeightExFour,
+                    exerciseFive: thisTrain.exerciseFive,
+                    countRepsExFive: prevTrain.countRepsExFive,
+                    maxWeightExFive: prevTrain.maxWeightExFive,
+                  );
+                  return TempTrainNotifier(train);
+                } else if (prevTrain.countRepsExFour != null) {
+                  final train = TempTrainModel(
+                    idUser: user.id!,
+                    dayOfTraining: dayOfTraining,
+                    tempExercise: 5,
+                    exerciseOne: thisTrain.exerciseOne,
+                    countRepsExOne: prevTrain.countRepsExOne,
+                    maxWeightExOne: prevTrain.maxWeightExOne,
+                    exerciseTwo: thisTrain.exerciseTwo,
+                    countRepsExTwo: prevTrain.countRepsExTwo,
+                    maxWeightExTwo: prevTrain.maxWeightExTwo,
+                    exerciseThree: thisTrain.exerciseThree,
+                    countRepsExThree: prevTrain.countRepsExThree,
+                    maxWeightExThree: prevTrain.maxWeightExThree,
+                    exerciseFour: thisTrain.exerciseFour,
+                    countRepsExFour: prevTrain.countRepsExFour,
+                    maxWeightExFour: prevTrain.maxWeightExFour,
+                    exerciseFive: thisTrain.exerciseFive,
+                  );
+                  return TempTrainNotifier(train);
+                } else if (prevTrain.countRepsExThree != null) {
+                  final train = TempTrainModel(
+                    idUser: user.id!,
+                    dayOfTraining: dayOfTraining,
+                    tempExercise: 4,
+                    exerciseOne: thisTrain.exerciseOne,
+                    countRepsExOne: prevTrain.countRepsExOne,
+                    maxWeightExOne: prevTrain.maxWeightExOne,
+                    exerciseTwo: thisTrain.exerciseTwo,
+                    countRepsExTwo: prevTrain.countRepsExTwo,
+                    maxWeightExTwo: prevTrain.maxWeightExTwo,
+                    exerciseThree: thisTrain.exerciseThree,
+                    countRepsExThree: prevTrain.countRepsExThree,
+                    maxWeightExThree: prevTrain.maxWeightExThree,
+                    exerciseFour: thisTrain.exerciseFour,
+                    exerciseFive: thisTrain.exerciseFive,
+                  );
+                  return TempTrainNotifier(train);
+                } else if (prevTrain.countRepsExTwo != null) {
+                  final train = TempTrainModel(
+                    idUser: user.id!,
+                    dayOfTraining: dayOfTraining,
+                    tempExercise: 3,
+                    exerciseOne: thisTrain.exerciseOne,
+                    countRepsExOne: prevTrain.countRepsExOne,
+                    maxWeightExOne: prevTrain.maxWeightExOne,
+                    exerciseTwo: thisTrain.exerciseTwo,
+                    countRepsExTwo: prevTrain.countRepsExTwo,
+                    maxWeightExTwo: prevTrain.maxWeightExTwo,
+                    exerciseThree: thisTrain.exerciseThree,
+                    exerciseFour: thisTrain.exerciseFour,
+                    exerciseFive: thisTrain.exerciseFive,
+                  );
+                  return TempTrainNotifier(train);
+                } else if (prevTrain.countRepsExOne != null) {
+                  final train = TempTrainModel(
+                    idUser: user.id!,
+                    dayOfTraining: dayOfTraining,
+                    tempExercise: 2,
+                    exerciseOne: thisTrain.exerciseOne,
+                    countRepsExOne: prevTrain.countRepsExOne,
+                    maxWeightExOne: prevTrain.maxWeightExOne,
+                    exerciseTwo: thisTrain.exerciseTwo,
+                    exerciseThree: thisTrain.exerciseThree,
+                    exerciseFour: thisTrain.exerciseFour,
+                    exerciseFive: thisTrain.exerciseFive,
+                  );
+                  return TempTrainNotifier(train);
+                } else {
+                  final train = TempTrainModel(
+                    idUser: user.id!,
+                    dayOfTraining: dayOfTraining,
+                    tempExercise: 1,
+                    mainMuscle: thisTrain.mainMuscle,
+                    secondaryMuscle: thisTrain.secondaryMuscle,
+                    exerciseOne: thisTrain.exerciseOne,
+                    exerciseTwo: thisTrain.exerciseTwo,
+                    exerciseThree: thisTrain.exerciseThree,
+                    exerciseFour: thisTrain.exerciseFour,
+                    exerciseFive: thisTrain.exerciseFive,
+                  );
+                  return TempTrainNotifier(train);
+                }
+              },
+              error: (_, st) {
                 final train = TempTrainModel(
                   idUser: user.id!,
                   dayOfTraining: dayOfTraining,
                   tempExercise: 1,
-                  mainMuscle: thisTrain.mainMuscle,
-                  secondaryMuscle: thisTrain.secondaryMuscle,
                   exerciseOne: thisTrain.exerciseOne,
                   exerciseTwo: thisTrain.exerciseTwo,
                   exerciseThree: thisTrain.exerciseThree,
@@ -145,126 +269,9 @@ final tempTrainStateNotifierProvider =
                   exerciseFive: thisTrain.exerciseFive,
                 );
                 return TempTrainNotifier(train);
-              } else if (prevTrain.countRepsExFive != null) {
-                final train = TempTrainModel(
-                  idUser: user.id!,
-                  dayOfTraining: dayOfTraining,
-                  tempExercise: 5,
-                  exerciseOne: thisTrain.exerciseOne,
-                  countRepsExOne: prevTrain.countRepsExOne,
-                  maxWeightExOne: prevTrain.maxWeightExOne,
-                  exerciseTwo: thisTrain.exerciseTwo,
-                  countRepsExTwo: prevTrain.countRepsExTwo,
-                  maxWeightExTwo: prevTrain.maxWeightExTwo,
-                  exerciseThree: thisTrain.exerciseThree,
-                  countRepsExThree: prevTrain.countRepsExThree,
-                  maxWeightExThree: prevTrain.maxWeightExThree,
-                  exerciseFour: thisTrain.exerciseFour,
-                  countRepsExFour: prevTrain.countRepsExFour,
-                  maxWeightExFour: prevTrain.maxWeightExFour,
-                  exerciseFive: thisTrain.exerciseFive,
-                  countRepsExFive: prevTrain.countRepsExFive,
-                  maxWeightExFive: prevTrain.maxWeightExFive,
-                );
-                return TempTrainNotifier(train);
-              } else if (prevTrain.countRepsExFour != null) {
-                final train = TempTrainModel(
-                  idUser: user.id!,
-                  dayOfTraining: dayOfTraining,
-                  tempExercise: 5,
-                  exerciseOne: thisTrain.exerciseOne,
-                  countRepsExOne: prevTrain.countRepsExOne,
-                  maxWeightExOne: prevTrain.maxWeightExOne,
-                  exerciseTwo: thisTrain.exerciseTwo,
-                  countRepsExTwo: prevTrain.countRepsExTwo,
-                  maxWeightExTwo: prevTrain.maxWeightExTwo,
-                  exerciseThree: thisTrain.exerciseThree,
-                  countRepsExThree: prevTrain.countRepsExThree,
-                  maxWeightExThree: prevTrain.maxWeightExThree,
-                  exerciseFour: thisTrain.exerciseFour,
-                  countRepsExFour: prevTrain.countRepsExFour,
-                  maxWeightExFour: prevTrain.maxWeightExFour,
-                  exerciseFive: thisTrain.exerciseFive,
-                );
-                return TempTrainNotifier(train);
-              } else if (prevTrain.countRepsExThree != null) {
-                final train = TempTrainModel(
-                  idUser: user.id!,
-                  dayOfTraining: dayOfTraining,
-                  tempExercise: 4,
-                  exerciseOne: thisTrain.exerciseOne,
-                  countRepsExOne: prevTrain.countRepsExOne,
-                  maxWeightExOne: prevTrain.maxWeightExOne,
-                  exerciseTwo: thisTrain.exerciseTwo,
-                  countRepsExTwo: prevTrain.countRepsExTwo,
-                  maxWeightExTwo: prevTrain.maxWeightExTwo,
-                  exerciseThree: thisTrain.exerciseThree,
-                  countRepsExThree: prevTrain.countRepsExThree,
-                  maxWeightExThree: prevTrain.maxWeightExThree,
-                  exerciseFour: thisTrain.exerciseFour,
-                  exerciseFive: thisTrain.exerciseFive,
-                );
-                return TempTrainNotifier(train);
-              } else if (prevTrain.countRepsExTwo != null) {
-                final train = TempTrainModel(
-                  idUser: user.id!,
-                  dayOfTraining: dayOfTraining,
-                  tempExercise: 3,
-                  exerciseOne: thisTrain.exerciseOne,
-                  countRepsExOne: prevTrain.countRepsExOne,
-                  maxWeightExOne: prevTrain.maxWeightExOne,
-                  exerciseTwo: thisTrain.exerciseTwo,
-                  countRepsExTwo: prevTrain.countRepsExTwo,
-                  maxWeightExTwo: prevTrain.maxWeightExTwo,
-                  exerciseThree: thisTrain.exerciseThree,
-                  exerciseFour: thisTrain.exerciseFour,
-                  exerciseFive: thisTrain.exerciseFive,
-                );
-                return TempTrainNotifier(train);
-              } else if (prevTrain.countRepsExOne != null) {
-                final train = TempTrainModel(
-                  idUser: user.id!,
-                  dayOfTraining: dayOfTraining,
-                  tempExercise: 2,
-                  exerciseOne: thisTrain.exerciseOne,
-                  countRepsExOne: prevTrain.countRepsExOne,
-                  maxWeightExOne: prevTrain.maxWeightExOne,
-                  exerciseTwo: thisTrain.exerciseTwo,
-                  exerciseThree: thisTrain.exerciseThree,
-                  exerciseFour: thisTrain.exerciseFour,
-                  exerciseFive: thisTrain.exerciseFive,
-                );
-                return TempTrainNotifier(train);
-              } else {
-                final train = TempTrainModel(
-                  idUser: user.id!,
-                  dayOfTraining: dayOfTraining,
-                  tempExercise: 1,
-                  mainMuscle: thisTrain.mainMuscle,
-                  secondaryMuscle: thisTrain.secondaryMuscle,
-                  exerciseOne: thisTrain.exerciseOne,
-                  exerciseTwo: thisTrain.exerciseTwo,
-                  exerciseThree: thisTrain.exerciseThree,
-                  exerciseFour: thisTrain.exerciseFour,
-                  exerciseFive: thisTrain.exerciseFive,
-                );
-                return TempTrainNotifier(train);
-              }
-            },
-            error: (_, st) {
-              final train = TempTrainModel(
-                idUser: user.id!,
-                dayOfTraining: dayOfTraining,
-                tempExercise: 1,
-                exerciseOne: thisTrain.exerciseOne,
-                exerciseTwo: thisTrain.exerciseTwo,
-                exerciseThree: thisTrain.exerciseThree,
-                exerciseFour: thisTrain.exerciseFour,
-                exerciseFive: thisTrain.exerciseFive,
-              );
-              return TempTrainNotifier(train);
-            },
-            loading: () => TempTrainNotifier(TempTrainModel.empty()));
+              },
+              loading: () => TempTrainNotifier(TempTrainModel.empty()));
+        }
       },
       error: (_, st) => TempTrainNotifier(TempTrainModel.empty()),
       loading: () => TempTrainNotifier(TempTrainModel.empty()));

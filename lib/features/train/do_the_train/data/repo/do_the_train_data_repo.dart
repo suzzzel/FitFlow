@@ -177,7 +177,6 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
       const localSecureStorage = FlutterSecureStorage();
       await database.managers.userInfoTable
           .update((f) => f(isTrainGo: Value(false)));
-
       await localSecureStorage.write(key: 'isTrainGo', value: 'false');
       return true;
     } catch (e) {
