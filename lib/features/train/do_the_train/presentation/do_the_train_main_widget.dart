@@ -5,6 +5,8 @@ import 'package:fitflow/features/general_comonents/doc_provider.dart';
 import 'package:fitflow/features/general_comonents/exercise_model.dart';
 import 'package:fitflow/features/train/do_the_train/domain/models/temp_train_model.dart';
 import 'package:fitflow/features/train/do_the_train/domain/providers/complete_train_provider.dart';
+import 'package:fitflow/features/train/do_the_train/domain/providers/cout_of_reps_in_temp_exercise_provider.dart';
+import 'package:fitflow/features/train/do_the_train/domain/providers/max_weight_on_temp_exercise_provider.dart';
 import 'package:fitflow/features/train/do_the_train/domain/providers/temp_exercise_domain_future_provider.dart';
 import 'package:fitflow/features/train/do_the_train/domain/providers/temp_train_domain_provider.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +33,17 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
       ref.invalidate(tempExerciseFutureProvider);
       stepOfInstructionsOpen = [];
       instructions = [];
+    });
+  }
+
+  void _completeExercise(
+      {required String? maxWeight, required int countOfReps}) {
+    setState(() {
+      ref.read(tempTrainStateNotifierProvider.notifier).completeExercise(
+          maxWeightOnThatExercise: maxWeight ?? '0',
+          countOfRepsOnThatExercise: countOfReps);
+      ref.invalidate(coutOfRepsInTempExerciseProvider);
+      ref.invalidate(maxWeightOnTempExerciseProvider);
     });
   }
 
@@ -63,6 +76,8 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
   @override
   Widget build(BuildContext context) {
     final trainNotifier = ref.watch(tempTrainStateNotifierProvider);
+    final tempMaxWeight = ref.watch(maxWeightOnTempExerciseProvider);
+    final countOfReps = ref.watch(coutOfRepsInTempExerciseProvider);
     AsyncValue<Directory> dir = ref.watch(documentsDirectoryProvider);
     return trainNotifier != TempTrainModel.empty()
         ? trainNotifier.getExercise().length >= trainNotifier.tempExercise
@@ -103,16 +118,60 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
                                         color: Colors.grey,
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
                                             SizedBox(
-                                                width: 250, child: TextField()),
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.5,
+                                                child: TextFormField(
+                                                  onChanged: (value) {
+                                                    if (value != '') {
+                                                      final tempWeight =
+                                                          int.parse(value);
+                                                      final tempMaxWeightInprov =
+                                                          int.parse(
+                                                              tempMaxWeight ??
+                                                                  '0');
+                                                      if (tempWeight >
+                                                          tempMaxWeightInprov) {
+                                                        ref
+                                                            .read(
+                                                                maxWeightOnTempExerciseProvider
+                                                                    .notifier)
+                                                            .state = value;
+                                                        log(ref
+                                                            .read(
+                                                                maxWeightOnTempExerciseProvider
+                                                                    .notifier)
+                                                            .state!);
+                                                      }
+                                                    }
+                                                  },
+                                                  textAlign: TextAlign.center,
+                                                  decoration: InputDecoration(
+                                                      hintMaxLines: 2,
+                                                      hintStyle: TextStyle(
+                                                        fontSize: 10,
+                                                      ),
+                                                      hintText:
+                                                          'Рабочий вес в подходе\n(опционально)'),
+                                                )),
                                             SizedBox(
-                                              width: 100,
+                                              width: 150,
                                               child: ElevatedButton(
-                                                  onPressed: () {},
-                                                  child:
-                                                      Text('Сделать подход')),
+                                                  onPressed: () {
+                                                    ref
+                                                        .read(
+                                                            coutOfRepsInTempExerciseProvider
+                                                                .notifier)
+                                                        .state++;
+                                                  },
+                                                  child: Text(
+                                                    'Сделать подход',
+                                                    textAlign: TextAlign.center,
+                                                  )),
                                             )
                                           ],
                                         ),
@@ -197,7 +256,22 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
                                                 }),
                                               )),
                                         ],
-                                      )
+                                      ),
+                                      Container(
+                                        color: Colors.green,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                                'Кол-во подходов: $countOfReps'),
+                                            Icon(
+                                                Icons.account_balance_outlined),
+                                            Text(
+                                                'максимальный вес: ${tempMaxWeight != null ? '$tempMaxWeight kg' : 'не указан'}')
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   );
                                 },
@@ -210,19 +284,15 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
                       loading: () => CircularProgressIndicator()),
                   ElevatedButton(
                       onPressed: () {
-                        log(trainNotifier.toString());
-                        _skipEx(
-                            tempExercise: trainNotifier.tempExercise,
-                            train: trainNotifier);
+                        countOfReps <= 0
+                            ? _skipEx(
+                                tempExercise: trainNotifier.tempExercise,
+                                train: trainNotifier)
+                            : _completeExercise(
+                                maxWeight: tempMaxWeight,
+                                countOfReps: countOfReps);
                       },
-                      child: Text('SKIP EXERCISE')),
-                  ElevatedButton(
-                      onPressed: () {
-                        ref
-                            .read(completeTrainProvider)
-                            .completeTrainAndExit(train: trainNotifier);
-                      },
-                      child: Text('SAVE TRAIN'))
+                      child: countOfReps <= 0 ? Text('skip') : Text('cont')),
                 ],
               )
             : Container(

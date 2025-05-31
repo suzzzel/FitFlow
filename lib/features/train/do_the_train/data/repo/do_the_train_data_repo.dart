@@ -25,67 +25,61 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
     try {
       var exercise = await database.managers.exerciseTable
           .filter((f) => f.id(int.parse(tempExerciseId)))
-          .getSingleOrNull();
-      if (exercise == null) {
-        final exercisesFromSP = await supabase
-            .from('exercises')
-            .select()
-            .eq('id', tempExerciseId)
-            .single();
-        await database.managers.exerciseTable.create((f) => f(
-            id: exercisesFromSP['id'],
-            bodyPart: exercisesFromSP['bodyPart'],
-            equipment: exercisesFromSP['equipment'],
-            name: exercisesFromSP['name'],
-            target: exercisesFromSP['target'],
-            secondaryMuscleZero: Value(exercisesFromSP['secondaryMuscleZero']),
-            secondaryMuscleOne: Value(exercisesFromSP['secondaryMuscleOne']),
-            secondaryMuscleTwo: Value(exercisesFromSP['secondaryMuscleTwo']),
-            secondaryMuscleThree:
-                Value(exercisesFromSP['secondaryMuscleThree']),
-            secondaryMuscleFour: Value(exercisesFromSP['secondaryMuscleFour']),
-            secondaryMuscleFive: Value(exercisesFromSP['secondaryMuscleFive']),
-            instructionsZero: Value(exercisesFromSP['instructionsZero']),
-            instructionsOne: Value(exercisesFromSP['instructionsOne']),
-            instructionsTwo: Value(exercisesFromSP['instructionsTwo']),
-            instructionsThree: Value(exercisesFromSP['instructionsThree']),
-            instructionsFour: Value(exercisesFromSP['instructionsFour']),
-            instructionsFive: Value(exercisesFromSP['instructionsFive']),
-            instructionsSix: Value(exercisesFromSP['instructionsSix']),
-            instructionsSeven: Value(exercisesFromSP['instructionsSeven']),
-            instructionsEight: Value(exercisesFromSP['instructionsEight']),
-            instructionsNine: Value(exercisesFromSP['instructionsNine']),
-            instructionsTen: Value(exercisesFromSP['instructionsTen'])));
-        return ExerciseModel.fromJson(exercisesFromSP);
-      } else {
-        return ExerciseModel(
-          id: exercise.id,
-          bodyPart: exercise.bodyPart,
-          equipment: exercise.bodyPart,
-          name: exercise.name,
-          target: exercise.name,
-          secondaryMuscleZero: exercise.secondaryMuscleZero,
-          secondaryMuscleOne: exercise.secondaryMuscleOne,
-          secondaryMuscleTwo: exercise.secondaryMuscleTwo,
-          secondaryMuscleThree: exercise.secondaryMuscleThree,
-          secondaryMuscleFour: exercise.secondaryMuscleFour,
-          secondaryMuscleFive: exercise.secondaryMuscleFive,
-          instructionsZero: exercise.instructionsZero,
-          instructionsOne: exercise.instructionsOne,
-          instructionsTwo: exercise.instructionsTwo,
-          instructionsThree: exercise.instructionsThree,
-          instructionsFour: exercise.instructionsFour,
-          instructionsFive: exercise.instructionsFive,
-          instructionsSix: exercise.instructionsSix,
-          instructionsSeven: exercise.instructionsSeven,
-          instructionsEight: exercise.instructionsEight,
-          instructionsNine: exercise.instructionsNine,
-          instructionsTen: exercise.instructionsTen,
-        );
-      }
+          .getSingle();
+      return ExerciseModel(
+        id: exercise.id,
+        bodyPart: exercise.bodyPart,
+        equipment: exercise.bodyPart,
+        name: exercise.name,
+        target: exercise.name,
+        secondaryMuscleZero: exercise.secondaryMuscleZero,
+        secondaryMuscleOne: exercise.secondaryMuscleOne,
+        secondaryMuscleTwo: exercise.secondaryMuscleTwo,
+        secondaryMuscleThree: exercise.secondaryMuscleThree,
+        secondaryMuscleFour: exercise.secondaryMuscleFour,
+        secondaryMuscleFive: exercise.secondaryMuscleFive,
+        instructionsZero: exercise.instructionsZero,
+        instructionsOne: exercise.instructionsOne,
+        instructionsTwo: exercise.instructionsTwo,
+        instructionsThree: exercise.instructionsThree,
+        instructionsFour: exercise.instructionsFour,
+        instructionsFive: exercise.instructionsFive,
+        instructionsSix: exercise.instructionsSix,
+        instructionsSeven: exercise.instructionsSeven,
+        instructionsEight: exercise.instructionsEight,
+        instructionsNine: exercise.instructionsNine,
+        instructionsTen: exercise.instructionsTen,
+      );
     } catch (e) {
-      log(e.toString());
-      rethrow;
+      final exercisesFromSP = await supabase
+          .from('exercises')
+          .select()
+          .eq('id', tempExerciseId)
+          .single();
+      await database.managers.exerciseTable.create((f) => f(
+          id: exercisesFromSP['id'],
+          bodyPart: exercisesFromSP['bodyPart'],
+          equipment: exercisesFromSP['equipment'],
+          name: exercisesFromSP['name'],
+          target: exercisesFromSP['target'],
+          secondaryMuscleZero: Value(exercisesFromSP['secondaryMuscleZero']),
+          secondaryMuscleOne: Value(exercisesFromSP['secondaryMuscleOne']),
+          secondaryMuscleTwo: Value(exercisesFromSP['secondaryMuscleTwo']),
+          secondaryMuscleThree: Value(exercisesFromSP['secondaryMuscleThree']),
+          secondaryMuscleFour: Value(exercisesFromSP['secondaryMuscleFour']),
+          secondaryMuscleFive: Value(exercisesFromSP['secondaryMuscleFive']),
+          instructionsZero: Value(exercisesFromSP['instructionsZero']),
+          instructionsOne: Value(exercisesFromSP['instructionsOne']),
+          instructionsTwo: Value(exercisesFromSP['instructionsTwo']),
+          instructionsThree: Value(exercisesFromSP['instructionsThree']),
+          instructionsFour: Value(exercisesFromSP['instructionsFour']),
+          instructionsFive: Value(exercisesFromSP['instructionsFive']),
+          instructionsSix: Value(exercisesFromSP['instructionsSix']),
+          instructionsSeven: Value(exercisesFromSP['instructionsSeven']),
+          instructionsEight: Value(exercisesFromSP['instructionsEight']),
+          instructionsNine: Value(exercisesFromSP['instructionsNine']),
+          instructionsTen: Value(exercisesFromSP['instructionsTen'])));
+      return ExerciseModel.fromJson(exercisesFromSP);
     }
   }
 
@@ -206,10 +200,20 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
 
   @override
   Future<bool> exitFromTrainWithoutSave() async {
+    final dateNow = DateTime.now();
+    final dayOfTraining =
+        '${dateNow.year}-${dateNow.month.toString().padLeft(2, '0')}-${dateNow.day.toString().padLeft(2, '0')}';
     try {
       const localSecureStorage = FlutterSecureStorage();
       await database.managers.userInfoTable
           .update((f) => f(isTrainGo: Value(false)));
+      try {
+        await database.managers.trainingTable
+            .filter((f) => f.dayOfTraining(dayOfTraining))
+            .delete();
+      } catch (e) {
+        log('ochko');
+      }
       await localSecureStorage.write(key: 'isTrainGo', value: 'false');
       return true;
     } catch (e) {

@@ -26,7 +26,7 @@ class ExitTheTrainButton extends ConsumerWidget {
           children: [
             Text(
                 textAlign: TextAlign.center,
-                trainNotifier.tempExercise > 1
+                !trainNotifier.isTrainWasAllSkipped()
                     ? 'really want to exit? all done exercises will be saved. this train will be saved, and cannot be edit'
                     : 'really want to exit? this train will not be saved, you can start it today later'),
             Row(

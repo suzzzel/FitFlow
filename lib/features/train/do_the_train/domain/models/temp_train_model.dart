@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class TempTrainModel {
@@ -87,7 +88,7 @@ class TempTrainModel {
   }
 
   bool isTrainWasAllSkipped() {
-    final listOfEx = getExercise();
+    final skippedExercise = [];
     final skippedBoolens = [
       exOneSkipped,
       exTwoSkipped,
@@ -95,8 +96,14 @@ class TempTrainModel {
       exFourSkipped,
       exFourSkipped
     ];
-    final checkList = skippedBoolens.sublist(0, listOfEx.length);
-    return !checkList.contains(false) && !checkList.contains(null);
+    for (var x in skippedBoolens) {
+      if (x != null) {
+        skippedExercise.add(x);
+      } else {
+        continue;
+      }
+    }
+    return !skippedExercise.contains(false);
   }
 
   TempTrainModel copyWith({

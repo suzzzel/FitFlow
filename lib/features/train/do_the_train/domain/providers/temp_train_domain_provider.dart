@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
 import 'package:fitflow/features/train/do_the_train/domain/models/temp_train_model.dart';
 import 'package:fitflow/features/train/do_the_train/domain/providers/complete_train_provider.dart';
@@ -77,7 +79,7 @@ class TempTrainNotifier extends StateNotifier<TempTrainModel> {
         state = tempState;
         break;
     }
-    state = tempState;
+    log(state.toString());
   }
 
   void skipExercise({required int tempExercise}) {
@@ -85,7 +87,7 @@ class TempTrainNotifier extends StateNotifier<TempTrainModel> {
     switch (tempExercise) {
       case 1:
         tempState = tempState.copyWith(
-            exOneSkipped: false, tempExercise: tempState.tempExercise + 1);
+            exOneSkipped: true, tempExercise: tempState.tempExercise + 1);
         state = tempState;
         break;
       case 2:
@@ -109,6 +111,7 @@ class TempTrainNotifier extends StateNotifier<TempTrainModel> {
         state = tempState;
         break;
     }
+    log(state.toString());
   }
 }
 
