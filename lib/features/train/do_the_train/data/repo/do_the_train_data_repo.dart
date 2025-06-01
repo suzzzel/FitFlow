@@ -90,6 +90,7 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
         '${train.dayOfTraining.year}-${train.dayOfTraining.month.toString().padLeft(2, '0')}-${train.dayOfTraining.day.toString().padLeft(2, '0')}';
     try {
       await localSecureStorage.write(key: 'isTrainGo', value: 'false');
+      final trainings = await database.managers.trainingTable.get();
       await database.managers.trainingTable
           .filter((f) => f.dayOfTraining.equals(dayOfTrain))
           .update((o) => o(
@@ -113,29 +114,33 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
                 percentOfTrainDone: Value(100),
                 isTrainOver: const Value(true),
               ));
-      await supabase.from('trainings_users').insert({
-        'idUser': train.idUser,
-        'dayOfTraining': train.dayOfTraining.toString(),
-        'mainMuscle': train.mainMuscle,
-        'exerciseOne': train.exerciseOne,
-        'countRepsExOne': 2,
-        'maxWeightExOne': 100,
-        'exerciseTwo': train.exerciseTwo,
-        'countRepsExTwo': train.countRepsExTwo,
-        'maxWeightExTwo': train.maxWeightExTwo,
-        'exerciseThree': train.exerciseThree,
-        'countRepsExThree': train.countRepsExThree,
-        'maxWeightExThree': train.maxWeightExThree,
-        'exerciseFour': train.exerciseFour,
-        'countRepsExFour': train.countRepsExFour,
-        'maxWeightExFour': train.maxWeightExFour,
-        'exerciseFive': train.exerciseFive,
-        'countRepsExFive': train.countRepsExFive,
-        'maxWeightExFive': train.maxWeightExFive,
-        'percentOfTrainDone': 100,
-        'isTrainOver': true
-      });
-
+      try {
+        await supabase.from('trainings_users').insert({
+          'idUser': train.idUser,
+          'dayOfTraining': train.dayOfTraining.toString(),
+          'mainMuscle': train.mainMuscle,
+          'exerciseOne': train.exerciseOne,
+          'countRepsExOne': 2,
+          'maxWeightExOne': 100,
+          'exerciseTwo': train.exerciseTwo,
+          'countRepsExTwo': train.countRepsExTwo,
+          'maxWeightExTwo': train.maxWeightExTwo,
+          'exerciseThree': train.exerciseThree,
+          'countRepsExThree': train.countRepsExThree,
+          'maxWeightExThree': train.maxWeightExThree,
+          'exerciseFour': train.exerciseFour,
+          'countRepsExFour': train.countRepsExFour,
+          'maxWeightExFour': train.maxWeightExFour,
+          'exerciseFive': train.exerciseFive,
+          'countRepsExFive': train.countRepsExFive,
+          'maxWeightExFive': train.maxWeightExFive,
+          'percentOfTrainDone': 100,
+          'isTrainOver': true
+        });
+      } catch (e) {
+        // will be saved in online when connected
+        return true;
+      }
       return true;
     } catch (e) {
       rethrow;
@@ -207,13 +212,9 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
       const localSecureStorage = FlutterSecureStorage();
       await database.managers.userInfoTable
           .update((f) => f(isTrainGo: Value(false)));
-      try {
-        await database.managers.trainingTable
-            .filter((f) => f.dayOfTraining(dayOfTraining))
-            .delete();
-      } catch (e) {
-        log('ochko');
-      }
+      await database.managers.trainingTable
+          .filter((f) => f.dayOfTraining(dayOfTraining))
+          .delete();
       await localSecureStorage.write(key: 'isTrainGo', value: 'false');
       return true;
     } catch (e) {

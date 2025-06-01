@@ -39,6 +39,10 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
             DateFormat('yyyy-MM-dd').format(startOfWeek.add(Duration(days: x)));
         final String weekDayThisDayStringVersion =
             DateFormat('EEEE').format(DateTime.parse(dayToFind)).toLowerCase();
+        final trainings = await database.managers.trainingTable.get();
+        for (var x in trainings) {
+          log(x.dayOfTraining);
+        }
         final trainDay = await database.managers.trainingTable
             .filter((day) => day.dayOfTraining(dayToFind))
             .getSingleOrNull();

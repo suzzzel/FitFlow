@@ -93,7 +93,7 @@ class GetTrainingPlanRepoData extends GetTrainingPlanDataImpl {
         return trainingPlan;
       }
     } catch (e) {
-      rethrow;
+      return [];
     }
   }
 }

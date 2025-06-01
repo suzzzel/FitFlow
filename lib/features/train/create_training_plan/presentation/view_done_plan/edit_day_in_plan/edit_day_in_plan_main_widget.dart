@@ -50,7 +50,7 @@ class EditDayInPlanMainWidget extends ConsumerWidget {
                   weekday: weekday,
                 );
               } else if (index == 5) {
-                return MaxLengthDayExercisesInfo();
+                return const MaxLengthDayExercisesInfo();
               } else {
                 final exName =
                     exercises[index].name.substring(0, 1).toUpperCase() +

@@ -24,12 +24,11 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
   bool isMainInstructionsOpen = false;
   List<bool> stepOfInstructionsOpen = [];
   List<String> instructions = [];
-  void _skipEx({required int tempExercise, required TempTrainModel train}) {
+  void _skipEx({required int tempExercise}) {
     setState(() {
       ref
           .read(tempTrainStateNotifierProvider.notifier)
           .skipExercise(tempExercise: tempExercise);
-      ref.read(completeTrainProvider).nextExercise(train: train);
       ref.invalidate(tempExerciseFutureProvider);
       stepOfInstructionsOpen = [];
       instructions = [];
@@ -37,11 +36,14 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
   }
 
   void _completeExercise(
-      {required String? maxWeight, required int countOfReps}) {
+      {required String? maxWeight,
+      required int countOfReps,
+      required TempTrainModel train}) {
     setState(() {
       ref.read(tempTrainStateNotifierProvider.notifier).completeExercise(
           maxWeightOnThatExercise: maxWeight ?? '0',
           countOfRepsOnThatExercise: countOfReps);
+      ref.read(completeTrainProvider).nextExercise(train: train);
       ref.invalidate(coutOfRepsInTempExerciseProvider);
       ref.invalidate(maxWeightOnTempExerciseProvider);
     });
@@ -98,11 +100,11 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
                         return Column(
                           children: [
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.5,
-                              child: Image.file(
-                                gifEx,
-                              ),
-                            ),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.5,
+                                child: gifEx.existsSync()
+                                    ? Image.file(gifEx)
+                                    : Image.asset('assets/home/gif_error.gif')),
                             tempExercise.when(
                                 data: (exercise) {
                                   final secondaryMuscles =
@@ -287,10 +289,11 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
                         countOfReps <= 0
                             ? _skipEx(
                                 tempExercise: trainNotifier.tempExercise,
-                                train: trainNotifier)
+                              )
                             : _completeExercise(
                                 maxWeight: tempMaxWeight,
-                                countOfReps: countOfReps);
+                                countOfReps: countOfReps,
+                                train: trainNotifier);
                       },
                       child: countOfReps <= 0 ? Text('skip') : Text('cont')),
                 ],

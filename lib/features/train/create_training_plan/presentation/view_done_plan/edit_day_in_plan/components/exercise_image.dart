@@ -25,17 +25,25 @@ class ExerciseImage extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(4),
           child: ShaderMask(
-            blendMode: BlendMode.srcATop,
-            shaderCallback: (bounds) => LinearGradient(colors: [
-              Theme.of(context).colorScheme.primaryFixed.withOpacity(0.4),
-              Theme.of(context).colorScheme.secondaryFixed.withOpacity(0.4),
-            ]).createShader(bounds),
-            child: Image.file(
-              exGifFile,
-              width: widthInDetailView ?? 65,
-              height: heightinDetailView ?? 65,
-            ),
-          ),
+              blendMode: BlendMode.srcATop,
+              shaderCallback: (bounds) => LinearGradient(colors: [
+                    Theme.of(context).colorScheme.primaryFixed.withOpacity(0.4),
+                    Theme.of(context)
+                        .colorScheme
+                        .secondaryFixed
+                        .withOpacity(0.4),
+                  ]).createShader(bounds),
+              child: exGifFile.existsSync()
+                  ? Image.file(
+                      exGifFile,
+                      width: widthInDetailView ?? 65,
+                      height: heightinDetailView ?? 65,
+                    )
+                  : Image.asset(
+                      'assets/home/gif_error.gif',
+                      width: widthInDetailView ?? 65,
+                      height: heightinDetailView ?? 65,
+                    )),
         ),
       ),
     );

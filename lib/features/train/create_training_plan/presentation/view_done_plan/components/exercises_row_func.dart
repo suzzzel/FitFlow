@@ -35,23 +35,28 @@ Widget exercisesRow(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(4),
                     child: ShaderMask(
-                      blendMode: BlendMode.srcATop,
-                      shaderCallback: (bounds) => LinearGradient(colors: [
-                        Theme.of(context)
-                            .colorScheme
-                            .primaryFixed
-                            .withOpacity(0.4),
-                        Theme.of(context)
-                            .colorScheme
-                            .secondaryFixed
-                            .withOpacity(0.4),
-                      ]).createShader(bounds),
-                      child: Image.file(
-                        exGifFile,
-                        width: 65,
-                        height: 65,
-                      ),
-                    ),
+                        blendMode: BlendMode.srcATop,
+                        shaderCallback: (bounds) => LinearGradient(colors: [
+                              Theme.of(context)
+                                  .colorScheme
+                                  .primaryFixed
+                                  .withOpacity(0.4),
+                              Theme.of(context)
+                                  .colorScheme
+                                  .secondaryFixed
+                                  .withOpacity(0.4),
+                            ]).createShader(bounds),
+                        child: exGifFile.existsSync()
+                            ? Image.file(
+                                exGifFile,
+                                width: 65,
+                                height: 65,
+                              )
+                            : Image.asset(
+                                'assets/home/gif_error.gif',
+                                width: 65,
+                                height: 65,
+                              )),
                   ),
                 ),
               ),
