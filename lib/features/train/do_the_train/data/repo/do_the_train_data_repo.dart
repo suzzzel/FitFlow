@@ -62,23 +62,23 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
           equipment: exercisesFromSP['equipment'],
           name: exercisesFromSP['name'],
           target: exercisesFromSP['target'],
-          secondaryMuscleZero: Value(exercisesFromSP['secondaryMuscleZero']),
-          secondaryMuscleOne: Value(exercisesFromSP['secondaryMuscleOne']),
-          secondaryMuscleTwo: Value(exercisesFromSP['secondaryMuscleTwo']),
-          secondaryMuscleThree: Value(exercisesFromSP['secondaryMuscleThree']),
-          secondaryMuscleFour: Value(exercisesFromSP['secondaryMuscleFour']),
-          secondaryMuscleFive: Value(exercisesFromSP['secondaryMuscleFive']),
-          instructionsZero: Value(exercisesFromSP['instructionsZero']),
-          instructionsOne: Value(exercisesFromSP['instructionsOne']),
-          instructionsTwo: Value(exercisesFromSP['instructionsTwo']),
-          instructionsThree: Value(exercisesFromSP['instructionsThree']),
-          instructionsFour: Value(exercisesFromSP['instructionsFour']),
-          instructionsFive: Value(exercisesFromSP['instructionsFive']),
-          instructionsSix: Value(exercisesFromSP['instructionsSix']),
-          instructionsSeven: Value(exercisesFromSP['instructionsSeven']),
-          instructionsEight: Value(exercisesFromSP['instructionsEight']),
-          instructionsNine: Value(exercisesFromSP['instructionsNine']),
-          instructionsTen: Value(exercisesFromSP['instructionsTen'])));
+          secondaryMuscleZero: Value(exercisesFromSP['secondaryMuscle/0']),
+          secondaryMuscleOne: Value(exercisesFromSP['secondaryMuscle/1']),
+          secondaryMuscleTwo: Value(exercisesFromSP['secondaryMuscle/2']),
+          secondaryMuscleThree: Value(exercisesFromSP['secondaryMuscle/3']),
+          secondaryMuscleFour: Value(exercisesFromSP['secondaryMuscle/4']),
+          secondaryMuscleFive: Value(exercisesFromSP['secondaryMuscle/5']),
+          instructionsZero: Value(exercisesFromSP['instructions/0']),
+          instructionsOne: Value(exercisesFromSP['instructions/1']),
+          instructionsTwo: Value(exercisesFromSP['instructions/2']),
+          instructionsThree: Value(exercisesFromSP['instructions/3']),
+          instructionsFour: Value(exercisesFromSP['instructions/4']),
+          instructionsFive: Value(exercisesFromSP['instructions/5']),
+          instructionsSix: Value(exercisesFromSP['instructions/6']),
+          instructionsSeven: Value(exercisesFromSP['instructions/7']),
+          instructionsEight: Value(exercisesFromSP['instructions/8']),
+          instructionsNine: Value(exercisesFromSP['instructions/9']),
+          instructionsTen: Value(exercisesFromSP['instructions/10'])));
       return ExerciseModel.fromJson(exercisesFromSP);
     }
   }
@@ -226,5 +226,17 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
   Future<void> startTrain() async {
     const localSecureStorage = FlutterSecureStorage();
     await localSecureStorage.write(key: 'isTrainGo', value: 'true');
+  }
+
+  @override
+  Future<List<ExerciseModel>> getProgressTempTrain(
+      {required List<String> exercisesList}) async {
+    List<ExerciseModel> listToReturn = [];
+    for (var exerciseToFind in exercisesList) {
+      final tempEx = await getTempExercise(tempExerciseId: exerciseToFind);
+      listToReturn.add(tempEx);
+    }
+    log('end get ex info');
+    return listToReturn;
   }
 }

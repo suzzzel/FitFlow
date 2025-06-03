@@ -64,6 +64,7 @@ Stream<AppUserState> authState(Ref ref) {
                     email: user.email,
                     goal: user.goal,
                     sex: user.sex,
+                    offlineMode: false,
                     isTrainGo: isTrainGo == 'true' ? true : false,
                     height: user.height,
                     weight: user.weight,

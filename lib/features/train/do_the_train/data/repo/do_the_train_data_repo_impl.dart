@@ -7,4 +7,6 @@ abstract class DoTheTrainDataRepoImpl {
   Future<ExerciseModel> getTempExercise({required String tempExerciseId});
   Future<bool> saveTrainEndExit({required TempTrainModel train});
   Future<void> nextExercise({required TempTrainModel train});
+  Future<List<ExerciseModel>> getProgressTempTrain(
+      {required List<String> exercisesList});
 }

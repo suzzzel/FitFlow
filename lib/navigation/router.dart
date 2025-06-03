@@ -33,6 +33,7 @@ import 'package:fitflow/features/train/create_training_plan/presentation/view_do
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/view_done_plan_main_widget.dart';
 import 'package:fitflow/features/train/do_the_train/presentation/do_the_train_main_widget.dart';
 import 'package:fitflow/features/train/do_the_train/presentation/exit_the_train.dart';
+import 'package:fitflow/features/train/do_the_train/presentation/view_temp_progress.dart';
 import 'package:fitflow/navigation/home_navigation_bar/navbar.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,8 @@ GoRouter appRouter(Ref ref) {
         log(state.matchedLocation);
         switch (status) {
           case 'auth':
-            if (stateUser.user!.isTrainGo == true) {
+            if (stateUser.user!.isTrainGo == true &&
+                state.fullPath != '/trainnow/tempprogress') {
               return RouterPath.TRAININGNOW;
             } else {
               switch (state.matchedLocation) {
@@ -808,6 +810,16 @@ GoRouter appRouter(Ref ref) {
                       Icons.close,
                       color: Colors.red,
                     )),
+                actions: [
+                  IconButton(
+                      onPressed: () {
+                        context.goNamed('tempprogress');
+                      },
+                      icon: const Icon(
+                        Icons.visibility_outlined,
+                        color: Colors.purple,
+                      ))
+                ],
                 title: ShaderMask(
                   blendMode: BlendMode.srcATop,
                   shaderCallback: (bounds) => LinearGradient(colors: [
@@ -857,17 +869,30 @@ GoRouter appRouter(Ref ref) {
           },
           routes: [
             GoRoute(
-              path: RouterPath.TRAININGNOW,
-              name: RouterPath.TRAININGNOW,
-              pageBuilder: (context, state) => CustomTransitionPage(
-                  child: DoTheTrainMainWidget(),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) =>
-                          FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          )),
-            )
+                path: RouterPath.TRAININGNOW,
+                name: RouterPath.TRAININGNOW,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                    child: DoTheTrainMainWidget(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) =>
+                            FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            )),
+                routes: [
+                  GoRoute(
+                    path: RouterPath.VIEWTEMPPROGRESS,
+                    name: RouterPath.VIEWTEMPPROGRESS,
+                    pageBuilder: (context, state) => CustomTransitionPage(
+                        child: ViewTempProgressMainWidget(),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) =>
+                                FadeTransition(
+                                  opacity: animation,
+                                  child: child,
+                                )),
+                  )
+                ])
           ]),
       GoRoute(
         path: RouterPath.LOADING,
