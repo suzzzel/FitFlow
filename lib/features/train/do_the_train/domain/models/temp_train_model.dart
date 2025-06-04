@@ -87,6 +87,136 @@ class TempTrainModel {
     return returnList;
   }
 
+  Map<String, List<String?>> getInfoAboutThisTrain() {
+    final Map<String, List<String?>> returnedMap = {};
+    final listOfExercise = getExercise();
+    for (int x = 0; x != listOfExercise.length; x++) {
+      switch (x) {
+        case 0:
+          returnedMap.update('skippedEx', (value) {
+            final tempList = value;
+            tempList.add(exOneSkipped.toString());
+            return tempList;
+          }, ifAbsent: () => [exOneSkipped.toString()]);
+          returnedMap.update(
+            'countOfRepsByEx',
+            (value) {
+              final tempList = value;
+              tempList.add(countRepsExOne.toString());
+              return tempList;
+            },
+            ifAbsent: () => [countRepsExOne.toString()],
+          );
+          returnedMap.update(
+            'maxWeightOnEx',
+            (value) {
+              final tempList = value;
+              tempList.add(maxWeightExOne);
+              return tempList;
+            },
+            ifAbsent: () => [maxWeightExOne],
+          );
+        case 1:
+          returnedMap.update('skippedEx', (value) {
+            final tempList = value;
+            tempList.add(exTwoSkipped.toString());
+            return tempList;
+          }, ifAbsent: () => [exTwoSkipped.toString()]);
+          returnedMap.update(
+            'countOfRepsByEx',
+            (value) {
+              final tempList = value;
+              tempList.add(countRepsExTwo.toString());
+              return tempList;
+            },
+            ifAbsent: () => [countRepsExTwo.toString()],
+          );
+          returnedMap.update(
+            'maxWeightOnEx',
+            (value) {
+              final tempList = value;
+              tempList.add(maxWeightExTwo);
+              return tempList;
+            },
+            ifAbsent: () => [maxWeightExTwo],
+          );
+        case 2:
+          returnedMap.update('skippedEx', (value) {
+            final tempList = value;
+            tempList.add(exThreeSkipped.toString());
+            return tempList;
+          }, ifAbsent: () => [exThreeSkipped.toString()]);
+          returnedMap.update(
+            'countOfRepsByEx',
+            (value) {
+              final tempList = value;
+              tempList.add(countRepsExThree.toString());
+              return tempList;
+            },
+            ifAbsent: () => [countRepsExThree.toString()],
+          );
+          returnedMap.update(
+            'maxWeightOnEx',
+            (value) {
+              final tempList = value;
+              tempList.add(maxWeightExThree);
+              return tempList;
+            },
+            ifAbsent: () => [maxWeightExThree],
+          );
+        case 3:
+          returnedMap.update('skippedEx', (value) {
+            final tempList = value;
+            tempList.add(exFourSkipped.toString());
+            return tempList;
+          }, ifAbsent: () => [exFourSkipped.toString()]);
+          returnedMap.update(
+            'countOfRepsByEx',
+            (value) {
+              final tempList = value;
+              tempList.add(countRepsExFour.toString());
+              return tempList;
+            },
+            ifAbsent: () => [countRepsExFour.toString()],
+          );
+          returnedMap.update(
+            'maxWeightOnEx',
+            (value) {
+              final tempList = value;
+              tempList.add(maxWeightExFour);
+              return tempList;
+            },
+            ifAbsent: () => [maxWeightExFour],
+          );
+        case 4:
+          returnedMap.update('skippedEx', (value) {
+            final tempList = value;
+            tempList.add(exFiveSkipped.toString());
+            return tempList;
+          }, ifAbsent: () => [exFiveSkipped.toString()]);
+          returnedMap.update(
+            'countOfRepsByEx',
+            (value) {
+              final tempList = value;
+              tempList.add(countRepsExFive.toString());
+              return tempList;
+            },
+            ifAbsent: () => [countRepsExFive.toString()],
+          );
+          returnedMap.update(
+            'maxWeightOnEx',
+            (value) {
+              final tempList = value;
+              tempList.add(maxWeightExFive);
+              return tempList;
+            },
+            ifAbsent: () => [maxWeightExFive],
+          );
+      }
+    }
+    return returnedMap;
+  }
+
   bool isTrainWasAllSkipped() {
     final skippedExercise = [];
     final skippedBoolens = [

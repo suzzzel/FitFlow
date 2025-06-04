@@ -813,7 +813,9 @@ GoRouter appRouter(Ref ref) {
                 actions: [
                   IconButton(
                       onPressed: () {
-                        context.goNamed('tempprogress');
+                        showAdaptiveDialog(
+                            context: context,
+                            builder: (context) => ViewTempProgressMainWidget());
                       },
                       icon: const Icon(
                         Icons.visibility_outlined,
@@ -869,30 +871,17 @@ GoRouter appRouter(Ref ref) {
           },
           routes: [
             GoRoute(
-                path: RouterPath.TRAININGNOW,
-                name: RouterPath.TRAININGNOW,
-                pageBuilder: (context, state) => CustomTransitionPage(
-                    child: DoTheTrainMainWidget(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) =>
-                            FadeTransition(
-                              opacity: animation,
-                              child: child,
-                            )),
-                routes: [
-                  GoRoute(
-                    path: RouterPath.VIEWTEMPPROGRESS,
-                    name: RouterPath.VIEWTEMPPROGRESS,
-                    pageBuilder: (context, state) => CustomTransitionPage(
-                        child: ViewTempProgressMainWidget(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) =>
-                                FadeTransition(
-                                  opacity: animation,
-                                  child: child,
-                                )),
-                  )
-                ])
+              path: RouterPath.TRAININGNOW,
+              name: RouterPath.TRAININGNOW,
+              pageBuilder: (context, state) => CustomTransitionPage(
+                  child: DoTheTrainMainWidget(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) =>
+                          FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          )),
+            )
           ]),
       GoRoute(
         path: RouterPath.LOADING,
