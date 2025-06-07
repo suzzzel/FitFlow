@@ -90,15 +90,14 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
         '${train.dayOfTraining.year}-${train.dayOfTraining.month.toString().padLeft(2, '0')}-${train.dayOfTraining.day.toString().padLeft(2, '0')}';
     try {
       await localSecureStorage.write(key: 'isTrainGo', value: 'false');
-      final trainings = await database.managers.trainingTable.get();
       await database.managers.trainingTable
           .filter((f) => f.dayOfTraining.equals(dayOfTrain))
           .update((o) => o(
                 idUser: Value(train.idUser),
                 dayOfTraining: Value(dayOfTrain),
                 exerciseOne: Value(train.exerciseOne),
-                countRepsExOne: Value(2),
-                maxWeightExOne: Value('100'),
+                countRepsExOne: Value(train.countRepsExOne ?? 0),
+                maxWeightExOne: Value(train.maxWeightExOne ?? '0'),
                 exerciseTwo: Value(train.exerciseTwo),
                 countRepsExTwo: Value(train.countRepsExTwo),
                 maxWeightExTwo: Value(train.maxWeightExTwo),
@@ -111,7 +110,7 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
                 exerciseFive: Value(train.exerciseFive),
                 countRepsExFive: Value(train.countRepsExFive),
                 maxWeightExFive: Value(train.maxWeightExFive),
-                percentOfTrainDone: Value(100),
+                percentOfTrainDone: Value(train.percentOfTrainDone() ?? 0),
                 isTrainOver: const Value(true),
               ));
       try {
@@ -120,8 +119,8 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
           'dayOfTraining': train.dayOfTraining.toString(),
           'mainMuscle': train.mainMuscle,
           'exerciseOne': train.exerciseOne,
-          'countRepsExOne': 2,
-          'maxWeightExOne': 100,
+          'countRepsExOne': train.countRepsExOne ?? 0,
+          'maxWeightExOne': train.maxWeightExOne ?? '0',
           'exerciseTwo': train.exerciseTwo,
           'countRepsExTwo': train.countRepsExTwo,
           'maxWeightExTwo': train.maxWeightExTwo,
@@ -134,7 +133,7 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
           'exerciseFive': train.exerciseFive,
           'countRepsExFive': train.countRepsExFive,
           'maxWeightExFive': train.maxWeightExFive,
-          'percentOfTrainDone': 100,
+          'percentOfTrainDone': train.percentOfTrainDone(),
           'isTrainOver': true
         });
       } catch (e) {
@@ -159,8 +158,8 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
             .filter((item) => item.dayOfTraining.equals(dayOfTraining))
             .update((o) => o(
                   exerciseOne: Value(train.exerciseOne),
-                  countRepsExOne: Value(12),
-                  maxWeightExOne: Value('100'),
+                  countRepsExOne: Value(train.countRepsExOne ?? 0),
+                  maxWeightExOne: Value(train.maxWeightExOne ?? '0'),
                   exerciseTwo: Value(train.exerciseTwo),
                   countRepsExTwo: Value(train.countRepsExTwo),
                   maxWeightExTwo: Value(train.maxWeightExTwo),
@@ -179,8 +178,8 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
               dayOfTraining:
                   '${train.dayOfTraining.year}-${train.dayOfTraining.month.toString().padLeft(2, '0')}-${train.dayOfTraining.day.toString().padLeft(2, '0')}',
               exerciseOne: train.exerciseOne,
-              countRepsExOne: 2,
-              maxWeightExOne: '100',
+              countRepsExOne: train.countRepsExOne ?? 0,
+              maxWeightExOne: train.maxWeightExOne ?? '0',
               exerciseTwo: Value(train.exerciseTwo),
               countRepsExTwo: Value(train.countRepsExTwo),
               maxWeightExTwo: Value(train.maxWeightExTwo),
@@ -193,8 +192,8 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
               exerciseFive: Value(train.exerciseFive),
               countRepsExFive: Value(train.countRepsExFive),
               maxWeightExFive: Value(train.maxWeightExFive),
-              percentOfTrainDone: 100,
-              isTrainOver: Value(false),
+              percentOfTrainDone: train.percentOfTrainDone() ?? 0,
+              isTrainOver: const Value(false),
             ));
 
     final all = await database.managers.trainingTable.get();

@@ -54,8 +54,12 @@ class ViewTempProgressMainWidget extends ConsumerWidget {
                                                         'true'
                                                 ? Text(
                                                     'Количество подходов: ${trainExerciesInfo['countOfRepsByEx']?[index]}')
-                                                : const Text(
-                                                    'Ждем завершения упражнения'),
+                                                : trainExerciesInfo['skippedEx']
+                                                            ?[index] ==
+                                                        'null'
+                                                    ? const Text(
+                                                        'Ждем завершения упражнения')
+                                                    : const SizedBox(),
                                             trainExerciesInfo['maxWeightOnEx']
                                                             ?[index] !=
                                                         null &&
@@ -72,13 +76,13 @@ class ViewTempProgressMainWidget extends ConsumerWidget {
                                     )),
                           ),
                         ),
-                    error: (_, st) => Text('error'),
-                    loading: () => CircularProgressIndicator()),
+                    error: (_, st) => const Text('error'),
+                    loading: () => const CircularProgressIndicator()),
                 ElevatedButton(
                     onPressed: () {
                       context.pop();
                     },
-                    child: Text('close'))
+                    child: const Text('close'))
               ],
             ),
           )),

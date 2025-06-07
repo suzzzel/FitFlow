@@ -162,18 +162,26 @@ final tempTrainStateNotifierProvider =
                     exerciseOne: thisTrain.exerciseOne,
                     countRepsExOne: prevTrain.countRepsExOne,
                     maxWeightExOne: prevTrain.maxWeightExOne,
+                    exOneSkipped: prevTrain.countRepsExOne! >= 1 ? true : false,
                     exerciseTwo: thisTrain.exerciseTwo,
                     countRepsExTwo: prevTrain.countRepsExTwo,
                     maxWeightExTwo: prevTrain.maxWeightExTwo,
+                    exTwoSkipped: prevTrain.countRepsExTwo! >= 1 ? true : false,
                     exerciseThree: thisTrain.exerciseThree,
                     countRepsExThree: prevTrain.countRepsExThree,
                     maxWeightExThree: prevTrain.maxWeightExThree,
+                    exThreeSkipped:
+                        prevTrain.countRepsExThree! >= 1 ? true : false,
                     exerciseFour: thisTrain.exerciseFour,
                     countRepsExFour: prevTrain.countRepsExFour,
                     maxWeightExFour: prevTrain.maxWeightExFour,
+                    exFourSkipped:
+                        prevTrain.countRepsExFour! >= 1 ? true : false,
                     exerciseFive: thisTrain.exerciseFive,
                     countRepsExFive: prevTrain.countRepsExFive,
                     maxWeightExFive: prevTrain.maxWeightExFive,
+                    exFiveSkipped:
+                        prevTrain.countRepsExFive! >= 1 ? true : false,
                   );
                   return TempTrainNotifier(train);
                 } else if (prevTrain.countRepsExFour != null) {
@@ -184,15 +192,21 @@ final tempTrainStateNotifierProvider =
                     exerciseOne: thisTrain.exerciseOne,
                     countRepsExOne: prevTrain.countRepsExOne,
                     maxWeightExOne: prevTrain.maxWeightExOne,
+                    exOneSkipped: prevTrain.countRepsExOne! >= 1 ? true : false,
                     exerciseTwo: thisTrain.exerciseTwo,
                     countRepsExTwo: prevTrain.countRepsExTwo,
                     maxWeightExTwo: prevTrain.maxWeightExTwo,
+                    exTwoSkipped: prevTrain.countRepsExTwo! >= 1 ? true : false,
                     exerciseThree: thisTrain.exerciseThree,
                     countRepsExThree: prevTrain.countRepsExThree,
                     maxWeightExThree: prevTrain.maxWeightExThree,
+                    exThreeSkipped:
+                        prevTrain.countRepsExThree! >= 1 ? true : false,
                     exerciseFour: thisTrain.exerciseFour,
                     countRepsExFour: prevTrain.countRepsExFour,
                     maxWeightExFour: prevTrain.maxWeightExFour,
+                    exFourSkipped:
+                        prevTrain.countRepsExFour! >= 1 ? true : false,
                     exerciseFive: thisTrain.exerciseFive,
                   );
                   return TempTrainNotifier(train);
@@ -204,12 +218,16 @@ final tempTrainStateNotifierProvider =
                     exerciseOne: thisTrain.exerciseOne,
                     countRepsExOne: prevTrain.countRepsExOne,
                     maxWeightExOne: prevTrain.maxWeightExOne,
+                    exOneSkipped: prevTrain.countRepsExOne! >= 1 ? true : false,
                     exerciseTwo: thisTrain.exerciseTwo,
                     countRepsExTwo: prevTrain.countRepsExTwo,
                     maxWeightExTwo: prevTrain.maxWeightExTwo,
+                    exTwoSkipped: prevTrain.countRepsExTwo! >= 1 ? true : false,
                     exerciseThree: thisTrain.exerciseThree,
                     countRepsExThree: prevTrain.countRepsExThree,
                     maxWeightExThree: prevTrain.maxWeightExThree,
+                    exThreeSkipped:
+                        prevTrain.countRepsExThree! >= 1 ? true : false,
                     exerciseFour: thisTrain.exerciseFour,
                     exerciseFive: thisTrain.exerciseFive,
                   );
@@ -222,9 +240,11 @@ final tempTrainStateNotifierProvider =
                     exerciseOne: thisTrain.exerciseOne,
                     countRepsExOne: prevTrain.countRepsExOne,
                     maxWeightExOne: prevTrain.maxWeightExOne,
+                    exOneSkipped: prevTrain.countRepsExOne! >= 1 ? true : false,
                     exerciseTwo: thisTrain.exerciseTwo,
                     countRepsExTwo: prevTrain.countRepsExTwo,
                     maxWeightExTwo: prevTrain.maxWeightExTwo,
+                    exTwoSkipped: prevTrain.countRepsExTwo! >= 1 ? true : false,
                     exerciseThree: thisTrain.exerciseThree,
                     exerciseFour: thisTrain.exerciseFour,
                     exerciseFive: thisTrain.exerciseFive,
@@ -238,6 +258,7 @@ final tempTrainStateNotifierProvider =
                     exerciseOne: thisTrain.exerciseOne,
                     countRepsExOne: prevTrain.countRepsExOne,
                     maxWeightExOne: prevTrain.maxWeightExOne,
+                    exOneSkipped: false,
                     exerciseTwo: thisTrain.exerciseTwo,
                     exerciseThree: thisTrain.exerciseThree,
                     exerciseFour: thisTrain.exerciseFour,

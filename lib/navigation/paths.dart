@@ -57,5 +57,7 @@ final class RouterPath {
 
   // тренировка
   static const String TRAININGNOW = '/trainnow';
+  static const String COMPLETETRAIN = 'completetrain';
+  static const String EMPTYCOMPLETETRAIN = 'emptycompletetrain';
   // тренировка
 }

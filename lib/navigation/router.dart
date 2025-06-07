@@ -57,7 +57,10 @@ GoRouter appRouter(Ref ref) {
         switch (status) {
           case 'auth':
             if (stateUser.user!.isTrainGo == true &&
-                state.fullPath != '/trainnow/tempprogress') {
+                state.fullPath != '/trainnow/tempprogress' &&
+                state.fullPath != '/trainnow/emptycompletetrain' &&
+                state.fullPath != '/trainnow/completetrain') {
+              log('redirect this');
               return RouterPath.TRAININGNOW;
             } else {
               switch (state.matchedLocation) {
@@ -426,6 +429,10 @@ GoRouter appRouter(Ref ref) {
                 name = 'Найти упражнение';
                 fontSize = 20;
                 fontWeight = FontWeight.w700;
+              case '/home/newtrainplan/customtrainplan':
+                name = 'Выберите дни\nтренировок';
+                fontSize = 20;
+                fontWeight = FontWeight.w700;
               default:
                 name = ' ';
                 break;
@@ -680,7 +687,7 @@ GoRouter appRouter(Ref ref) {
                                   path: RouterPath.VIEWCUSTOMPLAN,
                                   name: RouterPath.VIEWCUSTOMPLAN,
                                   pageBuilder: (context, state) {
-                                    return NoTransitionPage(
+                                    return const NoTransitionPage(
                                         child: ViewCustomPlan());
                                   },
                                   routes: [
@@ -791,6 +798,19 @@ GoRouter appRouter(Ref ref) {
           ]),
       ShellRoute(
           builder: (context, state, child) {
+            String name;
+            double fontSize = 20;
+            FontWeight fontWeight = FontWeight.w500;
+            switch (state.fullPath) {
+              case '/trainnow/tempprogress':
+                name = 'Тренировка';
+              case '/trainnow/emptycompletetrain':
+                name = 'Тренировка пропущена';
+              case '/trainnow/completetrain':
+                name = 'Поздравляем!';
+              default:
+                name = 'Тренировка';
+            }
             return Scaffold(
               extendBodyBehindAppBar: true,
               resizeToAvoidBottomInset: false,
@@ -799,55 +819,56 @@ GoRouter appRouter(Ref ref) {
                 forceMaterialTransparency: true,
                 backgroundColor: Colors.transparent,
                 leadingWidth: 35,
-                leading: IconButton(
-                    onPressed: () {
-                      showAdaptiveDialog(
-                        context: context,
-                        builder: (context) => const ExitTheTrainButton(),
-                      );
-                    },
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.red,
-                    )),
-                actions: [
-                  IconButton(
-                      onPressed: () {
-                        showAdaptiveDialog(
+                leading: state.fullPath == RouterPath.TRAININGNOW
+                    ? IconButton(
+                        onPressed: () {
+                          showAdaptiveDialog(
                             context: context,
-                            builder: (context) => ViewTempProgressMainWidget());
-                      },
-                      icon: const Icon(
-                        Icons.visibility_outlined,
-                        color: Colors.purple,
-                      ))
-                ],
+                            builder: (context) => const ExitTheTrainButton(),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.close,
+                          color: Colors.red,
+                        ))
+                    : null,
+                actions: state.fullPath == RouterPath.TRAININGNOW
+                    ? [
+                        IconButton(
+                            onPressed: () {
+                              showAdaptiveDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      const ViewTempProgressMainWidget());
+                            },
+                            icon: const Icon(
+                              Icons.visibility_outlined,
+                              color: Colors.purple,
+                            ))
+                      ]
+                    : [],
                 title: ShaderMask(
                   blendMode: BlendMode.srcATop,
                   shaderCallback: (bounds) => LinearGradient(colors: [
                     Theme.of(context).colorScheme.primaryFixed,
                     Theme.of(context).colorScheme.secondaryFixed,
                   ]).createShader(bounds),
-                  child: SizedBox(
-                    child: FittedBox(
-                      child: Text(
-                        'Тренировка',
-                        textScaler: const TextScaler.linear(1),
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15,
-                            shadows: [
-                              Shadow(
-                                  offset: const Offset(0, 4),
-                                  blurRadius: 20,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .secondaryFixed
-                                      .withOpacity(0.67))
-                            ]),
-                      ),
-                    ),
+                  child: Text(
+                    name,
+                    textScaler: const TextScaler.linear(1),
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.inter(
+                        fontWeight: fontWeight,
+                        fontSize: fontSize,
+                        shadows: [
+                          Shadow(
+                              offset: const Offset(0, 4),
+                              blurRadius: 20,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .secondaryFixed
+                                  .withOpacity(0.67))
+                        ]),
                   ),
                 ),
               ),
@@ -871,17 +892,46 @@ GoRouter appRouter(Ref ref) {
           },
           routes: [
             GoRoute(
-              path: RouterPath.TRAININGNOW,
-              name: RouterPath.TRAININGNOW,
-              pageBuilder: (context, state) => CustomTransitionPage(
-                  child: DoTheTrainMainWidget(),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) =>
-                          FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          )),
-            )
+                path: RouterPath.TRAININGNOW,
+                name: RouterPath.TRAININGNOW,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                    child: DoTheTrainMainWidget(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) =>
+                            FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            )),
+                routes: [
+                  GoRoute(
+                    path: RouterPath.COMPLETETRAIN,
+                    name: RouterPath.COMPLETETRAIN,
+                    pageBuilder: (context, state) => CustomTransitionPage(
+                        child: Container(
+                          color: Colors.green,
+                        ),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) =>
+                                FadeTransition(
+                                  opacity: animation,
+                                  child: child,
+                                )),
+                  ),
+                  GoRoute(
+                    path: RouterPath.EMPTYCOMPLETETRAIN,
+                    name: RouterPath.EMPTYCOMPLETETRAIN,
+                    pageBuilder: (context, state) => CustomTransitionPage(
+                        child: Container(
+                          color: Colors.red,
+                        ),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) =>
+                                FadeTransition(
+                                  opacity: animation,
+                                  child: child,
+                                )),
+                  )
+                ])
           ]),
       GoRoute(
         path: RouterPath.LOADING,

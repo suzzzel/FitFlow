@@ -236,6 +236,24 @@ class TempTrainModel {
     return !skippedExercise.contains(false);
   }
 
+  int? percentOfTrainDone() {
+    final infoAboutTrainFirst = getInfoAboutThisTrain();
+
+    final List<String?> skippedEx = infoAboutTrainFirst['skippedEx']!;
+    if (!skippedEx.contains('null') && !skippedEx.contains('false')) {
+      return 100;
+    } else {
+      final completeExercise = getInfoAboutThisTrain()['skippedEx']!;
+      completeExercise.removeWhere((item) => item == 'null' || item == 'true');
+      log(completeExercise.toString());
+      try {
+        return ((100 / skippedEx.length) * completeExercise.length).toInt();
+      } catch (e) {
+        return null;
+      }
+    }
+  }
+
   TempTrainModel copyWith({
     String? idUser,
     DateTime? dayOfTraining,

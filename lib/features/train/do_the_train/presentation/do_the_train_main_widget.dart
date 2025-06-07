@@ -11,6 +11,7 @@ import 'package:fitflow/features/train/do_the_train/domain/providers/temp_exerci
 import 'package:fitflow/features/train/do_the_train/domain/providers/temp_train_domain_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class DoTheTrainMainWidget extends ConsumerStatefulWidget {
   const DoTheTrainMainWidget({super.key});
@@ -32,6 +33,13 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
       ref.invalidate(tempExerciseFutureProvider);
       stepOfInstructionsOpen = [];
       instructions = [];
+      final train = ref.read(tempTrainStateNotifierProvider);
+      if (train.getExercise().length == tempExercise &&
+          train.isTrainWasAllSkipped()) {
+        context.goNamed('emptycompletetrain');
+      } else if (train.getExercise().length == tempExercise) {
+        context.goNamed('completetrain');
+      }
     });
   }
 
@@ -46,6 +54,12 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
       ref.read(completeTrainProvider).nextExercise(train: train);
       ref.invalidate(coutOfRepsInTempExerciseProvider);
       ref.invalidate(maxWeightOnTempExerciseProvider);
+      if (train.getExercise().length == train.tempExercise &&
+          !train.isTrainWasAllSkipped()) {
+        context.goNamed('completetrain');
+      } else if (train.getExercise().length == train.tempExercise) {
+        context.goNamed('emptycompletetrain');
+      }
     });
   }
 
@@ -283,7 +297,7 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
                         );
                       },
                       error: (_, st) => Text('error'),
-                      loading: () => CircularProgressIndicator()),
+                      loading: () => const CircularProgressIndicator()),
                   ElevatedButton(
                       onPressed: () {
                         countOfReps <= 0
@@ -298,14 +312,7 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
                       child: countOfReps <= 0 ? Text('skip') : Text('cont')),
                 ],
               )
-            : Container(
-                color: Colors.green,
-                child: Center(
-                  child: trainNotifier.isTrainWasAllSkipped()
-                      ? Text('all train was skipepd')
-                      : Text('good job!'),
-                ),
-              )
-        : Center(child: CircularProgressIndicator());
+            : SizedBox()
+        : const Center(child: CircularProgressIndicator());
   }
 }
