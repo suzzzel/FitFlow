@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fitflow/features/general_comonents/exercise_model.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/models/temp_train_plan_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +16,6 @@ class TempTrainPlanNotifier extends StateNotifier<TempTrainPlanModel> {
         newDay.add(exercise);
         tempMap.update(weekday, (value) => newDay);
       }
-
       state = state.copyWith(exercisesByWeekday: tempMap);
     }
   }

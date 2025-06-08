@@ -20,8 +20,8 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sig
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/select_weight_main_widget.dart';
 import 'package:fitflow/features/background/background_widget.dart';
 import 'package:fitflow/features/search/search_ex/presentation/search_ex_main_widget.dart';
-import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/custom_plan_way/select_weekday_to_train_widget.dart';
-import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/custom_plan_way/view_custom_plan.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/custom_plan_way/select_weekday_to_train/select_weekday_to_train_widget.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/custom_plan_way/view_custom_plan/view_custom_plan.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/ready_plan_way/select_ready_plan_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/select_way_of_creating_train_plan_main_widget.dart';
 import 'package:fitflow/features/home/home_main_screen/home_main_widget.dart';
@@ -687,7 +687,9 @@ GoRouter appRouter(Ref ref) {
                                   path: RouterPath.VIEWCUSTOMPLAN,
                                   name: RouterPath.VIEWCUSTOMPLAN,
                                   pageBuilder: (context, state) {
-                                    return const NoTransitionPage(
+                                    // ignore: prefer_const_constructors
+                                    return NoTransitionPage(
+                                        // ignore: prefer_const_constructors
                                         child: ViewCustomPlan());
                                   },
                                   routes: [

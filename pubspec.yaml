@@ -28,6 +28,7 @@ dependencies:
   json_annotation: ^4.9.0
   dotted_border: ^2.1.0
   top_snackbar_flutter: ^3.3.0
+  loading_indicator: ^3.1.1
   
 dev_dependencies:
   flutter_test:
