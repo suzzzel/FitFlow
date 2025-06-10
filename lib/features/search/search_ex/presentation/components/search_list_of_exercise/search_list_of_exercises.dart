@@ -4,8 +4,10 @@ import 'package:fitflow/features/general_comonents/doc_provider.dart';
 import 'package:fitflow/features/general_comonents/exercise_model.dart';
 import 'package:fitflow/features/search/search_ex/domain/providers/current_page_search_provider.dart';
 import 'package:fitflow/features/search/search_ex/domain/providers/search_result_domain_provider.dart';
-import 'package:fitflow/features/search/search_ex/presentation/components/exercise_ui_widget.dart';
-import 'package:fitflow/features/search/search_ex/presentation/components/new_page_load_button.dart';
+import 'package:fitflow/features/search/search_ex/presentation/components/exercise_detail_view_in_search/exercise_ui_widget.dart';
+import 'package:fitflow/features/search/search_ex/presentation/components/search_list_of_exercise/components/load_new_page/new_page_load_widget.dart';
+import 'package:fitflow/features/search/search_ex/presentation/components/search_list_of_exercise/components/nothing_to_show_text.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/components/smth_goes_wrong_widget.dart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -31,8 +33,7 @@ class ListOfExercices extends ConsumerWidget {
       slivers: [
         SliverGrid(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-          ),
+              crossAxisCount: 2, childAspectRatio: 0.9),
           delegate: SliverChildBuilderDelegate(
             (context, index) {
               final exIdGif = exercises[index].id.toString().padLeft(4, '0');
@@ -51,7 +52,7 @@ class ListOfExercices extends ConsumerWidget {
         SliverToBoxAdapter(
           child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: LoadingNewPageButton(
+              child: LoadingNewPageWidget(
                 tempRequest: tempUserRequest,
               )),
         ),
@@ -81,13 +82,7 @@ class ListViewSearchExRiverpodState extends ConsumerWidget {
           return switch (searchProvider) {
             AsyncData(value: final items)
                 when items.isEmpty && currentPageProvider == 1 =>
-              const Center(
-                child: Text(
-                  'Ничего не найдено\nПопробуйте изменить запрос',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-              ),
+              const NothingToShowWidget(),
             AsyncData(value: final items) => ListOfExercices(
                 tempUserRequest: tempUserRequest,
                 exercises: items,
@@ -103,11 +98,11 @@ class ListViewSearchExRiverpodState extends ConsumerWidget {
                 isPlanEdit: isPlanEdit,
               ),
             AsyncLoading() => const Center(child: CircularProgressIndicator()),
-            AsyncError(:final error) => ErrorWidget(error),
+            AsyncError() => const SomethingGoesWrongWidget(),
             _ => const SizedBox.shrink(),
           };
         },
-        error: (err, stack) => Text('Error: $err'),
+        error: (err, stack) => const SomethingGoesWrongWidget(),
         loading: () => const CircularProgressIndicator());
   }
 }

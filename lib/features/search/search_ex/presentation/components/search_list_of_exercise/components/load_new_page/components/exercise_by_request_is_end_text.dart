@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
-class SomethingGoesWrongWidget extends StatelessWidget {
-  const SomethingGoesWrongWidget({super.key});
+class ExerciseByRequestIsEndText extends StatelessWidget {
+  const ExerciseByRequestIsEndText({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class SomethingGoesWrongWidget extends StatelessWidget {
               style:
                   GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 17),
               textAlign: TextAlign.center,
-              'К сожалению, что то пошло не так, проверьте соединение с сетью и перезапустите приложение.'),
+              'Больше упражнений по вашему запросу нет.\nПопробуйте изменить запрос и/или фильтры.'),
           const SizedBox(
               width: 100,
               height: 100,

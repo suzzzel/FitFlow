@@ -71,7 +71,7 @@ class ViewCustomPlan extends ConsumerWidget {
             ],
           );
         },
-        error: (err, stack) => const SomethingGoesWrongWidget(),
+        error: (err, stack) => const Center(child: SomethingGoesWrongWidget()),
         loading: () => const CircularProgressIndicator());
   }
 }
