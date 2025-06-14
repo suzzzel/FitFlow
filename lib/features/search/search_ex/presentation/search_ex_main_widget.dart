@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:fitflow/features/auth/presentation/general/custom_text_field.dart';
+import 'package:fitflow/features/general_comonents/exercise_model.dart';
 import 'package:fitflow/features/search/search_ex/domain/models/filters_list.dart';
 import 'package:fitflow/features/search/search_ex/domain/providers/current_page_search_provider.dart';
 import 'package:fitflow/features/search/search_ex/domain/providers/filter_providers_domain.dart';
@@ -15,8 +16,12 @@ import 'package:google_fonts/google_fonts.dart';
 class SearchExMainWidget extends ConsumerStatefulWidget {
   final String? weekday;
   final bool isPlanEdit;
+  final ExerciseModel? exerciseToDelete;
   const SearchExMainWidget(
-      {super.key, required this.isPlanEdit, required this.weekday});
+      {super.key,
+      required this.isPlanEdit,
+      required this.weekday,
+      required this.exerciseToDelete});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -86,6 +91,7 @@ class _SearchExMainWidgetState extends ConsumerState<SearchExMainWidget> {
           child: ListViewSearchExRiverpodState(
             tempUserRequest: controller.text,
             weekday: widget.weekday,
+            exerciseToDelete: widget.exerciseToDelete,
             isPlanEdit: widget.isPlanEdit,
           ),
         ),

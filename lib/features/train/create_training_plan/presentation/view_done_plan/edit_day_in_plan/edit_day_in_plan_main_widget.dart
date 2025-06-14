@@ -62,7 +62,7 @@ class EditDayInPlanMainWidget extends ConsumerWidget {
                     lengthOfExercises: exercises.length,
                     exName: exName,
                     weekday: weekday,
-                    exercises: exercises[index]);
+                    exercise: exercises[index]);
               }
             },
           ),
@@ -127,7 +127,7 @@ class ExercisesInDayInfo extends ConsumerWidget {
     required this.exGifFile,
     required this.exName,
     required this.weekday,
-    required this.exercises,
+    required this.exercise,
     required this.lengthOfExercises,
   });
 
@@ -135,7 +135,7 @@ class ExercisesInDayInfo extends ConsumerWidget {
   final String exName;
   final String weekday;
   final int lengthOfExercises;
-  final ExerciseModel exercises;
+  final ExerciseModel exercise;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -168,12 +168,13 @@ class ExercisesInDayInfo extends ConsumerWidget {
                     alignment: lengthOfExercises > 1
                         ? Alignment.topCenter
                         : Alignment.center,
-                    child: const ChangeExercisesInDayButton()),
+                    child: ChangeExercisesInDayButton(
+                        weekday: weekday, exerciseToDelete: exercise)),
                 lengthOfExercises > 1
                     ? Align(
                         alignment: Alignment.bottomCenter,
                         child: DeleteExercisesInDayButton(
-                            weekday: weekday, exercises: exercises),
+                            weekday: weekday, exercises: exercise),
                       )
                     : const SizedBox()
               ],

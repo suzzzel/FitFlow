@@ -30,6 +30,16 @@ class TempTrainPlanNotifier extends StateNotifier<TempTrainPlanModel> {
     state = state.copyWith(exercisesByWeekday: tempMap);
   }
 
+  void updateExercise(
+      {required String weekday,
+      required ExerciseModel exerciseToChange,
+      required ExerciseModel newExercise}) {
+    final Map<String, List<ExerciseModel>> tempMap = state.exercisesByWeekday;
+    final thisDay = tempMap[weekday];
+    thisDay![thisDay.indexWhere((ex) => ex.id == exerciseToChange.id)] =
+        newExercise;
+  }
+
   void reset() {
     state = TempTrainPlanModel(exercisesByWeekday: {});
   }

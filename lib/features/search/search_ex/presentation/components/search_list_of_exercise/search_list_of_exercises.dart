@@ -16,6 +16,7 @@ class ListOfExercices extends ConsumerWidget {
   final Directory dir;
   final bool isPlanEdit;
   final String? weekday;
+  final ExerciseModel? exerciseToDelete;
 
   final String tempUserRequest;
 
@@ -25,7 +26,8 @@ class ListOfExercices extends ConsumerWidget {
       required this.exercises,
       required this.tempUserRequest,
       required this.isPlanEdit,
-      required this.weekday});
+      required this.weekday,
+      required this.exerciseToDelete});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,6 +45,7 @@ class ListOfExercices extends ConsumerWidget {
                 dir: dir,
                 weekday: weekday,
                 exercise: exercises[index],
+                exerciseToDelete: exerciseToDelete,
                 isPlanEdit: isPlanEdit,
               );
             },
@@ -65,12 +68,14 @@ class ListViewSearchExRiverpodState extends ConsumerWidget {
   final bool isPlanEdit;
   final String? weekday;
   final String tempUserRequest;
+  final ExerciseModel? exerciseToDelete;
 
   const ListViewSearchExRiverpodState(
       {super.key,
       required this.tempUserRequest,
       required this.isPlanEdit,
-      required this.weekday});
+      required this.weekday,
+      required this.exerciseToDelete});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -88,12 +93,14 @@ class ListViewSearchExRiverpodState extends ConsumerWidget {
                 exercises: items,
                 weekday: weekday,
                 dir: dir.value!,
+                exerciseToDelete: exerciseToDelete,
                 isPlanEdit: isPlanEdit,
               ),
             AsyncLoading(value: final items?) => ListOfExercices(
                 tempUserRequest: tempUserRequest,
                 exercises: items,
                 weekday: weekday,
+                exerciseToDelete: exerciseToDelete,
                 dir: dir.value!,
                 isPlanEdit: isPlanEdit,
               ),

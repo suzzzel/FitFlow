@@ -8,14 +8,15 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddExerciseInPlanFromSearch extends ConsumerWidget {
-  const AddExerciseInPlanFromSearch({
-    super.key,
-    required this.weekday,
-    required this.exercise,
-  });
+  const AddExerciseInPlanFromSearch(
+      {super.key,
+      required this.weekday,
+      required this.exerciseToAdd,
+      required this.exerciseToDelete});
 
   final String? weekday;
-  final ExerciseModel exercise;
+  final ExerciseModel exerciseToAdd;
+  final ExerciseModel? exerciseToDelete;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,9 +29,16 @@ class AddExerciseInPlanFromSearch extends ConsumerWidget {
           ], transform: const GradientRotation(pi / 2))),
       child: ElevatedButton(
           onPressed: () async {
-            ref
-                .read(tempTrainPlanProvider.notifier)
-                .addExercise(weekday: weekday!, exercise: exercise);
+            if (exerciseToDelete != null) {
+              ref.read(tempTrainPlanProvider.notifier).updateExercise(
+                  weekday: weekday!,
+                  exerciseToChange: exerciseToDelete!,
+                  newExercise: exerciseToAdd);
+            } else {
+              ref
+                  .read(tempTrainPlanProvider.notifier)
+                  .addExercise(weekday: weekday!, exercise: exerciseToAdd);
+            }
             context.pop();
             context.pop();
           },
@@ -39,7 +47,7 @@ class AddExerciseInPlanFromSearch extends ConsumerWidget {
               backgroundColor: WidgetStatePropertyAll(Colors.transparent)),
           child: FittedBox(
             child: Text(
-              'Добавить',
+              exerciseToDelete == null ? 'Добавить' : 'Заменить',
               style: GoogleFonts.inter(
                   color: Theme.of(context).colorScheme.onSecondary,
                   fontSize: 16,
