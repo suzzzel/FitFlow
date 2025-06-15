@@ -31,7 +31,7 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
         bodyPart: exercise.bodyPart,
         equipment: exercise.bodyPart,
         name: exercise.name,
-        target: exercise.name,
+        target: exercise.target,
         secondaryMuscleZero: exercise.secondaryMuscleZero,
         secondaryMuscleOne: exercise.secondaryMuscleOne,
         secondaryMuscleTwo: exercise.secondaryMuscleTwo,
@@ -195,7 +195,6 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
               percentOfTrainDone: train.percentOfTrainDone() ?? 0,
               isTrainOver: const Value(false),
             ));
-
     final all = await database.managers.trainingTable.get();
     for (var x in all) {
       log(x.dayOfTraining);
@@ -210,7 +209,7 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
     try {
       const localSecureStorage = FlutterSecureStorage();
       await database.managers.userInfoTable
-          .update((f) => f(isTrainGo: Value(false)));
+          .update((f) => f(isTrainGo: const Value(false)));
       await database.managers.trainingTable
           .filter((f) => f.dayOfTraining(dayOfTraining))
           .delete();
@@ -237,5 +236,11 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
     }
     log('end get ex info');
     return listToReturn;
+  }
+
+  @override
+  Future<void> exitFromTrainWhenTrainIsOver() async {
+    const localSecureStorage = FlutterSecureStorage();
+    await localSecureStorage.write(key: 'isTrainGo', value: 'false');
   }
 }

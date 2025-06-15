@@ -27,4 +27,9 @@ class DoTheTrainDomainRepo implements DoTheTrainDomainRepoImpl {
   Future<void> nextExercise({required TempTrainModel train}) async {
     await dataRepo.nextExercise(train: train);
   }
+
+  @override
+  Future<void> exitFromTrainingWhenAppCrash() async {
+    return await dataRepo.exitFromTrainWhenTrainIsOver();
+  }
 }

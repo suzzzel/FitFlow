@@ -5,4 +5,5 @@ abstract class DoTheTrainDomainRepoImpl {
   Future<bool> completeTrainAndExit({required TempTrainModel train});
   Future<void> nextExercise({required TempTrainModel train});
   Future<bool> exitFromTrainWithoutSaving();
+  Future<void> exitFromTrainingWhenAppCrash();
 }

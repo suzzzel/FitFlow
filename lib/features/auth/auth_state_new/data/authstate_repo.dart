@@ -135,7 +135,6 @@ Stream<AppUserState> authState(Ref ref) {
                 isTrainGo: isTrainGo == 'true' ? true : false,
                 offlineMode: true));
         streamController.add(AppUserState.auth(offlineUserMode));
-        streamController.close();
       } catch (e) {
         streamController.add(const AppUserState.unauth());
       }

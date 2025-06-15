@@ -9,4 +9,5 @@ abstract class DoTheTrainDataRepoImpl {
   Future<void> nextExercise({required TempTrainModel train});
   Future<List<ExerciseModel>> getProgressTempTrain(
       {required List<String> exercisesList});
+  Future<void> exitFromTrainWhenTrainIsOver();
 }
