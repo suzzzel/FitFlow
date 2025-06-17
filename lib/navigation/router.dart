@@ -35,6 +35,8 @@ import 'package:fitflow/features/train/create_training_plan/presentation/view_do
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/view_done_plan_main_widget.dart';
 import 'package:fitflow/features/train/do_the_train/presentation/train/do_the_train_main_widget.dart';
 import 'package:fitflow/features/train/do_the_train/presentation/exit_train_before_end/exit_the_train.dart';
+import 'package:fitflow/features/train/do_the_train/presentation/view_result/bad_result/view_bad_result.dart';
+import 'package:fitflow/features/train/do_the_train/presentation/view_result/good_result/view_good_result.dart';
 import 'package:fitflow/features/train/do_the_train/presentation/view_temp_progress_train/view_temp_progress.dart';
 import 'package:fitflow/navigation/home_navigation_bar/navbar.dart';
 import 'package:fitflow/navigation/paths.dart';
@@ -923,9 +925,7 @@ GoRouter appRouter(Ref ref) {
                     path: RouterPath.COMPLETETRAIN,
                     name: RouterPath.COMPLETETRAIN,
                     pageBuilder: (context, state) => CustomTransitionPage(
-                        child: Container(
-                          color: Colors.green,
-                        ),
+                        child: const ViewGoodResultWidget(),
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) =>
                                 FadeTransition(
@@ -937,9 +937,7 @@ GoRouter appRouter(Ref ref) {
                     path: RouterPath.EMPTYCOMPLETETRAIN,
                     name: RouterPath.EMPTYCOMPLETETRAIN,
                     pageBuilder: (context, state) => CustomTransitionPage(
-                        child: Container(
-                          color: Colors.red,
-                        ),
+                        child: ViewBadResultWidget(),
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) =>
                                 FadeTransition(

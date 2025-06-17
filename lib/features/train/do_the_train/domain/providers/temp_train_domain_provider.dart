@@ -82,9 +82,9 @@ class TempTrainNotifier extends StateNotifier<TempTrainModel> {
     log(state.toString());
   }
 
-  void skipExercise({required int tempExercise}) {
+  void skipExercise() {
     TempTrainModel tempState = state;
-    switch (tempExercise) {
+    switch (state.tempExercise) {
       case 1:
         tempState = tempState.copyWith(
             exOneSkipped: true, tempExercise: tempState.tempExercise + 1);

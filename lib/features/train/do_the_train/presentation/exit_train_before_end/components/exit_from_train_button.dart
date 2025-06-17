@@ -40,7 +40,7 @@ class ExitFromTrainButton extends ConsumerWidget {
                     ? () async {
                         final isExitReady = await ref
                             .read(completeTrainProvider)
-                            .completeTrainAndExit(train: trainNotifier);
+                            .completeTrain(train: trainNotifier);
                         isExitReady ? ref.refresh(authStateProvider) : () {};
                         context.goNamed('/home');
                         ref.invalidate(

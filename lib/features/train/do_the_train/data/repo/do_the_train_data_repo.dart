@@ -85,10 +85,10 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
 
   @override
   Future<bool> saveTrainEndExit({required TempTrainModel train}) async {
-    const localSecureStorage = FlutterSecureStorage();
     final dayOfTrain =
         '${train.dayOfTraining.year}-${train.dayOfTraining.month.toString().padLeft(2, '0')}-${train.dayOfTraining.day.toString().padLeft(2, '0')}';
     try {
+      const localSecureStorage = FlutterSecureStorage();
       await localSecureStorage.write(key: 'isTrainGo', value: 'false');
       await database.managers.trainingTable
           .filter((f) => f.dayOfTraining.equals(dayOfTrain))
@@ -193,7 +193,6 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
               countRepsExFive: Value(train.countRepsExFive),
               maxWeightExFive: Value(train.maxWeightExFive),
               percentOfTrainDone: train.percentOfTrainDone() ?? 0,
-              isTrainOver: const Value(false),
             ));
     final all = await database.managers.trainingTable.get();
     for (var x in all) {

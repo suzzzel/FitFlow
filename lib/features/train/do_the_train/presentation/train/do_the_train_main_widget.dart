@@ -38,26 +38,26 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
   List<String> instructions = [];
   void _skipEx({required int tempExercise}) {
     setState(() {
-      ref
-          .read(tempTrainStateNotifierProvider.notifier)
-          .skipExercise(tempExercise: tempExercise);
+      ref.read(tempTrainStateNotifierProvider.notifier).skipExercise();
       ref.invalidate(tempExerciseFutureProvider);
       stepOfInstructionsOpen = [];
       instructions = [];
       final train = ref.read(tempTrainStateNotifierProvider);
-      if (train.getExercise().length == tempExercise &&
+      if (train.getExercise().length < train.tempExercise &&
           train.isTrainWasAllSkipped()) {
+        ref.read(completeTrainProvider).exitFromTrainWithoutSaving();
         context.goNamed('emptycompletetrain');
-      } else if (train.getExercise().length == tempExercise) {
+      } else if (train.getExercise().length < train.tempExercise) {
+        ref.read(completeTrainProvider).completeTrain(train: train);
         context.goNamed('completetrain');
       }
     });
   }
 
-  void _completeExercise(
-      {required String? maxWeight,
-      required int countOfReps,
-      required TempTrainModel train}) {
+  void _completeExercise({
+    required String? maxWeight,
+    required int countOfReps,
+  }) {
     setState(() {
       ref.read(tempTrainStateNotifierProvider.notifier).completeExercise(
           maxWeightOnThatExercise: maxWeight ?? '0',
@@ -67,10 +67,13 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
           .nextExercise(train: ref.read(tempTrainStateNotifierProvider));
       ref.invalidate(coutOfRepsInTempExerciseProvider);
       ref.invalidate(maxWeightOnTempExerciseProvider);
-      if (train.getExercise().length == train.tempExercise &&
+      final train = ref.read(tempTrainStateNotifierProvider);
+      if (train.getExercise().length < train.tempExercise &&
           !train.isTrainWasAllSkipped()) {
+        ref.read(completeTrainProvider).completeTrain(train: train);
         context.goNamed('completetrain');
-      } else if (train.getExercise().length == train.tempExercise) {
+      } else if (train.getExercise().length < train.tempExercise) {
+        ref.read(completeTrainProvider).exitFromTrainWithoutSaving();
         context.goNamed('emptycompletetrain');
       }
     });
@@ -174,20 +177,7 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
                   ],
                 ),
               )
-            : Builder(
-                builder: (context) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    if (mounted) {
-                      ref
-                          .read(completeTrainProvider)
-                          .exitFromTrainingWhenAppCrash();
-                    }
-                  });
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
-              )
+            : const SizedBox()
         : const Center(child: CircularProgressIndicator());
   }
 
@@ -283,7 +273,7 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
                   : _completeExercise(
                       maxWeight: tempMaxWeight,
                       countOfReps: countOfReps,
-                      train: trainNotifier);
+                    );
             },
             style: ButtonStyle(
                 elevation: const WidgetStatePropertyAll(0),
