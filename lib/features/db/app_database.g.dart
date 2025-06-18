@@ -1155,54 +1155,14 @@ class $ExerciseTableTable extends ExerciseTable
   $ExerciseTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _bodyPartMeta =
+      const VerificationMeta('bodyPart');
   @override
-  late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _urlGifMeta = const VerificationMeta('urlGif');
-  @override
-  late final GeneratedColumn<String> urlGif = GeneratedColumn<String>(
-      'url_gif', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _mainMuscleMeta =
-      const VerificationMeta('mainMuscle');
-  @override
-  late final GeneratedColumn<String> mainMuscle = GeneratedColumn<String>(
-      'main_muscle', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _secondaryMuscleMeta =
-      const VerificationMeta('secondaryMuscle');
-  @override
-  late final GeneratedColumn<String> secondaryMuscle = GeneratedColumn<String>(
-      'secondary_muscle', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _instructionsOneMeta =
-      const VerificationMeta('instructionsOne');
-  @override
-  late final GeneratedColumn<String> instructionsOne = GeneratedColumn<String>(
-      'instructions_one', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _instructionsTwoMeta =
-      const VerificationMeta('instructionsTwo');
-  @override
-  late final GeneratedColumn<String> instructionsTwo = GeneratedColumn<String>(
-      'instructions_two', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _instructionsThreeMeta =
-      const VerificationMeta('instructionsThree');
-  @override
-  late final GeneratedColumn<String> instructionsThree =
-      GeneratedColumn<String>('instructions_three', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _instructionsFourMeta =
-      const VerificationMeta('instructionsFour');
-  @override
-  late final GeneratedColumn<String> instructionsFour = GeneratedColumn<String>(
-      'instructions_four', aliasedName, false,
+  late final GeneratedColumn<String> bodyPart = GeneratedColumn<String>(
+      'body_part', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _equipmentMeta =
       const VerificationMeta('equipment');
@@ -1210,18 +1170,142 @@ class $ExerciseTableTable extends ExerciseTable
   late final GeneratedColumn<String> equipment = GeneratedColumn<String>(
       'equipment', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _targetMeta = const VerificationMeta('target');
+  @override
+  late final GeneratedColumn<String> target = GeneratedColumn<String>(
+      'target', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _secondaryMuscleZeroMeta =
+      const VerificationMeta('secondaryMuscleZero');
+  @override
+  late final GeneratedColumn<String> secondaryMuscleZero =
+      GeneratedColumn<String>('secondary_muscle_zero', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _secondaryMuscleOneMeta =
+      const VerificationMeta('secondaryMuscleOne');
+  @override
+  late final GeneratedColumn<String> secondaryMuscleOne =
+      GeneratedColumn<String>('secondary_muscle_one', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _secondaryMuscleTwoMeta =
+      const VerificationMeta('secondaryMuscleTwo');
+  @override
+  late final GeneratedColumn<String> secondaryMuscleTwo =
+      GeneratedColumn<String>('secondary_muscle_two', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _secondaryMuscleThreeMeta =
+      const VerificationMeta('secondaryMuscleThree');
+  @override
+  late final GeneratedColumn<String> secondaryMuscleThree =
+      GeneratedColumn<String>('secondary_muscle_three', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _secondaryMuscleFourMeta =
+      const VerificationMeta('secondaryMuscleFour');
+  @override
+  late final GeneratedColumn<String> secondaryMuscleFour =
+      GeneratedColumn<String>('secondary_muscle_four', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _secondaryMuscleFiveMeta =
+      const VerificationMeta('secondaryMuscleFive');
+  @override
+  late final GeneratedColumn<String> secondaryMuscleFive =
+      GeneratedColumn<String>('secondary_muscle_five', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _instructionsZeroMeta =
+      const VerificationMeta('instructionsZero');
+  @override
+  late final GeneratedColumn<String> instructionsZero = GeneratedColumn<String>(
+      'instructions_zero', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _instructionsOneMeta =
+      const VerificationMeta('instructionsOne');
+  @override
+  late final GeneratedColumn<String> instructionsOne = GeneratedColumn<String>(
+      'instructions_one', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _instructionsTwoMeta =
+      const VerificationMeta('instructionsTwo');
+  @override
+  late final GeneratedColumn<String> instructionsTwo = GeneratedColumn<String>(
+      'instructions_two', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _instructionsThreeMeta =
+      const VerificationMeta('instructionsThree');
+  @override
+  late final GeneratedColumn<String> instructionsThree =
+      GeneratedColumn<String>('instructions_three', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _instructionsFourMeta =
+      const VerificationMeta('instructionsFour');
+  @override
+  late final GeneratedColumn<String> instructionsFour = GeneratedColumn<String>(
+      'instructions_four', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _instructionsFiveMeta =
+      const VerificationMeta('instructionsFive');
+  @override
+  late final GeneratedColumn<String> instructionsFive = GeneratedColumn<String>(
+      'instructions_five', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _instructionsSixMeta =
+      const VerificationMeta('instructionsSix');
+  @override
+  late final GeneratedColumn<String> instructionsSix = GeneratedColumn<String>(
+      'instructions_six', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _instructionsSevenMeta =
+      const VerificationMeta('instructionsSeven');
+  @override
+  late final GeneratedColumn<String> instructionsSeven =
+      GeneratedColumn<String>('instructions_seven', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _instructionsEightMeta =
+      const VerificationMeta('instructionsEight');
+  @override
+  late final GeneratedColumn<String> instructionsEight =
+      GeneratedColumn<String>('instructions_eight', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _instructionsNineMeta =
+      const VerificationMeta('instructionsNine');
+  @override
+  late final GeneratedColumn<String> instructionsNine = GeneratedColumn<String>(
+      'instructions_nine', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _instructionsTenMeta =
+      const VerificationMeta('instructionsTen');
+  @override
+  late final GeneratedColumn<String> instructionsTen = GeneratedColumn<String>(
+      'instructions_ten', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         id,
+        bodyPart,
+        equipment,
         name,
-        urlGif,
-        mainMuscle,
-        secondaryMuscle,
+        target,
+        secondaryMuscleZero,
+        secondaryMuscleOne,
+        secondaryMuscleTwo,
+        secondaryMuscleThree,
+        secondaryMuscleFour,
+        secondaryMuscleFive,
+        instructionsZero,
         instructionsOne,
         instructionsTwo,
         instructionsThree,
         instructionsFour,
-        equipment
+        instructionsFive,
+        instructionsSix,
+        instructionsSeven,
+        instructionsEight,
+        instructionsNine,
+        instructionsTen
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -1238,71 +1322,131 @@ class $ExerciseTableTable extends ExerciseTable
     } else if (isInserting) {
       context.missing(_idMeta);
     }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    if (data.containsKey('body_part')) {
+      context.handle(_bodyPartMeta,
+          bodyPart.isAcceptableOrUnknown(data['body_part']!, _bodyPartMeta));
     } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
-    if (data.containsKey('url_gif')) {
-      context.handle(_urlGifMeta,
-          urlGif.isAcceptableOrUnknown(data['url_gif']!, _urlGifMeta));
-    } else if (isInserting) {
-      context.missing(_urlGifMeta);
-    }
-    if (data.containsKey('main_muscle')) {
-      context.handle(
-          _mainMuscleMeta,
-          mainMuscle.isAcceptableOrUnknown(
-              data['main_muscle']!, _mainMuscleMeta));
-    } else if (isInserting) {
-      context.missing(_mainMuscleMeta);
-    }
-    if (data.containsKey('secondary_muscle')) {
-      context.handle(
-          _secondaryMuscleMeta,
-          secondaryMuscle.isAcceptableOrUnknown(
-              data['secondary_muscle']!, _secondaryMuscleMeta));
-    } else if (isInserting) {
-      context.missing(_secondaryMuscleMeta);
-    }
-    if (data.containsKey('instructions_one')) {
-      context.handle(
-          _instructionsOneMeta,
-          instructionsOne.isAcceptableOrUnknown(
-              data['instructions_one']!, _instructionsOneMeta));
-    } else if (isInserting) {
-      context.missing(_instructionsOneMeta);
-    }
-    if (data.containsKey('instructions_two')) {
-      context.handle(
-          _instructionsTwoMeta,
-          instructionsTwo.isAcceptableOrUnknown(
-              data['instructions_two']!, _instructionsTwoMeta));
-    } else if (isInserting) {
-      context.missing(_instructionsTwoMeta);
-    }
-    if (data.containsKey('instructions_three')) {
-      context.handle(
-          _instructionsThreeMeta,
-          instructionsThree.isAcceptableOrUnknown(
-              data['instructions_three']!, _instructionsThreeMeta));
-    } else if (isInserting) {
-      context.missing(_instructionsThreeMeta);
-    }
-    if (data.containsKey('instructions_four')) {
-      context.handle(
-          _instructionsFourMeta,
-          instructionsFour.isAcceptableOrUnknown(
-              data['instructions_four']!, _instructionsFourMeta));
-    } else if (isInserting) {
-      context.missing(_instructionsFourMeta);
+      context.missing(_bodyPartMeta);
     }
     if (data.containsKey('equipment')) {
       context.handle(_equipmentMeta,
           equipment.isAcceptableOrUnknown(data['equipment']!, _equipmentMeta));
     } else if (isInserting) {
       context.missing(_equipmentMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('target')) {
+      context.handle(_targetMeta,
+          target.isAcceptableOrUnknown(data['target']!, _targetMeta));
+    } else if (isInserting) {
+      context.missing(_targetMeta);
+    }
+    if (data.containsKey('secondary_muscle_zero')) {
+      context.handle(
+          _secondaryMuscleZeroMeta,
+          secondaryMuscleZero.isAcceptableOrUnknown(
+              data['secondary_muscle_zero']!, _secondaryMuscleZeroMeta));
+    }
+    if (data.containsKey('secondary_muscle_one')) {
+      context.handle(
+          _secondaryMuscleOneMeta,
+          secondaryMuscleOne.isAcceptableOrUnknown(
+              data['secondary_muscle_one']!, _secondaryMuscleOneMeta));
+    }
+    if (data.containsKey('secondary_muscle_two')) {
+      context.handle(
+          _secondaryMuscleTwoMeta,
+          secondaryMuscleTwo.isAcceptableOrUnknown(
+              data['secondary_muscle_two']!, _secondaryMuscleTwoMeta));
+    }
+    if (data.containsKey('secondary_muscle_three')) {
+      context.handle(
+          _secondaryMuscleThreeMeta,
+          secondaryMuscleThree.isAcceptableOrUnknown(
+              data['secondary_muscle_three']!, _secondaryMuscleThreeMeta));
+    }
+    if (data.containsKey('secondary_muscle_four')) {
+      context.handle(
+          _secondaryMuscleFourMeta,
+          secondaryMuscleFour.isAcceptableOrUnknown(
+              data['secondary_muscle_four']!, _secondaryMuscleFourMeta));
+    }
+    if (data.containsKey('secondary_muscle_five')) {
+      context.handle(
+          _secondaryMuscleFiveMeta,
+          secondaryMuscleFive.isAcceptableOrUnknown(
+              data['secondary_muscle_five']!, _secondaryMuscleFiveMeta));
+    }
+    if (data.containsKey('instructions_zero')) {
+      context.handle(
+          _instructionsZeroMeta,
+          instructionsZero.isAcceptableOrUnknown(
+              data['instructions_zero']!, _instructionsZeroMeta));
+    }
+    if (data.containsKey('instructions_one')) {
+      context.handle(
+          _instructionsOneMeta,
+          instructionsOne.isAcceptableOrUnknown(
+              data['instructions_one']!, _instructionsOneMeta));
+    }
+    if (data.containsKey('instructions_two')) {
+      context.handle(
+          _instructionsTwoMeta,
+          instructionsTwo.isAcceptableOrUnknown(
+              data['instructions_two']!, _instructionsTwoMeta));
+    }
+    if (data.containsKey('instructions_three')) {
+      context.handle(
+          _instructionsThreeMeta,
+          instructionsThree.isAcceptableOrUnknown(
+              data['instructions_three']!, _instructionsThreeMeta));
+    }
+    if (data.containsKey('instructions_four')) {
+      context.handle(
+          _instructionsFourMeta,
+          instructionsFour.isAcceptableOrUnknown(
+              data['instructions_four']!, _instructionsFourMeta));
+    }
+    if (data.containsKey('instructions_five')) {
+      context.handle(
+          _instructionsFiveMeta,
+          instructionsFive.isAcceptableOrUnknown(
+              data['instructions_five']!, _instructionsFiveMeta));
+    }
+    if (data.containsKey('instructions_six')) {
+      context.handle(
+          _instructionsSixMeta,
+          instructionsSix.isAcceptableOrUnknown(
+              data['instructions_six']!, _instructionsSixMeta));
+    }
+    if (data.containsKey('instructions_seven')) {
+      context.handle(
+          _instructionsSevenMeta,
+          instructionsSeven.isAcceptableOrUnknown(
+              data['instructions_seven']!, _instructionsSevenMeta));
+    }
+    if (data.containsKey('instructions_eight')) {
+      context.handle(
+          _instructionsEightMeta,
+          instructionsEight.isAcceptableOrUnknown(
+              data['instructions_eight']!, _instructionsEightMeta));
+    }
+    if (data.containsKey('instructions_nine')) {
+      context.handle(
+          _instructionsNineMeta,
+          instructionsNine.isAcceptableOrUnknown(
+              data['instructions_nine']!, _instructionsNineMeta));
+    }
+    if (data.containsKey('instructions_ten')) {
+      context.handle(
+          _instructionsTenMeta,
+          instructionsTen.isAcceptableOrUnknown(
+              data['instructions_ten']!, _instructionsTenMeta));
     }
     return context;
   }
@@ -1314,25 +1458,50 @@ class $ExerciseTableTable extends ExerciseTable
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return ExerciseTableData(
       id: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      urlGif: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}url_gif'])!,
-      mainMuscle: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}main_muscle'])!,
-      secondaryMuscle: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}secondary_muscle'])!,
-      instructionsOne: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}instructions_one'])!,
-      instructionsTwo: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}instructions_two'])!,
-      instructionsThree: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}instructions_three'])!,
-      instructionsFour: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}instructions_four'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      bodyPart: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}body_part'])!,
       equipment: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}equipment'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      target: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}target'])!,
+      secondaryMuscleZero: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}secondary_muscle_zero']),
+      secondaryMuscleOne: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}secondary_muscle_one']),
+      secondaryMuscleTwo: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}secondary_muscle_two']),
+      secondaryMuscleThree: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}secondary_muscle_three']),
+      secondaryMuscleFour: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}secondary_muscle_four']),
+      secondaryMuscleFive: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}secondary_muscle_five']),
+      instructionsZero: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}instructions_zero']),
+      instructionsOne: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}instructions_one']),
+      instructionsTwo: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}instructions_two']),
+      instructionsThree: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}instructions_three']),
+      instructionsFour: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}instructions_four']),
+      instructionsFive: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}instructions_five']),
+      instructionsSix: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}instructions_six']),
+      instructionsSeven: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}instructions_seven']),
+      instructionsEight: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}instructions_eight']),
+      instructionsNine: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}instructions_nine']),
+      instructionsTen: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}instructions_ten']),
     );
   }
 
@@ -1344,55 +1513,171 @@ class $ExerciseTableTable extends ExerciseTable
 
 class ExerciseTableData extends DataClass
     implements Insertable<ExerciseTableData> {
-  final String id;
-  final String name;
-  final String urlGif;
-  final String mainMuscle;
-  final String secondaryMuscle;
-  final String instructionsOne;
-  final String instructionsTwo;
-  final String instructionsThree;
-  final String instructionsFour;
+  final int id;
+  final String bodyPart;
   final String equipment;
+  final String name;
+  final String target;
+  final String? secondaryMuscleZero;
+  final String? secondaryMuscleOne;
+  final String? secondaryMuscleTwo;
+  final String? secondaryMuscleThree;
+  final String? secondaryMuscleFour;
+  final String? secondaryMuscleFive;
+  final String? instructionsZero;
+  final String? instructionsOne;
+  final String? instructionsTwo;
+  final String? instructionsThree;
+  final String? instructionsFour;
+  final String? instructionsFive;
+  final String? instructionsSix;
+  final String? instructionsSeven;
+  final String? instructionsEight;
+  final String? instructionsNine;
+  final String? instructionsTen;
   const ExerciseTableData(
       {required this.id,
+      required this.bodyPart,
+      required this.equipment,
       required this.name,
-      required this.urlGif,
-      required this.mainMuscle,
-      required this.secondaryMuscle,
-      required this.instructionsOne,
-      required this.instructionsTwo,
-      required this.instructionsThree,
-      required this.instructionsFour,
-      required this.equipment});
+      required this.target,
+      this.secondaryMuscleZero,
+      this.secondaryMuscleOne,
+      this.secondaryMuscleTwo,
+      this.secondaryMuscleThree,
+      this.secondaryMuscleFour,
+      this.secondaryMuscleFive,
+      this.instructionsZero,
+      this.instructionsOne,
+      this.instructionsTwo,
+      this.instructionsThree,
+      this.instructionsFour,
+      this.instructionsFive,
+      this.instructionsSix,
+      this.instructionsSeven,
+      this.instructionsEight,
+      this.instructionsNine,
+      this.instructionsTen});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<String>(id);
-    map['name'] = Variable<String>(name);
-    map['url_gif'] = Variable<String>(urlGif);
-    map['main_muscle'] = Variable<String>(mainMuscle);
-    map['secondary_muscle'] = Variable<String>(secondaryMuscle);
-    map['instructions_one'] = Variable<String>(instructionsOne);
-    map['instructions_two'] = Variable<String>(instructionsTwo);
-    map['instructions_three'] = Variable<String>(instructionsThree);
-    map['instructions_four'] = Variable<String>(instructionsFour);
+    map['id'] = Variable<int>(id);
+    map['body_part'] = Variable<String>(bodyPart);
     map['equipment'] = Variable<String>(equipment);
+    map['name'] = Variable<String>(name);
+    map['target'] = Variable<String>(target);
+    if (!nullToAbsent || secondaryMuscleZero != null) {
+      map['secondary_muscle_zero'] = Variable<String>(secondaryMuscleZero);
+    }
+    if (!nullToAbsent || secondaryMuscleOne != null) {
+      map['secondary_muscle_one'] = Variable<String>(secondaryMuscleOne);
+    }
+    if (!nullToAbsent || secondaryMuscleTwo != null) {
+      map['secondary_muscle_two'] = Variable<String>(secondaryMuscleTwo);
+    }
+    if (!nullToAbsent || secondaryMuscleThree != null) {
+      map['secondary_muscle_three'] = Variable<String>(secondaryMuscleThree);
+    }
+    if (!nullToAbsent || secondaryMuscleFour != null) {
+      map['secondary_muscle_four'] = Variable<String>(secondaryMuscleFour);
+    }
+    if (!nullToAbsent || secondaryMuscleFive != null) {
+      map['secondary_muscle_five'] = Variable<String>(secondaryMuscleFive);
+    }
+    if (!nullToAbsent || instructionsZero != null) {
+      map['instructions_zero'] = Variable<String>(instructionsZero);
+    }
+    if (!nullToAbsent || instructionsOne != null) {
+      map['instructions_one'] = Variable<String>(instructionsOne);
+    }
+    if (!nullToAbsent || instructionsTwo != null) {
+      map['instructions_two'] = Variable<String>(instructionsTwo);
+    }
+    if (!nullToAbsent || instructionsThree != null) {
+      map['instructions_three'] = Variable<String>(instructionsThree);
+    }
+    if (!nullToAbsent || instructionsFour != null) {
+      map['instructions_four'] = Variable<String>(instructionsFour);
+    }
+    if (!nullToAbsent || instructionsFive != null) {
+      map['instructions_five'] = Variable<String>(instructionsFive);
+    }
+    if (!nullToAbsent || instructionsSix != null) {
+      map['instructions_six'] = Variable<String>(instructionsSix);
+    }
+    if (!nullToAbsent || instructionsSeven != null) {
+      map['instructions_seven'] = Variable<String>(instructionsSeven);
+    }
+    if (!nullToAbsent || instructionsEight != null) {
+      map['instructions_eight'] = Variable<String>(instructionsEight);
+    }
+    if (!nullToAbsent || instructionsNine != null) {
+      map['instructions_nine'] = Variable<String>(instructionsNine);
+    }
+    if (!nullToAbsent || instructionsTen != null) {
+      map['instructions_ten'] = Variable<String>(instructionsTen);
+    }
     return map;
   }
 
   ExerciseTableCompanion toCompanion(bool nullToAbsent) {
     return ExerciseTableCompanion(
       id: Value(id),
-      name: Value(name),
-      urlGif: Value(urlGif),
-      mainMuscle: Value(mainMuscle),
-      secondaryMuscle: Value(secondaryMuscle),
-      instructionsOne: Value(instructionsOne),
-      instructionsTwo: Value(instructionsTwo),
-      instructionsThree: Value(instructionsThree),
-      instructionsFour: Value(instructionsFour),
+      bodyPart: Value(bodyPart),
       equipment: Value(equipment),
+      name: Value(name),
+      target: Value(target),
+      secondaryMuscleZero: secondaryMuscleZero == null && nullToAbsent
+          ? const Value.absent()
+          : Value(secondaryMuscleZero),
+      secondaryMuscleOne: secondaryMuscleOne == null && nullToAbsent
+          ? const Value.absent()
+          : Value(secondaryMuscleOne),
+      secondaryMuscleTwo: secondaryMuscleTwo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(secondaryMuscleTwo),
+      secondaryMuscleThree: secondaryMuscleThree == null && nullToAbsent
+          ? const Value.absent()
+          : Value(secondaryMuscleThree),
+      secondaryMuscleFour: secondaryMuscleFour == null && nullToAbsent
+          ? const Value.absent()
+          : Value(secondaryMuscleFour),
+      secondaryMuscleFive: secondaryMuscleFive == null && nullToAbsent
+          ? const Value.absent()
+          : Value(secondaryMuscleFive),
+      instructionsZero: instructionsZero == null && nullToAbsent
+          ? const Value.absent()
+          : Value(instructionsZero),
+      instructionsOne: instructionsOne == null && nullToAbsent
+          ? const Value.absent()
+          : Value(instructionsOne),
+      instructionsTwo: instructionsTwo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(instructionsTwo),
+      instructionsThree: instructionsThree == null && nullToAbsent
+          ? const Value.absent()
+          : Value(instructionsThree),
+      instructionsFour: instructionsFour == null && nullToAbsent
+          ? const Value.absent()
+          : Value(instructionsFour),
+      instructionsFive: instructionsFive == null && nullToAbsent
+          ? const Value.absent()
+          : Value(instructionsFive),
+      instructionsSix: instructionsSix == null && nullToAbsent
+          ? const Value.absent()
+          : Value(instructionsSix),
+      instructionsSeven: instructionsSeven == null && nullToAbsent
+          ? const Value.absent()
+          : Value(instructionsSeven),
+      instructionsEight: instructionsEight == null && nullToAbsent
+          ? const Value.absent()
+          : Value(instructionsEight),
+      instructionsNine: instructionsNine == null && nullToAbsent
+          ? const Value.absent()
+          : Value(instructionsNine),
+      instructionsTen: instructionsTen == null && nullToAbsent
+          ? const Value.absent()
+          : Value(instructionsTen),
     );
   }
 
@@ -1400,68 +1685,177 @@ class ExerciseTableData extends DataClass
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return ExerciseTableData(
-      id: serializer.fromJson<String>(json['id']),
-      name: serializer.fromJson<String>(json['name']),
-      urlGif: serializer.fromJson<String>(json['urlGif']),
-      mainMuscle: serializer.fromJson<String>(json['mainMuscle']),
-      secondaryMuscle: serializer.fromJson<String>(json['secondaryMuscle']),
-      instructionsOne: serializer.fromJson<String>(json['instructionsOne']),
-      instructionsTwo: serializer.fromJson<String>(json['instructionsTwo']),
-      instructionsThree: serializer.fromJson<String>(json['instructionsThree']),
-      instructionsFour: serializer.fromJson<String>(json['instructionsFour']),
+      id: serializer.fromJson<int>(json['id']),
+      bodyPart: serializer.fromJson<String>(json['bodyPart']),
       equipment: serializer.fromJson<String>(json['equipment']),
+      name: serializer.fromJson<String>(json['name']),
+      target: serializer.fromJson<String>(json['target']),
+      secondaryMuscleZero:
+          serializer.fromJson<String?>(json['secondaryMuscleZero']),
+      secondaryMuscleOne:
+          serializer.fromJson<String?>(json['secondaryMuscleOne']),
+      secondaryMuscleTwo:
+          serializer.fromJson<String?>(json['secondaryMuscleTwo']),
+      secondaryMuscleThree:
+          serializer.fromJson<String?>(json['secondaryMuscleThree']),
+      secondaryMuscleFour:
+          serializer.fromJson<String?>(json['secondaryMuscleFour']),
+      secondaryMuscleFive:
+          serializer.fromJson<String?>(json['secondaryMuscleFive']),
+      instructionsZero: serializer.fromJson<String?>(json['instructionsZero']),
+      instructionsOne: serializer.fromJson<String?>(json['instructionsOne']),
+      instructionsTwo: serializer.fromJson<String?>(json['instructionsTwo']),
+      instructionsThree:
+          serializer.fromJson<String?>(json['instructionsThree']),
+      instructionsFour: serializer.fromJson<String?>(json['instructionsFour']),
+      instructionsFive: serializer.fromJson<String?>(json['instructionsFive']),
+      instructionsSix: serializer.fromJson<String?>(json['instructionsSix']),
+      instructionsSeven:
+          serializer.fromJson<String?>(json['instructionsSeven']),
+      instructionsEight:
+          serializer.fromJson<String?>(json['instructionsEight']),
+      instructionsNine: serializer.fromJson<String?>(json['instructionsNine']),
+      instructionsTen: serializer.fromJson<String?>(json['instructionsTen']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
-      'name': serializer.toJson<String>(name),
-      'urlGif': serializer.toJson<String>(urlGif),
-      'mainMuscle': serializer.toJson<String>(mainMuscle),
-      'secondaryMuscle': serializer.toJson<String>(secondaryMuscle),
-      'instructionsOne': serializer.toJson<String>(instructionsOne),
-      'instructionsTwo': serializer.toJson<String>(instructionsTwo),
-      'instructionsThree': serializer.toJson<String>(instructionsThree),
-      'instructionsFour': serializer.toJson<String>(instructionsFour),
+      'id': serializer.toJson<int>(id),
+      'bodyPart': serializer.toJson<String>(bodyPart),
       'equipment': serializer.toJson<String>(equipment),
+      'name': serializer.toJson<String>(name),
+      'target': serializer.toJson<String>(target),
+      'secondaryMuscleZero': serializer.toJson<String?>(secondaryMuscleZero),
+      'secondaryMuscleOne': serializer.toJson<String?>(secondaryMuscleOne),
+      'secondaryMuscleTwo': serializer.toJson<String?>(secondaryMuscleTwo),
+      'secondaryMuscleThree': serializer.toJson<String?>(secondaryMuscleThree),
+      'secondaryMuscleFour': serializer.toJson<String?>(secondaryMuscleFour),
+      'secondaryMuscleFive': serializer.toJson<String?>(secondaryMuscleFive),
+      'instructionsZero': serializer.toJson<String?>(instructionsZero),
+      'instructionsOne': serializer.toJson<String?>(instructionsOne),
+      'instructionsTwo': serializer.toJson<String?>(instructionsTwo),
+      'instructionsThree': serializer.toJson<String?>(instructionsThree),
+      'instructionsFour': serializer.toJson<String?>(instructionsFour),
+      'instructionsFive': serializer.toJson<String?>(instructionsFive),
+      'instructionsSix': serializer.toJson<String?>(instructionsSix),
+      'instructionsSeven': serializer.toJson<String?>(instructionsSeven),
+      'instructionsEight': serializer.toJson<String?>(instructionsEight),
+      'instructionsNine': serializer.toJson<String?>(instructionsNine),
+      'instructionsTen': serializer.toJson<String?>(instructionsTen),
     };
   }
 
   ExerciseTableData copyWith(
-          {String? id,
+          {int? id,
+          String? bodyPart,
+          String? equipment,
           String? name,
-          String? urlGif,
-          String? mainMuscle,
-          String? secondaryMuscle,
-          String? instructionsOne,
-          String? instructionsTwo,
-          String? instructionsThree,
-          String? instructionsFour,
-          String? equipment}) =>
+          String? target,
+          Value<String?> secondaryMuscleZero = const Value.absent(),
+          Value<String?> secondaryMuscleOne = const Value.absent(),
+          Value<String?> secondaryMuscleTwo = const Value.absent(),
+          Value<String?> secondaryMuscleThree = const Value.absent(),
+          Value<String?> secondaryMuscleFour = const Value.absent(),
+          Value<String?> secondaryMuscleFive = const Value.absent(),
+          Value<String?> instructionsZero = const Value.absent(),
+          Value<String?> instructionsOne = const Value.absent(),
+          Value<String?> instructionsTwo = const Value.absent(),
+          Value<String?> instructionsThree = const Value.absent(),
+          Value<String?> instructionsFour = const Value.absent(),
+          Value<String?> instructionsFive = const Value.absent(),
+          Value<String?> instructionsSix = const Value.absent(),
+          Value<String?> instructionsSeven = const Value.absent(),
+          Value<String?> instructionsEight = const Value.absent(),
+          Value<String?> instructionsNine = const Value.absent(),
+          Value<String?> instructionsTen = const Value.absent()}) =>
       ExerciseTableData(
         id: id ?? this.id,
-        name: name ?? this.name,
-        urlGif: urlGif ?? this.urlGif,
-        mainMuscle: mainMuscle ?? this.mainMuscle,
-        secondaryMuscle: secondaryMuscle ?? this.secondaryMuscle,
-        instructionsOne: instructionsOne ?? this.instructionsOne,
-        instructionsTwo: instructionsTwo ?? this.instructionsTwo,
-        instructionsThree: instructionsThree ?? this.instructionsThree,
-        instructionsFour: instructionsFour ?? this.instructionsFour,
+        bodyPart: bodyPart ?? this.bodyPart,
         equipment: equipment ?? this.equipment,
+        name: name ?? this.name,
+        target: target ?? this.target,
+        secondaryMuscleZero: secondaryMuscleZero.present
+            ? secondaryMuscleZero.value
+            : this.secondaryMuscleZero,
+        secondaryMuscleOne: secondaryMuscleOne.present
+            ? secondaryMuscleOne.value
+            : this.secondaryMuscleOne,
+        secondaryMuscleTwo: secondaryMuscleTwo.present
+            ? secondaryMuscleTwo.value
+            : this.secondaryMuscleTwo,
+        secondaryMuscleThree: secondaryMuscleThree.present
+            ? secondaryMuscleThree.value
+            : this.secondaryMuscleThree,
+        secondaryMuscleFour: secondaryMuscleFour.present
+            ? secondaryMuscleFour.value
+            : this.secondaryMuscleFour,
+        secondaryMuscleFive: secondaryMuscleFive.present
+            ? secondaryMuscleFive.value
+            : this.secondaryMuscleFive,
+        instructionsZero: instructionsZero.present
+            ? instructionsZero.value
+            : this.instructionsZero,
+        instructionsOne: instructionsOne.present
+            ? instructionsOne.value
+            : this.instructionsOne,
+        instructionsTwo: instructionsTwo.present
+            ? instructionsTwo.value
+            : this.instructionsTwo,
+        instructionsThree: instructionsThree.present
+            ? instructionsThree.value
+            : this.instructionsThree,
+        instructionsFour: instructionsFour.present
+            ? instructionsFour.value
+            : this.instructionsFour,
+        instructionsFive: instructionsFive.present
+            ? instructionsFive.value
+            : this.instructionsFive,
+        instructionsSix: instructionsSix.present
+            ? instructionsSix.value
+            : this.instructionsSix,
+        instructionsSeven: instructionsSeven.present
+            ? instructionsSeven.value
+            : this.instructionsSeven,
+        instructionsEight: instructionsEight.present
+            ? instructionsEight.value
+            : this.instructionsEight,
+        instructionsNine: instructionsNine.present
+            ? instructionsNine.value
+            : this.instructionsNine,
+        instructionsTen: instructionsTen.present
+            ? instructionsTen.value
+            : this.instructionsTen,
       );
   ExerciseTableData copyWithCompanion(ExerciseTableCompanion data) {
     return ExerciseTableData(
       id: data.id.present ? data.id.value : this.id,
+      bodyPart: data.bodyPart.present ? data.bodyPart.value : this.bodyPart,
+      equipment: data.equipment.present ? data.equipment.value : this.equipment,
       name: data.name.present ? data.name.value : this.name,
-      urlGif: data.urlGif.present ? data.urlGif.value : this.urlGif,
-      mainMuscle:
-          data.mainMuscle.present ? data.mainMuscle.value : this.mainMuscle,
-      secondaryMuscle: data.secondaryMuscle.present
-          ? data.secondaryMuscle.value
-          : this.secondaryMuscle,
+      target: data.target.present ? data.target.value : this.target,
+      secondaryMuscleZero: data.secondaryMuscleZero.present
+          ? data.secondaryMuscleZero.value
+          : this.secondaryMuscleZero,
+      secondaryMuscleOne: data.secondaryMuscleOne.present
+          ? data.secondaryMuscleOne.value
+          : this.secondaryMuscleOne,
+      secondaryMuscleTwo: data.secondaryMuscleTwo.present
+          ? data.secondaryMuscleTwo.value
+          : this.secondaryMuscleTwo,
+      secondaryMuscleThree: data.secondaryMuscleThree.present
+          ? data.secondaryMuscleThree.value
+          : this.secondaryMuscleThree,
+      secondaryMuscleFour: data.secondaryMuscleFour.present
+          ? data.secondaryMuscleFour.value
+          : this.secondaryMuscleFour,
+      secondaryMuscleFive: data.secondaryMuscleFive.present
+          ? data.secondaryMuscleFive.value
+          : this.secondaryMuscleFive,
+      instructionsZero: data.instructionsZero.present
+          ? data.instructionsZero.value
+          : this.instructionsZero,
       instructionsOne: data.instructionsOne.present
           ? data.instructionsOne.value
           : this.instructionsOne,
@@ -1474,7 +1868,24 @@ class ExerciseTableData extends DataClass
       instructionsFour: data.instructionsFour.present
           ? data.instructionsFour.value
           : this.instructionsFour,
-      equipment: data.equipment.present ? data.equipment.value : this.equipment,
+      instructionsFive: data.instructionsFive.present
+          ? data.instructionsFive.value
+          : this.instructionsFive,
+      instructionsSix: data.instructionsSix.present
+          ? data.instructionsSix.value
+          : this.instructionsSix,
+      instructionsSeven: data.instructionsSeven.present
+          ? data.instructionsSeven.value
+          : this.instructionsSeven,
+      instructionsEight: data.instructionsEight.present
+          ? data.instructionsEight.value
+          : this.instructionsEight,
+      instructionsNine: data.instructionsNine.present
+          ? data.instructionsNine.value
+          : this.instructionsNine,
+      instructionsTen: data.instructionsTen.present
+          ? data.instructionsTen.value
+          : this.instructionsTen,
     );
   }
 
@@ -1482,145 +1893,267 @@ class ExerciseTableData extends DataClass
   String toString() {
     return (StringBuffer('ExerciseTableData(')
           ..write('id: $id, ')
+          ..write('bodyPart: $bodyPart, ')
+          ..write('equipment: $equipment, ')
           ..write('name: $name, ')
-          ..write('urlGif: $urlGif, ')
-          ..write('mainMuscle: $mainMuscle, ')
-          ..write('secondaryMuscle: $secondaryMuscle, ')
+          ..write('target: $target, ')
+          ..write('secondaryMuscleZero: $secondaryMuscleZero, ')
+          ..write('secondaryMuscleOne: $secondaryMuscleOne, ')
+          ..write('secondaryMuscleTwo: $secondaryMuscleTwo, ')
+          ..write('secondaryMuscleThree: $secondaryMuscleThree, ')
+          ..write('secondaryMuscleFour: $secondaryMuscleFour, ')
+          ..write('secondaryMuscleFive: $secondaryMuscleFive, ')
+          ..write('instructionsZero: $instructionsZero, ')
           ..write('instructionsOne: $instructionsOne, ')
           ..write('instructionsTwo: $instructionsTwo, ')
           ..write('instructionsThree: $instructionsThree, ')
           ..write('instructionsFour: $instructionsFour, ')
-          ..write('equipment: $equipment')
+          ..write('instructionsFive: $instructionsFive, ')
+          ..write('instructionsSix: $instructionsSix, ')
+          ..write('instructionsSeven: $instructionsSeven, ')
+          ..write('instructionsEight: $instructionsEight, ')
+          ..write('instructionsNine: $instructionsNine, ')
+          ..write('instructionsTen: $instructionsTen')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      id,
-      name,
-      urlGif,
-      mainMuscle,
-      secondaryMuscle,
-      instructionsOne,
-      instructionsTwo,
-      instructionsThree,
-      instructionsFour,
-      equipment);
+  int get hashCode => Object.hashAll([
+        id,
+        bodyPart,
+        equipment,
+        name,
+        target,
+        secondaryMuscleZero,
+        secondaryMuscleOne,
+        secondaryMuscleTwo,
+        secondaryMuscleThree,
+        secondaryMuscleFour,
+        secondaryMuscleFive,
+        instructionsZero,
+        instructionsOne,
+        instructionsTwo,
+        instructionsThree,
+        instructionsFour,
+        instructionsFive,
+        instructionsSix,
+        instructionsSeven,
+        instructionsEight,
+        instructionsNine,
+        instructionsTen
+      ]);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ExerciseTableData &&
           other.id == this.id &&
+          other.bodyPart == this.bodyPart &&
+          other.equipment == this.equipment &&
           other.name == this.name &&
-          other.urlGif == this.urlGif &&
-          other.mainMuscle == this.mainMuscle &&
-          other.secondaryMuscle == this.secondaryMuscle &&
+          other.target == this.target &&
+          other.secondaryMuscleZero == this.secondaryMuscleZero &&
+          other.secondaryMuscleOne == this.secondaryMuscleOne &&
+          other.secondaryMuscleTwo == this.secondaryMuscleTwo &&
+          other.secondaryMuscleThree == this.secondaryMuscleThree &&
+          other.secondaryMuscleFour == this.secondaryMuscleFour &&
+          other.secondaryMuscleFive == this.secondaryMuscleFive &&
+          other.instructionsZero == this.instructionsZero &&
           other.instructionsOne == this.instructionsOne &&
           other.instructionsTwo == this.instructionsTwo &&
           other.instructionsThree == this.instructionsThree &&
           other.instructionsFour == this.instructionsFour &&
-          other.equipment == this.equipment);
+          other.instructionsFive == this.instructionsFive &&
+          other.instructionsSix == this.instructionsSix &&
+          other.instructionsSeven == this.instructionsSeven &&
+          other.instructionsEight == this.instructionsEight &&
+          other.instructionsNine == this.instructionsNine &&
+          other.instructionsTen == this.instructionsTen);
 }
 
 class ExerciseTableCompanion extends UpdateCompanion<ExerciseTableData> {
-  final Value<String> id;
-  final Value<String> name;
-  final Value<String> urlGif;
-  final Value<String> mainMuscle;
-  final Value<String> secondaryMuscle;
-  final Value<String> instructionsOne;
-  final Value<String> instructionsTwo;
-  final Value<String> instructionsThree;
-  final Value<String> instructionsFour;
+  final Value<int> id;
+  final Value<String> bodyPart;
   final Value<String> equipment;
+  final Value<String> name;
+  final Value<String> target;
+  final Value<String?> secondaryMuscleZero;
+  final Value<String?> secondaryMuscleOne;
+  final Value<String?> secondaryMuscleTwo;
+  final Value<String?> secondaryMuscleThree;
+  final Value<String?> secondaryMuscleFour;
+  final Value<String?> secondaryMuscleFive;
+  final Value<String?> instructionsZero;
+  final Value<String?> instructionsOne;
+  final Value<String?> instructionsTwo;
+  final Value<String?> instructionsThree;
+  final Value<String?> instructionsFour;
+  final Value<String?> instructionsFive;
+  final Value<String?> instructionsSix;
+  final Value<String?> instructionsSeven;
+  final Value<String?> instructionsEight;
+  final Value<String?> instructionsNine;
+  final Value<String?> instructionsTen;
   final Value<int> rowid;
   const ExerciseTableCompanion({
     this.id = const Value.absent(),
+    this.bodyPart = const Value.absent(),
+    this.equipment = const Value.absent(),
     this.name = const Value.absent(),
-    this.urlGif = const Value.absent(),
-    this.mainMuscle = const Value.absent(),
-    this.secondaryMuscle = const Value.absent(),
+    this.target = const Value.absent(),
+    this.secondaryMuscleZero = const Value.absent(),
+    this.secondaryMuscleOne = const Value.absent(),
+    this.secondaryMuscleTwo = const Value.absent(),
+    this.secondaryMuscleThree = const Value.absent(),
+    this.secondaryMuscleFour = const Value.absent(),
+    this.secondaryMuscleFive = const Value.absent(),
+    this.instructionsZero = const Value.absent(),
     this.instructionsOne = const Value.absent(),
     this.instructionsTwo = const Value.absent(),
     this.instructionsThree = const Value.absent(),
     this.instructionsFour = const Value.absent(),
-    this.equipment = const Value.absent(),
+    this.instructionsFive = const Value.absent(),
+    this.instructionsSix = const Value.absent(),
+    this.instructionsSeven = const Value.absent(),
+    this.instructionsEight = const Value.absent(),
+    this.instructionsNine = const Value.absent(),
+    this.instructionsTen = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   ExerciseTableCompanion.insert({
-    required String id,
-    required String name,
-    required String urlGif,
-    required String mainMuscle,
-    required String secondaryMuscle,
-    required String instructionsOne,
-    required String instructionsTwo,
-    required String instructionsThree,
-    required String instructionsFour,
+    required int id,
+    required String bodyPart,
     required String equipment,
+    required String name,
+    required String target,
+    this.secondaryMuscleZero = const Value.absent(),
+    this.secondaryMuscleOne = const Value.absent(),
+    this.secondaryMuscleTwo = const Value.absent(),
+    this.secondaryMuscleThree = const Value.absent(),
+    this.secondaryMuscleFour = const Value.absent(),
+    this.secondaryMuscleFive = const Value.absent(),
+    this.instructionsZero = const Value.absent(),
+    this.instructionsOne = const Value.absent(),
+    this.instructionsTwo = const Value.absent(),
+    this.instructionsThree = const Value.absent(),
+    this.instructionsFour = const Value.absent(),
+    this.instructionsFive = const Value.absent(),
+    this.instructionsSix = const Value.absent(),
+    this.instructionsSeven = const Value.absent(),
+    this.instructionsEight = const Value.absent(),
+    this.instructionsNine = const Value.absent(),
+    this.instructionsTen = const Value.absent(),
     this.rowid = const Value.absent(),
   })  : id = Value(id),
+        bodyPart = Value(bodyPart),
+        equipment = Value(equipment),
         name = Value(name),
-        urlGif = Value(urlGif),
-        mainMuscle = Value(mainMuscle),
-        secondaryMuscle = Value(secondaryMuscle),
-        instructionsOne = Value(instructionsOne),
-        instructionsTwo = Value(instructionsTwo),
-        instructionsThree = Value(instructionsThree),
-        instructionsFour = Value(instructionsFour),
-        equipment = Value(equipment);
+        target = Value(target);
   static Insertable<ExerciseTableData> custom({
-    Expression<String>? id,
+    Expression<int>? id,
+    Expression<String>? bodyPart,
+    Expression<String>? equipment,
     Expression<String>? name,
-    Expression<String>? urlGif,
-    Expression<String>? mainMuscle,
-    Expression<String>? secondaryMuscle,
+    Expression<String>? target,
+    Expression<String>? secondaryMuscleZero,
+    Expression<String>? secondaryMuscleOne,
+    Expression<String>? secondaryMuscleTwo,
+    Expression<String>? secondaryMuscleThree,
+    Expression<String>? secondaryMuscleFour,
+    Expression<String>? secondaryMuscleFive,
+    Expression<String>? instructionsZero,
     Expression<String>? instructionsOne,
     Expression<String>? instructionsTwo,
     Expression<String>? instructionsThree,
     Expression<String>? instructionsFour,
-    Expression<String>? equipment,
+    Expression<String>? instructionsFive,
+    Expression<String>? instructionsSix,
+    Expression<String>? instructionsSeven,
+    Expression<String>? instructionsEight,
+    Expression<String>? instructionsNine,
+    Expression<String>? instructionsTen,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (bodyPart != null) 'body_part': bodyPart,
+      if (equipment != null) 'equipment': equipment,
       if (name != null) 'name': name,
-      if (urlGif != null) 'url_gif': urlGif,
-      if (mainMuscle != null) 'main_muscle': mainMuscle,
-      if (secondaryMuscle != null) 'secondary_muscle': secondaryMuscle,
+      if (target != null) 'target': target,
+      if (secondaryMuscleZero != null)
+        'secondary_muscle_zero': secondaryMuscleZero,
+      if (secondaryMuscleOne != null)
+        'secondary_muscle_one': secondaryMuscleOne,
+      if (secondaryMuscleTwo != null)
+        'secondary_muscle_two': secondaryMuscleTwo,
+      if (secondaryMuscleThree != null)
+        'secondary_muscle_three': secondaryMuscleThree,
+      if (secondaryMuscleFour != null)
+        'secondary_muscle_four': secondaryMuscleFour,
+      if (secondaryMuscleFive != null)
+        'secondary_muscle_five': secondaryMuscleFive,
+      if (instructionsZero != null) 'instructions_zero': instructionsZero,
       if (instructionsOne != null) 'instructions_one': instructionsOne,
       if (instructionsTwo != null) 'instructions_two': instructionsTwo,
       if (instructionsThree != null) 'instructions_three': instructionsThree,
       if (instructionsFour != null) 'instructions_four': instructionsFour,
-      if (equipment != null) 'equipment': equipment,
+      if (instructionsFive != null) 'instructions_five': instructionsFive,
+      if (instructionsSix != null) 'instructions_six': instructionsSix,
+      if (instructionsSeven != null) 'instructions_seven': instructionsSeven,
+      if (instructionsEight != null) 'instructions_eight': instructionsEight,
+      if (instructionsNine != null) 'instructions_nine': instructionsNine,
+      if (instructionsTen != null) 'instructions_ten': instructionsTen,
       if (rowid != null) 'rowid': rowid,
     });
   }
 
   ExerciseTableCompanion copyWith(
-      {Value<String>? id,
-      Value<String>? name,
-      Value<String>? urlGif,
-      Value<String>? mainMuscle,
-      Value<String>? secondaryMuscle,
-      Value<String>? instructionsOne,
-      Value<String>? instructionsTwo,
-      Value<String>? instructionsThree,
-      Value<String>? instructionsFour,
+      {Value<int>? id,
+      Value<String>? bodyPart,
       Value<String>? equipment,
+      Value<String>? name,
+      Value<String>? target,
+      Value<String?>? secondaryMuscleZero,
+      Value<String?>? secondaryMuscleOne,
+      Value<String?>? secondaryMuscleTwo,
+      Value<String?>? secondaryMuscleThree,
+      Value<String?>? secondaryMuscleFour,
+      Value<String?>? secondaryMuscleFive,
+      Value<String?>? instructionsZero,
+      Value<String?>? instructionsOne,
+      Value<String?>? instructionsTwo,
+      Value<String?>? instructionsThree,
+      Value<String?>? instructionsFour,
+      Value<String?>? instructionsFive,
+      Value<String?>? instructionsSix,
+      Value<String?>? instructionsSeven,
+      Value<String?>? instructionsEight,
+      Value<String?>? instructionsNine,
+      Value<String?>? instructionsTen,
       Value<int>? rowid}) {
     return ExerciseTableCompanion(
       id: id ?? this.id,
+      bodyPart: bodyPart ?? this.bodyPart,
+      equipment: equipment ?? this.equipment,
       name: name ?? this.name,
-      urlGif: urlGif ?? this.urlGif,
-      mainMuscle: mainMuscle ?? this.mainMuscle,
-      secondaryMuscle: secondaryMuscle ?? this.secondaryMuscle,
+      target: target ?? this.target,
+      secondaryMuscleZero: secondaryMuscleZero ?? this.secondaryMuscleZero,
+      secondaryMuscleOne: secondaryMuscleOne ?? this.secondaryMuscleOne,
+      secondaryMuscleTwo: secondaryMuscleTwo ?? this.secondaryMuscleTwo,
+      secondaryMuscleThree: secondaryMuscleThree ?? this.secondaryMuscleThree,
+      secondaryMuscleFour: secondaryMuscleFour ?? this.secondaryMuscleFour,
+      secondaryMuscleFive: secondaryMuscleFive ?? this.secondaryMuscleFive,
+      instructionsZero: instructionsZero ?? this.instructionsZero,
       instructionsOne: instructionsOne ?? this.instructionsOne,
       instructionsTwo: instructionsTwo ?? this.instructionsTwo,
       instructionsThree: instructionsThree ?? this.instructionsThree,
       instructionsFour: instructionsFour ?? this.instructionsFour,
-      equipment: equipment ?? this.equipment,
+      instructionsFive: instructionsFive ?? this.instructionsFive,
+      instructionsSix: instructionsSix ?? this.instructionsSix,
+      instructionsSeven: instructionsSeven ?? this.instructionsSeven,
+      instructionsEight: instructionsEight ?? this.instructionsEight,
+      instructionsNine: instructionsNine ?? this.instructionsNine,
+      instructionsTen: instructionsTen ?? this.instructionsTen,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -1629,19 +2162,44 @@ class ExerciseTableCompanion extends UpdateCompanion<ExerciseTableData> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<String>(id.value);
+      map['id'] = Variable<int>(id.value);
+    }
+    if (bodyPart.present) {
+      map['body_part'] = Variable<String>(bodyPart.value);
+    }
+    if (equipment.present) {
+      map['equipment'] = Variable<String>(equipment.value);
     }
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
-    if (urlGif.present) {
-      map['url_gif'] = Variable<String>(urlGif.value);
+    if (target.present) {
+      map['target'] = Variable<String>(target.value);
     }
-    if (mainMuscle.present) {
-      map['main_muscle'] = Variable<String>(mainMuscle.value);
+    if (secondaryMuscleZero.present) {
+      map['secondary_muscle_zero'] =
+          Variable<String>(secondaryMuscleZero.value);
     }
-    if (secondaryMuscle.present) {
-      map['secondary_muscle'] = Variable<String>(secondaryMuscle.value);
+    if (secondaryMuscleOne.present) {
+      map['secondary_muscle_one'] = Variable<String>(secondaryMuscleOne.value);
+    }
+    if (secondaryMuscleTwo.present) {
+      map['secondary_muscle_two'] = Variable<String>(secondaryMuscleTwo.value);
+    }
+    if (secondaryMuscleThree.present) {
+      map['secondary_muscle_three'] =
+          Variable<String>(secondaryMuscleThree.value);
+    }
+    if (secondaryMuscleFour.present) {
+      map['secondary_muscle_four'] =
+          Variable<String>(secondaryMuscleFour.value);
+    }
+    if (secondaryMuscleFive.present) {
+      map['secondary_muscle_five'] =
+          Variable<String>(secondaryMuscleFive.value);
+    }
+    if (instructionsZero.present) {
+      map['instructions_zero'] = Variable<String>(instructionsZero.value);
     }
     if (instructionsOne.present) {
       map['instructions_one'] = Variable<String>(instructionsOne.value);
@@ -1655,8 +2213,23 @@ class ExerciseTableCompanion extends UpdateCompanion<ExerciseTableData> {
     if (instructionsFour.present) {
       map['instructions_four'] = Variable<String>(instructionsFour.value);
     }
-    if (equipment.present) {
-      map['equipment'] = Variable<String>(equipment.value);
+    if (instructionsFive.present) {
+      map['instructions_five'] = Variable<String>(instructionsFive.value);
+    }
+    if (instructionsSix.present) {
+      map['instructions_six'] = Variable<String>(instructionsSix.value);
+    }
+    if (instructionsSeven.present) {
+      map['instructions_seven'] = Variable<String>(instructionsSeven.value);
+    }
+    if (instructionsEight.present) {
+      map['instructions_eight'] = Variable<String>(instructionsEight.value);
+    }
+    if (instructionsNine.present) {
+      map['instructions_nine'] = Variable<String>(instructionsNine.value);
+    }
+    if (instructionsTen.present) {
+      map['instructions_ten'] = Variable<String>(instructionsTen.value);
     }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
@@ -1668,15 +2241,27 @@ class ExerciseTableCompanion extends UpdateCompanion<ExerciseTableData> {
   String toString() {
     return (StringBuffer('ExerciseTableCompanion(')
           ..write('id: $id, ')
+          ..write('bodyPart: $bodyPart, ')
+          ..write('equipment: $equipment, ')
           ..write('name: $name, ')
-          ..write('urlGif: $urlGif, ')
-          ..write('mainMuscle: $mainMuscle, ')
-          ..write('secondaryMuscle: $secondaryMuscle, ')
+          ..write('target: $target, ')
+          ..write('secondaryMuscleZero: $secondaryMuscleZero, ')
+          ..write('secondaryMuscleOne: $secondaryMuscleOne, ')
+          ..write('secondaryMuscleTwo: $secondaryMuscleTwo, ')
+          ..write('secondaryMuscleThree: $secondaryMuscleThree, ')
+          ..write('secondaryMuscleFour: $secondaryMuscleFour, ')
+          ..write('secondaryMuscleFive: $secondaryMuscleFive, ')
+          ..write('instructionsZero: $instructionsZero, ')
           ..write('instructionsOne: $instructionsOne, ')
           ..write('instructionsTwo: $instructionsTwo, ')
           ..write('instructionsThree: $instructionsThree, ')
           ..write('instructionsFour: $instructionsFour, ')
-          ..write('equipment: $equipment, ')
+          ..write('instructionsFive: $instructionsFive, ')
+          ..write('instructionsSix: $instructionsSix, ')
+          ..write('instructionsSeven: $instructionsSeven, ')
+          ..write('instructionsEight: $instructionsEight, ')
+          ..write('instructionsNine: $instructionsNine, ')
+          ..write('instructionsTen: $instructionsTen, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -1802,6 +2387,15 @@ class $TrainingTableTable extends TrainingTable
   late final GeneratedColumn<int> percentOfTrainDone = GeneratedColumn<int>(
       'percent_of_train_done', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _isTrainOverMeta =
+      const VerificationMeta('isTrainOver');
+  @override
+  late final GeneratedColumn<bool> isTrainOver = GeneratedColumn<bool>(
+      'is_train_over', aliasedName, true,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_train_over" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         idUser,
@@ -1822,7 +2416,8 @@ class $TrainingTableTable extends TrainingTable
         exerciseFive,
         countRepsExFive,
         maxWeightExFive,
-        percentOfTrainDone
+        percentOfTrainDone,
+        isTrainOver
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -1958,6 +2553,12 @@ class $TrainingTableTable extends TrainingTable
     } else if (isInserting) {
       context.missing(_percentOfTrainDoneMeta);
     }
+    if (data.containsKey('is_train_over')) {
+      context.handle(
+          _isTrainOverMeta,
+          isTrainOver.isAcceptableOrUnknown(
+              data['is_train_over']!, _isTrainOverMeta));
+    }
     return context;
   }
 
@@ -2005,6 +2606,8 @@ class $TrainingTableTable extends TrainingTable
           DriftSqlType.string, data['${effectivePrefix}max_weight_ex_five']),
       percentOfTrainDone: attachedDatabase.typeMapping.read(
           DriftSqlType.int, data['${effectivePrefix}percent_of_train_done'])!,
+      isTrainOver: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_train_over']),
     );
   }
 
@@ -2035,6 +2638,7 @@ class TrainingTableData extends DataClass
   final int? countRepsExFive;
   final String? maxWeightExFive;
   final int percentOfTrainDone;
+  final bool? isTrainOver;
   const TrainingTableData(
       {required this.idUser,
       required this.dayOfTraining,
@@ -2054,7 +2658,8 @@ class TrainingTableData extends DataClass
       this.exerciseFive,
       this.countRepsExFive,
       this.maxWeightExFive,
-      required this.percentOfTrainDone});
+      required this.percentOfTrainDone,
+      this.isTrainOver});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2103,6 +2708,9 @@ class TrainingTableData extends DataClass
       map['max_weight_ex_five'] = Variable<String>(maxWeightExFive);
     }
     map['percent_of_train_done'] = Variable<int>(percentOfTrainDone);
+    if (!nullToAbsent || isTrainOver != null) {
+      map['is_train_over'] = Variable<bool>(isTrainOver);
+    }
     return map;
   }
 
@@ -2153,6 +2761,9 @@ class TrainingTableData extends DataClass
           ? const Value.absent()
           : Value(maxWeightExFive),
       percentOfTrainDone: Value(percentOfTrainDone),
+      isTrainOver: isTrainOver == null && nullToAbsent
+          ? const Value.absent()
+          : Value(isTrainOver),
     );
   }
 
@@ -2179,6 +2790,7 @@ class TrainingTableData extends DataClass
       countRepsExFive: serializer.fromJson<int?>(json['countRepsExFive']),
       maxWeightExFive: serializer.fromJson<String?>(json['maxWeightExFive']),
       percentOfTrainDone: serializer.fromJson<int>(json['percentOfTrainDone']),
+      isTrainOver: serializer.fromJson<bool?>(json['isTrainOver']),
     );
   }
   @override
@@ -2204,6 +2816,7 @@ class TrainingTableData extends DataClass
       'countRepsExFive': serializer.toJson<int?>(countRepsExFive),
       'maxWeightExFive': serializer.toJson<String?>(maxWeightExFive),
       'percentOfTrainDone': serializer.toJson<int>(percentOfTrainDone),
+      'isTrainOver': serializer.toJson<bool?>(isTrainOver),
     };
   }
 
@@ -2226,7 +2839,8 @@ class TrainingTableData extends DataClass
           Value<String?> exerciseFive = const Value.absent(),
           Value<int?> countRepsExFive = const Value.absent(),
           Value<String?> maxWeightExFive = const Value.absent(),
-          int? percentOfTrainDone}) =>
+          int? percentOfTrainDone,
+          Value<bool?> isTrainOver = const Value.absent()}) =>
       TrainingTableData(
         idUser: idUser ?? this.idUser,
         dayOfTraining: dayOfTraining ?? this.dayOfTraining,
@@ -2264,6 +2878,7 @@ class TrainingTableData extends DataClass
             ? maxWeightExFive.value
             : this.maxWeightExFive,
         percentOfTrainDone: percentOfTrainDone ?? this.percentOfTrainDone,
+        isTrainOver: isTrainOver.present ? isTrainOver.value : this.isTrainOver,
       );
   TrainingTableData copyWithCompanion(TrainingTableCompanion data) {
     return TrainingTableData(
@@ -2319,6 +2934,8 @@ class TrainingTableData extends DataClass
       percentOfTrainDone: data.percentOfTrainDone.present
           ? data.percentOfTrainDone.value
           : this.percentOfTrainDone,
+      isTrainOver:
+          data.isTrainOver.present ? data.isTrainOver.value : this.isTrainOver,
     );
   }
 
@@ -2343,7 +2960,8 @@ class TrainingTableData extends DataClass
           ..write('exerciseFive: $exerciseFive, ')
           ..write('countRepsExFive: $countRepsExFive, ')
           ..write('maxWeightExFive: $maxWeightExFive, ')
-          ..write('percentOfTrainDone: $percentOfTrainDone')
+          ..write('percentOfTrainDone: $percentOfTrainDone, ')
+          ..write('isTrainOver: $isTrainOver')
           ..write(')'))
         .toString();
   }
@@ -2368,7 +2986,8 @@ class TrainingTableData extends DataClass
       exerciseFive,
       countRepsExFive,
       maxWeightExFive,
-      percentOfTrainDone);
+      percentOfTrainDone,
+      isTrainOver);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2391,7 +3010,8 @@ class TrainingTableData extends DataClass
           other.exerciseFive == this.exerciseFive &&
           other.countRepsExFive == this.countRepsExFive &&
           other.maxWeightExFive == this.maxWeightExFive &&
-          other.percentOfTrainDone == this.percentOfTrainDone);
+          other.percentOfTrainDone == this.percentOfTrainDone &&
+          other.isTrainOver == this.isTrainOver);
 }
 
 class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
@@ -2414,6 +3034,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
   final Value<int?> countRepsExFive;
   final Value<String?> maxWeightExFive;
   final Value<int> percentOfTrainDone;
+  final Value<bool?> isTrainOver;
   final Value<int> rowid;
   const TrainingTableCompanion({
     this.idUser = const Value.absent(),
@@ -2435,6 +3056,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
     this.countRepsExFive = const Value.absent(),
     this.maxWeightExFive = const Value.absent(),
     this.percentOfTrainDone = const Value.absent(),
+    this.isTrainOver = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   TrainingTableCompanion.insert({
@@ -2457,6 +3079,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
     this.countRepsExFive = const Value.absent(),
     this.maxWeightExFive = const Value.absent(),
     required int percentOfTrainDone,
+    this.isTrainOver = const Value.absent(),
     this.rowid = const Value.absent(),
   })  : idUser = Value(idUser),
         dayOfTraining = Value(dayOfTraining),
@@ -2484,6 +3107,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
     Expression<int>? countRepsExFive,
     Expression<String>? maxWeightExFive,
     Expression<int>? percentOfTrainDone,
+    Expression<bool>? isTrainOver,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -2507,6 +3131,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
       if (maxWeightExFive != null) 'max_weight_ex_five': maxWeightExFive,
       if (percentOfTrainDone != null)
         'percent_of_train_done': percentOfTrainDone,
+      if (isTrainOver != null) 'is_train_over': isTrainOver,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -2531,6 +3156,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
       Value<int?>? countRepsExFive,
       Value<String?>? maxWeightExFive,
       Value<int>? percentOfTrainDone,
+      Value<bool?>? isTrainOver,
       Value<int>? rowid}) {
     return TrainingTableCompanion(
       idUser: idUser ?? this.idUser,
@@ -2552,6 +3178,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
       countRepsExFive: countRepsExFive ?? this.countRepsExFive,
       maxWeightExFive: maxWeightExFive ?? this.maxWeightExFive,
       percentOfTrainDone: percentOfTrainDone ?? this.percentOfTrainDone,
+      isTrainOver: isTrainOver ?? this.isTrainOver,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -2616,6 +3243,9 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
     if (percentOfTrainDone.present) {
       map['percent_of_train_done'] = Variable<int>(percentOfTrainDone.value);
     }
+    if (isTrainOver.present) {
+      map['is_train_over'] = Variable<bool>(isTrainOver.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -2644,6 +3274,7 @@ class TrainingTableCompanion extends UpdateCompanion<TrainingTableData> {
           ..write('countRepsExFive: $countRepsExFive, ')
           ..write('maxWeightExFive: $maxWeightExFive, ')
           ..write('percentOfTrainDone: $percentOfTrainDone, ')
+          ..write('isTrainOver: $isTrainOver, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -3205,30 +3836,54 @@ typedef $$TrainingPlanTableTableProcessedTableManager = ProcessedTableManager<
     PrefetchHooks Function()>;
 typedef $$ExerciseTableTableCreateCompanionBuilder = ExerciseTableCompanion
     Function({
-  required String id,
-  required String name,
-  required String urlGif,
-  required String mainMuscle,
-  required String secondaryMuscle,
-  required String instructionsOne,
-  required String instructionsTwo,
-  required String instructionsThree,
-  required String instructionsFour,
+  required int id,
+  required String bodyPart,
   required String equipment,
+  required String name,
+  required String target,
+  Value<String?> secondaryMuscleZero,
+  Value<String?> secondaryMuscleOne,
+  Value<String?> secondaryMuscleTwo,
+  Value<String?> secondaryMuscleThree,
+  Value<String?> secondaryMuscleFour,
+  Value<String?> secondaryMuscleFive,
+  Value<String?> instructionsZero,
+  Value<String?> instructionsOne,
+  Value<String?> instructionsTwo,
+  Value<String?> instructionsThree,
+  Value<String?> instructionsFour,
+  Value<String?> instructionsFive,
+  Value<String?> instructionsSix,
+  Value<String?> instructionsSeven,
+  Value<String?> instructionsEight,
+  Value<String?> instructionsNine,
+  Value<String?> instructionsTen,
   Value<int> rowid,
 });
 typedef $$ExerciseTableTableUpdateCompanionBuilder = ExerciseTableCompanion
     Function({
-  Value<String> id,
-  Value<String> name,
-  Value<String> urlGif,
-  Value<String> mainMuscle,
-  Value<String> secondaryMuscle,
-  Value<String> instructionsOne,
-  Value<String> instructionsTwo,
-  Value<String> instructionsThree,
-  Value<String> instructionsFour,
+  Value<int> id,
+  Value<String> bodyPart,
   Value<String> equipment,
+  Value<String> name,
+  Value<String> target,
+  Value<String?> secondaryMuscleZero,
+  Value<String?> secondaryMuscleOne,
+  Value<String?> secondaryMuscleTwo,
+  Value<String?> secondaryMuscleThree,
+  Value<String?> secondaryMuscleFour,
+  Value<String?> secondaryMuscleFive,
+  Value<String?> instructionsZero,
+  Value<String?> instructionsOne,
+  Value<String?> instructionsTwo,
+  Value<String?> instructionsThree,
+  Value<String?> instructionsFour,
+  Value<String?> instructionsFive,
+  Value<String?> instructionsSix,
+  Value<String?> instructionsSeven,
+  Value<String?> instructionsEight,
+  Value<String?> instructionsNine,
+  Value<String?> instructionsTen,
   Value<int> rowid,
 });
 
@@ -3241,20 +3896,47 @@ class $$ExerciseTableTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
+  ColumnFilters<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get bodyPart => $composableBuilder(
+      column: $table.bodyPart, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get equipment => $composableBuilder(
+      column: $table.equipment, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get name => $composableBuilder(
       column: $table.name, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get urlGif => $composableBuilder(
-      column: $table.urlGif, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get target => $composableBuilder(
+      column: $table.target, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get mainMuscle => $composableBuilder(
-      column: $table.mainMuscle, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get secondaryMuscleZero => $composableBuilder(
+      column: $table.secondaryMuscleZero,
+      builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get secondaryMuscle => $composableBuilder(
-      column: $table.secondaryMuscle,
+  ColumnFilters<String> get secondaryMuscleOne => $composableBuilder(
+      column: $table.secondaryMuscleOne,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get secondaryMuscleTwo => $composableBuilder(
+      column: $table.secondaryMuscleTwo,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get secondaryMuscleThree => $composableBuilder(
+      column: $table.secondaryMuscleThree,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get secondaryMuscleFour => $composableBuilder(
+      column: $table.secondaryMuscleFour,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get secondaryMuscleFive => $composableBuilder(
+      column: $table.secondaryMuscleFive,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get instructionsZero => $composableBuilder(
+      column: $table.instructionsZero,
       builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get instructionsOne => $composableBuilder(
@@ -3273,8 +3955,29 @@ class $$ExerciseTableTableFilterComposer
       column: $table.instructionsFour,
       builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get equipment => $composableBuilder(
-      column: $table.equipment, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get instructionsFive => $composableBuilder(
+      column: $table.instructionsFive,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get instructionsSix => $composableBuilder(
+      column: $table.instructionsSix,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get instructionsSeven => $composableBuilder(
+      column: $table.instructionsSeven,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get instructionsEight => $composableBuilder(
+      column: $table.instructionsEight,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get instructionsNine => $composableBuilder(
+      column: $table.instructionsNine,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get instructionsTen => $composableBuilder(
+      column: $table.instructionsTen,
+      builder: (column) => ColumnFilters(column));
 }
 
 class $$ExerciseTableTableOrderingComposer
@@ -3286,20 +3989,47 @@ class $$ExerciseTableTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
+  ColumnOrderings<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get bodyPart => $composableBuilder(
+      column: $table.bodyPart, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get equipment => $composableBuilder(
+      column: $table.equipment, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get name => $composableBuilder(
       column: $table.name, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get urlGif => $composableBuilder(
-      column: $table.urlGif, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get target => $composableBuilder(
+      column: $table.target, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get mainMuscle => $composableBuilder(
-      column: $table.mainMuscle, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get secondaryMuscleZero => $composableBuilder(
+      column: $table.secondaryMuscleZero,
+      builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get secondaryMuscle => $composableBuilder(
-      column: $table.secondaryMuscle,
+  ColumnOrderings<String> get secondaryMuscleOne => $composableBuilder(
+      column: $table.secondaryMuscleOne,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get secondaryMuscleTwo => $composableBuilder(
+      column: $table.secondaryMuscleTwo,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get secondaryMuscleThree => $composableBuilder(
+      column: $table.secondaryMuscleThree,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get secondaryMuscleFour => $composableBuilder(
+      column: $table.secondaryMuscleFour,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get secondaryMuscleFive => $composableBuilder(
+      column: $table.secondaryMuscleFive,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get instructionsZero => $composableBuilder(
+      column: $table.instructionsZero,
       builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get instructionsOne => $composableBuilder(
@@ -3318,8 +4048,29 @@ class $$ExerciseTableTableOrderingComposer
       column: $table.instructionsFour,
       builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get equipment => $composableBuilder(
-      column: $table.equipment, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get instructionsFive => $composableBuilder(
+      column: $table.instructionsFive,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get instructionsSix => $composableBuilder(
+      column: $table.instructionsSix,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get instructionsSeven => $composableBuilder(
+      column: $table.instructionsSeven,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get instructionsEight => $composableBuilder(
+      column: $table.instructionsEight,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get instructionsNine => $composableBuilder(
+      column: $table.instructionsNine,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get instructionsTen => $composableBuilder(
+      column: $table.instructionsTen,
+      builder: (column) => ColumnOrderings(column));
 }
 
 class $$ExerciseTableTableAnnotationComposer
@@ -3331,20 +4082,41 @@ class $$ExerciseTableTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<String> get id =>
+  GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get bodyPart =>
+      $composableBuilder(column: $table.bodyPart, builder: (column) => column);
+
+  GeneratedColumn<String> get equipment =>
+      $composableBuilder(column: $table.equipment, builder: (column) => column);
 
   GeneratedColumn<String> get name =>
       $composableBuilder(column: $table.name, builder: (column) => column);
 
-  GeneratedColumn<String> get urlGif =>
-      $composableBuilder(column: $table.urlGif, builder: (column) => column);
+  GeneratedColumn<String> get target =>
+      $composableBuilder(column: $table.target, builder: (column) => column);
 
-  GeneratedColumn<String> get mainMuscle => $composableBuilder(
-      column: $table.mainMuscle, builder: (column) => column);
+  GeneratedColumn<String> get secondaryMuscleZero => $composableBuilder(
+      column: $table.secondaryMuscleZero, builder: (column) => column);
 
-  GeneratedColumn<String> get secondaryMuscle => $composableBuilder(
-      column: $table.secondaryMuscle, builder: (column) => column);
+  GeneratedColumn<String> get secondaryMuscleOne => $composableBuilder(
+      column: $table.secondaryMuscleOne, builder: (column) => column);
+
+  GeneratedColumn<String> get secondaryMuscleTwo => $composableBuilder(
+      column: $table.secondaryMuscleTwo, builder: (column) => column);
+
+  GeneratedColumn<String> get secondaryMuscleThree => $composableBuilder(
+      column: $table.secondaryMuscleThree, builder: (column) => column);
+
+  GeneratedColumn<String> get secondaryMuscleFour => $composableBuilder(
+      column: $table.secondaryMuscleFour, builder: (column) => column);
+
+  GeneratedColumn<String> get secondaryMuscleFive => $composableBuilder(
+      column: $table.secondaryMuscleFive, builder: (column) => column);
+
+  GeneratedColumn<String> get instructionsZero => $composableBuilder(
+      column: $table.instructionsZero, builder: (column) => column);
 
   GeneratedColumn<String> get instructionsOne => $composableBuilder(
       column: $table.instructionsOne, builder: (column) => column);
@@ -3358,8 +4130,23 @@ class $$ExerciseTableTableAnnotationComposer
   GeneratedColumn<String> get instructionsFour => $composableBuilder(
       column: $table.instructionsFour, builder: (column) => column);
 
-  GeneratedColumn<String> get equipment =>
-      $composableBuilder(column: $table.equipment, builder: (column) => column);
+  GeneratedColumn<String> get instructionsFive => $composableBuilder(
+      column: $table.instructionsFive, builder: (column) => column);
+
+  GeneratedColumn<String> get instructionsSix => $composableBuilder(
+      column: $table.instructionsSix, builder: (column) => column);
+
+  GeneratedColumn<String> get instructionsSeven => $composableBuilder(
+      column: $table.instructionsSeven, builder: (column) => column);
+
+  GeneratedColumn<String> get instructionsEight => $composableBuilder(
+      column: $table.instructionsEight, builder: (column) => column);
+
+  GeneratedColumn<String> get instructionsNine => $composableBuilder(
+      column: $table.instructionsNine, builder: (column) => column);
+
+  GeneratedColumn<String> get instructionsTen => $composableBuilder(
+      column: $table.instructionsTen, builder: (column) => column);
 }
 
 class $$ExerciseTableTableTableManager extends RootTableManager<
@@ -3388,55 +4175,103 @@ class $$ExerciseTableTableTableManager extends RootTableManager<
           createComputedFieldComposer: () =>
               $$ExerciseTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> name = const Value.absent(),
-            Value<String> urlGif = const Value.absent(),
-            Value<String> mainMuscle = const Value.absent(),
-            Value<String> secondaryMuscle = const Value.absent(),
-            Value<String> instructionsOne = const Value.absent(),
-            Value<String> instructionsTwo = const Value.absent(),
-            Value<String> instructionsThree = const Value.absent(),
-            Value<String> instructionsFour = const Value.absent(),
+            Value<int> id = const Value.absent(),
+            Value<String> bodyPart = const Value.absent(),
             Value<String> equipment = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> target = const Value.absent(),
+            Value<String?> secondaryMuscleZero = const Value.absent(),
+            Value<String?> secondaryMuscleOne = const Value.absent(),
+            Value<String?> secondaryMuscleTwo = const Value.absent(),
+            Value<String?> secondaryMuscleThree = const Value.absent(),
+            Value<String?> secondaryMuscleFour = const Value.absent(),
+            Value<String?> secondaryMuscleFive = const Value.absent(),
+            Value<String?> instructionsZero = const Value.absent(),
+            Value<String?> instructionsOne = const Value.absent(),
+            Value<String?> instructionsTwo = const Value.absent(),
+            Value<String?> instructionsThree = const Value.absent(),
+            Value<String?> instructionsFour = const Value.absent(),
+            Value<String?> instructionsFive = const Value.absent(),
+            Value<String?> instructionsSix = const Value.absent(),
+            Value<String?> instructionsSeven = const Value.absent(),
+            Value<String?> instructionsEight = const Value.absent(),
+            Value<String?> instructionsNine = const Value.absent(),
+            Value<String?> instructionsTen = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               ExerciseTableCompanion(
             id: id,
+            bodyPart: bodyPart,
+            equipment: equipment,
             name: name,
-            urlGif: urlGif,
-            mainMuscle: mainMuscle,
-            secondaryMuscle: secondaryMuscle,
+            target: target,
+            secondaryMuscleZero: secondaryMuscleZero,
+            secondaryMuscleOne: secondaryMuscleOne,
+            secondaryMuscleTwo: secondaryMuscleTwo,
+            secondaryMuscleThree: secondaryMuscleThree,
+            secondaryMuscleFour: secondaryMuscleFour,
+            secondaryMuscleFive: secondaryMuscleFive,
+            instructionsZero: instructionsZero,
             instructionsOne: instructionsOne,
             instructionsTwo: instructionsTwo,
             instructionsThree: instructionsThree,
             instructionsFour: instructionsFour,
-            equipment: equipment,
+            instructionsFive: instructionsFive,
+            instructionsSix: instructionsSix,
+            instructionsSeven: instructionsSeven,
+            instructionsEight: instructionsEight,
+            instructionsNine: instructionsNine,
+            instructionsTen: instructionsTen,
             rowid: rowid,
           ),
           createCompanionCallback: ({
-            required String id,
-            required String name,
-            required String urlGif,
-            required String mainMuscle,
-            required String secondaryMuscle,
-            required String instructionsOne,
-            required String instructionsTwo,
-            required String instructionsThree,
-            required String instructionsFour,
+            required int id,
+            required String bodyPart,
             required String equipment,
+            required String name,
+            required String target,
+            Value<String?> secondaryMuscleZero = const Value.absent(),
+            Value<String?> secondaryMuscleOne = const Value.absent(),
+            Value<String?> secondaryMuscleTwo = const Value.absent(),
+            Value<String?> secondaryMuscleThree = const Value.absent(),
+            Value<String?> secondaryMuscleFour = const Value.absent(),
+            Value<String?> secondaryMuscleFive = const Value.absent(),
+            Value<String?> instructionsZero = const Value.absent(),
+            Value<String?> instructionsOne = const Value.absent(),
+            Value<String?> instructionsTwo = const Value.absent(),
+            Value<String?> instructionsThree = const Value.absent(),
+            Value<String?> instructionsFour = const Value.absent(),
+            Value<String?> instructionsFive = const Value.absent(),
+            Value<String?> instructionsSix = const Value.absent(),
+            Value<String?> instructionsSeven = const Value.absent(),
+            Value<String?> instructionsEight = const Value.absent(),
+            Value<String?> instructionsNine = const Value.absent(),
+            Value<String?> instructionsTen = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               ExerciseTableCompanion.insert(
             id: id,
+            bodyPart: bodyPart,
+            equipment: equipment,
             name: name,
-            urlGif: urlGif,
-            mainMuscle: mainMuscle,
-            secondaryMuscle: secondaryMuscle,
+            target: target,
+            secondaryMuscleZero: secondaryMuscleZero,
+            secondaryMuscleOne: secondaryMuscleOne,
+            secondaryMuscleTwo: secondaryMuscleTwo,
+            secondaryMuscleThree: secondaryMuscleThree,
+            secondaryMuscleFour: secondaryMuscleFour,
+            secondaryMuscleFive: secondaryMuscleFive,
+            instructionsZero: instructionsZero,
             instructionsOne: instructionsOne,
             instructionsTwo: instructionsTwo,
             instructionsThree: instructionsThree,
             instructionsFour: instructionsFour,
-            equipment: equipment,
+            instructionsFive: instructionsFive,
+            instructionsSix: instructionsSix,
+            instructionsSeven: instructionsSeven,
+            instructionsEight: instructionsEight,
+            instructionsNine: instructionsNine,
+            instructionsTen: instructionsTen,
             rowid: rowid,
           ),
           withReferenceMapper: (p0) => p0
@@ -3482,6 +4317,7 @@ typedef $$TrainingTableTableCreateCompanionBuilder = TrainingTableCompanion
   Value<int?> countRepsExFive,
   Value<String?> maxWeightExFive,
   required int percentOfTrainDone,
+  Value<bool?> isTrainOver,
   Value<int> rowid,
 });
 typedef $$TrainingTableTableUpdateCompanionBuilder = TrainingTableCompanion
@@ -3505,6 +4341,7 @@ typedef $$TrainingTableTableUpdateCompanionBuilder = TrainingTableCompanion
   Value<int?> countRepsExFive,
   Value<String?> maxWeightExFive,
   Value<int> percentOfTrainDone,
+  Value<bool?> isTrainOver,
   Value<int> rowid,
 });
 
@@ -3584,6 +4421,9 @@ class $$TrainingTableTableFilterComposer
   ColumnFilters<int> get percentOfTrainDone => $composableBuilder(
       column: $table.percentOfTrainDone,
       builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isTrainOver => $composableBuilder(
+      column: $table.isTrainOver, builder: (column) => ColumnFilters(column));
 }
 
 class $$TrainingTableTableOrderingComposer
@@ -3666,6 +4506,9 @@ class $$TrainingTableTableOrderingComposer
   ColumnOrderings<int> get percentOfTrainDone => $composableBuilder(
       column: $table.percentOfTrainDone,
       builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isTrainOver => $composableBuilder(
+      column: $table.isTrainOver, builder: (column) => ColumnOrderings(column));
 }
 
 class $$TrainingTableTableAnnotationComposer
@@ -3733,6 +4576,9 @@ class $$TrainingTableTableAnnotationComposer
 
   GeneratedColumn<int> get percentOfTrainDone => $composableBuilder(
       column: $table.percentOfTrainDone, builder: (column) => column);
+
+  GeneratedColumn<bool> get isTrainOver => $composableBuilder(
+      column: $table.isTrainOver, builder: (column) => column);
 }
 
 class $$TrainingTableTableTableManager extends RootTableManager<
@@ -3780,6 +4626,7 @@ class $$TrainingTableTableTableManager extends RootTableManager<
             Value<int?> countRepsExFive = const Value.absent(),
             Value<String?> maxWeightExFive = const Value.absent(),
             Value<int> percentOfTrainDone = const Value.absent(),
+            Value<bool?> isTrainOver = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               TrainingTableCompanion(
@@ -3802,6 +4649,7 @@ class $$TrainingTableTableTableManager extends RootTableManager<
             countRepsExFive: countRepsExFive,
             maxWeightExFive: maxWeightExFive,
             percentOfTrainDone: percentOfTrainDone,
+            isTrainOver: isTrainOver,
             rowid: rowid,
           ),
           createCompanionCallback: ({
@@ -3824,6 +4672,7 @@ class $$TrainingTableTableTableManager extends RootTableManager<
             Value<int?> countRepsExFive = const Value.absent(),
             Value<String?> maxWeightExFive = const Value.absent(),
             required int percentOfTrainDone,
+            Value<bool?> isTrainOver = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               TrainingTableCompanion.insert(
@@ -3846,6 +4695,7 @@ class $$TrainingTableTableTableManager extends RootTableManager<
             countRepsExFive: countRepsExFive,
             maxWeightExFive: maxWeightExFive,
             percentOfTrainDone: percentOfTrainDone,
+            isTrainOver: isTrainOver,
             rowid: rowid,
           ),
           withReferenceMapper: (p0) => p0

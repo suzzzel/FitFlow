@@ -16,6 +16,7 @@ class ViewProgressTextInsideButton extends StatelessWidget {
           context.goNamed('/progresshome');
         },
         style: const ButtonStyle(
+            elevation: WidgetStatePropertyAll(0),
             overlayColor: WidgetStatePropertyAll(Colors.transparent),
             padding: WidgetStatePropertyAll(EdgeInsets.all(0))),
         child: Text('Отследить прогресс',

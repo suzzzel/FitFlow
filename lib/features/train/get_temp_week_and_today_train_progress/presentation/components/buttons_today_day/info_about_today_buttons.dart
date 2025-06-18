@@ -42,7 +42,9 @@ class InfoAboutTodayButton extends StatelessWidget {
                             (element) => element.dayOfWeek == weekDayNow) !=
                         -1
                     // Сегодня день тренировки, она была?
-                    ? todayTrain.value == null
+                    ? todayTrain.value == null ||
+                            todayTrain.value?.isTrainOver == null ||
+                            todayTrain.value?.isTrainOver == false
                         // Тренировки не было, можно начать
                         ? const StartTrainButton()
                         // Тренировка была, можно отследить прогресс

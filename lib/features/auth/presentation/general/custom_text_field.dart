@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -18,26 +19,27 @@ class CustomTextField extends StatelessWidget {
   final ValueChanged<String>? onFieldSubmitted;
   final Function(PointerDownEvent)? onTepOutside;
   final TextInputAction? textInputAction;
+  final List<TextInputFormatter>? inputFormatters;
 
-  const CustomTextField({
-    super.key,
-    required this.controller,
-    this.hintText,
-    required this.labelText,
-    required this.obscureText,
-    required this.keyboardType,
-    this.suffixIcon,
-    this.onTap,
-    required this.isImputRight,
-    this.textInputAction,
-    this.prefixIcon,
-    this.validator,
-    this.focusNode,
-    this.errorMsg,
-    this.onChanged,
-    this.onFieldSubmitted,
-    this.onTepOutside,
-  });
+  const CustomTextField(
+      {super.key,
+      required this.controller,
+      this.hintText,
+      required this.labelText,
+      required this.obscureText,
+      required this.keyboardType,
+      this.suffixIcon,
+      this.onTap,
+      required this.isImputRight,
+      this.textInputAction,
+      this.prefixIcon,
+      this.validator,
+      this.focusNode,
+      this.errorMsg,
+      this.onChanged,
+      this.onFieldSubmitted,
+      this.onTepOutside,
+      this.inputFormatters});
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +83,7 @@ class CustomTextField extends StatelessWidget {
                   keyboardType: keyboardType,
                   focusNode: focusNode,
                   onTap: onTap,
+                  inputFormatters: inputFormatters,
                   onTapOutside: onTepOutside,
                   onFieldSubmitted: onFieldSubmitted,
                   textInputAction: textInputAction,

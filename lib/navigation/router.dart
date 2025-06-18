@@ -19,13 +19,25 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sig
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/level/select_level_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/select_weight_main_widget.dart';
 import 'package:fitflow/features/background/background_widget.dart';
-import 'package:fitflow/features/train/create_training_plan/presentation/ready_plan_way/select_ready_plan_main_widget.dart';
+import 'package:fitflow/features/search/search_ex/presentation/search_ex_main_widget.dart';
+import 'package:fitflow/features/train/create_training_plan/domain/providers/select_weekday_custom_plan.dart';
+import 'package:fitflow/features/train/create_training_plan/domain/providers/temp_train_plan_provider.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/custom_plan_way/select_weekday_to_train/select_weekday_to_train_widget.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/custom_plan_way/view_custom_plan/view_custom_plan.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/ready_plan_way/select_ready_plan_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/select_way_of_creating_train_plan_main_widget.dart';
 import 'package:fitflow/features/home/home_main_screen/home_main_widget.dart';
 import 'package:fitflow/features/home/future_profile/presentation/indicators/age_changer/change_age_main_home_widget.dart';
 import 'package:fitflow/features/home/future_profile/presentation/indicators/height_changer/change_height_main_home_widget.dart';
 import 'package:fitflow/features/home/future_profile/presentation/indicators/weight_changer/change_weight_main_home_widget.dart';
 import 'package:fitflow/features/loading/presentation/loading_main_widget.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/edit_day_in_plan_main_widget.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/view_done_plan_main_widget.dart';
+import 'package:fitflow/features/train/do_the_train/presentation/train/do_the_train_main_widget.dart';
+import 'package:fitflow/features/train/do_the_train/presentation/exit_train_before_end/exit_the_train.dart';
+import 'package:fitflow/features/train/do_the_train/presentation/view_result/bad_result/view_bad_result.dart';
+import 'package:fitflow/features/train/do_the_train/presentation/view_result/good_result/view_good_result.dart';
+import 'package:fitflow/features/train/do_the_train/presentation/view_temp_progress_train/view_temp_progress.dart';
 import 'package:fitflow/navigation/home_navigation_bar/navbar.dart';
 import 'package:fitflow/navigation/paths.dart';
 import 'package:flutter/material.dart';
@@ -48,11 +60,19 @@ GoRouter appRouter(Ref ref) {
         log(state.matchedLocation);
         switch (status) {
           case 'auth':
-            switch (state.matchedLocation) {
-              case RouterPath.LOADING:
-                return RouterPath.HOME;
-              default:
-                return null;
+            if (stateUser.user!.isTrainGo == true &&
+                state.fullPath != '/trainnow/tempprogress' &&
+                state.fullPath != '/trainnow/emptycompletetrain' &&
+                state.fullPath != '/trainnow/completetrain') {
+              log('redirect this');
+              return RouterPath.TRAININGNOW;
+            } else {
+              switch (state.matchedLocation) {
+                case RouterPath.LOADING:
+                  return RouterPath.HOME;
+                default:
+                  return null;
+              }
             }
           case 'unauth':
             if (state.matchedLocation == RouterPath.LOADING) {
@@ -401,6 +421,22 @@ GoRouter appRouter(Ref ref) {
                 name = 'FIT FLOW';
                 fontSize = 36;
                 fontWeight = FontWeight.w700;
+              case '/home/newtrainplan/readytrainplan/viewselectedplan':
+                name = 'FIT FLOW';
+                fontSize = 36;
+                fontWeight = FontWeight.w700;
+              case '/home/newtrainplan/readytrainplan/viewselectedplan/editdayinplan':
+                name = 'Редкатировать план\nтренировки';
+                fontSize = 20;
+                fontWeight = FontWeight.w700;
+              case '/home/newtrainplan/readytrainplan/viewselectedplan/editdayinplan/findnewexercisewheneditplan':
+                name = 'Найти упражнение';
+                fontSize = 20;
+                fontWeight = FontWeight.w700;
+              case '/home/newtrainplan/customtrainplan':
+                name = 'Выберите дни\nтренировок';
+                fontSize = 20;
+                fontWeight = FontWeight.w700;
               default:
                 name = ' ';
                 break;
@@ -428,7 +464,11 @@ GoRouter appRouter(Ref ref) {
                         style: GoogleFonts.inter(
                             fontWeight: fontWeight,
                             fontSize: fontSize,
-                            shadows: state.fullPath == '/home'
+                            shadows: state.fullPath == '/home' ||
+                                    state.fullPath ==
+                                        '/home/newtrainplan/readytrainplan' ||
+                                    state.fullPath ==
+                                        '/home/newtrainplan/readytrainplan/viewselectedplan'
                                 ? [
                                     Shadow(
                                         offset: const Offset(0, 4),
@@ -451,6 +491,18 @@ GoRouter appRouter(Ref ref) {
                     : IconButton(
                         onPressed: () {
                           switch (state.fullPath) {
+                            case '/home/newtrainplan/readytrainplan/viewselectedplan/editdayinplan':
+                              context.goNamed('viewselectedplan', extra: {
+                                'isPlanBeenChanged': true,
+                              });
+                            case '/home/newtrainplan/customtrainplan/viewcustomplan':
+                              ref.read(tempTrainPlanProvider.notifier).reset();
+                              ref
+                                  .read(
+                                      selectWeekdayCustomPlanProvider.notifier)
+                                  .reset();
+                              context.pop();
+
                             default:
                               context.pop();
                           }
@@ -558,18 +610,143 @@ GoRouter appRouter(Ref ref) {
                           ),
                       routes: [
                         GoRoute(
-                          path: RouterPath.SELECTREADYTRAININGPLAN,
-                          name: RouterPath.SELECTREADYTRAININGPLAN,
-                          pageBuilder: (context, state) => CustomTransitionPage(
-                            child: const SelectReadyPlanMainWidget(),
-                            transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) =>
-                                FadeTransition(
-                              opacity: animation,
-                              child: child,
-                            ),
-                          ),
-                        )
+                            path: RouterPath.SELECTREADYTRAININGPLAN,
+                            name: RouterPath.SELECTREADYTRAININGPLAN,
+                            pageBuilder: (context, state) =>
+                                CustomTransitionPage(
+                                  child: const SelectReadyPlanMainWidget(),
+                                  transitionsBuilder: (context, animation,
+                                          secondaryAnimation, child) =>
+                                      FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  ),
+                                ),
+                            routes: [
+                              GoRoute(
+                                  path: RouterPath.VIEWSELECTEDPLAN,
+                                  name: RouterPath.VIEWSELECTEDPLAN,
+                                  pageBuilder: (context, state) {
+                                    final Map<String, dynamic> param =
+                                        state.extra as Map<String, dynamic>;
+                                    return CustomTransitionPage(
+                                      child: ViewDonePlanMainWidget(
+                                        isPlanBeenChanged:
+                                            param['isPlanBeenChanged'],
+                                        listOfDaysReadyPlan:
+                                            param['listOfTrainDays'],
+                                      ),
+                                      transitionsBuilder: (context, animation,
+                                              secondaryAnimation, child) =>
+                                          FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      ),
+                                    );
+                                  },
+                                  routes: [
+                                    GoRoute(
+                                        path: RouterPath.EDITDAYINPLAN,
+                                        name: RouterPath.EDITDAYINPLAN,
+                                        pageBuilder: (context, state) {
+                                          final Map<String, dynamic> param =
+                                              state.extra
+                                                  as Map<String, dynamic>;
+                                          return CustomTransitionPage(
+                                            child: EditDayInPlanMainWidget(
+                                              weekday: param['weekday'],
+                                              dir: param['dir'],
+                                            ),
+                                            transitionsBuilder: (context,
+                                                    animation,
+                                                    secondaryAnimation,
+                                                    child) =>
+                                                FadeTransition(
+                                              opacity: animation,
+                                              child: child,
+                                            ),
+                                          );
+                                        },
+                                        routes: [
+                                          GoRoute(
+                                            path: RouterPath
+                                                .FINDNEWEXERCISEWHENEDITPLAN,
+                                            name: RouterPath
+                                                .FINDNEWEXERCISEWHENEDITPLAN,
+                                            pageBuilder: (context, state) {
+                                              final Map<String, dynamic> param =
+                                                  state.extra
+                                                      as Map<String, dynamic>;
+                                              return NoTransitionPage(
+                                                  child: SearchExMainWidget(
+                                                isPlanEdit: true,
+                                                weekday: param['weekday'],
+                                                exerciseToDelete:
+                                                    param['exToDelete'],
+                                              ));
+                                            },
+                                          ),
+                                        ]),
+                                  ]),
+                            ]),
+                        GoRoute(
+                            path: RouterPath.SELECTCUSTOMTRAININGPLAN,
+                            name: RouterPath.SELECTCUSTOMTRAININGPLAN,
+                            pageBuilder: (context, state) {
+                              return const NoTransitionPage(
+                                  child: SelectWeekdayToTrainWidget());
+                            },
+                            routes: [
+                              GoRoute(
+                                  path: RouterPath.VIEWCUSTOMPLAN,
+                                  name: RouterPath.VIEWCUSTOMPLAN,
+                                  pageBuilder: (context, state) {
+                                    // ignore: prefer_const_constructors
+                                    return NoTransitionPage(
+                                        // ignore: prefer_const_constructors
+                                        child: ViewCustomPlan());
+                                  },
+                                  routes: [
+                                    GoRoute(
+                                      path: RouterPath
+                                          .FINDNEWEXERCISEINCUSTOMPLAN,
+                                      name: RouterPath
+                                          .FINDNEWEXERCISEINCUSTOMPLAN,
+                                      pageBuilder: (context, state) {
+                                        final Map<String, dynamic> param =
+                                            state.extra as Map<String, dynamic>;
+                                        return NoTransitionPage(
+                                            child: SearchExMainWidget(
+                                          isPlanEdit: true,
+                                          weekday: param['weekday'],
+                                          exerciseToDelete: param['exToDelete'],
+                                        ));
+                                      },
+                                    ),
+                                    GoRoute(
+                                      path: RouterPath.EDITDAYINCUSTOMPLAN,
+                                      name: RouterPath.EDITDAYINCUSTOMPLAN,
+                                      pageBuilder: (context, state) {
+                                        final Map<String, dynamic> param =
+                                            state.extra as Map<String, dynamic>;
+                                        return CustomTransitionPage(
+                                          child: EditDayInPlanMainWidget(
+                                            weekday: param['weekday'],
+                                            dir: param['dir'],
+                                          ),
+                                          transitionsBuilder: (context,
+                                                  animation,
+                                                  secondaryAnimation,
+                                                  child) =>
+                                              FadeTransition(
+                                            opacity: animation,
+                                            child: child,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ]),
+                            ])
                       ])
                 ]),
             GoRoute(
@@ -597,28 +774,22 @@ GoRouter appRouter(Ref ref) {
               ),
             ),
             GoRoute(
-              path: RouterPath.SEARCHHOME,
-              name: RouterPath.SEARCHHOME,
-              pageBuilder: (context, state) => CustomTransitionPage(
-                  child: Stack(
-                    children: [
-                      Center(
-                        child: Container(
-                          width: 100,
-                          height: 100,
-                          color: Colors.blue,
-                          child: const Text('test2'),
-                        ),
-                      )
-                    ],
-                  ),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) =>
-                          FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          )),
-            ),
+                path: RouterPath.SEARCHHOME,
+                name: RouterPath.SEARCHHOME,
+                pageBuilder: (context, state) {
+                  return CustomTransitionPage(
+                      child: const SearchExMainWidget(
+                        isPlanEdit: false,
+                        weekday: null,
+                        exerciseToDelete: null,
+                      ),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) =>
+                              FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              ));
+                }),
             GoRoute(
               path: RouterPath.PROFILEHOME,
               name: RouterPath.PROFILEHOME,
@@ -642,6 +813,140 @@ GoRouter appRouter(Ref ref) {
                             child: child,
                           )),
             ),
+          ]),
+      ShellRoute(
+          builder: (context, state, child) {
+            String name;
+            double fontSize = 20;
+            FontWeight fontWeight = FontWeight.w500;
+            switch (state.fullPath) {
+              case '/trainnow/tempprogress':
+                name = 'Тренировка';
+              case '/trainnow/emptycompletetrain':
+                name = 'Тренировка пропущена';
+              case '/trainnow/completetrain':
+                name = 'Поздравляем!';
+              default:
+                name = 'Тренировка';
+            }
+            return Scaffold(
+              extendBodyBehindAppBar: true,
+              resizeToAvoidBottomInset: false,
+              appBar: AppBar(
+                centerTitle: true,
+                forceMaterialTransparency: true,
+                backgroundColor: Colors.transparent,
+                leadingWidth: 35,
+                leading: state.fullPath == RouterPath.TRAININGNOW
+                    ? IconButton(
+                        onPressed: () {
+                          showAdaptiveDialog(
+                            context: context,
+                            builder: (context) => const ExitTheTrainButton(),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.close,
+                          color: Colors.red,
+                        ))
+                    : null,
+                actions: state.fullPath == RouterPath.TRAININGNOW
+                    ? [
+                        IconButton(
+                            onPressed: () {
+                              showAdaptiveDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      const ViewTempProgressMainWidget());
+                            },
+                            icon: const Icon(
+                              Icons.visibility_outlined,
+                              color: Colors.purple,
+                            ))
+                      ]
+                    : [],
+                title: ShaderMask(
+                  blendMode: BlendMode.srcATop,
+                  shaderCallback: (bounds) => LinearGradient(colors: [
+                    Theme.of(context).colorScheme.primaryFixed,
+                    Theme.of(context).colorScheme.secondaryFixed,
+                  ]).createShader(bounds),
+                  child: Text(
+                    name,
+                    textScaler: const TextScaler.linear(1),
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.inter(
+                        fontWeight: fontWeight,
+                        fontSize: fontSize,
+                        shadows: [
+                          Shadow(
+                              offset: const Offset(0, 4),
+                              blurRadius: 20,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .secondaryFixed
+                                  .withOpacity(0.67))
+                        ]),
+                  ),
+                ),
+              ),
+              body: Stack(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                          Color.fromRGBO(24, 29, 37, 1),
+                          Color.fromRGBO(42, 52, 112, 1)
+                        ])),
+                  ),
+                  const BackgroundWidget(),
+                  child,
+                ],
+              ),
+            );
+          },
+          routes: [
+            GoRoute(
+                path: RouterPath.TRAININGNOW,
+                name: RouterPath.TRAININGNOW,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                    // ignore: prefer_const_constructors
+                    child: DoTheTrainMainWidget(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) =>
+                            FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            )),
+                routes: [
+                  GoRoute(
+                    path: RouterPath.COMPLETETRAIN,
+                    name: RouterPath.COMPLETETRAIN,
+                    pageBuilder: (context, state) => CustomTransitionPage(
+                        child: const ViewGoodResultWidget(),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) =>
+                                FadeTransition(
+                                  opacity: animation,
+                                  child: child,
+                                )),
+                  ),
+                  GoRoute(
+                    path: RouterPath.EMPTYCOMPLETETRAIN,
+                    name: RouterPath.EMPTYCOMPLETETRAIN,
+                    pageBuilder: (context, state) => CustomTransitionPage(
+                        child: const ViewBadResultWidget(),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) =>
+                                FadeTransition(
+                                  opacity: animation,
+                                  child: child,
+                                )),
+                  )
+                ])
           ]),
       GoRoute(
         path: RouterPath.LOADING,

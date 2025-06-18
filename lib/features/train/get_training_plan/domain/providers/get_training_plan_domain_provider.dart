@@ -21,15 +21,12 @@ class GetTrainingPlanDomainProviderAsync
   }
 
   Future<List<TrainingPlanClass>> getTrainingPlan({required String id}) async {
-    List<TrainingPlanClass> planBuild = [];
     final trainingPlanRepo = ref.read(getTrainingPlanDomainProvider);
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
+    try {
       final plan = await trainingPlanRepo.getTrainingPlan(id: id);
-      state = AsyncValue.data(plan);
-      planBuild = plan;
       return plan;
-    });
-    return planBuild;
+    } catch (e, stack) {
+      throw AsyncError(e, stack);
+    }
   }
 }

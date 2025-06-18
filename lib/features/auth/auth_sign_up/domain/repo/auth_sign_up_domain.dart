@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:fitflow/features/auth/auth_sign_up/data/repo/auth_sign_up_data.dart';
 import 'package:fitflow/features/auth/auth_sign_up/domain/models/sign_up_state.dart';
 import 'package:fitflow/features/auth/auth_sign_up/domain/repo/auth_sign_up_domain_impl.dart';

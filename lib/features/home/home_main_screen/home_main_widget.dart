@@ -1,6 +1,6 @@
 import 'package:fitflow/features/auth/auth_sign_out/presentation/sign_out_button.dart';
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
-import 'package:fitflow/features/general_providers/drift_app_database_provider.dart';
+import 'package:fitflow/features/general_comonents/drift_app_database_provider.dart';
 import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/presentation/week_progress_today_train_main_widget.dart';
 import 'package:fitflow/features/train/get_today_train_info/presentation/train_info_main_widget.dart';
 import 'package:fitflow/features/train/get_today_train_info/presentation/welcome_train.dart';
@@ -87,28 +87,28 @@ class HomeMainWidget extends ConsumerWidget {
                         child: ElevatedButton(
                             onPressed: () {
                               // context.goNamed('/progresshome');
-                              // ref
-                              //     .read(localDatabaseProvider)
-                              //     .managers
-                              //     .trainingTable
-                              //     .delete();
-                              // ref
-                              //     .read(localDatabaseProvider)
-                              //     .managers
-                              //     .trainingPlanTable
-                              //     .delete();
                               ref
                                   .read(localDatabaseProvider)
                                   .managers
                                   .trainingTable
-                                  .create((f) => f(
-                                      dayOfTraining: '2025-04-07',
-                                      // типа сделал треню
-                                      exerciseOne: '2',
-                                      countRepsExOne: 5,
-                                      maxWeightExOne: '110',
-                                      percentOfTrainDone: 70,
-                                      idUser: 'test'));
+                                  .delete();
+                              ref
+                                  .read(localDatabaseProvider)
+                                  .managers
+                                  .trainingPlanTable
+                                  .delete();
+                              // ref
+                              //     .read(localDatabaseProvider)
+                              //     .managers
+                              //     .trainingTable
+                              //     .create((f) => f(
+                              //         dayOfTraining: '2025-05-22',
+                              //         // типа сделал треню
+                              //         exerciseOne: '2',
+                              //         countRepsExOne: 5,
+                              //         maxWeightExOne: '110',
+                              //         percentOfTrainDone: 70,
+                              //         idUser: user.id!));
                               // ref
                               //     .read(localDatabaseProvider)
                               //     .managers

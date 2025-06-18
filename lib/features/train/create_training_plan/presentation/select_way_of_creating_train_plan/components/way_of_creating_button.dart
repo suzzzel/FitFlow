@@ -200,7 +200,6 @@ class WayOfCreatingButton extends ConsumerWidget {
                   .state = readyOrCustom ? 1 : 2,
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.115,
-                // height: 100,
                 width: MediaQuery.of(context).size.width * 0.78,
                 decoration: BoxDecoration(
                     boxShadow: tempSelectedWay == 1 && readyOrCustom == true ||

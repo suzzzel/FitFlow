@@ -7,7 +7,7 @@ part of 'get_training_plan_domain_provider.dart';
 // **************************************************************************
 
 String _$getTrainingPlanDomainProviderAsyncHash() =>
-    r'3cb15bde29a7462b6cc85ea6a3ed26542a060046';
+    r'9bee1b05bb5ace23602811c2af2d702d532e7360';
 
 /// Copied from Dart SDK
 class _SystemHash {

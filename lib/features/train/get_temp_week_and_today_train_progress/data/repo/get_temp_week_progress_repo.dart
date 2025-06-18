@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -24,8 +26,11 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
 
     try {
       final trainPlan = await database.managers.trainingPlanTable.get();
+      log(DateTime.parse(trainPlan[0].dataCreatingPlan)
+          .millisecondsSinceEpoch
+          .toString());
       if (DateTime.now().millisecondsSinceEpoch <
-          DateTime.parse(trainPlan[1].dataCreatingPlan)
+          DateTime.parse(trainPlan[0].dataCreatingPlan)
               .millisecondsSinceEpoch) {
         return [];
       }
@@ -34,6 +39,10 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
             DateFormat('yyyy-MM-dd').format(startOfWeek.add(Duration(days: x)));
         final String weekDayThisDayStringVersion =
             DateFormat('EEEE').format(DateTime.parse(dayToFind)).toLowerCase();
+        final trainings = await database.managers.trainingTable.get();
+        for (var x in trainings) {
+          log(x.dayOfTraining);
+        }
         final trainDay = await database.managers.trainingTable
             .filter((day) => day.dayOfTraining(dayToFind))
             .getSingleOrNull();
@@ -68,8 +77,33 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
               percentOfTrainDone: trainDay?.percentOfTrainDone));
         }
       }
+      await checkTrainingsDayInSupabase();
       return listTrainingsOfWeek;
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> checkTrainingsDayInSupabase() async {
+    try {
+      final userId = supabase.auth.currentUser!.id;
+      final trainingsFromOnline =
+          await supabase.from('trainings_users').select().eq('idUser', userId);
+      final trainingsFromOffline = await database.managers.trainingTable.get();
+      for (var x in trainingsFromOffline) {
+        if (x.idUser == userId && x.isTrainOver == true) {
+          try {
+            trainingsFromOnline.firstWhere((train) =>
+                train['dayOfTraining'].toString() == x.dayOfTraining);
+          } catch (e) {
+            await supabase.from('trainings_users').insert(x.toJson());
+            break;
+          }
+        }
+      }
+    } catch (e) {
+      log('error');
       rethrow;
     }
   }
