@@ -913,6 +913,7 @@ GoRouter appRouter(Ref ref) {
                 path: RouterPath.TRAININGNOW,
                 name: RouterPath.TRAININGNOW,
                 pageBuilder: (context, state) => CustomTransitionPage(
+                    // ignore: prefer_const_constructors
                     child: DoTheTrainMainWidget(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) =>
@@ -937,7 +938,7 @@ GoRouter appRouter(Ref ref) {
                     path: RouterPath.EMPTYCOMPLETETRAIN,
                     name: RouterPath.EMPTYCOMPLETETRAIN,
                     pageBuilder: (context, state) => CustomTransitionPage(
-                        child: ViewBadResultWidget(),
+                        child: const ViewBadResultWidget(),
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) =>
                                 FadeTransition(

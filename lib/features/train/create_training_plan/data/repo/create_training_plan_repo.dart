@@ -1,8 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:drift/drift.dart';
 import 'package:fitflow/features/general_comonents/exercise_model.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/models/ready_training_plan_model.dart';
@@ -10,7 +7,6 @@ import 'package:fitflow/features/train/get_training_plan/domain/models/training_
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'package:fitflow/features/db/app_database.dart';
 import 'package:fitflow/features/train/create_training_plan/data/repo/create_training_plan_repo_impl.dart';
 
@@ -213,7 +209,7 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
                 ])
             .whereType<String>()
             .join(', ');
-// TEST
+// load ex to locale
         for (var y in exercises) {
           await database.managers.exerciseTable.create((ex) => ex(
                 id: y.id,
@@ -240,7 +236,8 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
                 instructionsTen: Value(y.instructionsTen),
               ));
         }
-// TEST
+// load ex to locale
+
         await database.managers.trainingPlanTable.create((element) => element(
             dataCreatingPlan: statOfWeekFormatted,
             dayOfWeek: weekday,

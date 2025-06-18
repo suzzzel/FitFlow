@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:fitflow/features/general_comonents/exercise_model.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/temp_train_plan_provider.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/components/ru_week_day_text.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/components/add_another_exercise_button.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/components/back_to_view_done_plan_button.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/components/change_exercise_button.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/components/delete_exrcise_button.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/components/exercise_image.dart';
@@ -11,8 +11,6 @@ import 'package:fitflow/features/train/create_training_plan/presentation/view_do
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/components/max_length_day_exercise_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class EditDayInPlanMainWidget extends ConsumerWidget {
   final String weekday;
@@ -67,56 +65,8 @@ class EditDayInPlanMainWidget extends ConsumerWidget {
             },
           ),
         ),
-        BackToViewDonePlanButton(),
+        const BackToViewDonePlanButton(),
       ],
-    );
-  }
-}
-
-class BackToViewDonePlanButton extends StatelessWidget {
-  const BackToViewDonePlanButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 39,
-          right: 39,
-          bottom: 35,
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(99)),
-              gradient: LinearGradient(colors: [
-                Theme.of(context).colorScheme.secondary,
-                Theme.of(context).colorScheme.primary,
-              ], transform: const GradientRotation(pi / 4))),
-          child: ElevatedButton(
-              onPressed: () {
-                context.pop();
-              },
-              style: ButtonStyle(
-                  elevation: const WidgetStatePropertyAll(0),
-                  fixedSize: WidgetStatePropertyAll(
-                      Size(MediaQuery.of(context).size.width, 60)),
-                  backgroundColor:
-                      const WidgetStatePropertyAll(Colors.transparent)),
-              child: FittedBox(
-                child: Text(
-                  'Продолжить',
-                  textScaler: const TextScaler.linear(1),
-                  style: GoogleFonts.inter(
-                      color: Theme.of(context).colorScheme.onSecondary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700),
-                ),
-              )),
-        ),
-      ),
     );
   }
 }
@@ -185,23 +135,3 @@ class ExercisesInDayInfo extends ConsumerWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-/*
-
- ref.read(tempTrainPlanProvider.notifier).addExercise(
-                          weekday: weekday,
-                          exercise: ExerciseModel(
-                              id: 9,
-                              bodyPart: 'талия',
-                              equipment: 'медицинский мяч',
-                              name: 'скручивания с мячом',
-                              target: 'прэсс'));
-
- */

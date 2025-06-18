@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:fitflow/features/db/app_database.dart';
 import 'package:fitflow/features/train/do_the_train/domain/models/temp_train_model.dart';
-import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/domain/models/training_day_class.dart';
 import 'package:fitflow/features/train/get_training_plan/data/repo/get_training_plan_impl.dart';
 import 'package:fitflow/features/train/get_training_plan/domain/models/training_plan_class.dart';
 import 'package:path_provider/path_provider.dart';
@@ -19,7 +18,6 @@ class GetTrainingPlanRepoData extends GetTrainingPlanDataImpl {
   @override
   Future<List<TrainingPlanClass>> getTrainingPlan({required String id}) async {
     try {
-      // await database.managers.trainingPlanTable.delete();
       final offlinePlan = await database.managers.trainingPlanTable.get();
       if (offlinePlan.isNotEmpty) {
         final List<TrainingPlanClass> trainingPlan = [];

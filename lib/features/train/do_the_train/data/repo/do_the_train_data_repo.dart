@@ -193,6 +193,9 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
               countRepsExFive: Value(train.countRepsExFive),
               maxWeightExFive: Value(train.maxWeightExFive),
               percentOfTrainDone: train.percentOfTrainDone() ?? 0,
+              isTrainOver: train.tempExercise >= train.getExercise().length
+                  ? const Value(true)
+                  : const Value(false),
             ));
     final all = await database.managers.trainingTable.get();
     for (var x in all) {
