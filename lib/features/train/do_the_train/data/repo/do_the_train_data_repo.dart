@@ -197,10 +197,6 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
                   ? const Value(true)
                   : const Value(false),
             ));
-    final all = await database.managers.trainingTable.get();
-    for (var x in all) {
-      log(x.dayOfTraining);
-    }
   }
 
   @override

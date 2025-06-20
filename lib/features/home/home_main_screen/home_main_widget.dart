@@ -1,6 +1,7 @@
 import 'package:fitflow/features/auth/auth_sign_out/presentation/sign_out_button.dart';
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
 import 'package:fitflow/features/general_comonents/drift_app_database_provider.dart';
+import 'package:fitflow/features/progress/data/providers/main_progress_providers.dart';
 import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/presentation/week_progress_today_train_main_widget.dart';
 import 'package:fitflow/features/train/get_today_train_info/presentation/train_info_main_widget.dart';
 import 'package:fitflow/features/train/get_today_train_info/presentation/welcome_train.dart';
@@ -85,18 +86,20 @@ class HomeMainWidget extends ConsumerWidget {
                       height: 300,
                       child: Center(
                         child: ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               // context.goNamed('/progresshome');
-                              ref
-                                  .read(localDatabaseProvider)
-                                  .managers
-                                  .trainingTable
-                                  .delete();
-                              ref
-                                  .read(localDatabaseProvider)
-                                  .managers
-                                  .trainingPlanTable
-                                  .delete();
+                              // ref
+                              //     .read(localDatabaseProvider)
+                              //     .managers
+                              //     .trainingTable
+                              //     .delete();
+                              // ref
+                              //     .read(localDatabaseProvider)
+                              //     .managers
+                              //     .trainingPlanTable
+                              //     .delete();
+
+                              ref.read(getMainProgressProvider);
                               // ref
                               //     .read(localDatabaseProvider)
                               //     .managers
