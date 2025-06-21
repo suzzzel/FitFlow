@@ -16,10 +16,11 @@ class MainProgressRepo implements MainProgressRepoImpl {
   });
 
   @override
-  Future<void> getMainProgressAboutUser({required String idUser}) async {
+  Future<MainProgressModel?> getMainProgressAboutUser() async {
     int middlePercent = 0;
     int countOfReps = 0;
     List<TrainingDayClass> trainings = [];
+    final idUser = supabase.auth.currentUser!.id;
     try {
       // can return empty if user dont do the at least one train
       final offlineTrainingsUser = await database.managers.trainingTable
@@ -107,17 +108,19 @@ class MainProgressRepo implements MainProgressRepoImpl {
                     middlePercent ~/ onlineTrainingsUser.length,
                 countOfRepsAllTime: countOfReps,
                 listOfTrainings: trainings);
-
             log(data.toString());
+            return data;
           }
         }
       } catch (e) {
         log(e.toString());
+        rethrow;
       }
     } catch (e) {
       log(e.toString());
       rethrow;
     }
+    return null;
   }
 
   @override

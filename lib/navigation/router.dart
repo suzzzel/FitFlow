@@ -19,6 +19,7 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sig
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/level/select_level_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/select_weight_main_widget.dart';
 import 'package:fitflow/features/background/background_widget.dart';
+import 'package:fitflow/features/progress/presentation/main_progress_main_widget.dart';
 import 'package:fitflow/features/search/search_ex/presentation/search_ex_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/select_weekday_custom_plan.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/temp_train_plan_provider.dart';
@@ -413,6 +414,10 @@ GoRouter appRouter(Ref ref) {
                 name = 'FIT FLOW';
                 fontSize = 36;
                 fontWeight = FontWeight.w700;
+              case '/progresshome':
+                name = 'Прогресс';
+                fontSize = 24;
+                fontWeight = FontWeight.w700;
               case '/home/newtrainplan':
                 name = 'Выберите существующий план\nили составьте личный';
                 fontSize = 20;
@@ -753,18 +758,7 @@ GoRouter appRouter(Ref ref) {
               path: RouterPath.PROGRESSHOME,
               name: RouterPath.PROGRESSHOME,
               pageBuilder: (context, state) => CustomTransitionPage(
-                child: Stack(
-                  children: [
-                    Center(
-                      child: Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.red,
-                        child: const Text('test1'),
-                      ),
-                    )
-                  ],
-                ),
+                child: const MainProgressMainWidget(),
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) =>
                         FadeTransition(
