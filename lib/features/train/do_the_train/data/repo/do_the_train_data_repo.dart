@@ -25,6 +25,7 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
     try {
       var exercise = await database.managers.exerciseTable
           .filter((f) => f.id(int.parse(tempExerciseId)))
+          .limit(1)
           .getSingle();
       return ExerciseModel(
         id: exercise.id,

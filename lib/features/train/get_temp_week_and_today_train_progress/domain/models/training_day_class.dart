@@ -121,6 +121,25 @@ class TrainingDayClass {
     };
   }
 
+  List<String> getExercise() {
+    final List<String> returnList = [];
+    final listExercise = [
+      exerciseOne,
+      exerciseTwo,
+      exerciseThree,
+      exerciseFour,
+      exerciseFive
+    ];
+    for (var x in listExercise) {
+      if (x == null) {
+        continue;
+      } else {
+        returnList.add(x);
+      }
+    }
+    return returnList;
+  }
+
   factory TrainingDayClass.fromMap(Map<String, dynamic> map) {
     return TrainingDayClass(
       isChillday: map['isChillday'] as bool,

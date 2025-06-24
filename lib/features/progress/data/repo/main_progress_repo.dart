@@ -1,8 +1,11 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:drift/drift.dart';
+import 'package:fitflow/features/progress/domain/models/exercises_into_day_model.dart';
 import 'package:fitflow/features/progress/domain/models/main_progress_model.dart';
 import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/domain/models/training_day_class.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:fitflow/features/db/app_database.dart';
 import 'package:fitflow/features/progress/data/repo/main_progress_repo_impl.dart';
@@ -124,9 +127,73 @@ class MainProgressRepo implements MainProgressRepoImpl {
   }
 
   @override
-  Future<void> getProgressByDay(
-      {required String idUser, required String date}) {
-    // TODO: implement getProgressByDay
-    throw UnimplementedError();
+  Future<List<ExercisesIntoDayModel>> getProgressByDay(
+      {required TrainingDayClass dayOfTrain}) async {
+    final List<ExercisesIntoDayModel> listToReturn = [];
+    final appDirForPreloadGif = await getApplicationDocumentsDirectory();
+    final exFolderPath = '${appDirForPreloadGif.path}/exGifs';
+    final exercises = dayOfTrain.getExercise();
+    for (int x = 0; x != exercises.length; x++) {
+      int coutOfReps = 0;
+      String maxWeight = '0';
+      switch (x) {
+        case 0:
+          coutOfReps = dayOfTrain.countRepsExOne ?? 0;
+          maxWeight = dayOfTrain.maxWeightExOne ?? '0';
+          break;
+        case 1:
+          coutOfReps = dayOfTrain.countRepsExTwo ?? 0;
+          maxWeight = dayOfTrain.maxWeightExTwo ?? '0';
+          break;
+        case 2:
+          coutOfReps = dayOfTrain.countRepsExThree ?? 0;
+          maxWeight = dayOfTrain.maxWeightExThree ?? '0';
+          break;
+        case 3:
+          coutOfReps = dayOfTrain.countRepsExFour ?? 0;
+          maxWeight = dayOfTrain.maxWeightExFour ?? '0';
+          break;
+        case 4:
+          coutOfReps = dayOfTrain.countRepsExFive ?? 0;
+          maxWeight = dayOfTrain.maxWeightExFive ?? '0';
+          break;
+      }
+      try {
+        final dataAboutExercise = await database.managers.exerciseTable
+            .filter((f) => f.id.call(int.parse(exercises[x])))
+            .limit(1)
+            .getSingle();
+        final String tempExIdToGif =
+            dataAboutExercise.id.toString().padLeft(4, '0');
+        final File exGifInLocaleMemory =
+            File('$exFolderPath/$tempExIdToGif.gif');
+        listToReturn.add(ExercisesIntoDayModel(
+            exerciceName: dataAboutExercise.name,
+            countOfReps: coutOfReps,
+            maxWeight: maxWeight,
+            gifExercise: exGifInLocaleMemory));
+      } catch (e) {
+        final dataAboutExercise = await supabase
+            .from('exercises')
+            .select()
+            .eq('id', x)
+            .onError((e, _) {
+          throw e!;
+        });
+        final Uint8List gifFromOnline = await supabase.storage
+            .from('exercises.gifs')
+            .download(
+                'assets/${dataAboutExercise.first['id'].toString().padLeft(4, '0')}.gif');
+        final exGif = File(
+            '$exFolderPath/${dataAboutExercise.first['id'].toString().padLeft(4, '0')}.gif');
+        exGif.writeAsBytesSync(gifFromOnline);
+        listToReturn.add(ExercisesIntoDayModel(
+            exerciceName: dataAboutExercise.first['name'],
+            countOfReps: coutOfReps,
+            maxWeight: maxWeight,
+            gifExercise: exGif));
+      }
+    }
+    return listToReturn;
   }
 }

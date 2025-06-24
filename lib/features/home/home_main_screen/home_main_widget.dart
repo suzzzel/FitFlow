@@ -88,18 +88,18 @@ class HomeMainWidget extends ConsumerWidget {
                         child: ElevatedButton(
                             onPressed: () async {
                               // context.goNamed('/progresshome');
-                              // ref
-                              //     .read(localDatabaseProvider)
-                              //     .managers
-                              //     .trainingTable
-                              //     .delete();
-                              // ref
-                              //     .read(localDatabaseProvider)
-                              //     .managers
-                              //     .trainingPlanTable
-                              //     .delete();
+                              ref
+                                  .read(localDatabaseProvider)
+                                  .managers
+                                  .trainingTable
+                                  .delete();
+                              ref
+                                  .read(localDatabaseProvider)
+                                  .managers
+                                  .trainingPlanTable
+                                  .delete();
 
-                              ref.read(getMainProgressProvider);
+                              // ref.read(getMainProgressProvider);
                               // ref
                               //     .read(localDatabaseProvider)
                               //     .managers
