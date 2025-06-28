@@ -34,7 +34,7 @@ class MainProgressRepo implements MainProgressRepoImpl {
             .from('trainings_users')
             .select()
             .eq('idUser', idUser);
-        if (offlineTrainingsUser.isEmpty) {
+        if (offlineTrainingsUser.isEmpty && onlineTrainingsUser.isNotEmpty) {
           for (var x in onlineTrainingsUser) {
             x.putIfAbsent('isChillday', () => false);
             final train = TrainingDayClass.fromMap(x);
@@ -59,7 +59,23 @@ class MainProgressRepo implements MainProgressRepoImpl {
                 countRepsExFive: Value(train.countRepsExFive),
                 maxWeightExFive: Value(train.maxWeightExFive),
                 percentOfTrainDone: train.percentOfTrainDone ?? 0));
+            middlePercent = middlePercent + (train.percentOfTrainDone ?? 0);
+            countOfReps = countOfReps + (train.countRepsExOne ?? 0);
+            countOfReps = countOfReps + (train.countRepsExTwo ?? 0);
+            countOfReps = countOfReps + (train.countRepsExThree ?? 0);
+            countOfReps = countOfReps + (train.countRepsExFour ?? 0);
+            countOfReps = countOfReps + (train.countRepsExFive ?? 0);
+            trainings.add(train);
           }
+          return MainProgressModel(
+              countOfTrainings: trainings.length,
+              middlePercentOfTrainings:
+                  middlePercent ~/ onlineTrainingsUser.length,
+              countOfRepsAllTime: countOfReps,
+              listOfTrainings: trainings);
+        } else if (onlineTrainingsUser.isEmpty &&
+            offlineTrainingsUser.isEmpty) {
+          return MainProgressModel.empty();
         } else {
           if (offlineTrainingsUser.length < onlineTrainingsUser.length) {
             for (var y in onlineTrainingsUser) {
@@ -123,7 +139,11 @@ class MainProgressRepo implements MainProgressRepoImpl {
       log(e.toString());
       rethrow;
     }
-    return null;
+    return MainProgressModel(
+        countOfTrainings: trainings.length,
+        middlePercentOfTrainings: middlePercent,
+        countOfRepsAllTime: countOfReps,
+        listOfTrainings: trainings);
   }
 
   @override
@@ -176,7 +196,7 @@ class MainProgressRepo implements MainProgressRepoImpl {
         final dataAboutExercise = await supabase
             .from('exercises')
             .select()
-            .eq('id', x)
+            .eq('id', exercises[x])
             .onError((e, _) {
           throw e!;
         });

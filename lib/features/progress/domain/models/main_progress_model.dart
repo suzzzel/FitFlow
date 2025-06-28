@@ -53,6 +53,12 @@ class MainProgressModel {
 
   String toJson() => json.encode(toMap());
 
+  static MainProgressModel empty() => MainProgressModel(
+      countOfTrainings: 0,
+      middlePercentOfTrainings: 0,
+      countOfRepsAllTime: 0,
+      listOfTrainings: []);
+
   factory MainProgressModel.fromJson(String source) =>
       MainProgressModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
