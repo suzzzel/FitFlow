@@ -20,7 +20,7 @@ class HomeUpdateIndicatorsRepoData implements HomeUpdateIndicatorsImpl {
           'email', supabase.auth.currentUser!.email!);
       await database.managers.userInfoTable
           .update((o) => o(age: Value(newAge)));
-      await supabase.auth.refreshSession();
+      await supabase.auth.updateUser(UserAttributes(data: {'age': newAge}));
       return true;
     } catch (e) {
       return false;
@@ -34,7 +34,8 @@ class HomeUpdateIndicatorsRepoData implements HomeUpdateIndicatorsImpl {
           'email', supabase.auth.currentUser!.email!);
       await database.managers.userInfoTable
           .update((o) => o(age: Value(newHeight)));
-      await supabase.auth.refreshSession();
+      await supabase.auth
+          .updateUser(UserAttributes(data: {'height': newHeight}));
       return true;
     } catch (e) {
       return false;
@@ -48,7 +49,8 @@ class HomeUpdateIndicatorsRepoData implements HomeUpdateIndicatorsImpl {
           'email', supabase.auth.currentUser!.email!);
       await database.managers.userInfoTable
           .update((o) => o(age: Value(newWeight)));
-      await supabase.auth.refreshSession();
+      await supabase.auth
+          .updateUser(UserAttributes(data: {'weight': newWeight}));
       return true;
     } catch (e) {
       return false;

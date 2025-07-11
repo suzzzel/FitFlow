@@ -60,4 +60,9 @@ final class RouterPath {
   static const String COMPLETETRAIN = 'completetrain';
   static const String EMPTYCOMPLETETRAIN = 'emptycompletetrain';
   // тренировка
+
+  // профиль авторизованного юзера
+  static const String ENTERRECOVERYCODEINPROFILE = 'enterrecoverycodeinprofile';
+  static const String UPDATEPASSINPROFILE = 'updatepassinprofile';
+  // профиль авторизованного юзера
 }

@@ -47,20 +47,25 @@ class _AvatarProfileState extends State<AvatarProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      radius: 27,
+    return Container(
+      decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
+        BoxShadow(
+            blurRadius: 20,
+            offset: const Offset(0, 4),
+            color:
+                Theme.of(context).colorScheme.secondaryFixed.withOpacity(0.47))
+      ]),
       child: CircleAvatar(
         backgroundColor: Theme.of(context).colorScheme.tertiary.withOpacity(1),
-        radius: 25,
+        radius: 60,
         child: InkWell(
           onTap: () => _pickImage(),
           child: ClipOval(
               child: image != null
                   ? Image.memory(
                       image!.readAsBytesSync(),
-                      width: 50,
-                      height: 50,
+                      width: 122,
+                      height: 121,
                       fit: BoxFit.cover,
                     )
                   : SizedBox(

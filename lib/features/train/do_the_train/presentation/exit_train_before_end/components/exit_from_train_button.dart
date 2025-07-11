@@ -52,7 +52,6 @@ class ExitFromTrainButton extends ConsumerWidget {
                             .read(completeTrainProvider)
                             .exitFromTrainWithoutSaving();
                         isExitReady ? ref.refresh(authStateProvider) : () {};
-
                         context.goNamed('/home');
                         ref.invalidate(tempTrainStateNotifierProvider);
                       }

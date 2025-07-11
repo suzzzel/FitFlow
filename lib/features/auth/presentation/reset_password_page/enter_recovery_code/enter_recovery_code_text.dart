@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EnterRecoveryCodeText extends StatelessWidget {
-  const EnterRecoveryCodeText({super.key});
+  final String recoveryTextFromRoute;
+  const EnterRecoveryCodeText({super.key, required this.recoveryTextFromRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class EnterRecoveryCodeText extends StatelessWidget {
             Theme.of(context).colorScheme.secondaryFixed,
           ]).createShader(bounds),
           child: Text(
-            'Если к этому адресу электронной почты\nпривязана учетная запись,\nмы отправили на него 6-значный код\nдля подтверждения.',
+            recoveryTextFromRoute,
             textScaler: const TextScaler.linear(1),
             textAlign: TextAlign.center,
             style: GoogleFonts.inter(

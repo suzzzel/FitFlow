@@ -1,7 +1,7 @@
 import 'package:fitflow/features/auth/auth_state_new/domain/models/app_user.dart';
-import 'package:fitflow/features/home/future_profile/indicators/age_indicator.dart';
-import 'package:fitflow/features/home/future_profile/indicators/height_indicator.dart';
-import 'package:fitflow/features/home/future_profile/indicators/weight_indicator.dart';
+import 'package:fitflow/features/home/future_profile/presentation/indicators_view/indicators/age_indicator.dart';
+import 'package:fitflow/features/home/future_profile/presentation/indicators_view/indicators/height_indicator.dart';
+import 'package:fitflow/features/home/future_profile/presentation/indicators_view/indicators/weight_indicator.dart';
 import 'package:flutter/material.dart';
 
 class IndicatorsMainWidget extends StatelessWidget {
@@ -16,7 +16,19 @@ class IndicatorsMainWidget extends StatelessWidget {
         height: 120,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(22),
-            color: Theme.of(context).colorScheme.tertiary.withOpacity(0.8)),
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Theme.of(context)
+                      .colorScheme
+                      .primaryFixedDim
+                      .withOpacity(0.53),
+                  Theme.of(context)
+                      .colorScheme
+                      .secondaryFixedDim
+                      .withOpacity(0.48)
+                ])),
         child: Padding(
           padding:
               const EdgeInsets.only(left: 39, right: 39, top: 23, bottom: 6),

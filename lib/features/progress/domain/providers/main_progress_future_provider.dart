@@ -8,5 +8,4 @@ final getMainProgressProvider =
   final dataRepo = ref.watch(mainProgressDataProvider);
   final domainProv = MainProgressDomain(dataRepo: dataRepo);
   return await domainProv.getMainProgress();
-  // return MainProgressModel.empty();
 });

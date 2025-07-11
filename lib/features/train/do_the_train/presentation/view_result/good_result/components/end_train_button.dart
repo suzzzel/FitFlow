@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
+import 'package:fitflow/features/general_comonents/supabase_provider.dart';
 import 'package:fitflow/features/train/get_today_train_info/domain/providers/get_today_train_info_domain_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,7 +33,7 @@ class EndTrainButton extends ConsumerWidget {
                       const WidgetStatePropertyAll(Colors.transparent)),
               onPressed: () async {
                 ref.invalidate(getTodayTrainInfoDomainProviderAsyncProvider);
-                ref.invalidate(authStateProvider);
+                ref.read(supabaseProvider).auth.refreshSession();
               },
               child: Text('Закончить тренировку',
                   style: GoogleFonts.inter(

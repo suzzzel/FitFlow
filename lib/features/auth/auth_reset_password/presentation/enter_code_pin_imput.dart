@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:fitflow/features/auth/auth_reset_password/domain/models/reset_pass_enums.dart';
 import 'package:fitflow/features/auth/auth_reset_password/domain/providers/valid_otp_code.dart';
 import 'package:fitflow/features/auth/auth_reset_password/presentation/controllers/enter_code_to_reset_password_controller.dart';
@@ -60,12 +62,18 @@ class _EnterCodePinImputState extends ConsumerState<EnterCodePinImput> {
                     code: value, email: widget.email);
                 switch (enterCodeIsCorrect) {
                   case EnterRecoveryCodeStatus.success:
-                    // ignore: use_build_context_synchronously
-                    context.goNamed('updatepass', extra: widget.email);
+                    GoRouter.of(context)
+                                .routeInformationProvider
+                                .value
+                                .uri
+                                .path ==
+                            '/profilehome/enterrecoverycodeinprofile'
+                        ? context.goNamed('updatepassinprofile',
+                            extra: widget.email)
+                        : context.goNamed('updatepass', extra: widget.email);
                   case EnterRecoveryCodeStatus.failure:
                     break;
                   case EnterRecoveryCodeStatus.networkError:
-                    // ignore: use_build_context_synchronously
                     showNetworkError(context);
                 }
               },

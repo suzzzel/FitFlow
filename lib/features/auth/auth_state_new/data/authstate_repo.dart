@@ -55,22 +55,38 @@ Stream<AppUserState> authState(Ref ref) {
               final print2 = await localDBManager.userInfoTable.get();
               log(print2.single.toString());
               log('online');
-              streamController.add(AppUserState.auth(
-                AppUser(
-                    id: user.id,
-                    created_at: user.created_at,
-                    name: user.name,
-                    age: user.age,
-                    email: user.email,
-                    goal: user.goal,
-                    sex: user.sex,
-                    offlineMode: false,
-                    isTrainGo: isTrainGo == 'true' ? true : false,
-                    height: user.height,
-                    weight: user.weight,
-                    level: user.level),
-              ));
-              streamController.close();
+              data.event != AuthChangeEvent.userUpdated
+                  ? streamController.add(AppUserState.auth(
+                      AppUser(
+                          id: user.id,
+                          created_at: user.created_at,
+                          name: user.name,
+                          age: user.age,
+                          email: user.email,
+                          goal: user.goal,
+                          sex: user.sex,
+                          offlineMode: false,
+                          isTrainGo: isTrainGo == 'true' ? true : false,
+                          height: user.height,
+                          weight: user.weight,
+                          level: user.level),
+                    ))
+                  : streamController.add(AppUserState.userUpdate(
+                      AppUser(
+                          id: user.id,
+                          created_at: user.created_at,
+                          name: user.name,
+                          age: user.age,
+                          email: user.email,
+                          goal: user.goal,
+                          sex: user.sex,
+                          offlineMode: false,
+                          isTrainGo: isTrainGo == 'true' ? true : false,
+                          height: user.height,
+                          weight: user.weight,
+                          level: user.level),
+                    ));
+
               break;
             } else {
               streamController.add(const AppUserState.unauth());
