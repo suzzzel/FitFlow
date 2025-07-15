@@ -2,7 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:fitflow/features/db/app_database.dart';
-import 'package:fitflow/features/home/future_profile/data/repo/home_update_indicators_impl.dart';
+import 'package:fitflow/features/home/future_profile/data/repo/indicators_repo/home_update_indicators_impl.dart';
 
 class HomeUpdateIndicatorsRepoData implements HomeUpdateIndicatorsImpl {
   HomeUpdateIndicatorsRepoData({

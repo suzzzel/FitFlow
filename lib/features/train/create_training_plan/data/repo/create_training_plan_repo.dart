@@ -248,7 +248,7 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
             exerciseFive: Value(exFive),
             mainMuscle: Value(mainMuscle),
             secondaryMuscle: Value(secondaryMuscles),
-            idUser: supabase.auth.currentUser!.aud,
+            idUser: supabase.auth.currentUser!.id,
             reqReps: '20'));
         final tempDay = TrainingPlanClass(
             idUser: supabase.auth.currentUser!.id,

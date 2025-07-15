@@ -1,5 +1,6 @@
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
-import 'package:fitflow/features/home/future_profile/presentation/buttons/components/change_password_button.dart';
+import 'package:fitflow/features/home/future_profile/presentation/buttons/components/delete_train_plan/delete_train_button.dart';
+import 'package:fitflow/features/home/future_profile/presentation/buttons/components/reset_pass/change_password_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,7 +20,7 @@ class ProfileButtonsMainWidget extends ConsumerWidget {
           ChangePasswordButton(
             emailUser: user.email!,
           ),
-          ElevatedButton(onPressed: () {}, child: Text('delete train plan')),
+          DeleteTrainPlanButton(),
           ElevatedButton(onPressed: () {}, child: Text('exit from profile')),
           ElevatedButton(onPressed: () {}, child: Text('contact developer')),
           ElevatedButton(onPressed: () {}, child: Text('legal information'))

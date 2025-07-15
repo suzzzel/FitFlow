@@ -1,11 +1,10 @@
 import 'package:fitflow/features/general_comonents/drift_app_database_provider.dart';
 import 'package:fitflow/features/general_comonents/supabase_provider.dart';
-import 'package:fitflow/features/home/future_profile/data/repo/indicators_repo/home_update_indicators_repo.dart';
+import 'package:fitflow/features/home/future_profile/data/repo/home_buttons/home_buttons_data_repo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final homeIndicatorsDataProvider =
-    Provider<HomeUpdateIndicatorsRepoData>((ref) {
+final homeButtonsDataProvider = Provider<HomeButtonsRepo>((ref) {
   final database = ref.watch(localDatabaseProvider);
   final supabase = ref.watch(supabaseProvider);
-  return HomeUpdateIndicatorsRepoData(database: database, supabase: supabase);
+  return HomeButtonsRepo(database: database, supabase: supabase);
 });
