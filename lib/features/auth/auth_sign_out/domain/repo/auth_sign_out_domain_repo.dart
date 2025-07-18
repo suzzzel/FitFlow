@@ -8,7 +8,7 @@ class AuthSignOutDomainRepo implements AuthSignOutDomainRepoImpl {
   });
 
   @override
-  Future<void> signOut() async {
-    await authSignOutDataRepo.signOut();
+  Future<bool> signOut() async {
+    return await authSignOutDataRepo.signOut();
   }
 }

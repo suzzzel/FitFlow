@@ -1,19 +1,18 @@
 import 'dart:math';
 
-import 'package:fitflow/features/auth/auth_sign_out/presentation/controllers/sign_out_controller.dart';
-import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class SignOutButton extends ConsumerWidget {
-  const SignOutButton({super.key});
+final _gitUrl = Uri.parse('https://github.com/suzzzel/FitFlow');
+
+class LegalInformationButton extends StatelessWidget {
+  const LegalInformationButton({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<void> state = ref.watch(signOutControllerProvider);
+  Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 39, right: 39, top: 10, bottom: 130),
+      padding: const EdgeInsets.only(left: 39, right: 39, top: 10, bottom: 10),
       child: Container(
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(99)),
@@ -22,12 +21,9 @@ class SignOutButton extends ConsumerWidget {
               Theme.of(context).colorScheme.secondaryFixedDim,
             ], transform: const GradientRotation(pi / 4))),
         child: ElevatedButton(
-          onPressed: state.isLoading
-              ? null
-              : () async {
-                  await ref.read(signOutControllerProvider.notifier).signOut();
-                  // ref.invalidate(authStateProvider);
-                },
+          onPressed: () async {
+            await launchUrl(_gitUrl);
+          },
           style: ButtonStyle(
               elevation: const WidgetStatePropertyAll(0),
               fixedSize: WidgetStatePropertyAll(
@@ -35,7 +31,7 @@ class SignOutButton extends ConsumerWidget {
               backgroundColor:
                   const WidgetStatePropertyAll(Colors.transparent)),
           child: Text(
-            'Выйти',
+            'Правовая информация',
             textScaler: const TextScaler.linear(1),
             textAlign: TextAlign.center,
             style: GoogleFonts.inter(

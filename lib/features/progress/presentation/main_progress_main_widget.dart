@@ -72,7 +72,7 @@ class MainProgressMainWidget extends ConsumerWidget {
               ]);
             }
           },
-          error: (_, st) => const SomethingGoesWrongWidget(),
+          error: (_, st) => const Center(child: SomethingGoesWrongWidget()),
           loading: () => const Center(
                 child: CircularProgressIndicator(),
               )),

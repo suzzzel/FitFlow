@@ -8,13 +8,14 @@ class AuthSignOutDataRepo implements AuthSignOutDataRepoImpl {
 
   AuthSignOutDataRepo({required this.supabase, required this.database});
   @override
-  Future<void> signOut() async {
+  Future<bool> signOut() async {
     try {
       await supabase.auth.signOut();
       await database.managers.userInfoTable.delete();
       await database.managers.trainingPlanTable.delete();
+      return true;
     } catch (e) {
-      rethrow;
+      return false;
     }
   }
 }

@@ -24,103 +24,111 @@ Stream<AppUserState> authState(Ref ref) {
       supabaseClient.auth.onAuthStateChange.listen((data) async {
     final Session? session = data.session;
     if (session != null) {
-      if (data.event != AuthChangeEvent.passwordRecovery) {
-        if (data.event != AuthChangeEvent.initialSession) {
-          await Future.delayed(const Duration(seconds: 1));
-        }
-        for (int x = 0; x != 3; x++) {
-          try {
-            final userData = await supabaseClient
-                .from('app_users')
-                .select()
-                .eq('email', session.user.email!)
-                .maybeSingle();
-            if (userData != null) {
-              final user = AppUser.fromMap(userData);
-              localSecureStorage.write(key: 'name', value: user.name);
-              final isTrainGo = await localSecureStorage.read(key: 'isTrainGo');
-              localDBManager.userInfoTable.delete();
-              localDBManager.userInfoTable.create((value) => value(
-                  id: user.id!,
-                  createdAt: user.created_at!,
-                  name: user.name!,
-                  age: user.age!,
-                  email: user.email!,
-                  goal: user.goal!,
-                  sex: user.sex!,
-                  isTrainGo: Value(isTrainGo == 'true' ? true : false),
-                  height: user.height!,
-                  weight: user.weight!,
-                  level: user.level!));
-              final print2 = await localDBManager.userInfoTable.get();
-              log(print2.single.toString());
-              log('online');
-              data.event != AuthChangeEvent.userUpdated
-                  ? streamController.add(AppUserState.auth(
-                      AppUser(
-                          id: user.id,
-                          created_at: user.created_at,
-                          name: user.name,
-                          age: user.age,
-                          email: user.email,
-                          goal: user.goal,
-                          sex: user.sex,
-                          offlineMode: false,
-                          isTrainGo: isTrainGo == 'true' ? true : false,
-                          height: user.height,
-                          weight: user.weight,
-                          level: user.level),
-                    ))
-                  : streamController.add(AppUserState.userUpdate(
-                      AppUser(
-                          id: user.id,
-                          created_at: user.created_at,
-                          name: user.name,
-                          age: user.age,
-                          email: user.email,
-                          goal: user.goal,
-                          sex: user.sex,
-                          offlineMode: false,
-                          isTrainGo: isTrainGo == 'true' ? true : false,
-                          height: user.height,
-                          weight: user.weight,
-                          level: user.level),
-                    ));
+      if (data.event == AuthChangeEvent.signedOut) {
+        streamController.add(AppUserState.unauth());
+      } else {
+        if (data.event != AuthChangeEvent.passwordRecovery) {
+          if (data.event != AuthChangeEvent.initialSession) {
+            await Future.delayed(const Duration(seconds: 1));
+          }
+          for (int x = 0; x != 3; x++) {
+            try {
+              final userData = await supabaseClient
+                  .from('app_users')
+                  .select()
+                  .eq('email', session.user.email!)
+                  .maybeSingle();
+              if (userData != null) {
+                final user = AppUser.fromMap(userData);
+                localSecureStorage.write(key: 'name', value: user.name);
+                final isTrainGo =
+                    await localSecureStorage.read(key: 'isTrainGo');
+                localDBManager.userInfoTable.delete();
+                localDBManager.userInfoTable.create((value) => value(
+                    id: user.id!,
+                    createdAt: user.created_at!,
+                    name: user.name!,
+                    age: user.age!,
+                    email: user.email!,
+                    goal: user.goal!,
+                    sex: user.sex!,
+                    isTrainGo: Value(isTrainGo == 'true' ? true : false),
+                    height: user.height!,
+                    weight: user.weight!,
+                    level: user.level!));
+                final print2 = await localDBManager.userInfoTable.get();
+                log(print2.single.toString());
+                log('online');
+                data.event != AuthChangeEvent.userUpdated
+                    ? streamController.add(AppUserState.auth(
+                        AppUser(
+                            id: user.id,
+                            created_at: user.created_at,
+                            name: user.name,
+                            age: user.age,
+                            email: user.email,
+                            goal: user.goal,
+                            sex: user.sex,
+                            offlineMode: false,
+                            isTrainGo: isTrainGo == 'true' ? true : false,
+                            height: user.height,
+                            weight: user.weight,
+                            level: user.level),
+                      ))
+                    : streamController.add(AppUserState.userUpdate(
+                        AppUser(
+                            id: user.id,
+                            created_at: user.created_at,
+                            name: user.name,
+                            age: user.age,
+                            email: user.email,
+                            goal: user.goal,
+                            sex: user.sex,
+                            offlineMode: false,
+                            isTrainGo: isTrainGo == 'true' ? true : false,
+                            height: user.height,
+                            weight: user.weight,
+                            level: user.level),
+                      ));
 
-              break;
-            } else {
-              streamController.add(const AppUserState.unauth());
-            }
-          } catch (e) {
-            if (x != 2) {
-              log('fail № $x');
-              continue;
-            } else {
-              String? name = await localSecureStorage.read(key: 'name');
-              final isTrainGo = await localSecureStorage.read(key: 'isTrainGo');
-              if (name != null) {
-                try {
-                  final AppUser offlineUserMode = await localDBManager
-                      .userInfoTable
-                      .get()
-                      .then((user) => AppUser(
-                          id: user.single.id,
-                          created_at: user.single.createdAt,
-                          name: user.single.name,
-                          age: user.single.age,
-                          email: user.single.email,
-                          goal: user.single.goal,
-                          sex: user.single.sex,
-                          height: user.single.height,
-                          weight: user.single.weight,
-                          level: user.single.level,
-                          isTrainGo: isTrainGo == 'true' ? true : false,
-                          offlineMode: true));
-                  streamController.add(AppUserState.auth(offlineUserMode));
-                  streamController.close();
-                  break;
-                } catch (e) {
-                  log(e.runtimeType.toString());
+                break;
+              } else {
+                streamController.add(const AppUserState.unauth());
+              }
+            } catch (e) {
+              if (x != 2) {
+                log('fail № $x');
+                continue;
+              } else {
+                String? name = await localSecureStorage.read(key: 'name');
+                final isTrainGo =
+                    await localSecureStorage.read(key: 'isTrainGo');
+                if (name != null) {
+                  try {
+                    final AppUser offlineUserMode = await localDBManager
+                        .userInfoTable
+                        .get()
+                        .then((user) => AppUser(
+                            id: user.single.id,
+                            created_at: user.single.createdAt,
+                            name: user.single.name,
+                            age: user.single.age,
+                            email: user.single.email,
+                            goal: user.single.goal,
+                            sex: user.single.sex,
+                            height: user.single.height,
+                            weight: user.single.weight,
+                            level: user.single.level,
+                            isTrainGo: isTrainGo == 'true' ? true : false,
+                            offlineMode: true));
+                    streamController.add(AppUserState.auth(offlineUserMode));
+
+                    break;
+                  } catch (e) {
+                    log(e.runtimeType.toString());
+                  }
+                } else {
+                  streamController.add(const AppUserState.unauth());
                 }
               }
             }
@@ -130,7 +138,10 @@ Stream<AppUserState> authState(Ref ref) {
     } else {
       streamController.add(const AppUserState.unauth());
     }
-  }, onError: (_, st) async {
+  }, onError: (data, st) async {
+    if (data.event == AuthChangeEvent.signedOut) {
+      streamController.add(AppUserState.unauth());
+    }
     String? name = await localSecureStorage.read(key: 'name');
     final isTrainGo = await localSecureStorage.read(key: 'isTrainGo');
     if (name != null) {
