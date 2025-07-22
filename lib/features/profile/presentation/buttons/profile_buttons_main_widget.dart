@@ -23,10 +23,10 @@ class ProfileButtonsMainWidget extends ConsumerWidget {
           ChangePasswordButton(
             emailUser: user.email!,
           ),
-          DeleteTrainPlanButton(),
-          ContactDeveloperButton(),
-          LegalInformationButton(),
-          SignOutButton(),
+          const DeleteTrainPlanButton(),
+          const ContactDeveloperButton(),
+          const LegalInformationButton(),
+          const SignOutButton(),
         ],
       ),
     );

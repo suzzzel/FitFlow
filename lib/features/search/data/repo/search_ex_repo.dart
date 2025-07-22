@@ -146,7 +146,6 @@ class SearchExerciseRepo implements SearchExercisesRepoImpl {
               exGif.writeAsBytesSync(gifFromOnline);
             } catch (e) {
               continue;
-              // подумать над заглушкой
             }
           }
         }

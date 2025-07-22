@@ -23,7 +23,7 @@ class ProfileMainWidget extends ConsumerWidget {
           IndicatorsMainWidget(
             user: user,
           ),
-          ProfileButtonsMainWidget()
+          const ProfileButtonsMainWidget()
         ],
       ),
     );

@@ -7,6 +7,11 @@ import 'package:fitflow/features/search/domain/providers/current_page_search_pro
 import 'package:fitflow/features/search/domain/providers/filter_providers_domain.dart';
 import 'package:fitflow/features/search/domain/providers/next_page_search_provider.dart';
 import 'package:fitflow/features/search/domain/providers/search_result_domain_provider.dart';
+import 'package:fitflow/features/search/presentation/components/filter_list_components/equipment_text.dart';
+import 'package:fitflow/features/search/presentation/components/filter_list_components/main_muscle_text.dart';
+import 'package:fitflow/features/search/presentation/components/filter_list_components/part_of_body_text.dart';
+import 'package:fitflow/features/search/presentation/components/filter_list_components/reset_filter_text.dart';
+import 'package:fitflow/features/search/presentation/components/filter_list_components/save_filter_text.dart';
 import 'package:fitflow/features/search/presentation/components/search_list_of_exercise/search_list_of_exercises.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -178,13 +183,7 @@ class _SearchExMainWidgetState extends ConsumerState<SearchExMainWidget> {
                   child: ListView(
                     primary: true,
                     children: [
-                      Center(
-                          child: Text('Часть тела',
-                              style: GoogleFonts.inter(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700))),
+                      const BodyPartFilterText(),
                       Column(
                         children: List.generate(
                             bodyPartList.length,
@@ -215,14 +214,7 @@ class _SearchExMainWidgetState extends ConsumerState<SearchExMainWidget> {
                                   ),
                                 )),
                       ),
-                      Center(
-                          child: Text(
-                        'Целевая мышца',
-                        style: GoogleFonts.inter(
-                            color: Theme.of(context).colorScheme.onPrimary,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
-                      )),
+                      const MainMuscleFilterText(),
                       Column(
                         children: List.generate(
                             targetList.length,
@@ -252,14 +244,7 @@ class _SearchExMainWidgetState extends ConsumerState<SearchExMainWidget> {
                                   ),
                                 )),
                       ),
-                      Center(
-                          child: Text(
-                        'Оборудование',
-                        style: GoogleFonts.inter(
-                            color: Theme.of(context).colorScheme.onPrimary,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
-                      )),
+                      const EquipmentFilterText(),
                       Column(
                         children: List.generate(
                             equipmentList.length,
@@ -323,15 +308,7 @@ class _SearchExMainWidgetState extends ConsumerState<SearchExMainWidget> {
                                   elevation: WidgetStatePropertyAll(0),
                                   backgroundColor: WidgetStatePropertyAll(
                                       Colors.transparent)),
-                              child: Text(
-                                'Сбросить',
-                                style: GoogleFonts.inter(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSecondary,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700),
-                              )),
+                              child: const ResetFilterText()),
                         ),
                         Container(
                           decoration: BoxDecoration(
@@ -350,15 +327,7 @@ class _SearchExMainWidgetState extends ConsumerState<SearchExMainWidget> {
                                   elevation: WidgetStatePropertyAll(0),
                                   backgroundColor: WidgetStatePropertyAll(
                                       Colors.transparent)),
-                              child: Text(
-                                'Сохранить',
-                                style: GoogleFonts.inter(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSecondary,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700),
-                              )),
+                              child: const SaveFilterText()),
                         )
                       ],
                     ),

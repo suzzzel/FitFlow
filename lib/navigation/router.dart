@@ -784,6 +784,7 @@ GoRouter appRouter(Ref ref) {
                 path: RouterPath.PROFILEHOME,
                 name: RouterPath.PROFILEHOME,
                 pageBuilder: (context, state) => CustomTransitionPage(
+                    // ignore: prefer_const_constructors
                     child: ProfileMainWidget(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) =>

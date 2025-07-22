@@ -17,8 +17,8 @@ class LegalInformationButton extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(99)),
             gradient: LinearGradient(colors: [
-              Theme.of(context).colorScheme.primaryFixedDim,
-              Theme.of(context).colorScheme.secondaryFixedDim,
+              Theme.of(context).colorScheme.primaryFixedDim.withOpacity(0.8),
+              Theme.of(context).colorScheme.secondaryFixedDim.withOpacity(0.8),
             ], transform: const GradientRotation(pi / 4))),
         child: ElevatedButton(
           onPressed: () async {

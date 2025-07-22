@@ -25,7 +25,7 @@ Stream<AppUserState> authState(Ref ref) {
     final Session? session = data.session;
     if (session != null) {
       if (data.event == AuthChangeEvent.signedOut) {
-        streamController.add(AppUserState.unauth());
+        streamController.add(const AppUserState.unauth());
       } else {
         if (data.event != AuthChangeEvent.passwordRecovery) {
           if (data.event != AuthChangeEvent.initialSession) {
@@ -140,7 +140,7 @@ Stream<AppUserState> authState(Ref ref) {
     }
   }, onError: (data, st) async {
     if (data.event == AuthChangeEvent.signedOut) {
-      streamController.add(AppUserState.unauth());
+      streamController.add(const AppUserState.unauth());
     }
     String? name = await localSecureStorage.read(key: 'name');
     final isTrainGo = await localSecureStorage.read(key: 'isTrainGo');

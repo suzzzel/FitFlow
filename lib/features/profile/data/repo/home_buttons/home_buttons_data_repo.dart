@@ -14,7 +14,6 @@ class HomeButtonsRepo implements HomeButtonsDataImpl {
   Future<bool> deletePlan() async {
     final user = supabase.auth.currentUser!;
     try {
-      await Future.delayed(Duration(seconds: 3));
       await supabase.from('training_plan_users').delete().eq('idUser', user.id);
       await database.managers.trainingPlanTable
           .filter((f) => f.idUser(user.id))

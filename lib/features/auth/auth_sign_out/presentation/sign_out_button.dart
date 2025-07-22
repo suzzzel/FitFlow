@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:fitflow/features/auth/auth_sign_out/presentation/controllers/sign_out_controller.dart';
-import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,15 +16,14 @@ class SignOutButton extends ConsumerWidget {
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(99)),
             gradient: LinearGradient(colors: [
-              Theme.of(context).colorScheme.primaryFixedDim,
-              Theme.of(context).colorScheme.secondaryFixedDim,
+              Theme.of(context).colorScheme.primaryFixedDim.withOpacity(0.8),
+              Theme.of(context).colorScheme.secondaryFixedDim.withOpacity(0.8),
             ], transform: const GradientRotation(pi / 4))),
         child: ElevatedButton(
           onPressed: state.isLoading
               ? null
               : () async {
                   await ref.read(signOutControllerProvider.notifier).signOut();
-                  // ref.invalidate(authStateProvider);
                 },
           style: ButtonStyle(
               elevation: const WidgetStatePropertyAll(0),

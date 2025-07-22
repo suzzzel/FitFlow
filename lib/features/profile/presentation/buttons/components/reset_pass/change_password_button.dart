@@ -45,12 +45,18 @@ class _ChangePasswordButton extends ConsumerState<ChangePasswordButton> {
             gradient: LinearGradient(
                 colors: networkError
                     ? [
-                        Theme.of(context).colorScheme.errorContainer,
-                        Theme.of(context).colorScheme.error,
+                        Theme.of(context)
+                            .colorScheme
+                            .errorContainer
+                            .withOpacity(0.8),
+                        Theme.of(context).colorScheme.error.withOpacity(0.8),
                       ]
                     : [
-                        Theme.of(context).colorScheme.secondary,
-                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context)
+                            .colorScheme
+                            .secondary
+                            .withOpacity(0.8),
+                        Theme.of(context).colorScheme.primary.withOpacity(0.8),
                       ],
                 transform: const GradientRotation(pi / 4))),
         child: ElevatedButton(

@@ -11,7 +11,7 @@ class DeleteTrainPlanController extends _$DeleteTrainPlanController {
   Future<bool> deleteTrain() async {
     final homeButtonRepo = ref.read(homeButtonsDomainProvider);
     try {
-      state = AsyncLoading();
+      state = const AsyncLoading();
       final deleteTrainState =
           await AsyncValue.guard(() => homeButtonRepo.deleteTrainingPlan());
       state = deleteTrainState;

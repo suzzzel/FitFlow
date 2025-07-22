@@ -82,13 +82,12 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
                     final exGif = File('$exFolderPath/$tempExId.gif');
                     exGif.writeAsBytesSync(gifFromOnline);
                   } catch (e) {
-                    log(e.runtimeType.toString());
-                    // подумать над заглушкой
+                    continue;
                   }
                 }
               }
             } catch (e) {
-              // dodymat
+              continue;
             }
           }
         }
@@ -127,7 +126,6 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
           returnMap.addAll({tempIdTrain: newList});
         }
       }
-      // await getInfoExercises(trainingPlanId: '1');
       return returnMap;
     } catch (e) {
       rethrow;
