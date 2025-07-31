@@ -14,7 +14,9 @@ class SelectGenderMainWidget extends ConsumerWidget {
           alignment: Alignment.bottomCenter,
           child: Padding(
             padding: EdgeInsets.only(bottom: 35),
-            child: NextStepAfterGenderButton(),
+            child: NextStepAfterGenderButton(
+              key: Key('confirm_gender'),
+            ),
           ),
         ),
         Center(
@@ -23,6 +25,7 @@ class SelectGenderMainWidget extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SelectGenderButton(
+                key: Key('male_gender'),
                 gender: true,
               ),
               SizedBox(
@@ -30,6 +33,7 @@ class SelectGenderMainWidget extends ConsumerWidget {
               ),
               const SelectGenderButton(
                 gender: false,
+                key: Key('female_gender'),
               )
             ],
           ),

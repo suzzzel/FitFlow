@@ -14,7 +14,7 @@ class TodayDateHomeScreenText extends StatelessWidget {
         Theme.of(context).colorScheme.secondaryFixed,
       ]).createShader(bounds),
       child: Text(
-        _translateDate(
+        translateDate(
             todayMonth: todayDate.split(',').first,
             todayDate: todayDate.split(',').last),
         style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w500),
@@ -23,7 +23,7 @@ class TodayDateHomeScreenText extends StatelessWidget {
   }
 }
 
-String _translateDate({required String todayMonth, required String todayDate}) {
+String translateDate({required String todayMonth, required String todayDate}) {
   switch (todayMonth) {
     case 'Dec':
       return "Дек,$todayDate";

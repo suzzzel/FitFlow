@@ -15,7 +15,9 @@ class SelectGoalMainWidget extends ConsumerWidget {
       alignment: Alignment.center,
       children: [
         const GoalFirstText(),
-        const GoalSelector(),
+        const GoalSelector(
+          key: Key('goal_selector'),
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 122),
           child: Align(
@@ -48,7 +50,9 @@ class SelectGoalMainWidget extends ConsumerWidget {
           alignment: Alignment.bottomCenter,
           child: Padding(
             padding: EdgeInsets.only(bottom: 35),
-            child: NextStepAfterGoalSelectButton(),
+            child: NextStepAfterGoalSelectButton(
+              key: Key('confirm_goal'),
+            ),
           ),
         ),
       ],

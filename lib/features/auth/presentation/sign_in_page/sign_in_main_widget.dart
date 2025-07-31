@@ -38,7 +38,9 @@ class SignInMainWidgetState extends ConsumerState<SignInMainWidget> {
           alignment: Alignment.bottomCenter,
           child: Padding(
             padding: EdgeInsets.only(bottom: 35),
-            child: SignInButton(),
+            child: SignInButton(
+              key: Key('sign_in_second_button'),
+            ),
           ),
         ),
         Padding(
@@ -51,8 +53,11 @@ class SignInMainWidgetState extends ConsumerState<SignInMainWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             EmailOrNameImputWidget(
-                emailController: emailController, emailInput: emailInput),
+                key: const Key('emain_sign_in'),
+                emailController: emailController,
+                emailInput: emailInput),
             PasswordImputWidget(
+              key: const Key('password_sign_in'),
               passwordController: passwordController,
             ),
             const ForgotPasswordWidget(),

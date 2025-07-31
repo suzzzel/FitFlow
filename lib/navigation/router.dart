@@ -164,6 +164,7 @@ GoRouter appRouter(Ref ref) {
                 leading: state.fullPath == RouterPath.NOTLOGIN
                     ? null
                     : IconButton(
+                        key: const Key('pop_sign_button'),
                         onPressed: () {
                           switch (state.fullPath) {
                             case '/auth/signin':
@@ -221,7 +222,7 @@ GoRouter appRouter(Ref ref) {
                           Color.fromRGBO(42, 52, 112, 1)
                         ])),
                   ),
-                  const BackgroundWidget(),
+                  // const BackgroundWidget(),
                   child,
                 ],
               ),

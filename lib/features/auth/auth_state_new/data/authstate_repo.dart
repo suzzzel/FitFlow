@@ -36,7 +36,7 @@ Stream<AppUserState> authState(Ref ref) {
               final userData = await supabaseClient
                   .from('app_users')
                   .select()
-                  .eq('email', session.user.email!)
+                  .ilike('email', '%${session.user.email!}%')
                   .maybeSingle();
               if (userData != null) {
                 final user = AppUser.fromMap(userData);

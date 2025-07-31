@@ -10,12 +10,18 @@ class SelectLevelMainWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return const Stack(
       children: [
-        Align(alignment: Alignment(0, 0.09), child: LevelSelector()),
+        Align(
+            alignment: Alignment(0, 0.09),
+            child: LevelSelector(
+              key: Key('level_selector'),
+            )),
         Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
             padding: EdgeInsets.only(bottom: 35),
-            child: NextStepAfterLevelSelectButton(),
+            child: NextStepAfterLevelSelectButton(
+              key: Key('confirm_level'),
+            ),
           ),
         ),
       ],

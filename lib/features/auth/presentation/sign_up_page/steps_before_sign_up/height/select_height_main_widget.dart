@@ -15,7 +15,9 @@ class SelectHeightMainWidget extends ConsumerWidget {
       alignment: Alignment.center,
       children: [
         const HeightFirstText(),
-        const HeightSelector(),
+        const HeightSelector(
+          key: Key('height_selector'),
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 127),
           child: Align(
@@ -48,7 +50,9 @@ class SelectHeightMainWidget extends ConsumerWidget {
           alignment: Alignment.bottomCenter,
           child: Padding(
             padding: EdgeInsets.only(bottom: 35),
-            child: NextStepAfterHeightSelectButton(),
+            child: NextStepAfterHeightSelectButton(
+              key: Key('confrim_height'),
+            ),
           ),
         ),
       ],
