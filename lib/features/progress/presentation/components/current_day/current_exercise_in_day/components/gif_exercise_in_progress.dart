@@ -15,7 +15,13 @@ class GifExerciseInProgress extends StatelessWidget {
         width: 77,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Image.file(gif),
+          child: gif.existsSync()
+              ? Image.file(
+                  gif,
+                )
+              : Image.asset(
+                  'assets/home/gif_error.gif',
+                ),
         ),
       ),
     );

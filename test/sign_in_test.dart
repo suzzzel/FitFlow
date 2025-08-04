@@ -1,11 +1,7 @@
-import 'dart:async';
-
 import 'package:fitflow/features/auth/auth_sign_in/data/repo/auth_sign_in_repo.dart';
 import 'package:fitflow/features/auth/auth_sign_in/domain/models/sign_in_state.dart';
-import 'package:fitflow/features/auth/auth_state_new/domain/models/app_user.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mock_supabase_http_client/mock_supabase_http_client.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {

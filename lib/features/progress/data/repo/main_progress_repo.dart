@@ -152,6 +152,7 @@ class MainProgressRepo implements MainProgressRepoImpl {
     final List<ExercisesIntoDayModel> listToReturn = [];
     final appDirForPreloadGif = await getApplicationDocumentsDirectory();
     final exFolderPath = '${appDirForPreloadGif.path}/exGifs';
+    await Directory(exFolderPath).create(recursive: true);
     final exercises = dayOfTrain.getExercise();
     for (int x = 0; x != exercises.length; x++) {
       int coutOfReps = 0;
@@ -200,12 +201,12 @@ class MainProgressRepo implements MainProgressRepoImpl {
             .onError((e, _) {
           throw e!;
         });
+        final gifName =
+            dataAboutExercise.first['id'].toString().padLeft(4, '0');
         final Uint8List gifFromOnline = await supabase.storage
             .from('exercises.gifs')
-            .download(
-                'assets/${dataAboutExercise.first['id'].toString().padLeft(4, '0')}.gif');
-        final exGif = File(
-            '$exFolderPath/${dataAboutExercise.first['id'].toString().padLeft(4, '0')}.gif');
+            .download('assets/$gifName.gif');
+        final exGif = File('$exFolderPath/$gifName.gif');
         exGif.writeAsBytesSync(gifFromOnline);
         listToReturn.add(ExercisesIntoDayModel(
             exerciceName: dataAboutExercise.first['name'],
