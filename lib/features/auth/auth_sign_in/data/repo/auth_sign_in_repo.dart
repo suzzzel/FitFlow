@@ -16,7 +16,7 @@ class AuthSignInRepo implements AuthSignInRepoImpl {
         .from('app_users')
         .select()
         .eq('email', emailOrName)
-        .catchError(() {
+        .catchError((_) {
       return SignInState.networkError;
     });
     var isUserTypeName =

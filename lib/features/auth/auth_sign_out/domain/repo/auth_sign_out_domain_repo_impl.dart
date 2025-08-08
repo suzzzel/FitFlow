@@ -1,3 +1,3 @@
 abstract class AuthSignOutDomainRepoImpl {
-  Future<void> signOut();
+  Future<bool> signOut();
 }

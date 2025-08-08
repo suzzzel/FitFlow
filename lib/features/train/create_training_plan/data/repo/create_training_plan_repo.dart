@@ -82,13 +82,12 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
                     final exGif = File('$exFolderPath/$tempExId.gif');
                     exGif.writeAsBytesSync(gifFromOnline);
                   } catch (e) {
-                    log(e.runtimeType.toString());
-                    // подумать над заглушкой
+                    continue;
                   }
                 }
               }
             } catch (e) {
-              // dodymat
+              continue;
             }
           }
         }
@@ -127,7 +126,6 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
           returnMap.addAll({tempIdTrain: newList});
         }
       }
-      // await getInfoExercises(trainingPlanId: '1');
       return returnMap;
     } catch (e) {
       rethrow;
@@ -248,7 +246,7 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
             exerciseFive: Value(exFive),
             mainMuscle: Value(mainMuscle),
             secondaryMuscle: Value(secondaryMuscles),
-            idUser: supabase.auth.currentUser!.aud,
+            idUser: supabase.auth.currentUser!.id,
             reqReps: '20'));
         final tempDay = TrainingPlanClass(
             idUser: supabase.auth.currentUser!.id,

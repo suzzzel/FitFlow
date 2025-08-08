@@ -25,6 +25,7 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
     try {
       var exercise = await database.managers.exerciseTable
           .filter((f) => f.id(int.parse(tempExerciseId)))
+          .limit(1)
           .getSingle();
       return ExerciseModel(
         id: exercise.id,
@@ -197,10 +198,6 @@ class DoTheTrainDataRepo implements DoTheTrainDataRepoImpl {
                   ? const Value(true)
                   : const Value(false),
             ));
-    final all = await database.managers.trainingTable.get();
-    for (var x in all) {
-      log(x.dayOfTraining);
-    }
   }
 
   @override

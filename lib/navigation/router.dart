@@ -19,17 +19,19 @@ import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sig
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/level/select_level_main_widget.dart';
 import 'package:fitflow/features/auth/presentation/sign_up_page/steps_before_sign_up/weight/select_weight_main_widget.dart';
 import 'package:fitflow/features/background/background_widget.dart';
-import 'package:fitflow/features/search/search_ex/presentation/search_ex_main_widget.dart';
+import 'package:fitflow/features/profile/presentation/profile_main_widget.dart';
+import 'package:fitflow/features/progress/presentation/main_progress_main_widget.dart';
+import 'package:fitflow/features/search/presentation/search_ex_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/select_weekday_custom_plan.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/temp_train_plan_provider.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/custom_plan_way/select_weekday_to_train/select_weekday_to_train_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/custom_plan_way/view_custom_plan/view_custom_plan.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/ready_plan_way/select_ready_plan_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/select_way_of_creating_train_plan_main_widget.dart';
-import 'package:fitflow/features/home/home_main_screen/home_main_widget.dart';
-import 'package:fitflow/features/home/future_profile/presentation/indicators/age_changer/change_age_main_home_widget.dart';
-import 'package:fitflow/features/home/future_profile/presentation/indicators/height_changer/change_height_main_home_widget.dart';
-import 'package:fitflow/features/home/future_profile/presentation/indicators/weight_changer/change_weight_main_home_widget.dart';
+import 'package:fitflow/features/home/home_main_widget.dart';
+import 'package:fitflow/features/profile/presentation/indicators_view/age_changer/change_age_main_home_widget.dart';
+import 'package:fitflow/features/profile/presentation/indicators_view/height_changer/change_height_main_home_widget.dart';
+import 'package:fitflow/features/profile/presentation/indicators_view/weight_changer/change_weight_main_home_widget.dart';
 import 'package:fitflow/features/loading/presentation/loading_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/edit_day_in_plan/edit_day_in_plan_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/view_done_plan_main_widget.dart';
@@ -73,6 +75,12 @@ GoRouter appRouter(Ref ref) {
                 default:
                   return null;
               }
+            }
+          case 'userUpdate':
+            if (state.fullPath == '/loading') {
+              return RouterPath.PROFILEHOME;
+            } else {
+              return null;
             }
           case 'unauth':
             if (state.matchedLocation == RouterPath.LOADING) {
@@ -156,6 +164,7 @@ GoRouter appRouter(Ref ref) {
                 leading: state.fullPath == RouterPath.NOTLOGIN
                     ? null
                     : IconButton(
+                        key: const Key('pop_sign_button'),
                         onPressed: () {
                           switch (state.fullPath) {
                             case '/auth/signin':
@@ -255,6 +264,8 @@ GoRouter appRouter(Ref ref) {
                                     CustomTransitionPage(
                                       child: EnterRecoveryCodeMainWidget(
                                         email: state.extra.toString(),
+                                        recoveryCodeText:
+                                            'Если к этому адресу электронной почты\nпривязана учетная запись,\nмы отправили на него 6-значный код\nдля подтверждения.',
                                       ),
                                       transitionsBuilder: (context, animation,
                                               secondaryAnimation, child) =>
@@ -413,6 +424,18 @@ GoRouter appRouter(Ref ref) {
                 name = 'FIT FLOW';
                 fontSize = 36;
                 fontWeight = FontWeight.w700;
+              case '/progresshome':
+                name = 'Прогресс';
+                fontSize = 24;
+                fontWeight = FontWeight.w700;
+              case '/searchhome':
+                name = 'Поиск';
+                fontSize = 24;
+                fontWeight = FontWeight.w700;
+              case '/profilehome':
+                name = 'Мой профиль';
+                fontSize = 20;
+                fontWeight = FontWeight.w500;
               case '/home/newtrainplan':
                 name = 'Выберите существующий план\nили составьте личный';
                 fontSize = 20;
@@ -575,27 +598,6 @@ GoRouter appRouter(Ref ref) {
                     ),
                 routes: [
                   GoRoute(
-                    path: RouterPath.UPDATEAGE,
-                    name: RouterPath.UPDATEAGE,
-                    builder: (context, state) {
-                      return const ChangeAgeMainHomeWidget();
-                    },
-                  ),
-                  GoRoute(
-                    path: RouterPath.UPDATEHEIGHT,
-                    name: RouterPath.UPDATEHEIGHT,
-                    builder: (context, state) {
-                      return const ChangeHeightMainHomeWidget();
-                    },
-                  ),
-                  GoRoute(
-                    path: RouterPath.UPDATEWEIGHT,
-                    name: RouterPath.UPDATEWEIGHT,
-                    builder: (context, state) {
-                      return const ChangeWeightMainHomeWidget();
-                    },
-                  ),
-                  GoRoute(
                       path: RouterPath.SELECTTRAININGPLAN,
                       name: RouterPath.SELECTTRAININGPLAN,
                       pageBuilder: (context, state) => CustomTransitionPage(
@@ -753,18 +755,7 @@ GoRouter appRouter(Ref ref) {
               path: RouterPath.PROGRESSHOME,
               name: RouterPath.PROGRESSHOME,
               pageBuilder: (context, state) => CustomTransitionPage(
-                child: Stack(
-                  children: [
-                    Center(
-                      child: Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.red,
-                        child: const Text('test1'),
-                      ),
-                    )
-                  ],
-                ),
+                child: const MainProgressMainWidget(),
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) =>
                         FadeTransition(
@@ -791,28 +782,62 @@ GoRouter appRouter(Ref ref) {
                               ));
                 }),
             GoRoute(
-              path: RouterPath.PROFILEHOME,
-              name: RouterPath.PROFILEHOME,
-              pageBuilder: (context, state) => CustomTransitionPage(
-                  child: Stack(
-                    children: [
-                      Center(
-                        child: Container(
-                          width: 100,
-                          height: 100,
-                          color: Colors.green,
-                          child: const Text('test3'),
-                        ),
-                      )
-                    ],
+                path: RouterPath.PROFILEHOME,
+                name: RouterPath.PROFILEHOME,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                    // ignore: prefer_const_constructors
+                    child: ProfileMainWidget(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) =>
+                            FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            )),
+                routes: [
+                  GoRoute(
+                      path: RouterPath.UPDATEAGE,
+                      name: RouterPath.UPDATEAGE,
+                      pageBuilder: (context, state) => const NoTransitionPage(
+                          child: ChangeAgeMainHomeWidget())),
+                  GoRoute(
+                    path: RouterPath.UPDATEHEIGHT,
+                    name: RouterPath.UPDATEHEIGHT,
+                    pageBuilder: (context, state) => const NoTransitionPage(
+                        child: ChangeHeightMainHomeWidget()),
                   ),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) =>
-                          FadeTransition(
-                            opacity: animation,
-                            child: child,
+                  GoRoute(
+                    path: RouterPath.UPDATEWEIGHT,
+                    name: RouterPath.UPDATEWEIGHT,
+                    pageBuilder: (context, state) => const NoTransitionPage(
+                        child: ChangeWeightMainHomeWidget()),
+                  ),
+                  GoRoute(
+                      path: RouterPath.ENTERRECOVERYCODEINPROFILE,
+                      name: RouterPath.ENTERRECOVERYCODEINPROFILE,
+                      pageBuilder: (context, state) => NoTransitionPage(
+                              child: EnterRecoveryCodeMainWidget(
+                            email: state.extra.toString(),
+                            recoveryCodeText:
+                                'На ваш адрес электронной почты,\nк которой привязана учетная запись,\nотправлен 6 - значный код\nдля подтверждения смены пароля.',
                           )),
-            ),
+                      routes: [
+                        GoRoute(
+                          path: RouterPath.UPDATEPASSINPROFILE,
+                          name: RouterPath.UPDATEPASSINPROFILE,
+                          pageBuilder: (context, state) => CustomTransitionPage(
+                            child: UpdatePassMainWidget(
+                              email: state.extra.toString(),
+                            ),
+                            transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) =>
+                                FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            ),
+                          ),
+                        )
+                      ])
+                ])
           ]),
       ShellRoute(
           builder: (context, state, child) {

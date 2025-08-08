@@ -8,7 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class EnterRecoveryCodeMainWidget extends ConsumerWidget {
   final String email;
-  const EnterRecoveryCodeMainWidget({super.key, required this.email});
+  final String recoveryCodeText;
+  const EnterRecoveryCodeMainWidget(
+      {super.key, required this.email, required this.recoveryCodeText});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,9 +19,11 @@ class EnterRecoveryCodeMainWidget extends ConsumerWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        const Align(
-          alignment: Alignment(0, -0.6),
-          child: EnterRecoveryCodeText(),
+        Align(
+          alignment: const Alignment(0, -0.6),
+          child: EnterRecoveryCodeText(
+            recoveryTextFromRoute: recoveryCodeText,
+          ),
         ),
         EnterCodePinImput(email: email),
         ErrorTextRecoveryCode(state: state, otpImput: otpImput.state),

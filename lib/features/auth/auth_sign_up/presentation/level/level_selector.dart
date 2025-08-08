@@ -66,6 +66,7 @@ class _LevelSelectorState extends ConsumerState<LevelSelector> {
                   ? MediaQuery.of(context).size.height * 0.09
                   : MediaQuery.of(context).size.height * 0.07,
               child: ElevatedButton(
+                  key: const Key('level_skilled'),
                   onPressed: () {
                     changeLevel('skilled');
                   },

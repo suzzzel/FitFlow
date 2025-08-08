@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final emailSignUpProvider = StateProvider.autoDispose<String>((ref) => '');
@@ -32,7 +30,6 @@ final nameSignUpProvider = StateProvider.autoDispose<String>((ref) => '');
 
 final isValidnameSignUpProvider = StateProvider.autoDispose<bool>((ref) {
   final name = ref.watch(nameSignUpProvider);
-  log('name: $name');
   return name.isNotEmpty && name.length >= 3;
 });
 

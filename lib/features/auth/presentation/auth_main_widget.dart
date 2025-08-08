@@ -58,6 +58,7 @@ class AuthMainWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               AuthSelectButton(
+                  key: const Key('sign_in_first_button'),
                   text: 'Войти',
                   isLogin: true,
                   onPressed: () => context.pushNamed(RouterPath.SIGNIN)),
@@ -66,6 +67,7 @@ class AuthMainWidget extends StatelessWidget {
               ),
               AuthSelectButton(
                   text: 'Зарегистрироваться',
+                  key: const Key('sign_up_first_button'),
                   isLogin: false,
                   onPressed: () => context.pushNamed(RouterPath.GENDER)),
             ],

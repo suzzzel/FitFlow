@@ -16,6 +16,7 @@ class SelectAgeMainWidget extends ConsumerWidget {
       children: [
         const AgeFirstText(),
         WeightAgeSelector(
+          key: const Key('age_selector'),
           weightOrAge: false,
           gender: regUser.sex!,
         ),
@@ -25,6 +26,7 @@ class SelectAgeMainWidget extends ConsumerWidget {
             padding: EdgeInsets.only(bottom: 35),
             child: NextStepAfterWeightAgeSelectButton(
               weightOrAge: false,
+              key: Key('confirm_age'),
             ),
           ),
         ),
