@@ -36,6 +36,7 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
   bool isMainInstructionsOpen = false;
   List<bool> stepOfInstructionsOpen = [];
   List<String> instructions = [];
+  final TextEditingController weightImputController = TextEditingController();
   void _skipEx({required int tempExercise}) {
     setState(() {
       ref.read(tempTrainStateNotifierProvider.notifier).skipExercise();
@@ -106,6 +107,11 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final trainNotifier = ref.watch(tempTrainStateNotifierProvider);
     final tempMaxWeight = ref.watch(maxWeightOnTempExerciseProvider);
@@ -148,8 +154,13 @@ class _DoTheTrainMainWidgetState extends ConsumerState<DoTheTrainMainWidget> {
                                             name: exercise.name,
                                           ),
                                           MaxWeightInputInTrain(
-                                              tempMaxWeight: tempMaxWeight),
-                                          const DoTheRepInTrain(),
+                                            tempMaxWeight: tempMaxWeight,
+                                            controller: weightImputController,
+                                          ),
+                                          DoTheRepInTrain(
+                                            controller: weightImputController,
+                                            tempMaxWeight: tempMaxWeight,
+                                          ),
                                           TargetMuscleInTrain(
                                               targetMuscle: exercise.target),
                                           SecondayMusclesInTrain(

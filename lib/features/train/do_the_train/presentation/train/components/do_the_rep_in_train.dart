@@ -1,14 +1,16 @@
 import 'dart:math';
 
 import 'package:fitflow/features/train/do_the_train/domain/providers/cout_of_reps_in_temp_exercise_provider.dart';
+import 'package:fitflow/features/train/do_the_train/domain/providers/max_weight_on_temp_exercise_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DoTheRepInTrain extends ConsumerWidget {
-  const DoTheRepInTrain({
-    super.key,
-  });
+  final TextEditingController controller;
+  final String? tempMaxWeight;
+  const DoTheRepInTrain(
+      {super.key, required this.controller, this.tempMaxWeight});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,6 +28,16 @@ class DoTheRepInTrain extends ConsumerWidget {
         child: ElevatedButton(
             onPressed: () {
               ref.read(coutOfRepsInTempExerciseProvider.notifier).state++;
+              if (controller.text != '') {
+                final tempWeight = int.parse(controller.text);
+                final tempMaxWeightInprov = int.parse(tempMaxWeight ?? '0');
+                if (tempWeight > tempMaxWeightInprov) {
+                  ref.read(maxWeightOnTempExerciseProvider.notifier).state =
+                      controller.text;
+                }
+              }
+              controller.clear();
+              FocusManager.instance.primaryFocus?.unfocus();
             },
             style: ButtonStyle(
                 elevation: const WidgetStatePropertyAll(0),
