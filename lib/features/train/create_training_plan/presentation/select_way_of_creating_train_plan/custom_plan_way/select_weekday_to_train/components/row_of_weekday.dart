@@ -1,5 +1,6 @@
 import 'package:fitflow/features/train/create_training_plan/domain/models/weekday_for_creating_custom_plan.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/select_weekday_custom_plan.dart';
+import 'package:fitflow/features/train/create_training_plan/domain/providers/temp_train_plan_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -56,6 +57,9 @@ class RowOfWeekdayCustomPlanSelect extends ConsumerWidget {
                       ref
                           .read(selectWeekdayCustomPlanProvider.notifier)
                           .removeWeekday(weekdayForCustomPlan
+                              .sublist(weekdayToStart)[index]);
+                      ref.read(tempTrainPlanProvider.notifier).deleteDay(
+                          weekday: weekdayForCustomPlan
                               .sublist(weekdayToStart)[index]);
                     } else {
                       ref

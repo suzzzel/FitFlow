@@ -13,7 +13,8 @@ const Set<WidgetState> interactiveStates = <WidgetState>{
 };
 
 class SelectWeekdayToTrainWidget extends ConsumerWidget {
-  const SelectWeekdayToTrainWidget({super.key});
+  const SelectWeekdayToTrainWidget({super.key, this.isThisEditSavedPlan});
+  final bool? isThisEditSavedPlan;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final weekDaySelectProvider = ref.watch(selectWeekdayCustomPlanProvider);
@@ -53,7 +54,9 @@ class SelectWeekdayToTrainWidget extends ConsumerWidget {
             ),
           ),
         ),
-        const SelectWeekdayNextStepButton()
+        SelectWeekdayNextStepButton(
+          isThisEditSavedPlan: isThisEditSavedPlan,
+        )
       ],
     );
   }

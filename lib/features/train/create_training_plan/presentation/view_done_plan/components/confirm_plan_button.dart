@@ -8,12 +8,13 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ButtonConfirmPlan extends ConsumerWidget {
-  const ButtonConfirmPlan({
-    super.key,
-    required this.buttonAddedPlanState,
-  });
+  const ButtonConfirmPlan(
+      {super.key,
+      required this.buttonAddedPlanState,
+      this.isThisEditSavedPlan});
 
   final AsyncValue<void> buttonAddedPlanState;
+  final bool? isThisEditSavedPlan;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:fitflow/features/profile/domain/providers/home_buttons_domain_provider.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/controllers/confrim_ready_plan_controller.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/models/temp_train_plan_model.dart';
 import 'package:flutter/material.dart';
@@ -8,14 +9,15 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SaveCustomPlanButton extends ConsumerWidget {
-  const SaveCustomPlanButton({
-    super.key,
-    required this.weekdaysOrTrain,
-    required this.tempTrainProv,
-  });
+  const SaveCustomPlanButton(
+      {super.key,
+      required this.weekdaysOrTrain,
+      required this.tempTrainProv,
+      this.isEditSavedPlan});
 
   final List<String> weekdaysOrTrain;
   final TempTrainPlanModel tempTrainProv;
+  final bool? isEditSavedPlan;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,19 +41,32 @@ class SaveCustomPlanButton extends ConsumerWidget {
                         ],
                   transform: const GradientRotation(pi / 2))),
           child: ElevatedButton(
-              onPressed: weekdaysOrTrain.length ==
-                      tempTrainProv.exercisesByWeekday.length
+              onPressed: isEditSavedPlan == true &&
+                      weekdaysOrTrain.length ==
+                          tempTrainProv.exercisesByWeekday.length
                   ? () async {
-                      final addedPlan = await ref
-                          .read(confrimReadyPlanControllerProvider.notifier)
-                          .confirmReadyPlan(
-                              days: tempTrainProv.exercisesByWeekday);
-                      if (addedPlan) {
+                      final changedPlan = await ref
+                          .read(homeButtonsDomainProvider)
+                          .updateTrainPlan(
+                              plan: tempTrainProv.exercisesByWeekday);
+                      if (changedPlan) {
                         // ignore: use_build_context_synchronously
                         context.goNamed('/home');
                       }
                     }
-                  : () {},
+                  : weekdaysOrTrain.length ==
+                          tempTrainProv.exercisesByWeekday.length
+                      ? () async {
+                          final addedPlan = await ref
+                              .read(confrimReadyPlanControllerProvider.notifier)
+                              .confirmReadyPlan(
+                                  days: tempTrainProv.exercisesByWeekday);
+                          if (addedPlan) {
+                            // ignore: use_build_context_synchronously
+                            context.goNamed('/home');
+                          }
+                        }
+                      : () {},
               style: ButtonStyle(
                   elevation: const WidgetStatePropertyAll(0),
                   fixedSize: WidgetStatePropertyAll(

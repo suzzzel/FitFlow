@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:fitflow/features/train/create_training_plan/domain/providers/select_weekday_custom_plan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +6,9 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SelectWeekdayNextStepButton extends ConsumerWidget {
-  const SelectWeekdayNextStepButton({super.key});
+  const SelectWeekdayNextStepButton({super.key, this.isThisEditSavedPlan});
+
+  final bool? isThisEditSavedPlan;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,7 +37,11 @@ class SelectWeekdayNextStepButton extends ConsumerWidget {
                       weekDaySelectProvider.isEmpty
                   ? () {}
                   : () {
-                      context.goNamed('viewcustomplan');
+                      if (isThisEditSavedPlan == null) {
+                        context.goNamed('viewcustomplan');
+                      } else {
+                        context.goNamed('updatetrainplan');
+                      }
                     },
               style: ButtonStyle(
                   elevation: const WidgetStatePropertyAll(0),

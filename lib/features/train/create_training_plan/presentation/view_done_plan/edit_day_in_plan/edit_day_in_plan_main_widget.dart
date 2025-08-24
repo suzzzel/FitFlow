@@ -15,8 +15,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class EditDayInPlanMainWidget extends ConsumerWidget {
   final String weekday;
   final Directory dir;
+  final bool? isThisEditSavedPlan;
   const EditDayInPlanMainWidget(
-      {super.key, required this.weekday, required this.dir});
+      {super.key,
+      required this.weekday,
+      required this.dir,
+      this.isThisEditSavedPlan});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,6 +50,7 @@ class EditDayInPlanMainWidget extends ConsumerWidget {
                 return AddExerciseButton(
                   dir: dir,
                   weekday: weekday,
+                  isThisEditSavedPlan: isThisEditSavedPlan,
                 );
               } else if (index == 5) {
                 return const MaxLengthDayExercisesInfo();

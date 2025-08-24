@@ -12,12 +12,14 @@ class DayWithExercisesInCustomPlan extends StatelessWidget {
       required this.context,
       required this.dir,
       required this.exercises,
-      required this.weekday});
+      required this.weekday,
+      this.isEditSavedPlan});
   final List<String?> thisDay;
   final String weekday;
   final List<ExerciseModel> exercises;
   final Directory dir;
   final BuildContext context;
+  final bool? isEditSavedPlan;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,6 +28,7 @@ class DayWithExercisesInCustomPlan extends StatelessWidget {
             weekday: weekday,
             exercises: exercises,
             dir: dir,
+            isEditSavedPlan: isEditSavedPlan,
             context: context));
   }
 }
@@ -35,6 +38,7 @@ Widget _buildDayExercisesInCustomPlan({
   required String weekday,
   required List<ExerciseModel> exercises,
   required Directory dir,
+  bool? isEditSavedPlan,
   required BuildContext context,
 }) {
   final thisDayList = List<String?>.generate(
@@ -60,6 +64,7 @@ Widget _buildDayExercisesInCustomPlan({
         EditThisDayButton(
           weekday: weekday,
           dir: dir,
+          isEditSavedPlan: isEditSavedPlan,
           isThisViewReadyOrCustomPlan: false,
         )
       ],

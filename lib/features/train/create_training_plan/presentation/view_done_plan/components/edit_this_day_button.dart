@@ -9,11 +9,13 @@ class EditThisDayButton extends StatelessWidget {
       {super.key,
       required this.weekday,
       required this.dir,
-      required this.isThisViewReadyOrCustomPlan});
+      required this.isThisViewReadyOrCustomPlan,
+      this.isEditSavedPlan});
 
   final String weekday;
   final Directory dir;
   final bool isThisViewReadyOrCustomPlan;
+  final bool? isEditSavedPlan;
 
   @override
   Widget build(BuildContext context) {
@@ -32,17 +34,25 @@ class EditThisDayButton extends StatelessWidget {
           )),
       child: ElevatedButton(
           onPressed: () {
-            isThisViewReadyOrCustomPlan
-                ? context.goNamed('editdayinplan', extra: {
-                    'weekday': weekday,
-                    'isPlanBeenChanged': true,
-                    'dir': dir
-                  })
-                : context.goNamed('editdayincustomplan', extra: {
-                    'weekday': weekday,
-                    'isPlanBeenChanged': true,
-                    'dir': dir
-                  });
+            if (isEditSavedPlan != null) {
+              context.goNamed('editdayinsavedplan', extra: {
+                'weekday': weekday,
+                'isPlanBeenChanged': true,
+                'dir': dir
+              });
+            } else {
+              isThisViewReadyOrCustomPlan
+                  ? context.goNamed('editdayinplan', extra: {
+                      'weekday': weekday,
+                      'isPlanBeenChanged': true,
+                      'dir': dir
+                    })
+                  : context.goNamed('editdayincustomplan', extra: {
+                      'weekday': weekday,
+                      'isPlanBeenChanged': true,
+                      'dir': dir
+                    });
+            }
           },
           style: const ButtonStyle(
               elevation: WidgetStatePropertyAll(0),

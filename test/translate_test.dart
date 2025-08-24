@@ -1,4 +1,4 @@
-import 'package:fitflow/features/home/components/today_date_home_screen_text.dart';
+import 'package:fitflow/features/home/presentation/components/today_date_home_screen_text.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

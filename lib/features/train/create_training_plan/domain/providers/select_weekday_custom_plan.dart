@@ -21,6 +21,10 @@ class SelectWeekdayCustomPlanNotifier extends StateNotifier<List<String>> {
   void reset() {
     state = [];
   }
+
+  void loadExistWeekDay({required List<String> weekdays}) {
+    state = weekdays;
+  }
 }
 
 final selectWeekdayCustomPlanProvider =

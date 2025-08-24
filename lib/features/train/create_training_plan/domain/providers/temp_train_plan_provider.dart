@@ -30,6 +30,13 @@ class TempTrainPlanNotifier extends StateNotifier<TempTrainPlanModel> {
     state = state.copyWith(exercisesByWeekday: tempMap);
   }
 
+  void deleteDay({required String weekday}) {
+    final Map<String, List<ExerciseModel>> tempMap = state.exercisesByWeekday;
+    tempMap.remove(weekday);
+
+    state = state.copyWith(exercisesByWeekday: tempMap);
+  }
+
   void updateExercise(
       {required String weekday,
       required ExerciseModel exerciseToChange,
@@ -42,6 +49,10 @@ class TempTrainPlanNotifier extends StateNotifier<TempTrainPlanModel> {
 
   void reset() {
     state = TempTrainPlanModel(exercisesByWeekday: {});
+  }
+
+  void loadExistPlan({required Map<String, List<ExerciseModel>> existPlan}) {
+    state = state.copyWith(exercisesByWeekday: existPlan);
   }
 }
 

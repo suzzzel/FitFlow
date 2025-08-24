@@ -36,6 +36,15 @@ final class RouterPath {
   static const String UPDATEAGE = 'updateage';
   static const String UPDATEHEIGHT = 'updateheight';
   static const String UPDATEWEIGHT = 'updateweight';
+
+  // обновление тренировочного плана
+  static const String SELECTWEEKDAYTOEDITSAVEDPLAN =
+      'selectweekdaytoeditsavedplan';
+  static const String UPDATETRAINPLAN = 'updatetrainplan';
+  static const String EDITDAYINSAVEDPLAN = 'editdayinsavedplan';
+  static const String ADDNEWEXERCISETOSAVEDPLAN = 'newextosavedplan';
+  static const String DELETEEXERCISEINSAVEDPLAN = 'deleteexinsavedplan';
+  // обновление тренировочного плана
   // обновление ПД
 
   // создание тренировочного плана

@@ -1,5 +1,5 @@
 import 'package:fitflow/features/auth/auth_state_new/domain/models/app_user.dart';
-import 'package:fitflow/features/home/components/avatar_profile.dart';
+import 'package:fitflow/features/home/presentation/components/avatar_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

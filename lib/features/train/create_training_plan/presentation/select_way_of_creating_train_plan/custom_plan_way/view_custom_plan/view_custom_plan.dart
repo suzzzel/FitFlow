@@ -10,8 +10,22 @@ import 'package:fitflow/features/train/create_training_plan/presentation/view_do
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+const weekDays = [
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday"
+];
+
+final positions = weekDays.asMap().map((ind, day) => MapEntry(day, ind));
+
 class ViewCustomPlan extends ConsumerWidget {
-  const ViewCustomPlan({super.key});
+  const ViewCustomPlan({super.key, this.isEditSavedPlan});
+
+  final bool? isEditSavedPlan;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,6 +34,11 @@ class ViewCustomPlan extends ConsumerWidget {
     AsyncValue<Directory> dir = ref.watch(documentsDirectoryProvider);
     return dir.when(
         data: (directory) {
+          weekdaysOrTrain.sort((first, second) {
+            final firstPos = positions[first] ?? 7;
+            final secondPos = positions[second] ?? 7;
+            return firstPos.compareTo(secondPos);
+          });
           return Stack(
             alignment: Alignment.center,
             children: [
@@ -32,8 +51,11 @@ class ViewCustomPlan extends ConsumerWidget {
                     children: [
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(weekdaysOrTrain.length,
-                            (int indexWeekday) {
+                        children: List.generate(
+                            weekdaysOrTrain
+                                .asMap()
+                                .map((ind, day) => MapEntry(day, ind))
+                                .length, (int indexWeekday) {
                           return Column(
                             children: [
                               RuWeekdayTrainPlan(
@@ -53,6 +75,7 @@ class ViewCustomPlan extends ConsumerWidget {
                                           .toList(),
                                       context: context,
                                       dir: directory,
+                                      isEditSavedPlan: isEditSavedPlan,
                                       exercises:
                                           tempTrainProv.exercisesByWeekday[
                                               weekdaysOrTrain[indexWeekday]]!,
@@ -66,8 +89,10 @@ class ViewCustomPlan extends ConsumerWidget {
                 ),
               ),
               SaveCustomPlanButton(
-                  weekdaysOrTrain: weekdaysOrTrain,
-                  tempTrainProv: tempTrainProv)
+                weekdaysOrTrain: weekdaysOrTrain,
+                tempTrainProv: tempTrainProv,
+                isEditSavedPlan: isEditSavedPlan,
+              )
             ],
           );
         },

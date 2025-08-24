@@ -7,8 +7,12 @@ import 'package:go_router/go_router.dart';
 class AddExerciseButton extends StatelessWidget {
   final Directory dir;
   final String weekday;
+  final bool? isThisEditSavedPlan;
   const AddExerciseButton(
-      {super.key, required this.dir, required this.weekday});
+      {super.key,
+      required this.dir,
+      required this.weekday,
+      this.isThisEditSavedPlan});
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +36,13 @@ class AddExerciseButton extends StatelessWidget {
           strokeWidth: 1,
           child: InkWell(
             onTap: () {
-              context.pushNamed('findnewexercisewheneditplan',
-                  extra: {'dir': dir, 'weekday': weekday});
+              if (isThisEditSavedPlan == null) {
+                context.pushNamed('findnewexercisewheneditplan',
+                    extra: {'dir': dir, 'weekday': weekday});
+              } else {
+                context.pushNamed('newextosavedplan',
+                    extra: {'dir': dir, 'weekday': weekday});
+              }
             },
             child: Container(
               height: 103,
@@ -50,8 +59,13 @@ class AddExerciseButton extends StatelessWidget {
                     child: IconButton(
                         iconSize: 33,
                         onPressed: () {
-                          context.pushNamed('findnewexercisewheneditplan',
-                              extra: {'dir': dir, 'weekday': weekday});
+                          if (isThisEditSavedPlan == null) {
+                            context.pushNamed('findnewexercisewheneditplan',
+                                extra: {'dir': dir, 'weekday': weekday});
+                          } else {
+                            context.pushNamed('newextosavedplan',
+                                extra: {'dir': dir, 'weekday': weekday});
+                          }
                         },
                         icon: const Icon(Icons.add)),
                   ),

@@ -207,7 +207,7 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
                 ])
             .whereType<String>()
             .join(', ');
-// load ex to locale
+        // load ex to locale
         for (var y in exercises) {
           await database.managers.exerciseTable.create((ex) => ex(
                 id: y.id,
@@ -234,8 +234,7 @@ class CreateTrainingPlanRepo implements CreateTrainingPlanRepoImpl {
                 instructionsTen: Value(y.instructionsTen),
               ));
         }
-// load ex to locale
-
+        // load ex to locale
         await database.managers.trainingPlanTable.create((element) => element(
             dataCreatingPlan: statOfWeekFormatted,
             dayOfWeek: weekday,

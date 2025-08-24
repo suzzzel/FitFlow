@@ -28,7 +28,7 @@ import 'package:fitflow/features/train/create_training_plan/presentation/select_
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/custom_plan_way/view_custom_plan/view_custom_plan.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/ready_plan_way/select_ready_plan_main_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/select_way_of_creating_train_plan_main_widget.dart';
-import 'package:fitflow/features/home/home_main_widget.dart';
+import 'package:fitflow/features/home/presentation/home_main_widget.dart';
 import 'package:fitflow/features/profile/presentation/indicators_view/age_changer/change_age_main_home_widget.dart';
 import 'package:fitflow/features/profile/presentation/indicators_view/height_changer/change_height_main_home_widget.dart';
 import 'package:fitflow/features/profile/presentation/indicators_view/weight_changer/change_weight_main_home_widget.dart';
@@ -525,7 +525,6 @@ GoRouter appRouter(Ref ref) {
                                       selectWeekdayCustomPlanProvider.notifier)
                                   .reset();
                               context.pop();
-
                             default:
                               context.pop();
                           }
@@ -812,30 +811,108 @@ GoRouter appRouter(Ref ref) {
                         child: ChangeWeightMainHomeWidget()),
                   ),
                   GoRoute(
-                      path: RouterPath.ENTERRECOVERYCODEINPROFILE,
-                      name: RouterPath.ENTERRECOVERYCODEINPROFILE,
-                      pageBuilder: (context, state) => NoTransitionPage(
-                              child: EnterRecoveryCodeMainWidget(
-                            email: state.extra.toString(),
-                            recoveryCodeText:
-                                'На ваш адрес электронной почты,\nк которой привязана учетная запись,\nотправлен 6 - значный код\nдля подтверждения смены пароля.',
-                          )),
+                      path: RouterPath.SELECTWEEKDAYTOEDITSAVEDPLAN,
+                      name: RouterPath.SELECTWEEKDAYTOEDITSAVEDPLAN,
+                      pageBuilder: (context, state) {
+                        return const NoTransitionPage(
+                            child: SelectWeekdayToTrainWidget(
+                          isThisEditSavedPlan: true,
+                        ));
+                      },
                       routes: [
                         GoRoute(
-                          path: RouterPath.UPDATEPASSINPROFILE,
-                          name: RouterPath.UPDATEPASSINPROFILE,
-                          pageBuilder: (context, state) => CustomTransitionPage(
-                            child: UpdatePassMainWidget(
-                              email: state.extra.toString(),
-                            ),
-                            transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) =>
-                                FadeTransition(
-                              opacity: animation,
-                              child: child,
-                            ),
-                          ),
-                        )
+                            path: RouterPath.UPDATETRAINPLAN,
+                            name: RouterPath.UPDATETRAINPLAN,
+                            pageBuilder: (context, state) =>
+                                // ignore: prefer_const_constructors
+                                NoTransitionPage(
+                                    // ignore: prefer_const_constructors
+                                    child: ViewCustomPlan(
+                                  isEditSavedPlan: true,
+                                )),
+                            routes: [
+                              GoRoute(
+                                  path: RouterPath.EDITDAYINSAVEDPLAN,
+                                  name: RouterPath.EDITDAYINSAVEDPLAN,
+                                  pageBuilder: (context, state) {
+                                    final Map<String, dynamic> param =
+                                        state.extra as Map<String, dynamic>;
+                                    return CustomTransitionPage(
+                                      child: EditDayInPlanMainWidget(
+                                        weekday: param['weekday'],
+                                        dir: param['dir'],
+                                        isThisEditSavedPlan: true,
+                                      ),
+                                      transitionsBuilder: (context, animation,
+                                              secondaryAnimation, child) =>
+                                          FadeTransition(
+                                        opacity: animation,
+                                        child: child,
+                                      ),
+                                    );
+                                  },
+                                  routes: [
+                                    GoRoute(
+                                      path:
+                                          RouterPath.DELETEEXERCISEINSAVEDPLAN,
+                                      name:
+                                          RouterPath.DELETEEXERCISEINSAVEDPLAN,
+                                      pageBuilder: (context, state) {
+                                        final Map<String, dynamic> param =
+                                            state.extra as Map<String, dynamic>;
+                                        return NoTransitionPage(
+                                            child: SearchExMainWidget(
+                                          isPlanEdit: true,
+                                          weekday: param['weekday'],
+                                          exerciseToDelete: param['exToDelete'],
+                                        ));
+                                      },
+                                    ),
+                                    GoRoute(
+                                      path:
+                                          RouterPath.ADDNEWEXERCISETOSAVEDPLAN,
+                                      name:
+                                          RouterPath.ADDNEWEXERCISETOSAVEDPLAN,
+                                      pageBuilder: (context, state) {
+                                        final Map<String, dynamic> param =
+                                            state.extra as Map<String, dynamic>;
+                                        return NoTransitionPage(
+                                            child: SearchExMainWidget(
+                                          isPlanEdit: true,
+                                          weekday: param['weekday'],
+                                          exerciseToDelete: param['exToDelete'],
+                                        ));
+                                      },
+                                    ),
+                                  ]),
+                            ]),
+                        GoRoute(
+                            path: RouterPath.ENTERRECOVERYCODEINPROFILE,
+                            name: RouterPath.ENTERRECOVERYCODEINPROFILE,
+                            pageBuilder: (context, state) => NoTransitionPage(
+                                    child: EnterRecoveryCodeMainWidget(
+                                  email: state.extra.toString(),
+                                  recoveryCodeText:
+                                      'На ваш адрес электронной почты,\nк которой привязана учетная запись,\nотправлен 6 - значный код\nдля подтверждения смены пароля.',
+                                )),
+                            routes: [
+                              GoRoute(
+                                path: RouterPath.UPDATEPASSINPROFILE,
+                                name: RouterPath.UPDATEPASSINPROFILE,
+                                pageBuilder: (context, state) =>
+                                    CustomTransitionPage(
+                                  child: UpdatePassMainWidget(
+                                    email: state.extra.toString(),
+                                  ),
+                                  transitionsBuilder: (context, animation,
+                                          secondaryAnimation, child) =>
+                                      FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  ),
+                                ),
+                              )
+                            ])
                       ])
                 ])
           ]),
