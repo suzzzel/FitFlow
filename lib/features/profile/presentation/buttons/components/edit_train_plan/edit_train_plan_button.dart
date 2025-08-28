@@ -1,44 +1,43 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:math';
+
 import 'package:fitflow/features/profile/domain/providers/home_buttons_domain_provider.dart';
-import 'package:fitflow/features/profile/presentation/buttons/components/delete_train_plan/components/confirm_delete_plan/confirm_delete_train_plan_snackbar_main.dart';
 import 'package:fitflow/features/profile/presentation/buttons/components/delete_train_plan/components/empty_train_plan_snackbar.dart';
+import 'package:fitflow/features/train/create_training_plan/domain/providers/select_weekday_custom_plan.dart';
+import 'package:fitflow/features/train/create_training_plan/domain/providers/temp_train_plan_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class DeleteTrainPlanButton extends ConsumerWidget {
-  const DeleteTrainPlanButton({
-    super.key,
-  });
+class EditTrainPlanButton extends ConsumerWidget {
+  const EditTrainPlanButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final homeButtonRepo = ref.read(homeButtonsDomainProvider);
     return Padding(
       padding: const EdgeInsets.only(left: 39, right: 39, top: 10, bottom: 10),
       child: Container(
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(99)),
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Theme.of(context).colorScheme.errorContainer.withOpacity(0.8),
-                  Theme.of(context)
-                      .colorScheme
-                      .tertiaryFixedDim
-                      .withOpacity(0.8),
-                ],
-                transform: const GradientRotation(pi / 4))),
+            gradient: LinearGradient(colors: [
+              Theme.of(context).colorScheme.secondary.withOpacity(0.8),
+              Theme.of(context).colorScheme.primary.withOpacity(0.8),
+            ], transform: const GradientRotation(pi / 4))),
         child: ElevatedButton(
           onPressed: () async {
+            final homeButtonRepo = ref.read(homeButtonsDomainProvider);
             final tempPlan = await homeButtonRepo.getTempPlanToEdit();
             if (tempPlan.isEmpty) {
+              // ignore: use_build_context_synchronously
               emptyTrainPlanSnackBar(context: context);
             } else {
-              confirmDeletePlan(context);
+              ref
+                  .read(tempTrainPlanProvider.notifier)
+                  .loadExistPlan(existPlan: tempPlan);
+              ref
+                  .read(selectWeekdayCustomPlanProvider.notifier)
+                  .loadExistWeekDay(weekdays: tempPlan.keys.toList());
+              context.goNamed('selectweekdaytoeditsavedplan');
             }
           },
           style: ButtonStyle(
@@ -48,7 +47,7 @@ class DeleteTrainPlanButton extends ConsumerWidget {
               backgroundColor:
                   const WidgetStatePropertyAll(Colors.transparent)),
           child: Text(
-            'Удалить тренировочный план',
+            'Изменить тренировочный план',
             textScaler: const TextScaler.linear(1),
             textAlign: TextAlign.center,
             style: GoogleFonts.inter(

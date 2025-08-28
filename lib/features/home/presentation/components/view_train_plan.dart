@@ -9,10 +9,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+const weekDays = [
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday"
+];
+
+final positions = weekDays.asMap().map((ind, day) => MapEntry(day, ind));
+
 class ViewTrainPlanInHomeWidget extends ConsumerStatefulWidget {
-  const ViewTrainPlanInHomeWidget({
-    super.key,
-  });
+  const ViewTrainPlanInHomeWidget({super.key, required this.scrollController});
+  final ScrollController scrollController;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -42,13 +53,27 @@ class _ViewTrainPlanInHomeWidgetState
               return trainingPlan.when(
                   data: (plan) {
                     return ExpansionPanelList(
+                      animationDuration: const Duration(milliseconds: 100),
                       expandIconColor:
                           Theme.of(context).colorScheme.secondaryFixed,
                       elevation: 0,
                       expansionCallback: (panelIndex, isExpanded) async {
+                        final scrollPos1 =
+                            widget.scrollController.position.maxScrollExtent;
                         setState(() {
                           isPlanOpen = isExpanded;
                         });
+                        if (isExpanded == true) {
+                          widget.scrollController.animateTo(scrollPos1,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeIn);
+                        } else {
+                          final scrollPos =
+                              widget.scrollController.position.minScrollExtent;
+                          widget.scrollController.animateTo(scrollPos,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeIn);
+                        }
                       },
                       children: [
                         ExpansionPanel(
@@ -81,71 +106,71 @@ class _ViewTrainPlanInHomeWidgetState
                                         ))),
                               );
                             },
-                            body: Column(
-                              children:
-                                  List.generate(plan.keys.length, (int index) {
+                            body: Builder(builder: (context) {
+                              final sortedKeysPlan = plan.keys.toList()
+                                ..sort((a, b) => weekDays
+                                    .indexOf(a)
+                                    .compareTo(weekDays.indexOf(b)));
+                              final sortedMap = {
+                                for (var e in sortedKeysPlan) e: plan[e]!
+                              };
+                              return Column(
+                                  children: List.generate(sortedMap.keys.length,
+                                      (int index) {
+                                final exerciseInDay = sortedMap.entries
+                                    .elementAt(index)
+                                    .value
+                                    .take(5)
+                                    .map((exercise) => exercise.id.toString())
+                                    .toList();
+                                final thisDayList = List<String?>.generate(
+                                    5,
+                                    (index) => index < exerciseInDay.length
+                                        ? exerciseInDay[index]
+                                        : null);
                                 return Column(
                                   children: [
                                     RuWeekdayTrainPlan(
-                                      weekday: plan.keys.elementAt(index),
+                                      weekday: sortedMap.keys.elementAt(index),
                                     ),
-                                    ...List.generate(
-                                        plan.entries
-                                            .elementAt(index)
-                                            .value
-                                            .length, (int indexExercise) {
-                                      final exerciseInDay = plan.entries
-                                          .elementAt(index)
-                                          .value
-                                          .take(5)
-                                          .map((exercise) =>
-                                              exercise.id.toString())
-                                          .toList();
-                                      final thisDayList =
-                                          List<String?>.generate(
-                                              5,
-                                              (index) =>
-                                                  index < exerciseInDay.length
-                                                      ? exerciseInDay[index]
-                                                      : null);
-                                      return Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          exercisesRow(
-                                              dayExercises:
-                                                  thisDayList.sublist(0, 3),
-                                              exercises: plan.entries
-                                                  .elementAt(index)
-                                                  .value,
-                                              dir: directory,
-                                              firstLine: true,
-                                              context: context),
-                                          exercisesRow(
-                                              dayExercises:
-                                                  thisDayList.sublist(3),
-                                              exercises: plan.entries
-                                                  .elementAt(index)
-                                                  .value,
-                                              firstLine: false,
-                                              dir: directory,
-                                              context: context),
-                                        ],
-                                      );
-                                    })
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        exercisesRow(
+                                            dayExercises:
+                                                thisDayList.sublist(0, 3),
+                                            exercises: sortedMap.entries
+                                                .elementAt(index)
+                                                .value,
+                                            dir: directory,
+                                            firstLine: true,
+                                            context: context),
+                                        exercisesRow(
+                                            dayExercises:
+                                                thisDayList.sublist(3),
+                                            exercises: sortedMap.entries
+                                                .elementAt(index)
+                                                .value,
+                                            firstLine: false,
+                                            dir: directory,
+                                            context: context),
+                                      ],
+                                    )
                                   ],
                                 );
-                              }),
-                            )),
+                              }));
+                            })),
                       ],
                     );
                   },
                   error: (e, st) => const SomethingGoesWrongWidget(),
-                  loading: () => const CircularProgressIndicator());
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()));
             },
             error: (e, st) => const SomethingGoesWrongWidget(),
-            loading: () => const CircularProgressIndicator()),
+            loading: () => const Center(child: CircularProgressIndicator())),
       ),
     );
   }

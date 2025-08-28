@@ -4,7 +4,7 @@ import 'package:fitflow/features/home/domain/repo/home_domain_repo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final getExInfoTrainingPlanProvider =
-    FutureProvider<Map<String, List<ExerciseModel>>>((ref) async {
+    FutureProvider.autoDispose<Map<String, List<ExerciseModel>>>((ref) async {
   final dataToRepo = ref.watch(homeDataProvider);
   final domainToData = HomeDomainRepo(homeDataRepo: dataToRepo);
   return await domainToData.getTempTrainPlan();

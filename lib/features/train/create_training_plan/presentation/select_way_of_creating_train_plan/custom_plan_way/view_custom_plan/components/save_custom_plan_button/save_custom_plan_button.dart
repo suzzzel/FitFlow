@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:fitflow/features/profile/domain/providers/home_buttons_domain_provider.dart';
-import 'package:fitflow/features/train/create_training_plan/domain/controllers/confrim_ready_plan_controller.dart';
+import 'package:fitflow/features/home/domain/providers/get_ex_train_plan_future.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/models/temp_train_plan_model.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/custom_plan_way/view_custom_plan/components/save_custom_plan_button/controller/save_custom_plan_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -21,6 +21,9 @@ class SaveCustomPlanButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final stateSaveButton = ref.watch(saveCustomPlanControllerProvider);
+    final saveButtonNotifier =
+        ref.watch(saveCustomPlanControllerProvider.notifier);
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(
@@ -43,24 +46,31 @@ class SaveCustomPlanButton extends ConsumerWidget {
           child: ElevatedButton(
               onPressed: isEditSavedPlan == true &&
                       weekdaysOrTrain.length ==
-                          tempTrainProv.exercisesByWeekday.length
-                  ? () async {
-                      final changedPlan = await ref
-                          .read(homeButtonsDomainProvider)
-                          .updateTrainPlan(
-                              plan: tempTrainProv.exercisesByWeekday);
+                          tempTrainProv.exercisesByWeekday.length &&
+                      !stateSaveButton.isLoading
+                  ?
+                  // обновление существующего плана
+                  () async {
+                      final changedPlan =
+                          await saveButtonNotifier.updateExistPlan(
+                              exerciseByWeekday:
+                                  tempTrainProv.exercisesByWeekday);
                       if (changedPlan) {
+                        ref.invalidate(getExInfoTrainingPlanProvider);
                         // ignore: use_build_context_synchronously
                         context.goNamed('/home');
                       }
                     }
                   : weekdaysOrTrain.length ==
-                          tempTrainProv.exercisesByWeekday.length
-                      ? () async {
-                          final addedPlan = await ref
-                              .read(confrimReadyPlanControllerProvider.notifier)
-                              .confirmReadyPlan(
-                                  days: tempTrainProv.exercisesByWeekday);
+                              tempTrainProv.exercisesByWeekday.length &&
+                          !stateSaveButton.isLoading
+                      ?
+                      // создание нового кастомного плана
+                      () async {
+                          final addedPlan =
+                              await saveButtonNotifier.saveCustomPlan(
+                                  exerciseByWeekday:
+                                      tempTrainProv.exercisesByWeekday);
                           if (addedPlan) {
                             // ignore: use_build_context_synchronously
                             context.goNamed('/home');
@@ -73,15 +83,19 @@ class SaveCustomPlanButton extends ConsumerWidget {
                       Size(MediaQuery.of(context).size.width, 60)),
                   backgroundColor:
                       const WidgetStatePropertyAll(Colors.transparent)),
-              child: FittedBox(
-                child: Text(
-                  'Сохранить план',
-                  style: GoogleFonts.inter(
-                      color: Theme.of(context).colorScheme.onSecondary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700),
-                ),
-              )),
+              child: !stateSaveButton.isLoading
+                  ? FittedBox(
+                      child: Text(
+                        'Сохранить план',
+                        style: GoogleFonts.inter(
+                            color: Theme.of(context).colorScheme.onSecondary,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    )
+                  : const CircularProgressIndicator(
+                      color: Colors.white,
+                    )),
         ),
       ),
     );

@@ -24,9 +24,11 @@ class HomeMainWidget extends ConsumerWidget {
         ref.watch(getTrainingPlanDomainProviderAsyncProvider(id: user.id!));
     final timeNow = DateTime.now();
     final weekDayNow = DateFormat('EEEE').format(timeNow).toLowerCase();
+    final ScrollController scrollController = ScrollController();
     return Padding(
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.125),
       child: ListView(
+        controller: scrollController,
         padding: const EdgeInsets.only(top: 50),
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
@@ -56,7 +58,11 @@ class HomeMainWidget extends ConsumerWidget {
           ),
           trainingPlan.when(
               data: (plan) {
-                return plan.isEmpty ? SizedBox() : ViewTrainPlanInHomeWidget();
+                return plan.isEmpty
+                    ? SizedBox()
+                    : ViewTrainPlanInHomeWidget(
+                        scrollController: scrollController,
+                      );
               },
               error: (e, st) => SizedBox(),
               loading: () => SizedBox()),
