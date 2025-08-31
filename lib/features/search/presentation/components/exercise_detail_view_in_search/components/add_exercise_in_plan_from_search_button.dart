@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:fitflow/features/general_comonents/exercise_model.dart';
@@ -12,11 +13,17 @@ class AddExerciseInPlanFromSearch extends ConsumerWidget {
       {super.key,
       required this.weekday,
       required this.exerciseToAdd,
-      required this.exerciseToDelete});
+      required this.exerciseToDelete,
+      required this.isEditSavedPlan,
+      required this.isThisViewReadyOrCustomPlan,
+      required this.dir});
 
   final String? weekday;
   final ExerciseModel exerciseToAdd;
   final ExerciseModel? exerciseToDelete;
+  final bool isThisViewReadyOrCustomPlan;
+  final bool? isEditSavedPlan;
+  final Directory dir;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,7 +47,25 @@ class AddExerciseInPlanFromSearch extends ConsumerWidget {
                   .addExercise(weekday: weekday!, exercise: exerciseToAdd);
             }
             context.pop();
-            context.pop();
+            if (isEditSavedPlan != null) {
+              context.goNamed('editdayinsavedplan', extra: {
+                'weekday': weekday,
+                'isPlanBeenChanged': true,
+                'dir': dir
+              });
+            } else {
+              isThisViewReadyOrCustomPlan
+                  ? context.goNamed('editdayinplan', extra: {
+                      'weekday': weekday,
+                      'isPlanBeenChanged': true,
+                      'dir': dir
+                    })
+                  : context.goNamed('editdayincustomplan', extra: {
+                      'weekday': weekday,
+                      'isPlanBeenChanged': true,
+                      'dir': dir
+                    });
+            }
           },
           style: const ButtonStyle(
               elevation: WidgetStatePropertyAll(0),

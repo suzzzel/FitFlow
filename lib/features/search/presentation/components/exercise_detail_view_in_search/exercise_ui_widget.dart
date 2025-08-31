@@ -22,7 +22,9 @@ class ExerciseSearchWidget extends ConsumerWidget {
       required this.exercise,
       required this.isPlanEdit,
       required this.weekday,
-      required this.exerciseToDelete});
+      required this.exerciseToDelete,
+      required this.isEditSavedPlan,
+      required this.isThisViewReadyOrCustomPlan});
 
   final File exGifFile;
   final Directory dir;
@@ -30,6 +32,8 @@ class ExerciseSearchWidget extends ConsumerWidget {
   final bool isPlanEdit;
   final String? weekday;
   final ExerciseModel? exerciseToDelete;
+  final bool isThisViewReadyOrCustomPlan;
+  final bool? isEditSavedPlan;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -86,8 +90,12 @@ class ExerciseSearchWidget extends ConsumerWidget {
                   isPlanEdit
                       ? AddExerciseInPlanFromSearch(
                           weekday: weekday,
+                          dir: dir,
                           exerciseToAdd: exercise,
                           exerciseToDelete: exerciseToDelete,
+                          isEditSavedPlan: isEditSavedPlan,
+                          isThisViewReadyOrCustomPlan:
+                              isThisViewReadyOrCustomPlan,
                         )
                       : const SizedBox()
                 ],

@@ -17,8 +17,9 @@ class ListOfExercices extends ConsumerWidget {
   final bool isPlanEdit;
   final String? weekday;
   final ExerciseModel? exerciseToDelete;
-
   final String tempUserRequest;
+  final bool isThisViewReadyOrCustomPlan;
+  final bool? isEditSavedPlan;
 
   const ListOfExercices(
       {super.key,
@@ -27,7 +28,9 @@ class ListOfExercices extends ConsumerWidget {
       required this.tempUserRequest,
       required this.isPlanEdit,
       required this.weekday,
-      required this.exerciseToDelete});
+      required this.exerciseToDelete,
+      required this.isEditSavedPlan,
+      required this.isThisViewReadyOrCustomPlan});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,6 +46,8 @@ class ListOfExercices extends ConsumerWidget {
               return ExerciseSearchWidget(
                 exGifFile: exGifFile,
                 dir: dir,
+                isEditSavedPlan: isEditSavedPlan,
+                isThisViewReadyOrCustomPlan: isThisViewReadyOrCustomPlan,
                 weekday: weekday,
                 exercise: exercises[index],
                 exerciseToDelete: exerciseToDelete,
@@ -69,13 +74,17 @@ class ListViewSearchExRiverpodState extends ConsumerWidget {
   final String? weekday;
   final String tempUserRequest;
   final ExerciseModel? exerciseToDelete;
+  final bool isThisViewReadyOrCustomPlan;
+  final bool? isEditSavedPlan;
 
   const ListViewSearchExRiverpodState(
       {super.key,
       required this.tempUserRequest,
       required this.isPlanEdit,
       required this.weekday,
-      required this.exerciseToDelete});
+      required this.exerciseToDelete,
+      required this.isEditSavedPlan,
+      required this.isThisViewReadyOrCustomPlan});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -95,6 +104,8 @@ class ListViewSearchExRiverpodState extends ConsumerWidget {
                 dir: dir.value!,
                 exerciseToDelete: exerciseToDelete,
                 isPlanEdit: isPlanEdit,
+                isEditSavedPlan: isEditSavedPlan,
+                isThisViewReadyOrCustomPlan: isThisViewReadyOrCustomPlan,
               ),
             AsyncLoading(value: final items?) => ListOfExercices(
                 tempUserRequest: tempUserRequest,
@@ -103,6 +114,8 @@ class ListViewSearchExRiverpodState extends ConsumerWidget {
                 exerciseToDelete: exerciseToDelete,
                 dir: dir.value!,
                 isPlanEdit: isPlanEdit,
+                isEditSavedPlan: isEditSavedPlan,
+                isThisViewReadyOrCustomPlan: isThisViewReadyOrCustomPlan,
               ),
             AsyncLoading() => const Center(child: CircularProgressIndicator()),
             AsyncError() => const SomethingGoesWrongWidget(),

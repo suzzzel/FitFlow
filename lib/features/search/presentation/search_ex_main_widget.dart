@@ -22,11 +22,15 @@ class SearchExMainWidget extends ConsumerStatefulWidget {
   final String? weekday;
   final bool isPlanEdit;
   final ExerciseModel? exerciseToDelete;
+  final bool isThisViewReadyOrCustomPlan;
+  final bool? isEditSavedPlan;
   const SearchExMainWidget(
       {super.key,
       required this.isPlanEdit,
       required this.weekday,
-      required this.exerciseToDelete});
+      required this.exerciseToDelete,
+      required this.isEditSavedPlan,
+      required this.isThisViewReadyOrCustomPlan});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -96,6 +100,8 @@ class _SearchExMainWidgetState extends ConsumerState<SearchExMainWidget> {
           child: ListViewSearchExRiverpodState(
             tempUserRequest: controller.text,
             weekday: widget.weekday,
+            isEditSavedPlan: widget.isEditSavedPlan,
+            isThisViewReadyOrCustomPlan: widget.isThisViewReadyOrCustomPlan,
             exerciseToDelete: widget.exerciseToDelete,
             isPlanEdit: widget.isPlanEdit,
           ),

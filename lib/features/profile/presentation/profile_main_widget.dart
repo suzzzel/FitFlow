@@ -23,7 +23,10 @@ class ProfileMainWidget extends ConsumerWidget {
           IndicatorsMainWidget(
             user: user,
           ),
-          const ProfileButtonsMainWidget()
+          ProfileButtonsMainWidget(
+            emailuser: user.email!,
+            offlineMode: user.offlineMode!,
+          )
         ],
       ),
     );

@@ -5,41 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class test1 extends ConsumerWidget {
-  const test1({
-    super.key,
-    required this.tempMaxWeight,
-  });
-
-  final String? tempMaxWeight;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 70),
-      child: CustomTextField(
-          controller: TextEditingController(),
-          labelText: 'Рабочий вес (опционально)',
-          onFieldSubmitted: (value) {
-            if (value != '') {
-              final tempWeight = int.parse(value);
-              final tempMaxWeightInprov = int.parse(tempMaxWeight ?? '0');
-              if (tempWeight > tempMaxWeightInprov) {
-                ref.read(maxWeightOnTempExerciseProvider.notifier).state =
-                    value;
-                ref.read(coutOfRepsInTempExerciseProvider.notifier).state++;
-              }
-            }
-          },
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          obscureText: false,
-          keyboardType: const TextInputType.numberWithOptions(
-              signed: true, decimal: false),
-          isImputRight: true),
-    );
-  }
-}
-
 class MaxWeightInputInTrain extends ConsumerStatefulWidget {
   final String? tempMaxWeight;
   final TextEditingController controller;

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:fitflow/features/profile/domain/providers/home_buttons_domain_provider.dart';
 import 'package:fitflow/features/profile/presentation/buttons/components/delete_train_plan/components/empty_train_plan_snackbar.dart';
+import 'package:fitflow/features/profile/presentation/buttons/components/delete_train_plan/components/error_delete_train_plan_snackbar.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/select_weekday_custom_plan.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/temp_train_plan_provider.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,9 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditTrainPlanButton extends ConsumerWidget {
-  const EditTrainPlanButton({super.key});
+  const EditTrainPlanButton({super.key, required this.offlineMode});
+
+  final bool offlineMode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,19 +28,24 @@ class EditTrainPlanButton extends ConsumerWidget {
             ], transform: const GradientRotation(pi / 4))),
         child: ElevatedButton(
           onPressed: () async {
-            final homeButtonRepo = ref.read(homeButtonsDomainProvider);
-            final tempPlan = await homeButtonRepo.getTempPlanToEdit();
-            if (tempPlan.isEmpty) {
-              // ignore: use_build_context_synchronously
-              emptyTrainPlanSnackBar(context: context);
+            if (offlineMode) {
+              errorDeleteTrainButtonSnackBar(context);
             } else {
-              ref
-                  .read(tempTrainPlanProvider.notifier)
-                  .loadExistPlan(existPlan: tempPlan);
-              ref
-                  .read(selectWeekdayCustomPlanProvider.notifier)
-                  .loadExistWeekDay(weekdays: tempPlan.keys.toList());
-              context.goNamed('selectweekdaytoeditsavedplan');
+              final homeButtonRepo = ref.read(homeButtonsDomainProvider);
+              final tempPlan = await homeButtonRepo.getTempPlanToEdit();
+              if (tempPlan.isEmpty) {
+                // ignore: use_build_context_synchronously
+                emptyTrainPlanSnackBar(context: context);
+              } else {
+                ref
+                    .read(tempTrainPlanProvider.notifier)
+                    .loadExistPlan(existPlan: tempPlan);
+                ref
+                    .read(selectWeekdayCustomPlanProvider.notifier)
+                    .loadExistWeekDay(weekdays: tempPlan.keys.toList());
+                // ignore: use_build_context_synchronously
+                context.goNamed('selectweekdaytoeditsavedplan');
+              }
             }
           },
           style: ButtonStyle(
