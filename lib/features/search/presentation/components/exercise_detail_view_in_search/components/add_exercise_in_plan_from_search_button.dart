@@ -22,7 +22,7 @@ class AddExerciseInPlanFromSearch extends ConsumerWidget {
   final ExerciseModel exerciseToAdd;
   final ExerciseModel? exerciseToDelete;
   final bool isThisViewReadyOrCustomPlan;
-  final bool? isEditSavedPlan;
+  final bool isEditSavedPlan;
   final Directory dir;
 
   @override
@@ -47,24 +47,14 @@ class AddExerciseInPlanFromSearch extends ConsumerWidget {
                   .addExercise(weekday: weekday!, exercise: exerciseToAdd);
             }
             context.pop();
-            if (isEditSavedPlan != null) {
+            if (isEditSavedPlan != false) {
               context.goNamed('editdayinsavedplan', extra: {
                 'weekday': weekday,
                 'isPlanBeenChanged': true,
                 'dir': dir
               });
             } else {
-              isThisViewReadyOrCustomPlan
-                  ? context.goNamed('editdayinplan', extra: {
-                      'weekday': weekday,
-                      'isPlanBeenChanged': true,
-                      'dir': dir
-                    })
-                  : context.goNamed('editdayincustomplan', extra: {
-                      'weekday': weekday,
-                      'isPlanBeenChanged': true,
-                      'dir': dir
-                    });
+              context.pop();
             }
           },
           style: const ButtonStyle(

@@ -33,7 +33,7 @@ class ExerciseSearchWidget extends ConsumerWidget {
   final String? weekday;
   final ExerciseModel? exerciseToDelete;
   final bool isThisViewReadyOrCustomPlan;
-  final bool? isEditSavedPlan;
+  final bool isEditSavedPlan;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

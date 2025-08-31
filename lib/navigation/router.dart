@@ -673,12 +673,13 @@ GoRouter appRouter(Ref ref) {
                                             name: RouterPath
                                                 .FINDNEWEXERCISEWHENEDITPLAN,
                                             pageBuilder: (context, state) {
+                                              log(state.fullPath.toString());
                                               final Map<String, dynamic> param =
                                                   state.extra
                                                       as Map<String, dynamic>;
                                               return NoTransitionPage(
                                                   child: SearchExMainWidget(
-                                                isEditSavedPlan: true,
+                                                isEditSavedPlan: false,
                                                 isThisViewReadyOrCustomPlan:
                                                     false,
                                                 isPlanEdit: true,
@@ -715,6 +716,7 @@ GoRouter appRouter(Ref ref) {
                                       name: RouterPath
                                           .FINDNEWEXERCISEINCUSTOMPLAN,
                                       pageBuilder: (context, state) {
+                                        log(state.fullPath.toString());
                                         final Map<String, dynamic> param =
                                             state.extra as Map<String, dynamic>;
                                         return NoTransitionPage(
@@ -770,6 +772,7 @@ GoRouter appRouter(Ref ref) {
                 path: RouterPath.SEARCHHOME,
                 name: RouterPath.SEARCHHOME,
                 pageBuilder: (context, state) {
+                  log(state.fullPath.toString());
                   return CustomTransitionPage(
                       child: const SearchExMainWidget(
                         isEditSavedPlan: false,
@@ -863,6 +866,7 @@ GoRouter appRouter(Ref ref) {
                                       name:
                                           RouterPath.DELETEEXERCISEINSAVEDPLAN,
                                       pageBuilder: (context, state) {
+                                        log(state.fullPath.toString());
                                         final Map<String, dynamic> param =
                                             state.extra as Map<String, dynamic>;
                                         return NoTransitionPage(
@@ -881,6 +885,7 @@ GoRouter appRouter(Ref ref) {
                                       name:
                                           RouterPath.ADDNEWEXERCISETOSAVEDPLAN,
                                       pageBuilder: (context, state) {
+                                        log(state.fullPath.toString());
                                         final Map<String, dynamic> param =
                                             state.extra as Map<String, dynamic>;
                                         return NoTransitionPage(

@@ -23,7 +23,7 @@ class SearchExMainWidget extends ConsumerStatefulWidget {
   final bool isPlanEdit;
   final ExerciseModel? exerciseToDelete;
   final bool isThisViewReadyOrCustomPlan;
-  final bool? isEditSavedPlan;
+  final bool isEditSavedPlan;
   const SearchExMainWidget(
       {super.key,
       required this.isPlanEdit,

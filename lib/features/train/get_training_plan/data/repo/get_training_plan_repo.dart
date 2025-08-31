@@ -83,7 +83,6 @@ class GetTrainingPlanRepoData extends GetTrainingPlanDataImpl {
                 exGif.writeAsBytesSync(gifFromOnline);
               } catch (e) {
                 continue;
-                // подумать над заглушкой
               }
             }
           }

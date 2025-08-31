@@ -19,7 +19,7 @@ class ListOfExercices extends ConsumerWidget {
   final ExerciseModel? exerciseToDelete;
   final String tempUserRequest;
   final bool isThisViewReadyOrCustomPlan;
-  final bool? isEditSavedPlan;
+  final bool isEditSavedPlan;
 
   const ListOfExercices(
       {super.key,
@@ -75,7 +75,7 @@ class ListViewSearchExRiverpodState extends ConsumerWidget {
   final String tempUserRequest;
   final ExerciseModel? exerciseToDelete;
   final bool isThisViewReadyOrCustomPlan;
-  final bool? isEditSavedPlan;
+  final bool isEditSavedPlan;
 
   const ListViewSearchExRiverpodState(
       {super.key,
