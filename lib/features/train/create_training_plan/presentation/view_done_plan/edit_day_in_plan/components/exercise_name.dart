@@ -22,6 +22,7 @@ class ExerciseName extends StatelessWidget {
         child: Text(
           textAlign: TextAlign.center,
           exName,
+          textScaler: const TextScaler.linear(1),
           softWrap: true,
           maxLines: 3,
           overflow: TextOverflow.clip,

@@ -20,6 +20,7 @@ class SecondaryMuscleSecond extends StatelessWidget {
               // Последняя вторичная мышца
               return Text(
                 '${secondaryMuscles[index]}.',
+                textScaler: const TextScaler.linear(1),
                 style: GoogleFonts.inter(
                     color: Theme.of(context).colorScheme.onSecondary,
                     fontSize: 16,
@@ -29,6 +30,7 @@ class SecondaryMuscleSecond extends StatelessWidget {
               // Любая другая по очереди мышца
               return Text(
                 '${secondaryMuscles[index]}, ',
+                textScaler: const TextScaler.linear(1),
                 style: GoogleFonts.inter(
                     color: Theme.of(context).colorScheme.onSecondary,
                     fontSize: 16,

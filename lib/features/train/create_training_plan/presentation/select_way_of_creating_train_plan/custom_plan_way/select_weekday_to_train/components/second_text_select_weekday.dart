@@ -18,6 +18,7 @@ class SecondTextSelectWeekday extends StatelessWidget {
         child: SizedBox(
           height: 100,
           child: Text(
+            textScaler: const TextScaler.linear(1),
             textAlign: TextAlign.center,
             '*рекомендуем не более\n6 дней в неделю',
             style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 15),

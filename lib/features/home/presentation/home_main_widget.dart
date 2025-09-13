@@ -1,5 +1,5 @@
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
-import 'package:fitflow/features/home/presentation/components/view_train_plan.dart';
+import 'package:fitflow/features/home/presentation/components/view_train_plan/view_train_plan_widget.dart';
 import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/presentation/week_progress_today_train_main_widget.dart';
 import 'package:fitflow/features/train/get_today_train_info/presentation/train_info_main_widget.dart';
 import 'package:fitflow/features/train/get_today_train_info/presentation/welcome_train.dart';

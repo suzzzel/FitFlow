@@ -22,6 +22,7 @@ class ChillDayTextInfo extends StatelessWidget {
           ]).createShader(bounds),
           child: Text(
             '$numberOfWeek-ая неделя',
+            textScaler: const TextScaler.linear(1),
             style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w500),
           ),
         ),
@@ -35,6 +36,7 @@ class ChillDayTextInfo extends StatelessWidget {
               height: 36,
               child: FittedBox(
                 child: Text('Вам необходимо\nвосстановиться!',
+                    textScaler: const TextScaler.linear(1),
                     style: GoogleFonts.inter(
                         fontSize: 15, fontWeight: FontWeight.w700)),
               ),

@@ -32,6 +32,7 @@ class CircleInProgress extends StatelessWidget {
                   ])),
           child: FittedBox(
             child: Text(infoIntoCircle,
+                textScaler: const TextScaler.linear(1),
                 style: GoogleFonts.inter(
                     fontSize: 32,
                     fontWeight: FontWeight.w700,
@@ -48,6 +49,7 @@ class CircleInProgress extends StatelessWidget {
             ]).createShader(bounds),
             child: Text(
               infoAboutCircle,
+              textScaler: const TextScaler.linear(1),
               textAlign: TextAlign.center,
               style:
                   GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.w500),

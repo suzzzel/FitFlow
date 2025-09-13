@@ -14,6 +14,7 @@ class TodayDateHomeScreenText extends StatelessWidget {
         Theme.of(context).colorScheme.secondaryFixed,
       ]).createShader(bounds),
       child: Text(
+        textScaler: const TextScaler.linear(1),
         translateDate(
             todayMonth: todayDate.split(',').first,
             todayDate: todayDate.split(',').last),
@@ -43,7 +44,7 @@ String translateDate({required String todayMonth, required String todayDate}) {
       return "Июл,$todayDate";
     case 'Aug':
       return "Авг,$todayDate";
-    case 'Sept':
+    case 'Sep':
       return "Сен,$todayDate";
     case 'Oct':
       return "Окт,$todayDate";

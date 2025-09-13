@@ -33,6 +33,7 @@ class WelcomeInformationWidget extends StatelessWidget {
                     ]).createShader(bounds),
                     child: Text(
                       textAlign: TextAlign.center,
+                      textScaler: const TextScaler.linear(1),
                       'С возвращением, ${user.name}!',
                       style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500, fontSize: 20),

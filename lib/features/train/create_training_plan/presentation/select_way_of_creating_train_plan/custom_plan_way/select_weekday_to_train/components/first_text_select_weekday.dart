@@ -17,6 +17,7 @@ class FirstTextSelectWeekday extends StatelessWidget {
         ]).createShader(bounds),
         child: Text(
           'Выберите дни тренировок*',
+          textScaler: const TextScaler.linear(1),
           style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 15),
         ),
       )),

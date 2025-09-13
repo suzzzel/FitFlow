@@ -101,13 +101,13 @@ Widget _buildDayExercises({
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         exercisesRow(
-            dayExercises: dayExercises.sublist(0, 3),
+            idExercies: dayExercises.sublist(0, 3),
             exercises: exercises,
             dir: dir,
             firstLine: true,
             context: context),
         exercisesRow(
-            dayExercises: dayExercises.sublist(3),
+            idExercies: dayExercises.sublist(3),
             exercises: exercises,
             firstLine: false,
             dir: dir,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Widget exercisesRow(
-    {required List<String?> dayExercises,
+    {required List<String?> idExercies,
     required List<ExerciseModel> exercises,
     required Directory dir,
     required bool firstLine,
@@ -12,7 +12,7 @@ Widget exercisesRow(
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.start,
-    children: dayExercises.map((exId) {
+    children: idExercies.map((exId) {
       final exGifFolderPath = '${dir.path}/exGifs';
       if (exId != null) {
         final exName =
@@ -76,6 +76,7 @@ Widget exercisesRow(
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.fade,
                       _trueExName(exName),
+                      textScaler: const TextScaler.linear(1),
                       style: GoogleFonts.inter(
                           fontSize: 13, fontWeight: FontWeight.w500),
                     ),

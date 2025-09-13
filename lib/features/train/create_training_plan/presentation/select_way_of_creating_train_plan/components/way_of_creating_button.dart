@@ -177,6 +177,7 @@ class WayOfCreatingButton extends ConsumerWidget {
                           readyOrCustom
                               ? 'Готовые программы\nтренировок'
                               : 'Составьте свою\nпрограмму тренировок',
+                          textScaler: const TextScaler.linear(1),
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
                             fontSize: 15,
@@ -248,6 +249,7 @@ class WayOfCreatingButton extends ConsumerWidget {
                           readyOrCustom
                               ? 'Подборка упражнений, основанная\nна выборе качеств ранее и ваших\nжеланиях'
                               : 'У меня есть готовая программа/\nжелание сделать свой опыт\nболее персональным',
+                          textScaler: const TextScaler.linear(1),
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
                               fontSize: 15,

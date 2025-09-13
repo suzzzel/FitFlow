@@ -29,6 +29,7 @@ class TrainTodayTextInsideTodayInfo extends StatelessWidget {
           ]).createShader(bounds),
           child: Text(
             '$numberOfWeek-ая неделя',
+            textScaler: const TextScaler.linear(1),
             style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w500),
           ),
         ),
@@ -39,6 +40,7 @@ class TrainTodayTextInsideTodayInfo extends StatelessWidget {
                   Theme.of(context).colorScheme.secondaryFixed,
                 ]).createShader(bounds),
             child: Text(train.mainMuscle ?? 'Fullbody',
+                textScaler: const TextScaler.linear(1),
                 style: GoogleFonts.inter(
                     fontSize: 15, fontWeight: FontWeight.w700))),
         ShaderMask(
@@ -48,6 +50,7 @@ class TrainTodayTextInsideTodayInfo extends StatelessWidget {
                   Theme.of(context).colorScheme.secondaryFixed,
                 ]).createShader(bounds),
             child: Text('Тренировка $numberOfDayTrain из $countTrainInWeek',
+                textScaler: const TextScaler.linear(1),
                 style: GoogleFonts.inter(
                     fontSize: 12, fontWeight: FontWeight.w500))),
       ],

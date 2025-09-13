@@ -63,6 +63,7 @@ class AddExerciseInPlanFromSearch extends ConsumerWidget {
           child: FittedBox(
             child: Text(
               exerciseToDelete == null ? 'Добавить' : 'Заменить',
+              textScaler: const TextScaler.linear(1),
               style: GoogleFonts.inter(
                   color: Theme.of(context).colorScheme.onSecondary,
                   fontSize: 16,

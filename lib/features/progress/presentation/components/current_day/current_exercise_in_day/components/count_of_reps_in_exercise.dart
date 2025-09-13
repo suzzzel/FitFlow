@@ -11,6 +11,7 @@ class CountOfRepsInCurrentExerciseInMainProgress extends StatelessWidget {
     return FittedBox(
       child: Text(
         'Количество подходов: $reps',
+        textScaler: const TextScaler.linear(1),
         textAlign: TextAlign.center,
         style: GoogleFonts.inter(
             color: Colors.white, fontSize: 13, fontWeight: FontWeight.w700),

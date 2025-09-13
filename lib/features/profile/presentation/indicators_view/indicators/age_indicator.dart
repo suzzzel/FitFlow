@@ -29,6 +29,7 @@ class AgeIndicator extends StatelessWidget {
             height: 22,
             child: FittedBox(
               child: Text(age,
+                  textScaler: const TextScaler.linear(1),
                   style: GoogleFonts.inter(
                       fontWeight: FontWeight.w500,
                       fontSize: 15,
@@ -47,6 +48,7 @@ class AgeIndicator extends StatelessWidget {
                 ]).createShader(bounds),
                 child: Text(
                   'Возраст',
+                  textScaler: const TextScaler.linear(1),
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,

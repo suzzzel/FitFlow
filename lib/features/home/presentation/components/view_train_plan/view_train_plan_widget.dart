@@ -58,20 +58,21 @@ class _ViewTrainPlanInHomeWidgetState
                           Theme.of(context).colorScheme.secondaryFixed,
                       elevation: 0,
                       expansionCallback: (panelIndex, isExpanded) async {
-                        final scrollPos1 =
-                            widget.scrollController.position.maxScrollExtent;
                         setState(() {
                           isPlanOpen = isExpanded;
                         });
                         if (isExpanded == true) {
-                          widget.scrollController.animateTo(scrollPos1,
-                              duration: const Duration(milliseconds: 300),
+                          await Future.delayed(
+                              const Duration(milliseconds: 150));
+                          widget.scrollController.animateTo(
+                              widget.scrollController.position.maxScrollExtent *
+                                  0.45,
+                              duration: const Duration(milliseconds: 500),
                               curve: Curves.easeIn);
                         } else {
-                          final scrollPos =
-                              widget.scrollController.position.minScrollExtent;
-                          widget.scrollController.animateTo(scrollPos,
-                              duration: const Duration(milliseconds: 300),
+                          widget.scrollController.animateTo(
+                              widget.scrollController.position.minScrollExtent,
+                              duration: const Duration(milliseconds: 500),
                               curve: Curves.easeIn);
                         }
                       },
@@ -111,54 +112,30 @@ class _ViewTrainPlanInHomeWidgetState
                                 ..sort((a, b) => weekDays
                                     .indexOf(a)
                                     .compareTo(weekDays.indexOf(b)));
-                              final sortedMap = {
+                              final sortedExercise = {
                                 for (var e in sortedKeysPlan) e: plan[e]!
                               };
                               return Column(
-                                  children: List.generate(sortedMap.keys.length,
-                                      (int index) {
-                                final exerciseInDay = sortedMap.entries
+                                  children: List.generate(
+                                      sortedExercise.keys.length, (int index) {
+                                final exerciseInDay = sortedExercise.entries
                                     .elementAt(index)
                                     .value
                                     .take(5)
                                     .map((exercise) => exercise.id.toString())
                                     .toList();
-                                final thisDayList = List<String?>.generate(
+                                final idExercise = List<String?>.generate(
                                     5,
                                     (index) => index < exerciseInDay.length
                                         ? exerciseInDay[index]
                                         : null);
-                                return Column(
-                                  children: [
-                                    RuWeekdayTrainPlan(
-                                      weekday: sortedMap.keys.elementAt(index),
-                                    ),
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        exercisesRow(
-                                            dayExercises:
-                                                thisDayList.sublist(0, 3),
-                                            exercises: sortedMap.entries
-                                                .elementAt(index)
-                                                .value,
-                                            dir: directory,
-                                            firstLine: true,
-                                            context: context),
-                                        exercisesRow(
-                                            dayExercises:
-                                                thisDayList.sublist(3),
-                                            exercises: sortedMap.entries
-                                                .elementAt(index)
-                                                .value,
-                                            firstLine: false,
-                                            dir: directory,
-                                            context: context),
-                                      ],
-                                    )
-                                  ],
+                                return DayInViewTrainPlan(
+                                  dir: directory,
+                                  idExerciseInDay: idExercise,
+                                  exerciseInDay: sortedExercise.entries
+                                      .elementAt(index)
+                                      .value,
+                                  dayName: sortedExercise.keys.elementAt(index),
                                 );
                               }));
                             })),
@@ -172,6 +149,49 @@ class _ViewTrainPlanInHomeWidgetState
             error: (e, st) => const SomethingGoesWrongWidget(),
             loading: () => const Center(child: CircularProgressIndicator())),
       ),
+    );
+  }
+}
+
+class DayInViewTrainPlan extends StatelessWidget {
+  const DayInViewTrainPlan(
+      {super.key,
+      required this.idExerciseInDay,
+      required this.dayName,
+      required this.dir,
+      required this.exerciseInDay});
+
+  final List<ExerciseModel> exerciseInDay;
+  final List<String?> idExerciseInDay;
+  final String dayName;
+  final Directory dir;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        RuWeekdayTrainPlan(
+          weekday: dayName,
+        ),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            exercisesRow(
+                idExercies: idExerciseInDay.sublist(0, 3),
+                exercises: exerciseInDay,
+                dir: dir,
+                firstLine: true,
+                context: context),
+            exercisesRow(
+                idExercies: idExerciseInDay.sublist(3),
+                exercises: exerciseInDay,
+                firstLine: false,
+                dir: dir,
+                context: context),
+          ],
+        )
+      ],
     );
   }
 }

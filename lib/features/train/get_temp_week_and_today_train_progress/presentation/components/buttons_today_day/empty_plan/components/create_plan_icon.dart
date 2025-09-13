@@ -40,6 +40,7 @@ class CreatePlanIconInsideBtutton extends ConsumerWidget {
                       child: Center(
                         child: Text(
                           'Отсутствует подключение к сети',
+                          textScaler: const TextScaler.linear(1),
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
                               fontSize: 16,
@@ -49,7 +50,9 @@ class CreatePlanIconInsideBtutton extends ConsumerWidget {
                       ),
                     ));
           },
-          icon: Image.asset('assets/home/create_plan.png'),
+          icon: Image.asset(
+            'assets/home/create_plan.png',
+          ),
         ));
   }
 }

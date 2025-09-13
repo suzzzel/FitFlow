@@ -20,6 +20,7 @@ class NoActivityTodayText extends StatelessWidget {
           ]).createShader(bounds),
           child: Text(
             'Пока нет активности',
+            textScaler: const TextScaler.linear(1),
             style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.w700),
           ),
         ),

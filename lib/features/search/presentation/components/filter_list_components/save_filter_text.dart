@@ -10,6 +10,7 @@ class SaveFilterText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       'Сохранить',
+      textScaler: const TextScaler.linear(1),
       style: GoogleFonts.inter(
           color: Theme.of(context).colorScheme.onSecondary,
           fontSize: 16,

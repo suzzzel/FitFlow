@@ -21,6 +21,7 @@ class ExerciseByRequestIsEndText extends StatelessWidget {
           Text(
               style:
                   GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 17),
+              textScaler: const TextScaler.linear(1),
               textAlign: TextAlign.center,
               'Больше упражнений по вашему запросу нет.\nПопробуйте изменить запрос и/или фильтры.'),
           const SizedBox(

@@ -9,6 +9,7 @@ class ExerciseNameInMainProgress extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(name,
         maxLines: 1,
+        textScaler: const TextScaler.linear(1),
         overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center,
         style: GoogleFonts.inter(

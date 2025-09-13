@@ -110,7 +110,7 @@ class ViewDonePlanMainWidget extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           exercisesRow(
-            dayExercises: firstRow,
+            idExercies: firstRow,
             exercises: exercises,
             dir: dir,
             firstLine: true,
@@ -118,7 +118,7 @@ class ViewDonePlanMainWidget extends ConsumerWidget {
           ),
           if (secondRow.isNotEmpty)
             exercisesRow(
-              dayExercises: secondRow,
+              idExercies: secondRow,
               exercises: exercises,
               dir: dir,
               firstLine: false,

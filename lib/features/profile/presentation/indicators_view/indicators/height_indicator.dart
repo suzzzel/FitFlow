@@ -31,6 +31,7 @@ class HeightIndicator extends StatelessWidget {
             child: FittedBox(
               child: Text(
                   '${height.characters.first}.${height.characters.characterAt(1)} м',
+                  textScaler: const TextScaler.linear(1),
                   style: GoogleFonts.inter(
                       fontWeight: FontWeight.w500,
                       fontSize: 15,
@@ -49,6 +50,7 @@ class HeightIndicator extends StatelessWidget {
                 ]).createShader(bounds),
                 child: Text(
                   'Рост',
+                  textScaler: const TextScaler.linear(1),
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,

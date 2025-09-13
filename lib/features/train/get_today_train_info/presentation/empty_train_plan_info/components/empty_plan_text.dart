@@ -20,10 +20,10 @@ class EmptyPlanTextInfo extends StatelessWidget {
                   Theme.of(context).colorScheme.secondaryFixed,
                 ]).createShader(bounds),
             child: SizedBox(
-              width: 208,
               child: FittedBox(
                 child: Text('Не найдено готовой\nпрограммы',
                     textAlign: TextAlign.center,
+                    textScaler: const TextScaler.linear(1),
                     style: GoogleFonts.inter(
                         fontSize: 20, fontWeight: FontWeight.w700)),
               ),

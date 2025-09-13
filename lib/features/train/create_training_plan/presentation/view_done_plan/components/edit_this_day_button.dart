@@ -61,6 +61,7 @@ class EditThisDayButton extends StatelessWidget {
           child: FittedBox(
             child: Text(
               'Изменить',
+              textScaler: const TextScaler.linear(1),
               style: GoogleFonts.inter(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,

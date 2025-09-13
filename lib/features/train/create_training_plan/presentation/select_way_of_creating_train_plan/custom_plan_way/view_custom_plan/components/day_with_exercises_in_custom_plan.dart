@@ -50,13 +50,13 @@ Widget _buildDayExercisesInCustomPlan({
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         exercisesRow(
-            dayExercises: thisDayList.sublist(0, 3),
+            idExercies: thisDayList.sublist(0, 3),
             exercises: exercises,
             dir: dir,
             firstLine: true,
             context: context),
         exercisesRow(
-            dayExercises: thisDayList.sublist(3),
+            idExercies: thisDayList.sublist(3),
             exercises: exercises,
             firstLine: false,
             dir: dir,

@@ -87,6 +87,7 @@ class SaveCustomPlanButton extends ConsumerWidget {
                   ? FittedBox(
                       child: Text(
                         'Сохранить план',
+                        textScaler: const TextScaler.linear(1),
                         style: GoogleFonts.inter(
                             color: Theme.of(context).colorScheme.onSecondary,
                             fontSize: 16,

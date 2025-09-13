@@ -91,7 +91,7 @@ class _NavBarItemState extends State<NavBarItem>
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-    _widthAnimation = Tween<double>(begin: 0, end: 17).animate(_controller)
+    _widthAnimation = Tween<double>(begin: 0, end: 5).animate(_controller)
       ..addListener(() => setState(() {}));
 
     if (widget.isSelected) _controller.forward();
@@ -150,6 +150,7 @@ class _NavBarItemState extends State<NavBarItem>
                     opacity: widget.isSelected ? 1.0 : 0.0,
                     child: Text(
                       widget.data.text,
+                      textScaler: const TextScaler.linear(1),
                       style: GoogleFonts.inter(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,

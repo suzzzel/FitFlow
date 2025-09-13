@@ -14,6 +14,7 @@ class PrimaryMuscleSecond extends StatelessWidget {
     return FittedBox(
       child: Text(
         target,
+        textScaler: const TextScaler.linear(1),
         style: GoogleFonts.inter(
             color: Theme.of(context).colorScheme.onSecondary,
             fontSize: 16,

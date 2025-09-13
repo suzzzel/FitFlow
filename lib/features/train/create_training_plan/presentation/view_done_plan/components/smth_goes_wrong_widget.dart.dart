@@ -19,6 +19,7 @@ class SomethingGoesWrongWidget extends StatelessWidget {
           Text(
               style:
                   GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 17),
+              textScaler: const TextScaler.linear(1),
               textAlign: TextAlign.center,
               'К сожалению, что то пошло не так, проверьте соединение с сетью и перезапустите приложение.'),
           const SizedBox(

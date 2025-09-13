@@ -20,6 +20,7 @@ class RuWeekdayTrainPlan extends StatelessWidget {
               ]).createShader(bounds),
           child: Text(
             _ruWeekday(weekday),
+            textScaler: const TextScaler.linear(1),
             style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700),
           )),
     );

@@ -15,6 +15,7 @@ class BodyPartSecond extends StatelessWidget {
       child: Text(
         textAlign: TextAlign.center,
         bodyPart,
+        textScaler: const TextScaler.linear(1),
         style: GoogleFonts.inter(
             color: Theme.of(context).colorScheme.onSecondary,
             fontSize: 16,

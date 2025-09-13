@@ -11,6 +11,7 @@ class EquipmentFilterText extends StatelessWidget {
     return Center(
         child: Text(
       'Оборудование',
+      textScaler: const TextScaler.linear(1),
       style: GoogleFonts.inter(
           color: Theme.of(context).colorScheme.onPrimary,
           fontSize: 16,

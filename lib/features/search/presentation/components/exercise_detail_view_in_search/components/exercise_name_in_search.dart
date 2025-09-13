@@ -15,6 +15,7 @@ class ExerciseNameInSearch extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 20),
       child: Text(
         name,
+        textScaler: const TextScaler.linear(1),
         textAlign: TextAlign.center,
         style: GoogleFonts.inter(
             color: Theme.of(context).colorScheme.onSecondary,

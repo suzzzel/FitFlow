@@ -51,6 +51,7 @@ class ConfrimWayOfCreatingButton extends ConsumerWidget {
             child: FittedBox(
               child: Text(
                 'Продолжить',
+                textScaler: const TextScaler.linear(1),
                 style: GoogleFonts.inter(
                     color: Theme.of(context).colorScheme.onSecondary,
                     fontSize: 16,

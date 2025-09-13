@@ -10,6 +10,7 @@ class ResetFilterText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       'Сбросить',
+      textScaler: const TextScaler.linear(1),
       style: GoogleFonts.inter(
           color: Theme.of(context).colorScheme.onSecondary,
           fontSize: 16,

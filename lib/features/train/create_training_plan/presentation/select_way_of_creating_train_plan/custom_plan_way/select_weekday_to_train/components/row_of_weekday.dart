@@ -38,6 +38,7 @@ class RowOfWeekdayCustomPlanSelect extends ConsumerWidget {
               child: Center(
                   child: Text(
                       ruWeekdayForCustomPlan.sublist(weekdayToStart)[index],
+                      textScaler: const TextScaler.linear(1),
                       style: GoogleFonts.inter(
                           fontWeight: FontWeight.w700,
                           fontSize: 24,

@@ -10,6 +10,7 @@ class MaxWeightInCurrentExerciseInMainProgress extends StatelessWidget {
   Widget build(BuildContext context) {
     return FittedBox(
       child: Text('Максимальный вес: $weight кг',
+          textScaler: const TextScaler.linear(1),
           textAlign: TextAlign.center,
           style: GoogleFonts.inter(
               color: Colors.white, fontSize: 13, fontWeight: FontWeight.w700)),

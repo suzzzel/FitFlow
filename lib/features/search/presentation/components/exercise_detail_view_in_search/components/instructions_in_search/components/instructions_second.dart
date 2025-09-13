@@ -33,6 +33,7 @@ class InstructionsSecond extends StatelessWidget {
                     FittedBox(
                       child: Text(
                         'Последний шаг',
+                        textScaler: const TextScaler.linear(1),
                         textAlign: TextAlign.center,
                         style: GoogleFonts.inter(
                             color: Theme.of(context).colorScheme.onPrimary,
@@ -41,6 +42,7 @@ class InstructionsSecond extends StatelessWidget {
                       ),
                     ),
                     Text(instructions[index],
+                        textScaler: const TextScaler.linear(1),
                         textAlign: TextAlign.center,
                         style: GoogleFonts.inter(
                             color: Theme.of(context).colorScheme.onSecondary,
@@ -67,6 +69,7 @@ class InstructionsSecond extends StatelessWidget {
                     FittedBox(
                       child: Text(
                         'Шаг ${index + 1}',
+                        textScaler: const TextScaler.linear(1),
                         textAlign: TextAlign.center,
                         style: GoogleFonts.inter(
                             color: Theme.of(context).colorScheme.onPrimary,
@@ -77,6 +80,7 @@ class InstructionsSecond extends StatelessWidget {
                     Text(
                       textAlign: TextAlign.center,
                       instructions[index],
+                      textScaler: const TextScaler.linear(1),
                       style: GoogleFonts.inter(
                           color: Theme.of(context).colorScheme.onSecondary,
                           fontSize: 16,

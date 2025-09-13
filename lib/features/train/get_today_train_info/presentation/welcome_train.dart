@@ -25,14 +25,17 @@ class WelcomeTrain extends StatelessWidget {
               Theme.of(context).colorScheme.primaryFixed,
               Theme.of(context).colorScheme.secondaryFixed,
             ]).createShader(bounds),
-            child: Text(
-              isPlanExist && !isTodayChillday
-                  ? 'Моя тренировка'
-                  : !isPlanExist
-                      ? 'Начните первую тренировку'
-                      : 'У вас нет активной тренировки',
-              style:
-                  GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700),
+            child: FittedBox(
+              child: Text(
+                textScaler: const TextScaler.linear(1),
+                isPlanExist && !isTodayChillday
+                    ? 'Моя тренировка'
+                    : !isPlanExist
+                        ? 'Начните первую тренировку'
+                        : 'У вас нет активной тренировки',
+                style: GoogleFonts.inter(
+                    fontSize: 15, fontWeight: FontWeight.w700),
+              ),
             ),
           ),
           const SizedBox(

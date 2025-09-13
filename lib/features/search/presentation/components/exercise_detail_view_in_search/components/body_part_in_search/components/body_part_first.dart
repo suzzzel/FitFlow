@@ -11,6 +11,7 @@ class BodyPartFirst extends StatelessWidget {
     return FittedBox(
       child: Text(
         'Часть тела',
+        textScaler: const TextScaler.linear(1),
         textAlign: TextAlign.center,
         style: GoogleFonts.inter(
             color: Theme.of(context).colorScheme.onPrimary,

@@ -7,15 +7,17 @@ class EmptyTrainPlanInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(
-        top: 24,
-        left: 24,
-        bottom: 30,
-      ),
+    return Container(
+      margin: EdgeInsets.only(left: 21, right: 30),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [EmptyPlanIconInfo(), EmptyPlanTextInfo()],
+        children: [
+          Padding(
+            padding: EdgeInsets.only(right: 12),
+            child: EmptyPlanIconInfo(),
+          ),
+          Expanded(child: EmptyPlanTextInfo())
+        ],
       ),
     );
   }

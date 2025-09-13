@@ -149,6 +149,7 @@ class _SearchExMainWidgetState extends ConsumerState<SearchExMainWidget> {
                     child: FittedBox(
                       child: Text(
                         'Фильтры',
+                        textScaler: const TextScaler.linear(1),
                         style: GoogleFonts.inter(
                             color: Theme.of(context).colorScheme.onSecondary,
                             fontSize: 16,
@@ -195,6 +196,7 @@ class _SearchExMainWidgetState extends ConsumerState<SearchExMainWidget> {
                             bodyPartList.length,
                             (int index) => ListTile(
                                   title: Text(bodyPartList[index],
+                                      textScaler: const TextScaler.linear(1),
                                       style: GoogleFonts.inter(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -226,6 +228,7 @@ class _SearchExMainWidgetState extends ConsumerState<SearchExMainWidget> {
                             targetList.length,
                             (int index) => ListTile(
                                   title: Text(targetList[index],
+                                      textScaler: const TextScaler.linear(1),
                                       style: GoogleFonts.inter(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -256,6 +259,7 @@ class _SearchExMainWidgetState extends ConsumerState<SearchExMainWidget> {
                             equipmentList.length,
                             (int index) => ListTile(
                                   title: Text(equipmentList[index],
+                                      textScaler: const TextScaler.linear(1),
                                       style: GoogleFonts.inter(
                                           color: Theme.of(context)
                                               .colorScheme

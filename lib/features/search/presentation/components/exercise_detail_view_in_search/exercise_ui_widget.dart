@@ -129,6 +129,7 @@ class ExerciseSearchWidget extends ConsumerWidget {
                 ]).createShader(bounds),
                 child: Text(
                   exercise.name,
+                  textScaler: const TextScaler.linear(1),
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,

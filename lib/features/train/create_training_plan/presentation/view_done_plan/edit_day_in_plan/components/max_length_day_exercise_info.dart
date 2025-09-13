@@ -18,6 +18,7 @@ class MaxLengthDayExercisesInfo extends StatelessWidget {
             Theme.of(context).colorScheme.secondaryFixed
           ]).createShader(bounds),
           child: const Text(
+              textScaler: TextScaler.linear(1),
               textAlign: TextAlign.center,
               softWrap: true,
               'Согласно текущим исследованиям, пять упражнений достаточно для того, что бы дать необхдимую нагрузку организму.'),
