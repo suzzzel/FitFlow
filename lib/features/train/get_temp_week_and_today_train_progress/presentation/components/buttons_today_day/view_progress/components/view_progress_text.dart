@@ -9,23 +9,19 @@ class ViewProgressTextInsideButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: TextButton(
-        onPressed: () {
-          context.goNamed('/progresshome');
-        },
-        style: const ButtonStyle(
-            elevation: WidgetStatePropertyAll(0),
-            overlayColor: WidgetStatePropertyAll(Colors.transparent),
-            padding: WidgetStatePropertyAll(EdgeInsets.all(0))),
-        child: Text('Отследить прогресс',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.inter(
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-                color: Colors.white)),
-      ),
+    return TextButton(
+      onPressed: () {
+        context.goNamed('/progresshome');
+      },
+      style: const ButtonStyle(
+          elevation: WidgetStatePropertyAll(0),
+          overlayColor: WidgetStatePropertyAll(Colors.transparent),
+          padding: WidgetStatePropertyAll(EdgeInsets.all(0))),
+      child: Text('Отследить прогресс',
+          textScaler: const TextScaler.linear(1),
+          textAlign: TextAlign.center,
+          style: GoogleFonts.inter(
+              fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white)),
     );
   }
 }

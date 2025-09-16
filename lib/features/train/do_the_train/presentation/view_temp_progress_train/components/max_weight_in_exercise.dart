@@ -10,6 +10,7 @@ class MaxWeightInExercise extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
         'Максимальный вес в кг: ${maxWeightOnThatExercise ?? 'не был указан'}',
+        textScaler: const TextScaler.linear(1),
         style: GoogleFonts.inter(
             fontSize: 15,
             fontWeight: FontWeight.w500,

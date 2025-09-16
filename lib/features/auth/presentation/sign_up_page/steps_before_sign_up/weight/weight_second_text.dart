@@ -27,6 +27,7 @@ class WeightSecondText extends StatelessWidget {
               ]).createShader(bounds),
               child: Text(
                 'Указывайте честно, ваши данные не видим даже\nмы :)',
+                textScaler: const TextScaler.linear(1),
                 textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                     fontSize: 15, fontWeight: FontWeight.w600),

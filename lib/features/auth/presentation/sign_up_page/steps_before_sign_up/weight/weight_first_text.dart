@@ -26,6 +26,7 @@ class WeightFirstText extends StatelessWidget {
                       ]).createShader(bounds),
                   child: Text(
                     'Вес - важный параметр для создания\nперсональной программы',
+                    textScaler: const TextScaler.linear(1),
                     textAlign: TextAlign.center,
                     style: GoogleFonts.inter(
                         fontSize: 16, fontWeight: FontWeight.w500),

@@ -20,6 +20,7 @@ ScaffoldFeatureController showNetworkError(BuildContext context) {
           child: FittedBox(
             child: Text(
               'Отсутствует подключение к сети',
+              textScaler: const TextScaler.linear(1),
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(
                 color: Theme.of(context).colorScheme.onSecondary,

@@ -11,8 +11,8 @@ class ExerciseName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 110,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 7),
       child: ShaderMask(
         blendMode: BlendMode.srcATop,
         shaderCallback: (bounds) => LinearGradient(colors: [

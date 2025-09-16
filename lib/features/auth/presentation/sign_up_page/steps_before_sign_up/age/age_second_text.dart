@@ -27,6 +27,7 @@ class AgeSecondText extends StatelessWidget {
               ]).createShader(bounds),
               child: Text(
                 'Указывайте честно, ваши данные не\nвидим даже мы :)',
+                textScaler: const TextScaler.linear(1),
                 textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                     fontSize: 16, fontWeight: FontWeight.w500),

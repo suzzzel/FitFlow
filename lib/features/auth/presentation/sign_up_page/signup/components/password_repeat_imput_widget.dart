@@ -103,6 +103,7 @@ class _PasswordSignUpRepeatImputWidgetState
                                 fit: BoxFit.scaleDown,
                                 child: Text(
                                   'Пароль не\nсовпадает',
+                                  textScaler: const TextScaler.linear(1),
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.inter(
                                       fontSize: 10,

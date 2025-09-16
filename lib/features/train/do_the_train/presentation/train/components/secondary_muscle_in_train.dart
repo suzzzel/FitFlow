@@ -32,6 +32,7 @@ class SecondayMusclesInTrain extends StatelessWidget {
               ? [
                   Text(
                     'Вторичные мышцы: ',
+                    textScaler: const TextScaler.linear(1),
                     style: GoogleFonts.inter(
                         fontWeight: FontWeight.w500,
                         fontSize: 20,
@@ -42,6 +43,7 @@ class SecondayMusclesInTrain extends StatelessWidget {
                     (int index) {
                       if (index == secondaryMuscles.length - 1) {
                         return Text('${secondaryMuscles[index]}.',
+                            textScaler: const TextScaler.linear(1),
                             style: GoogleFonts.inter(
                               foreground: Paint()..shader = shader,
                               fontWeight: FontWeight.w500,
@@ -49,6 +51,7 @@ class SecondayMusclesInTrain extends StatelessWidget {
                             ));
                       } else {
                         return Text('${secondaryMuscles[index]}, ',
+                            textScaler: const TextScaler.linear(1),
                             style: GoogleFonts.inter(
                               foreground: Paint()..shader = shader,
                               fontWeight: FontWeight.w500,

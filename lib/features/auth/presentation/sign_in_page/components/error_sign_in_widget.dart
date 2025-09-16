@@ -12,6 +12,7 @@ class ErrorSignInWidget extends StatelessWidget {
         child: FittedBox(
           child: Text(
             'Неверное имя пользователя или email',
+            textScaler: const TextScaler.linear(1),
             style: GoogleFonts.inter(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,

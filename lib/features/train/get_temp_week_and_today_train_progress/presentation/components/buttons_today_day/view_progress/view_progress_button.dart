@@ -25,7 +25,7 @@ class ViewProgressButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ViewProgressTextInsideButton(),
+              Expanded(child: ViewProgressTextInsideButton()),
               ViewProgressIconInsideButton(),
             ],
           ),

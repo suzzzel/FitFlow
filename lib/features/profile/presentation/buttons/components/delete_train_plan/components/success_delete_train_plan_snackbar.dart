@@ -20,6 +20,7 @@ void sucessDeleteTrainButtonSnackBar(BuildContext context) {
             child: Text(
               'Тренировочный план успешно удален',
               textAlign: TextAlign.center,
+              textScaler: const TextScaler.linear(1),
               style: GoogleFonts.inter(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,

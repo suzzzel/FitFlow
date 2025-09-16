@@ -35,6 +35,7 @@ class AuthSelectButton extends StatelessWidget {
             onPressed: onPressed,
             child: Text(
               text,
+              textScaler: const TextScaler.linear(1),
             ),
           )),
     );

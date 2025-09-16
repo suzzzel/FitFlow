@@ -18,6 +18,7 @@ class BackToAuthButton extends StatelessWidget {
             child: Row(
           children: [
             Text('У вас уже есть аккаунт?',
+                textScaler: const TextScaler.linear(1),
                 style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 15,
@@ -34,6 +35,7 @@ class BackToAuthButton extends StatelessWidget {
                 ]).createShader(bounds),
                 child: Text(
                   ' Авторизуйтесь',
+                  textScaler: const TextScaler.linear(1),
                   style: GoogleFonts.inter(
                       fontWeight: FontWeight.w500,
                       fontSize: 15,

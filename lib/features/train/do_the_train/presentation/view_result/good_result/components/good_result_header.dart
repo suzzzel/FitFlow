@@ -27,6 +27,7 @@ class GoodResultHeader extends StatelessWidget {
           child: Text(
             textAlign: TextAlign.center,
             'Тренировка успешно\nзавершена!',
+            textScaler: const TextScaler.linear(1),
             style: GoogleFonts.inter(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,

@@ -116,7 +116,7 @@ class TempTrainNotifier extends StateNotifier<TempTrainModel> {
 }
 
 final tempTrainStateNotifierProvider =
-    StateNotifierProvider<TempTrainNotifier, TempTrainModel>((ref) {
+    StateNotifierProvider.autoDispose<TempTrainNotifier, TempTrainModel>((ref) {
   final userState = ref.watch(authStateProvider);
   final user = userState.value!.user!;
   final timeNow = DateTime.now();

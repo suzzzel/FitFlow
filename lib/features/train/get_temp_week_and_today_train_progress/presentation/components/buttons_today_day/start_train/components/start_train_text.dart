@@ -22,6 +22,9 @@ class StartTrainTextIndiseButton extends StatelessWidget {
               ]).createShader(bounds),
           child: Text('Начать\nтренировку',
               textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textScaler: const TextScaler.linear(1),
               style: GoogleFonts.inter(
                   fontSize: 15, fontWeight: FontWeight.w700))),
     );

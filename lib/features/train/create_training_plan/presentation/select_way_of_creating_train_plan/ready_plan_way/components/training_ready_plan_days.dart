@@ -50,6 +50,7 @@ List<Widget> _getWeekDay(int lengthWeekdays,
               fit: BoxFit.scaleDown,
               child: Text(
                 ruWeekday,
+                textScaler: const TextScaler.linear(1),
                 style: GoogleFonts.inter(
                     color: Colors.white,
                     fontSize: 15,

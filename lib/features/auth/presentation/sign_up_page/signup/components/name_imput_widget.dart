@@ -101,6 +101,7 @@ class _NameSignUpImputWidgetState extends State<NameSignUpImputWidget> {
                                 fit: BoxFit.scaleDown,
                                 child: Text(
                                   'Менее 3-х\nсимоволов',
+                                  textScaler: const TextScaler.linear(1),
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.inter(
                                       fontSize: 10,

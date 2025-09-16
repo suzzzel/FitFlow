@@ -103,6 +103,7 @@ class _EmailSignUpImputWidgetState extends State<EmailSignUpImputWidget> {
                                 fit: BoxFit.scaleDown,
                                 child: Text(
                                   'Некорретный\nEmail',
+                                  textScaler: const TextScaler.linear(1),
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.inter(
                                       fontSize: 10,

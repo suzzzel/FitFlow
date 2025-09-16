@@ -9,6 +9,7 @@ ScaffoldFeatureController showUserAlreadyExist(BuildContext context) {
         child: Text(
           'Пользователь уже существует.\nПопробуйте авторизоваться или ввести новые данные',
           textAlign: TextAlign.center,
+          textScaler: const TextScaler.linear(1),
           style: GoogleFonts.inter(
             fontSize: 5,
             color: Theme.of(context).colorScheme.onSecondary,

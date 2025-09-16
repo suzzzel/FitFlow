@@ -114,6 +114,7 @@ class _UpdatePassImput extends ConsumerState<UpdatePassImput> {
                                 fit: BoxFit.scaleDown,
                                 child: Text(
                                   'Менее 6-ти\nсимволов',
+                                  textScaler: const TextScaler.linear(1),
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.inter(
                                       fontSize: 10,

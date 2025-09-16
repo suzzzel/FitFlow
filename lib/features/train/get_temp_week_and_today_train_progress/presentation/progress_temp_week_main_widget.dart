@@ -60,7 +60,7 @@ class ProgressTempWeek extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             children: [
               Container(
-                width: 30,
+                width: MediaQuery.of(context).size.width * 0.087,
                 height: 154,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -69,7 +69,7 @@ class ProgressTempWeek extends StatelessWidget {
               tempProgress.isNotEmpty
                   ? tempProgress.length > x
                       ? Container(
-                          width: 30,
+                          width: MediaQuery.of(context).size.width * 0.087,
                           height: tempProgress[x].percentOfTrainDone == 0
                               ? 154
                               : 154 / 100 * tempProgress[x].percentOfTrainDone,
@@ -118,7 +118,7 @@ class ProgressTempWeek extends StatelessWidget {
                         )
                       : const SizedBox()
                   : Container(
-                      width: 30,
+                      width: MediaQuery.of(context).size.width * 0.087,
                       height: 154,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -141,7 +141,7 @@ class ProgressTempWeek extends StatelessWidget {
             child: FittedBox(
               child: Text(
                 tempDay,
-                textScaler: TextScaler.linear(1),
+                textScaler: const TextScaler.linear(1),
                 style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
                     fontSize: 13,

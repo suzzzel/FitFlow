@@ -9,7 +9,7 @@ class ChillDayButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         margin: const EdgeInsets.only(left: 24, right: 24),
-        padding: const EdgeInsets.only(left: 7, right: 15),
+        padding: const EdgeInsets.only(left: 7, right: 30),
         height: 64,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
@@ -19,8 +19,11 @@ class ChillDayButton extends StatelessWidget {
             ])),
         child: const Row(
           children: [
-            ChillDayIconInsideButton(),
-            ChillDayTextInsideButton(),
+            Padding(
+              padding: EdgeInsets.only(right: 24),
+              child: ChillDayIconInsideButton(),
+            ),
+            Expanded(child: ChillDayTextInsideButton()),
           ],
         ));
   }

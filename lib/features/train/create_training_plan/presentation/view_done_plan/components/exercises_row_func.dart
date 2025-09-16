@@ -60,16 +60,16 @@ Widget exercisesRow(
                   ),
                 ),
               ),
-              SizedBox(
-                width: 91,
-                child: ShaderMask(
-                  blendMode: BlendMode.srcATop,
-                  shaderCallback: (bounds) => LinearGradient(colors: [
-                    Theme.of(context).colorScheme.primaryFixed,
-                    Theme.of(context).colorScheme.secondaryFixed,
-                  ]).createShader(bounds),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
+              ShaderMask(
+                blendMode: BlendMode.srcATop,
+                shaderCallback: (bounds) => LinearGradient(colors: [
+                  Theme.of(context).colorScheme.primaryFixed,
+                  Theme.of(context).colorScheme.secondaryFixed,
+                ]).createShader(bounds),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.2,
                     child: Text(
                       softWrap: true,
                       maxLines: 3,

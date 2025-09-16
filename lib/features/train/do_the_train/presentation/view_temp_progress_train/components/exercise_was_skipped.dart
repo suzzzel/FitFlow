@@ -9,6 +9,7 @@ class ExerciseWasSkipped extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text('Упражнение было пропущено',
+        textScaler: const TextScaler.linear(1),
         style: GoogleFonts.inter(
             fontSize: 15,
             fontWeight: FontWeight.w500,

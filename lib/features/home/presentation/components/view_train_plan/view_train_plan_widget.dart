@@ -101,6 +101,9 @@ class _ViewTrainPlanInHomeWidgetState
                                             ]).createShader(bounds),
                                         child: Text(
                                           'Мой тренировочный план',
+                                          textScaler:
+                                              const TextScaler.linear(1),
+                                          textAlign: TextAlign.center,
                                           style: GoogleFonts.inter(
                                               fontSize: 15,
                                               fontWeight: FontWeight.w700),

@@ -64,6 +64,8 @@ class ExitFromTrainButton extends ConsumerWidget {
                     ref.invalidate(tempTrainStateNotifierProvider);
                   },
             child: Text('Закончить тренировку',
+                textScaler: const TextScaler.linear(1),
+                textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,

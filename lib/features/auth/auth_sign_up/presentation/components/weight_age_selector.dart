@@ -85,6 +85,7 @@ class _WeightHeightSelectorState extends ConsumerState<WeightAgeSelector> {
                             child: Text(
                               '${index + (widget.weightOrAge ? weightCorrection : ageCorrection)}',
                               textAlign: TextAlign.center,
+                              textScaler: const TextScaler.linear(1),
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.bold,
                                   fontSize: currentIndex == index ? 96 : 64,

@@ -101,6 +101,7 @@ class _NewSignUpButtonState extends ConsumerState<SignUpButton> {
                 : FittedBox(
                     child: Text(
                       text,
+                      textScaler: const TextScaler.linear(1),
                       style: GoogleFonts.inter(
                           color: Theme.of(context).colorScheme.onSecondary,
                           fontSize: 24,

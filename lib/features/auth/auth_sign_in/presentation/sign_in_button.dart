@@ -99,6 +99,7 @@ class _NewSignInButtonState extends ConsumerState<SignInButton> {
                 : FittedBox(
                     child: Text(
                       text,
+                      textScaler: const TextScaler.linear(1),
                       style: GoogleFonts.inter(
                           color: Theme.of(context).colorScheme.onSecondary,
                           fontSize: 16,

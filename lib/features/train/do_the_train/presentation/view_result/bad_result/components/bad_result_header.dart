@@ -27,6 +27,7 @@ class BadResultHeader extends StatelessWidget {
           child: Text(
             textAlign: TextAlign.center,
             'Вы пропустили все упражнения\nв тренировке.',
+            textScaler: const TextScaler.linear(1),
             style: GoogleFonts.inter(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,

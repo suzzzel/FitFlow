@@ -9,6 +9,7 @@ class WaitingCompleteExercise extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text('Ждем завершения упражнения',
+        textScaler: const TextScaler.linear(1),
         style: GoogleFonts.inter(
             fontSize: 15,
             fontWeight: FontWeight.w500,

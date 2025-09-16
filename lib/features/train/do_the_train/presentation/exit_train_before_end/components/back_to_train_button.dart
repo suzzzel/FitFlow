@@ -31,6 +31,7 @@ class BackToTrainButton extends StatelessWidget {
               context.pop();
             },
             child: Text('Вернуться',
+                textScaler: const TextScaler.linear(1),
                 style: GoogleFonts.inter(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,

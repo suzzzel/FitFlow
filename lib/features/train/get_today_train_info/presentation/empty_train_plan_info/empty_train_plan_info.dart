@@ -8,8 +8,8 @@ class EmptyTrainPlanInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 21, right: 30),
-      child: Row(
+      margin: const EdgeInsets.only(left: 21, right: 30),
+      child: const Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(

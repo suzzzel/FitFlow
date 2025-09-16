@@ -115,7 +115,7 @@ class ExercisesInDayInfo extends ConsumerWidget {
               heightinDetailView: null,
               widthInDetailView: null,
             ),
-            ExerciseName(exName: exName),
+            Expanded(child: ExerciseName(exName: exName)),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [

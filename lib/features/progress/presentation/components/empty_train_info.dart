@@ -25,6 +25,7 @@ class EmptyTrainInfo extends ConsumerWidget {
               alignment: Alignment.center,
               children: [
                 Text(
+                    textScaler: const TextScaler.linear(1),
                     style: GoogleFonts.inter(
                         fontWeight: FontWeight.w700, fontSize: 17),
                     textAlign: TextAlign.center,

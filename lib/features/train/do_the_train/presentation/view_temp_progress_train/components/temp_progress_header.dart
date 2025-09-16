@@ -10,6 +10,7 @@ class TempProgressHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       'Текущий прогресс',
+      textScaler: const TextScaler.linear(1),
       style: GoogleFonts.inter(
           fontSize: 20,
           fontWeight: FontWeight.w500,

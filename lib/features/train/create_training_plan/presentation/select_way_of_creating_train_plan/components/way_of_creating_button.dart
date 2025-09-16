@@ -49,6 +49,7 @@ class WayOfCreating extends StatelessWidget {
                           ? 'Готовые программы\nтренировок'
                           : 'Составьте свою\nпрограмму тренировок',
                       textAlign: TextAlign.center,
+                      textScaler: const TextScaler.linear(1),
                       style: GoogleFonts.inter(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
@@ -112,6 +113,7 @@ class WayOfCreating extends StatelessWidget {
                           ? 'Подборка упражнений, основанная\nна выборе качеств ранее и ваших\nжеланиях'
                           : 'У меня есть готовая программа/\nжелание сделать свой опыт\nболее персональным',
                       textAlign: TextAlign.center,
+                      textScaler: const TextScaler.linear(1),
                       style: GoogleFonts.inter(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,

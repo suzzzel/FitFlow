@@ -15,6 +15,7 @@ class WholeInstructionsStepsHeader extends StatelessWidget {
           child: Text(
               textAlign: TextAlign.center,
               'Инструкция к выполнению',
+              textScaler: const TextScaler.linear(1),
               style: GoogleFonts.inter(
                 color: Theme.of(context).colorScheme.onSecondary,
                 fontWeight: FontWeight.w500,

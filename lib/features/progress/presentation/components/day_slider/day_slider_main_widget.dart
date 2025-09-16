@@ -76,6 +76,7 @@ class DaySliderMainWidget extends ConsumerWidget {
                                           .day
                                           .toString()),
                                   textAlign: TextAlign.center,
+                                  textScaler: const TextScaler.linear(1),
                                   style: GoogleFonts.inter(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w700,
@@ -131,7 +132,7 @@ String _translateDate({required String todayMonth, required String todayDate}) {
       return "$todayDate\nиюля";
     case 'Aug':
       return "$todayDate\nавгуста";
-    case 'Sept':
+    case 'Sep':
       return "$todayDate\nсентября";
     case 'Oct':
       return "$todayDate\nоктября";

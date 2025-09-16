@@ -25,6 +25,7 @@ class BadResultInfo extends StatelessWidget {
           child: Text(
             textAlign: TextAlign.center,
             'Плохая тренировка - эта та,\nкоторой не было.\n\nНачните сейчас!',
+            textScaler: const TextScaler.linear(1),
             style: GoogleFonts.inter(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,

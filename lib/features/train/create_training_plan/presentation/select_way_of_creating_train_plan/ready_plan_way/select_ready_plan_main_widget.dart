@@ -8,6 +8,7 @@ import 'package:fitflow/features/train/create_training_plan/presentation/select_
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/ready_plan_way/components/level_text_ready_plan.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/ready_plan_way/components/name_text_ready_plan.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/ready_plan_way/components/training_ready_plan_days.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/components/smth_goes_wrong_widget.dart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -105,7 +106,7 @@ class SelectReadyPlanMainWidget extends ConsumerWidget {
               );
             }
           },
-          error: (err, stack) => Text('Error: $err'),
+          error: (err, stack) => const SomethingGoesWrongWidget(),
           loading: () => const CircularProgressIndicator()),
     ]);
   }

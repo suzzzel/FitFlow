@@ -8,18 +8,16 @@ class ViewProgressIconInsideButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-          decoration:
-              const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-          child: FittedBox(
-            child: IconButton(
-              onPressed: () {
-                context.goNamed('/progresshome');
-              },
-              icon: Image.asset('assets/home/view_progress.png'),
-            ),
-          )),
-    );
+    return Container(
+        decoration:
+            const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+        child: FittedBox(
+          child: IconButton(
+            onPressed: () {
+              context.goNamed('/progresshome');
+            },
+            icon: Image.asset('assets/home/view_progress.png'),
+          ),
+        ));
   }
 }

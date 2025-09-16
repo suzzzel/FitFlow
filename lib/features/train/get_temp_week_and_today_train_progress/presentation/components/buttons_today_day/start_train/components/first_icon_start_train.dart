@@ -11,22 +11,27 @@ class FirstIconStartTrainInsideButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(99),
-            gradient: LinearGradient(colors: [
-              Theme.of(context).colorScheme.primaryFixed.withOpacity(0.3),
-              Theme.of(context).colorScheme.secondaryFixed.withOpacity(0.3)
-            ])),
-        width: 56,
-        height: 56,
-        child: IconButton(
-          onPressed: () {
-            ref.invalidate(tempTrainStateNotifierProvider);
-            ref.read(completeTrainProvider).startTrain();
-            context.goNamed('/trainnow');
-          },
-          icon: Image.asset('assets/home/training_start.png'),
-        ));
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(),
+      child: Container(
+          width: MediaQuery.of(context).size.width * 0.13,
+          height: MediaQuery.of(context).size.width * 0.13,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(99),
+              gradient: LinearGradient(colors: [
+                Theme.of(context).colorScheme.primaryFixed.withOpacity(0.3),
+                Theme.of(context).colorScheme.secondaryFixed.withOpacity(0.3)
+              ])),
+          child: IconButton(
+            onPressed: () {
+              ref.invalidate(tempTrainStateNotifierProvider);
+              ref.read(completeTrainProvider).startTrain();
+              context.goNamed('/trainnow');
+            },
+            icon: Image.asset(
+              'assets/home/training_start.png',
+            ),
+          )),
+    );
   }
 }

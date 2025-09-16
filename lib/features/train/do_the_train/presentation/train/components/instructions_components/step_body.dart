@@ -14,6 +14,7 @@ class StepInTrainBody extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Text(
         textAlign: TextAlign.center,
+        textScaler: const TextScaler.linear(1),
         instructions[index],
         style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.w500),
       ),

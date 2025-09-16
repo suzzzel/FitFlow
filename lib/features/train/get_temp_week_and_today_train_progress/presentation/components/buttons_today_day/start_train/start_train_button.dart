@@ -17,9 +17,9 @@ class StartTrainButton extends StatelessWidget {
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            FirstIconStartTrainInsideButton(),
-            StartTrainTextIndiseButton(),
-            SecondIconStartTrainInsideButton(),
+            Flexible(child: FirstIconStartTrainInsideButton()),
+            Expanded(child: StartTrainTextIndiseButton()),
+            Flexible(child: SecondIconStartTrainInsideButton()),
           ],
         ));
   }

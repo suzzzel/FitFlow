@@ -30,6 +30,7 @@ class PercentOfDoneInResult extends StatelessWidget {
           child: Text(
             textAlign: TextAlign.center,
             'Процент выполнения\nтренировки: $percentOfDone%',
+            textScaler: const TextScaler.linear(1),
             style: GoogleFonts.inter(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,

@@ -10,6 +10,7 @@ ScaffoldFeatureController showNetworkErrorSignUp(BuildContext context) {
         child: Text(
           'Не удалось авторизоваться.\nПроверьте подключение к сети.',
           textAlign: TextAlign.center,
+          textScaler: const TextScaler.linear(1),
           style: GoogleFonts.inter(
             color: Theme.of(context).colorScheme.onSecondary,
           ),

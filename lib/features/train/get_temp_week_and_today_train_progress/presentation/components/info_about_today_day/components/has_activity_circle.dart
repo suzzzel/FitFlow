@@ -28,6 +28,7 @@ class HasActivityCircle extends StatelessWidget {
               ])),
       child: Text(
         '${todayTrain.value!.percentOfTrainDone}%',
+        textScaler: const TextScaler.linear(1),
         style: GoogleFonts.inter(
             fontSize: 20,
             color: Colors.white.withOpacity(0.8),

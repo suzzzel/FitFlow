@@ -19,6 +19,7 @@ void emptyTrainPlanSnackBar({required BuildContext context}) {
           body: Center(
             child: Text(
               'Сначала необходимо создать тренировочный план :)',
+              textScaler: const TextScaler.linear(1),
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(
                   fontSize: 16,

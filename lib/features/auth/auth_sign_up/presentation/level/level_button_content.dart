@@ -47,6 +47,7 @@ class _LevelButtonContentState extends State<LevelButtonContent> {
               child: Text(
                 widget.level,
                 textAlign: TextAlign.center,
+                textScaler: const TextScaler.linear(1),
                 style: GoogleFonts.inter(
                     fontSize: widget.isPrimary ? 32 : 24,
                     fontWeight: FontWeight.w500,

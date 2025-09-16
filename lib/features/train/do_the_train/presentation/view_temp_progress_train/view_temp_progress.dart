@@ -24,7 +24,7 @@ class ViewTempProgressMainWidget extends ConsumerWidget {
     return Center(
       child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.8,
-          height: 370,
+          height: MediaQuery.of(context).size.height * 0.5,
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: Container(
@@ -49,6 +49,7 @@ class ViewTempProgressMainWidget extends ConsumerWidget {
                           ),
                       error: (_, st) => Text(
                           'Что - то пошло не так.\nПопробуйте попробовать снова.',
+                          textScaler: const TextScaler.linear(1),
                           style: GoogleFonts.inter(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,

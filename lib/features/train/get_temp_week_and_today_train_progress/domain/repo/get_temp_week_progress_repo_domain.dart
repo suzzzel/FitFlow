@@ -9,17 +9,22 @@ class GetTempWeekProgressRepoDomain
   GetTempWeekProgressRepoDomain({required this.tempWeekProgressRepoData});
   @override
   Future<List<TrainingDayForDomain>> getTempWeekProgressDomain() async {
-    final listTrainings = await tempWeekProgressRepoData.getTempWeekTrainings();
-    List<TrainingDayForDomain> returnedList = [];
-    if (listTrainings.isEmpty) {
-      return [];
-    } else {
-      for (var x in listTrainings) {
-        returnedList.add(TrainingDayForDomain(
-            isChillDay: x.isChillday,
-            percentOfTrainDone: x.percentOfTrainDone ?? 0));
+    try {
+      final listTrainings =
+          await tempWeekProgressRepoData.getTempWeekTrainings();
+      List<TrainingDayForDomain> returnedList = [];
+      if (listTrainings.isEmpty) {
+        return [];
+      } else {
+        for (var x in listTrainings) {
+          returnedList.add(TrainingDayForDomain(
+              isChillDay: x.isChillday,
+              percentOfTrainDone: x.percentOfTrainDone ?? 0));
+        }
+        return returnedList;
       }
-      return returnedList;
+    } catch (e) {
+      return [];
     }
   }
 }

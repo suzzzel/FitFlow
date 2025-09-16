@@ -9,6 +9,7 @@ import 'package:fitflow/features/train/create_training_plan/presentation/view_do
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/components/edit_this_day_button.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/components/exercises_row_func.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/components/ru_week_day_text.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/components/smth_goes_wrong_widget.dart.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/ready_plan_not_changed_view_main_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -52,7 +53,7 @@ class ViewDonePlanMainWidget extends ConsumerWidget {
                     exercises: exercises,
                   );
                 },
-                error: (err, stack) => Text('Error: $err'),
+                error: (err, stack) => const SomethingGoesWrongWidget(),
                 loading: () => const CircularProgressIndicator(),
               );
             } else {
@@ -87,7 +88,7 @@ class ViewDonePlanMainWidget extends ConsumerWidget {
               );
             }
           },
-          error: (err, stack) => Text('Error: $err'),
+          error: (err, stack) => SomethingGoesWrongWidget(),
           loading: () => const CircularProgressIndicator(),
         ),
       ],

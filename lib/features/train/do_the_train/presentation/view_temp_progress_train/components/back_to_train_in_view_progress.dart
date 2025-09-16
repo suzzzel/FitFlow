@@ -31,6 +31,7 @@ class BackToTrainButtonInViewProgress extends StatelessWidget {
                 backgroundColor:
                     const WidgetStatePropertyAll(Colors.transparent)),
             child: Text('Назад',
+                textScaler: const TextScaler.linear(1),
                 style: GoogleFonts.inter(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,

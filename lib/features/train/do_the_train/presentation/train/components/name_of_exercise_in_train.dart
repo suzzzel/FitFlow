@@ -18,6 +18,7 @@ class NameOfExerciseInTrain extends StatelessWidget {
         ]).createShader(bounds),
         child: Text(
           name,
+          textScaler: const TextScaler.linear(1),
           textAlign: TextAlign.center,
           style: GoogleFonts.inter(
             fontSize: 24,

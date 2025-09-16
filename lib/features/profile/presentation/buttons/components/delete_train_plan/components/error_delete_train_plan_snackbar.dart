@@ -19,6 +19,7 @@ void errorDeleteTrainButtonSnackBar(BuildContext context) {
           body: Center(
             child: Text(
               'Произошла ошибка. Попробуйте позже.',
+              textScaler: const TextScaler.linear(1),
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(
                   fontSize: 16,

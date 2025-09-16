@@ -18,6 +18,7 @@ class InfoAboutExit extends ConsumerWidget {
         !trainNotifier.isTrainWasAllSkipped()
             ? 'Действительно хотите закончить тренировку?\nВсе выполненные упражнения будут сохранены. Эта тренировка будет сохранена без возможности изменения.'
             : 'Действительно хотите закончить тренировку?\nЭта тренировка не будет сохранена, вы сможете начать её сегодня позже.',
+        textScaler: const TextScaler.linear(1),
         style: GoogleFonts.inter(
             fontSize: 18,
             fontWeight: FontWeight.w500,

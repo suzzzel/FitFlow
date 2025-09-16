@@ -11,6 +11,7 @@ class StepNumberInTrainHeader extends StatelessWidget {
     return Center(
       child: Text(
         'Шаг №$index',
+        textScaler: const TextScaler.linear(1),
         style: GoogleFonts.inter(
             fontSize: 20,
             fontWeight: FontWeight.w500,

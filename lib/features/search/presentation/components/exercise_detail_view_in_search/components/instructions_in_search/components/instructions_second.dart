@@ -77,14 +77,17 @@ class InstructionsSecond extends StatelessWidget {
                             fontWeight: FontWeight.w500),
                       ),
                     ),
-                    Text(
-                      textAlign: TextAlign.center,
-                      instructions[index],
-                      textScaler: const TextScaler.linear(1),
-                      style: GoogleFonts.inter(
-                          color: Theme.of(context).colorScheme.onSecondary,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        instructions[index],
+                        textScaler: const TextScaler.linear(1),
+                        style: GoogleFonts.inter(
+                            color: Theme.of(context).colorScheme.onSecondary,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
+                      ),
                     )
                   ],
                 ),

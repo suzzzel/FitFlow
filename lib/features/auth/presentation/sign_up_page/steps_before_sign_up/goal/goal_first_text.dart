@@ -24,6 +24,7 @@ class GoalFirstText extends StatelessWidget {
             child: FittedBox(
               child: Text(
                 'Выберите качества, которые хотите\nвзрастить в себе',
+                textScaler: const TextScaler.linear(1),
                 textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                     fontWeight: FontWeight.w500, fontSize: 16),

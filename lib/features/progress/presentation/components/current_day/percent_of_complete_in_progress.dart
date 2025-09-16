@@ -25,6 +25,7 @@ class PercentOfCompleteInProgressDay extends StatelessWidget {
               ])),
       child: FittedBox(
         child: Text(
+          textScaler: const TextScaler.linear(1),
           'Процент выполнения\n$percent %',
           textAlign: TextAlign.center,
           style: GoogleFonts.inter(

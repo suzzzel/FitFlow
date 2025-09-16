@@ -12,6 +12,7 @@ class InfoAboutDeleteTrainPlan extends StatelessWidget {
       padding: const EdgeInsets.only(top: 10),
       child: Text(
         textAlign: TextAlign.center,
+        textScaler: const TextScaler.linear(1),
         'Действительно хотите удалить тренировочный план?\nДля продолжения тренировок, его нужно будет создать заново.\nПредыдущие тренировки не будут удалены.',
         style: GoogleFonts.inter(
             fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),

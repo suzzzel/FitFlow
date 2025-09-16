@@ -26,6 +26,7 @@ class CountOfCompetedExerciseInDay extends StatelessWidget {
       width: 201,
       child: FittedBox(
         child: Text(
+          textScaler: const TextScaler.linear(1),
           'Кол-во выполненных\nупражнений - ${resultInDay.countOfExerciseInDay()}',
           textAlign: TextAlign.center,
           style: GoogleFonts.inter(

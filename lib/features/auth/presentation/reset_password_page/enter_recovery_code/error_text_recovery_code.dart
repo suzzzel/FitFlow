@@ -45,6 +45,7 @@ class ErrorTextRecoveryCode extends StatelessWidget {
                           ? FittedBox(
                               child: Text(
                                 'Неверный 6-значный код.',
+                                textScaler: const TextScaler.linear(1),
                                 style: GoogleFonts.inter(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,

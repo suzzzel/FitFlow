@@ -36,6 +36,8 @@ class EndTrainButton extends ConsumerWidget {
                 ref.read(supabaseProvider).auth.refreshSession();
               },
               child: Text('Закончить тренировку',
+                  textAlign: TextAlign.center,
+                  textScaler: const TextScaler.linear(1),
                   style: GoogleFonts.inter(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
