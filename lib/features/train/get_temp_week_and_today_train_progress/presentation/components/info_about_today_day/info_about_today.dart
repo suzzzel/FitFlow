@@ -53,7 +53,7 @@ class InfoAboutToday extends ConsumerWidget {
             ),
           ),
         ),
-        GraphIcon(date: date)
+        Expanded(child: GraphIcon(date: date))
       ],
     );
   }

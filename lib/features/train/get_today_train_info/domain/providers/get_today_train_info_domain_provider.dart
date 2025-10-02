@@ -12,7 +12,7 @@ final getTodayTrainInfoDomainProvider =
   return GetTodayTrainInfoDomain(getTodayTrainInfoData: todayTrainInfoRepoData);
 });
 
-@riverpod
+@Riverpod(keepAlive: true)
 class GetTodayTrainInfoDomainProviderAsync
     extends _$GetTodayTrainInfoDomainProviderAsync {
   @override
@@ -22,8 +22,6 @@ class GetTodayTrainInfoDomainProviderAsync
 
   Future<TrainingDayClass?> getTodayTrainInfoAsync() async {
     final todayTrainInfoDomainProv = ref.read(getTodayTrainInfoDomainProvider);
-    state = const AsyncLoading();
-
     state = await AsyncValue.guard(
       () async {
         final todayTrain = await todayTrainInfoDomainProv.getTodayTrainInfo();

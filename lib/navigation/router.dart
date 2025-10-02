@@ -22,6 +22,8 @@ import 'package:fitflow/features/background/background_widget.dart';
 import 'package:fitflow/features/profile/presentation/profile_main_widget.dart';
 import 'package:fitflow/features/progress/presentation/main_progress_main_widget.dart';
 import 'package:fitflow/features/search/presentation/search_ex_main_widget.dart';
+import 'package:fitflow/features/train/create_training_plan/domain/providers/select_weekday_custom_plan.dart';
+import 'package:fitflow/features/train/create_training_plan/domain/providers/temp_train_plan_provider.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/custom_plan_way/select_weekday_to_train/select_weekday_to_train_widget.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/custom_plan_way/view_custom_plan/view_custom_plan.dart';
 import 'package:fitflow/features/train/create_training_plan/presentation/select_way_of_creating_train_plan/ready_plan_way/select_ready_plan_main_widget.dart';
@@ -512,17 +514,19 @@ GoRouter appRouter(Ref ref) {
                     : IconButton(
                         onPressed: () {
                           switch (state.fullPath) {
+                            case '/home/newtrainplan/readytrainplan/viewselectedplan':
+                              ref.invalidate(tempTrainPlanProvider);
+                              ref.invalidate(selectWeekdayCustomPlanProvider);
+                              context.pop();
+                            case '/home/newtrainplan/readytrainplan':
+                              ref.invalidate(tempTrainPlanProvider);
+                              ref.invalidate(selectWeekdayCustomPlanProvider);
+                              context.pop();
                             case '/home/newtrainplan/readytrainplan/viewselectedplan/editdayinplan':
                               context.goNamed('viewselectedplan', extra: {
                                 'isPlanBeenChanged': true,
                               });
-                            case '/home/newtrainplan/customtrainplan/viewcustomplan':
-                              // ref.read(tempTrainPlanProvider.notifier).reset();
-                              // ref
-                              //     .read(
-                              //         selectWeekdayCustomPlanProvider.notifier)
-                              //     .reset();
-                              context.pop();
+
                             default:
                               context.pop();
                           }

@@ -9,10 +9,11 @@ part 'get_training_plan_domain_provider.g.dart';
 final getTrainingPlanDomainProvider =
     Provider<GetTrainingPlanDomainRepo>((ref) {
   final trainingPlanRepoData = ref.watch(getTrainingPlanDataProvider);
+  ref.keepAlive();
   return GetTrainingPlanDomainRepo(trainingPlanRepoData: trainingPlanRepoData);
 });
 
-@riverpod
+@Riverpod(keepAlive: true)
 class GetTrainingPlanDomainProviderAsync
     extends _$GetTrainingPlanDomainProviderAsync {
   @override
@@ -21,7 +22,7 @@ class GetTrainingPlanDomainProviderAsync
   }
 
   Future<List<TrainingPlanClass>> getTrainingPlan({required String id}) async {
-    final trainingPlanRepo = ref.read(getTrainingPlanDomainProvider);
+    final trainingPlanRepo = ref.watch(getTrainingPlanDomainProvider);
     try {
       final plan = await trainingPlanRepo.getTrainingPlan(id: id);
       return plan;

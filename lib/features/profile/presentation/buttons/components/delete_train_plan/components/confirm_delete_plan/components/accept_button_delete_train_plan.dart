@@ -2,11 +2,13 @@
 
 import 'dart:math';
 
+import 'package:fitflow/features/home/domain/providers/get_ex_train_plan_future.dart';
 import 'package:fitflow/features/profile/presentation/buttons/components/delete_train_plan/components/error_delete_train_plan_snackbar.dart';
 import 'package:fitflow/features/profile/presentation/buttons/components/delete_train_plan/components/success_delete_train_plan_snackbar.dart';
 import 'package:fitflow/features/profile/presentation/buttons/components/delete_train_plan/controller/delete_train_plan_controller.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/select_weekday_custom_plan.dart';
 import 'package:fitflow/features/train/create_training_plan/domain/providers/temp_train_plan_provider.dart';
+import 'package:fitflow/features/train/get_training_plan/domain/providers/get_training_plan_domain_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -39,6 +41,9 @@ class AcceptButtonDeleteTrainPlan extends StatelessWidget {
                         sucessDeleteTrainButtonSnackBar(context);
                         ref.invalidate(selectWeekdayCustomPlanProvider);
                         ref.invalidate(tempTrainPlanProvider);
+                        ref.invalidate(getExInfoTrainingPlanProvider);
+                        ref.invalidate(
+                            getTrainingPlanDomainProviderAsyncProvider);
                         context.pop();
                       } else {
                         errorDeleteTrainButtonSnackBar(context);

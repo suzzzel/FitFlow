@@ -7,7 +7,7 @@ part of 'get_training_plan_domain_provider.dart';
 // **************************************************************************
 
 String _$getTrainingPlanDomainProviderAsyncHash() =>
-    r'9bee1b05bb5ace23602811c2af2d702d532e7360';
+    r'85345a01e8ef9d5cbb5c0617ec3ea8c74410fa92';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,7 +31,7 @@ class _SystemHash {
 }
 
 abstract class _$GetTrainingPlanDomainProviderAsync
-    extends BuildlessAutoDisposeAsyncNotifier<List<TrainingPlanClass>> {
+    extends BuildlessAsyncNotifier<List<TrainingPlanClass>> {
   late final String id;
 
   FutureOr<List<TrainingPlanClass>> build({
@@ -85,8 +85,8 @@ class GetTrainingPlanDomainProviderAsyncFamily
 
 /// See also [GetTrainingPlanDomainProviderAsync].
 class GetTrainingPlanDomainProviderAsyncProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<
-        GetTrainingPlanDomainProviderAsync, List<TrainingPlanClass>> {
+    extends AsyncNotifierProviderImpl<GetTrainingPlanDomainProviderAsync,
+        List<TrainingPlanClass>> {
   /// See also [GetTrainingPlanDomainProviderAsync].
   GetTrainingPlanDomainProviderAsyncProvider({
     required String id,
@@ -142,7 +142,7 @@ class GetTrainingPlanDomainProviderAsyncProvider
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<GetTrainingPlanDomainProviderAsync,
+  AsyncNotifierProviderElement<GetTrainingPlanDomainProviderAsync,
       List<TrainingPlanClass>> createElement() {
     return _GetTrainingPlanDomainProviderAsyncProviderElement(this);
   }
@@ -165,14 +165,13 @@ class GetTrainingPlanDomainProviderAsyncProvider
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 mixin GetTrainingPlanDomainProviderAsyncRef
-    on AutoDisposeAsyncNotifierProviderRef<List<TrainingPlanClass>> {
+    on AsyncNotifierProviderRef<List<TrainingPlanClass>> {
   /// The parameter `id` of this provider.
   String get id;
 }
 
 class _GetTrainingPlanDomainProviderAsyncProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<
-        GetTrainingPlanDomainProviderAsync,
+    extends AsyncNotifierProviderElement<GetTrainingPlanDomainProviderAsync,
         List<TrainingPlanClass>> with GetTrainingPlanDomainProviderAsyncRef {
   _GetTrainingPlanDomainProviderAsyncProviderElement(super.provider);
 

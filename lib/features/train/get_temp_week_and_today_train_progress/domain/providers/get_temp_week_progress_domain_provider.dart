@@ -8,11 +8,12 @@ part 'get_temp_week_progress_domain_provider.g.dart';
 final getTempWeekProgressDomainProvider =
     Provider<GetTempWeekProgressRepoDomain>((ref) {
   final tempWeekProgressRepoData = ref.watch(getTempWeekProgressDataProvider);
+  ref.keepAlive();
   return GetTempWeekProgressRepoDomain(
       tempWeekProgressRepoData: tempWeekProgressRepoData);
 });
 
-@riverpod
+@Riverpod(keepAlive: true)
 class GetTempWeekProgressDomainProviderAsync
     extends _$GetTempWeekProgressDomainProviderAsync {
   @override
@@ -22,8 +23,7 @@ class GetTempWeekProgressDomainProviderAsync
 
   Future<List<TrainingDayForDomain>> getTempWeekProgress() async {
     List<TrainingDayForDomain> returnedList = [];
-    final tempWeekRepo = ref.read(getTempWeekProgressDomainProvider);
-    state = const AsyncLoading();
+    final tempWeekRepo = ref.watch(getTempWeekProgressDomainProvider);
     state = await AsyncValue.guard(() async {
       final trainings = await tempWeekRepo.getTempWeekProgressDomain();
       state = AsyncValue.data(trainings);

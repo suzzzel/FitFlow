@@ -7,13 +7,13 @@ part of 'get_temp_week_progress_domain_provider.dart';
 // **************************************************************************
 
 String _$getTempWeekProgressDomainProviderAsyncHash() =>
-    r'ad9d25cfdc56a4f25b12c0c459d76852952effd9';
+    r'71b7d44d860341307296f15c043d0eafaf84eda8';
 
 /// See also [GetTempWeekProgressDomainProviderAsync].
 @ProviderFor(GetTempWeekProgressDomainProviderAsync)
-final getTempWeekProgressDomainProviderAsyncProvider =
-    AutoDisposeAsyncNotifierProvider<GetTempWeekProgressDomainProviderAsync,
-        List<TrainingDayForDomain>>.internal(
+final getTempWeekProgressDomainProviderAsyncProvider = AsyncNotifierProvider<
+    GetTempWeekProgressDomainProviderAsync,
+    List<TrainingDayForDomain>>.internal(
   GetTempWeekProgressDomainProviderAsync.new,
   name: r'getTempWeekProgressDomainProviderAsyncProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -24,6 +24,6 @@ final getTempWeekProgressDomainProviderAsyncProvider =
 );
 
 typedef _$GetTempWeekProgressDomainProviderAsync
-    = AutoDisposeAsyncNotifier<List<TrainingDayForDomain>>;
+    = AsyncNotifier<List<TrainingDayForDomain>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

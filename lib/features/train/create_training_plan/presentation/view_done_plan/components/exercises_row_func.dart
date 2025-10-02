@@ -72,7 +72,6 @@ Widget exercisesRow(
                     width: MediaQuery.of(context).size.width * 0.2,
                     child: Text(
                       softWrap: true,
-                      maxLines: 3,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.fade,
                       _trueExName(exName),
