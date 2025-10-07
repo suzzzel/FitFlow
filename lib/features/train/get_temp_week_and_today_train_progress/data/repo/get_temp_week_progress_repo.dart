@@ -23,7 +23,6 @@ class GetTempWeekProgressRepoData implements GetTempWeekProgressRepoImpl {
     final DateTime startOfWeek =
         DateTime.now().subtract(Duration(days: daysToSubstract));
     final List<TrainingDayClass> listTrainingsOfWeek = [];
-
     try {
       final trainPlan = await database.managers.trainingPlanTable.get();
       log(DateTime.parse(trainPlan[0].dataCreatingPlan)

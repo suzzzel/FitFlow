@@ -88,7 +88,7 @@ class ViewDonePlanMainWidget extends ConsumerWidget {
               );
             }
           },
-          error: (err, stack) => SomethingGoesWrongWidget(),
+          error: (err, stack) => const SomethingGoesWrongWidget(),
           loading: () => const CircularProgressIndicator(),
         ),
       ],

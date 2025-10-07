@@ -141,13 +141,23 @@ class _ViewTrainPlanInHomeWidgetState
                 ),
               )),
           error: (e, st) => const SomethingGoesWrongWidget(),
-          loading: () => const Center(
-            child: CircularProgressIndicator(),
+          loading: () => const Padding(
+            padding: EdgeInsets.only(top: 15),
+            child: Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            ),
           ),
         );
       },
-      loading: () => const Center(
-        child: CircularProgressIndicator(),
+      loading: () => const Padding(
+        padding: EdgeInsets.only(top: 30),
+        child: Center(
+          child: CircularProgressIndicator(
+            strokeWidth: 0.5,
+          ),
+        ),
       ),
       error: (e, st) => const SomethingGoesWrongWidget(),
     );

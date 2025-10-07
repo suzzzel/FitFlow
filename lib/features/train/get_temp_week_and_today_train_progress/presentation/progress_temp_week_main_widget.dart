@@ -51,7 +51,6 @@ class ProgressTempWeek extends StatelessWidget {
           tempDay = 'Вс';
           break;
       }
-
       thisWeek.add(Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

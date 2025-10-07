@@ -1,5 +1,6 @@
 import 'package:fitflow/features/auth/auth_state_new/data/authstate_repo.dart';
 import 'package:fitflow/features/home/presentation/components/view_train_plan/view_train_plan_widget.dart';
+import 'package:fitflow/features/train/create_training_plan/presentation/view_done_plan/components/smth_goes_wrong_widget.dart.dart';
 import 'package:fitflow/features/train/get_temp_week_and_today_train_progress/presentation/week_progress_today_train_main_widget.dart';
 import 'package:fitflow/features/train/get_today_train_info/presentation/train_info_main_widget.dart';
 import 'package:fitflow/features/train/get_today_train_info/presentation/welcome_train.dart';
@@ -46,12 +47,19 @@ class HomeMainWidget extends ConsumerWidget {
             weekDayNow: weekDayNow,
             timeNow: timeNow,
           ),
-          WeekProgressTodayTrainMainWidget(
-            trainingPlan: trainingPlan.hasValue ? trainingPlan.value : [],
-            isPlanLoading: trainingPlan.isLoading,
-            todayDate:
-                '${DateFormat.MMM().format(DateTime.now())}, ${DateTime.now().day}',
-          ),
+          trainingPlan.when(
+              data: (plan) {
+                return WeekProgressTodayTrainMainWidget(
+                  trainingPlan: plan,
+                  isPlanLoading: false,
+                  todayDate:
+                      '${DateFormat.MMM().format(DateTime.now())}, ${DateTime.now().day}',
+                );
+              },
+              error: (e, st) => const SomethingGoesWrongWidget(),
+              loading: () => const Center(
+                    child: CircularProgressIndicator(),
+                  )),
           trainingPlan.when(
               data: (plan) {
                 return plan.isEmpty
